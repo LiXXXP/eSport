@@ -1,0 +1,249 @@
+/* css reset */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #fff;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+td, th, caption {
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+img {
+    border: none;
+}
+
+/* ol,ul,li { list-style:none; } */
+input, textarea, select, button {
+    font: 14px Verdana, Helvetica, Arial, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+/* css common */
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+button {
+    cursor: pointer;
+}
+
+.ver-middle {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.ver-top {
+    display: inline-block;
+    vertical-align: top
+}
+
+/* 超出部分省略号 */
+.beyond-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+/* 弹框背景统一样式 */
+.modal-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    overflow: hidden;
+    background: rgba(10, 10, 11, 0.84);
+}
+
+/* 使用全局样式样式 */
+* {
+    touch-action: pan-y;
+}
+
+/*滚动条的宽度*/
+/* ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0);
+} */
+
+/*滚动条的设置*/
+/* ::-webkit-scrollbar-thumb {
+    background: rgba(140, 140, 140, .3);
+    border-radius: 5px;
+} */
+
+/* flex布局 */
+.flex {
+    display: flex;
+    display: -webkit-flex;
+}
+
+.flex_order { /* 属性定义排列顺序 */
+    order: 0;
+}
+
+.flex_grow { /* 属性定义放大比例 */
+    flex-grow: 0;
+}
+
+.flex_shrink { /* 属性定义缩小比例 */
+    flex-shrink: 1;
+}
+
+.flex_basis { /* 占据的主轴空间 */
+    flex-basis: auto;
+}
+
+.flex_1 { /* flex-grow, flex-shrink 和 flex-basis的简写 */
+    flex: 0 1 auto;
+}
+
+.flex_self { /* 允许单个项目有与其他项目不一样的对齐方式 */
+    align-self: auto;
+}
+
+/* 主轴排列方向 */
+.flex_row { /* 主轴为水平方向，起点在左端 */
+    flex-direction: row;
+}
+
+.flex_row_reverse { /* 主轴为水平方向，起点在右端 */
+    flex-direction: row-reverse;
+}
+
+.flex_column { /* 主轴为垂直方向，起点在上沿 */
+    flex-direction: column;
+}
+
+.flex_col_reverse { /* 主轴为垂直方向，起点在下沿 */
+    flex-direction: column-reverse;
+}
+
+/* 换行 */
+.flex_nowrap { /* 不换行 */
+    flex-wrap: nowrap;
+}
+
+.flex_wrap { /* 换行，第一行在上方 */
+    flex-wrap: wrap;
+}
+
+.flex_wrap_reverse { /* 换行，在第一行的下方 */
+    flex-wrap: wrap-reverse;
+}
+
+/* 简写 */
+.flex_flow {
+    flex-flow: row nowrap;
+}
+
+/* 主轴上的对齐方式 */
+.flex_start { /* 左对齐 */
+    justify-content: flex-start;
+}
+
+.flex_end { /* 右对齐 */
+    justify-content: flex-end;
+}
+
+.flex_center { /* 居中 */
+    align-items: center;
+    justify-content: center;
+}
+
+.flex_between { /* 两端对齐 */
+    justify-content: space-between;
+}
+
+.flex_around { /* 两侧间隔相等 */
+    justify-content: space-around;
+}
+
+/* 交叉轴上的对齐方式 */
+.flex_only_start { /* 交叉轴的起点对齐 */
+    align-items: flex-start;
+}
+
+.flex_only_end { /* 交叉轴的终点对齐 */
+    align-items: flex-end;
+}
+
+.flex_only_center { /* 交叉轴的中点对齐 */
+    align-items: center;
+}
+
+.flex_only_baseline { /* 基线对齐 */
+    align-items: baseline;
+}
+
+.flex_only_stretch { /* 未设置高度或auto，将占满整个容器的高度 */
+    align-items: stretch;
+}
+
+/* 多根轴线的对齐方式 */
+.flex_more_start { /* 与交叉轴的起点对齐 */
+    align-content: flex-start;
+}
+
+.flex_more_end { /* 与交叉轴的终点对齐 */
+    align-content: flex-end;
+}
+
+.flex_more_center { /* 与交叉轴的中点对齐 */
+    align-content: center;
+}
+
+.flex_more_between { /* 与交叉轴两端对齐 */
+    align-content: space-between;
+}
+
+.flex_more_around { /* 每根轴线两侧间隔相等 */
+    align-content: space-around;
+}
+
+.flex_more_stretch { /* 轴线占满整个交叉轴 */
+    align-content: stretch;
+}
+
+/*字体图标*/
