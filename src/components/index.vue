@@ -35,6 +35,7 @@
       <footer-bar></footer-bar>
       <play-detail></play-detail>
       <table-block></table-block>
+      <panel-board></panel-board>
   </div>
 </template>
 
@@ -53,6 +54,7 @@
     import footerBar from '@/components/footer/footerBar'          // 网站底部
     import playDetail from '@/components/detail/playDetail'        // 游戏详情页的对局详情
     import tableBlock from '@/components/common/tableBlock'        // 表格组件
+    import panelBoard from '@/components/detail/panelBoard'        // 
     export default {
         name: 'index',
         data () {
@@ -74,7 +76,8 @@
             datePicker,
             footerBar,
             playDetail,
-            tableBlock
+            tableBlock,
+            panelBoard
         }
     }
 </script>
