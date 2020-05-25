@@ -5,8 +5,8 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 }
 
 body {
-    background: #fff;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    background: #E4E4E4;
+    font-family: 'Microsoft YaHei','PingFangSC-Regular';
 }
 
 td, th, caption {
@@ -81,6 +81,13 @@ button {
     text-overflow: ellipsis;
 }
 
+.vertical-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 /* 弹框背景统一样式 */
 .modal-bg {
     position: fixed;
@@ -95,9 +102,15 @@ button {
     background: rgba(10, 10, 11, 0.84);
 }
 
-/* 使用全局样式样式 */
+/* 使用全局样式 */
 * {
     touch-action: pan-y;
+}
+
+/* 版心 */
+.page-content {
+    width: 1200px;
+    margin: 0 auto;
 }
 
 /*滚动条的宽度*/

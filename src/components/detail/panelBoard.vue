@@ -35,6 +35,9 @@
                     }
                 ]
             }
+        },
+        methods: {
+            
         }
     }
 </script>

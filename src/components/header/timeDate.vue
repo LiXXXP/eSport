@@ -1,6 +1,6 @@
 <template>
     <div class="time-date">
-        {{currentTime}}
+        <span>{{currentTime}}</span>
     </div>
 </template>
 
@@ -31,5 +31,13 @@
 </script>
 
 <style lang="less" scoped>
-
+    .time-date {
+        padding: 11px 0;
+        span {
+            width: 149px;
+            text-align: center;
+            display: inline-block;
+            border-right: 1px solid #3B4473;
+        }
+    }
 </style>
