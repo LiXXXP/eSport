@@ -14,4 +14,4 @@ yarn-error.log*
 *.sln
 
 # Config files
-config.js
+# config.js

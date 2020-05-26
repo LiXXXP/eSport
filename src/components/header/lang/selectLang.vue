@@ -16,7 +16,7 @@
 
 <style lang="less" scoped>
     .select-lang {
-        width: 179px;
+        width: 149px;
         padding: 11px 0;
         text-align: center;
     }
