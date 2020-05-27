@@ -13,8 +13,8 @@ import '@/styles/common.css'
 /* 引入 ElementUI */
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/en'
-Vue.use(ElementUI, { locale })
+// import locale from 'element-ui/lib/locale/lang/en'
+Vue.use(ElementUI)
 
 /* 引入 echarts */
 import VeHistogram from 'v-charts/lib/histogram.common'

@@ -14,8 +14,12 @@
             <div class="flex flex_between">
                 <!-- 左侧边栏 -->
                 <side-bar></side-bar>
+                <!-- 内容 -->
+                <cont-index></cont-index>
             </div>
         </div>
+        <!-- 底部 -->
+        <footer-bar></footer-bar>
     </div>
 </template>
 
@@ -24,7 +28,9 @@
     import notice from '@/components/index/notices/notice'      // 首页公告
     import breadCrumb from '@/components/common/breadCrumb'     // 首页面包屑导航
     import imgBlock from '@/components/index/carousel/imgBlock' // 首页轮播图
-    import sideBar from '@/components/index/side/sideBar' // 首页轮播图
+    import sideBar from '@/components/index/side/sideBar'       // 首页侧边栏
+    import contIndex from '@/components/index/content/contIndex'// 首页游戏列表内容
+    import footerBar from '@/components/footer/footerBar'       // 底部
     export default {
         name: 'index',
         data () {
@@ -37,7 +43,9 @@
             notice,
             breadCrumb,
             imgBlock,
-            sideBar
+            sideBar,
+            contIndex,
+            footerBar
         }
     }
 </script>

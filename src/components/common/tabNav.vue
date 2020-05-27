@@ -1,9 +1,9 @@
 <template>
     <div class="tab-nav flex flex_start">
-        <div :class="['title',isStyle ? 'orange-style':'bule-style',{active:index===current}]"
-            v-for="(item,index) in titleList"
+        <div :class="['title',`select-style${selectStyle}`,{active:index===currentIndex}]"
+            v-for="(item,index) in navData"
             :key="item.id"
-            @click="active(index)"
+            @click="cutTab(index)"
         >
             <i v-if="item.icon">
                 {{item.icon}}
@@ -16,38 +16,29 @@
 <script>
     export default {
         props: {
-            selectStyle: Boolean
+            navData: {
+                type: Array,
+                default: []
+            },
+            selectStyle: {
+                type: Number,
+                default: 0
+            }
         },
         data() {
             return {
-                isStyle: true,  // 样式更换 {true为橙色边框，false为蓝色填充}
-                current: 0,     // 当前标题索引
-                titleList: [    // 标题列表
-                    {
-                        id: 0,
-                        title: '对局分析'
-                    },
-                    {
-                        id: 1,
-                        icon: 'icon',
-                        title: 'Map1'
-                    },
-                    {
-                        id: 2,
-                        title: 'Map2'
-                    }
-                ]
+                currentIndex: 0,     // 当前标题索引
             }
         },
         created() {
-            
+
         },
         mounted() {
 
         },
         methods: {
-            active(index) {
-                this.current = index
+            cutTab(index) {
+                this.currentIndex = index
             }
         }
     }
@@ -56,26 +47,42 @@
 <style lang="less" scoped>
     .tab-nav {
         .title {
-            width: 140px;
-            height: 40px;
-            color: blue;
+            width: 160px;
+            height: 45px;
             cursor: pointer;
-            line-height: 40px;
-            margin-right: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 45px;
+            margin-right: 8px;
             text-align: center;
             box-sizing: border-box;
-            border: 1px solid #cecece;
+
         }
-        .bule-style {
-            border-color: blue;
+        .select-style1 {
+            color: #101010;
+            background-color: #fff;
+            &.active {
+                color: #fff;
+                background-color: #FF7800;
+            }
         }
-        .bule-style.active {
-            color: #fff;
-            background-color: blue;
+        .select-style2 {
+            color: #2F375D;
+            background-color: #fff;
+            border: 1px solid #cfcfcf;
+            &.active {
+                color: #FF7800;
+                border: 1px solid #FF7800;
+            }
         }
-        .orange-style.active {
-            color: chocolate;
-            border-color: chocolate;
+        .select-style3 {
+            color: #2F375D;
+            border: 1px solid #2F375D;
+            &.active {
+                color: #fff;
+                border: 1px solid #2F375D;
+                background-color: #2F375D;
+            }
         }
     }
 </style>
