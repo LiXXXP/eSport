@@ -21,8 +21,21 @@
                     <el-option
                         v-for="item in searchList"
                         :key="item.value"
-                        :label="item.label"
                         :value="item.value">
+                        <div class="flex flex_start">
+                          <!-- slot -->
+                            <img src="../../../assets/imgs/1.png" style="width:36px;height:36px;">
+                            <div class="info">
+                                <div class="flex flex_start flex_only_center">
+                                    <img src="../../../assets/imgs/1.png">
+                                    <p>dddd</p>
+                                </div>
+                                <div>地点：中国</div>
+                                <div>游戏项目：守望先锋</div>
+                                <div>效力战队：Liquld</div>
+                                <div>联赛级别：一级联赛</div>
+                            </div>
+                        </div>
                     </el-option>
             </el-select>
         </div>
@@ -49,7 +62,7 @@
                 resultList: [],   // 搜索条件返回的值
                 loading: false,   // 搜索状态
                 searchStates: [   // 搜索联想
-                    "Alabama", "Alaska", "Arizona"
+                    "pro", "proooo", "prohhh"
                 ]
             }
         },
@@ -82,6 +95,7 @@
         .select {
             width: 124px;
         }
+
     }
 </style>
 
@@ -104,8 +118,13 @@
             height: 42px;
             background-color: #dedede;
         }
+
     }
-    .el-select-dropdown__item.selected {
-        color: #606266;
+    .el-select-dropdown__item {
+        height: auto;
+        line-height: 22px;
+        &.selected {
+            color: #606266;
+        }
     }
 </style>

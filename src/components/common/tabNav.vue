@@ -1,9 +1,10 @@
 <template>
     <div class="tab-nav flex flex_start">
-        <div :class="['title',`select-style${selectStyle}`,{active:index===currentIndex}]"
+        <div :class="['title',`select-style${selectStyle}`,
+              {active:index===currentIndex}]"
             v-for="(item,index) in navData"
             :key="item.id"
-            @click="cutTab(index)"
+            @click="cutTab(index,item.title)"
         >
             <i v-if="item.icon">
                 {{item.icon}}
@@ -27,7 +28,8 @@
         },
         data() {
             return {
-                currentIndex: 0,     // 当前标题索引
+                currentIndex: 0,    // 当前标题索引
+                isEvent: true,      // 是否打开赛事筛选
             }
         },
         created() {
@@ -37,8 +39,12 @@
 
         },
         methods: {
-            cutTab(index) {
+            cutTab(index,title) {
                 this.currentIndex = index
+                if(title === '赛事筛选') {
+                    this.$emit('openEvents', this.isEvent)
+                    return
+                }
             }
         }
     }

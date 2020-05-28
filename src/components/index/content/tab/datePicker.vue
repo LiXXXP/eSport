@@ -79,7 +79,7 @@
 <style lang="less">
 	  .picker {
         .el-calendar__body {
-            padding: 0 20px;
+            padding: 0 20px 10px;
             .el-calendar-table {
                 .el-calendar-day {
                     padding: 0;

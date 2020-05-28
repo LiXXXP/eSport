@@ -5,11 +5,13 @@
             v-for="item in dataList"
             :key="item.id"
         ></side-menu>
+        <side-img></side-img>
     </div>
 </template>
 
 <script>
-    import sideMenu from '@/components/common/sideMenu'
+    import sideMenu from '@/components/common/sideMenu'    // 侧边栏
+    import sideImg from '@/components/index/side/sideImg'  // 侧边图片位
     export default {
         data() {
             return {
@@ -21,7 +23,7 @@
                         list: [
                             {
                                 id: 0,
-                                name: '英雄联盟',
+                                name: '反恐精英：全球攻势',
                                 text: [
                                     {
                                         id: 0,
@@ -35,7 +37,7 @@
                             },
                             {
                                 id: 1,
-                                name: 'csgo',
+                                name: '英雄联盟',
                                 text: [
                                     {
                                         id: 0,
@@ -46,9 +48,40 @@
                                         dec: 'LCK Spring Promotion'
                                     }
                                 ]
+                            },
+                            {
+                                id: 2,
+                                name: '星际争霸Ⅱ'
+                            },
+                            {
+                                id: 3,
+                                name: '刀塔2'
+                            },
+                            {
+                                id: 4,
+                                name: '风暴英雄'
+                            },
+                            {
+                                id: 5,
+                                name: '守望先锋'
+                            },
+                            {
+                                id: 6,
+                                name: '炉石传说'
+                            },
+                            {
+                                id: 7,
+                                name: '坦克世界'
+                            },
+                            {
+                                id: 8,
+                                name: '使命召唤'
+                            },
+                            {
+                                id: 9,
+                                name: '神之浩劫'
                             }
                         ]
-
                     },
                     {
                         id: 1,
@@ -84,7 +117,8 @@
             }
         },
         components: {
-            sideMenu
+            sideMenu,
+            sideImg
         }
     }
 </script>

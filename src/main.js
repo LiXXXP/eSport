@@ -16,6 +16,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 // import locale from 'element-ui/lib/locale/lang/en'
 Vue.use(ElementUI)
 
+/* 引入 iconfont */
+import './assets/iconfont/iconfont.css'
+
 /* 引入 echarts */
 import VeHistogram from 'v-charts/lib/histogram.common'
 import VeLine from 'v-charts/lib/line.common'

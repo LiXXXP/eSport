@@ -45,14 +45,17 @@
                                     <p>28/02</p>
                                 </div>
                             </div>
-                            <div >
-                                <div class="flex flex_start flex_only_center">
+                            <div>
+                                <div
+                                    style="margin-bottom:7px;"
+                                    class="flex flex_start flex_only_center"
+                                >
                                     <img src="../../../../assets/imgs/1.png" class="team-icon">
-                                        <p>Team Liquid</p>
+                                    <p>Team Liquid</p>
                                 </div>
                                 <div class="flex flex_start flex_only_center">
                                     <img src="../../../../assets/imgs/1.png" class="team-icon">
-                                        <p>Team Liquid</p>
+                                    <p>Team Liquid</p>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +67,9 @@
                             <p>25:06</p>
                         </div>
                     </td>
-                    <td>R</td>
+                    <td class="game-rank r">
+                        <span>R</span>
+                    </td>
                     <td>1</td>
                     <td>1</td>
                     <td>1</td>
@@ -82,15 +87,23 @@
                 </tr>
                 <tr>
                     <td class="game-score">2</td>
-                    <td>D</td>
+                    <td class="game-rank d">
+                        <span>D</span>
+                    </td>
                     <td>1</td>
                     <td>1</td>
                     <td>1</td>
                     <td>1</td>
                     <td>1</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        <i class="sign-icon"></i>
+                    </td>
+                    <td>
+                        <i class="sign-icon"></i>
+                    </td>
+                    <td>
+                        <i class="sign-icon"></i>
+                    </td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -114,6 +127,11 @@
 </script>
 
 <style lang="less" scoped>
+    @r: #00AB49;
+    @d: #DF2017;
+    @b: #1254CC;
+    @t: #008CD4;
+    @ct: #F6B600;
     .game-table {
         width: 880px;
         height: 99px;
@@ -145,7 +163,6 @@
             }
             th,tr {
                 height: 33px;
-                line-height: 33px;
             }
         }
         .icons {
@@ -163,9 +180,6 @@
         }
         .game-time {
             margin-right: 19px;
-            p {
-                line-height: 20px;
-            }
         }
         .game-etc {
             p {
@@ -190,6 +204,51 @@
             color: #00AB49;
             font-size: 14px;
             font-weight: bold;
+        }
+        .game-rank {
+            span {
+                color: #fff;
+                width: 16px;
+                height: 16px;
+                display: block;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 16px;
+                text-align: center;
+                border-radius: 100%;
+            }
+            &.r {
+                span {
+                    background-color: @r;
+                }
+            }
+            &.d {
+                span {
+                    background-color: @d;
+                }
+            }
+            &.b {
+                span {
+                    background-color: @b;
+                }
+            }
+            &.t {
+                span {
+                    background-color: @t;
+                }
+            }
+            &.ct {
+                span {
+                    background-color: @ct;
+                }
+            }
+        }
+        .sign-icon {
+            width: 20px;
+            height: 20px;
+            display: block;
+            background: url('../../../../assets/imgs/index/icon07.png') no-repeat 0 0;
+            background-size: 100%;
         }
     }
 </style>

@@ -21,7 +21,7 @@
                 >
                     <template slot="title">
                         <img :src="sideData.icon" class="title-icon">
-                        {{item.name}}
+                        <span class="beyond-ellipsis">{{item.name}}</span>
                     </template>
                     <div class="detail"
                         v-for="key in item.text"

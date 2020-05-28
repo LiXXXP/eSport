@@ -3,7 +3,7 @@
         <!-- 首页头部 -->
         <header-top></header-top>
         <!-- 首页主体 -->
-        <div class="page-content">
+        <main class="page-content">
             <!-- 公告 -->
             <notice></notice>
             <!-- 面包屑导航 -->
@@ -17,7 +17,7 @@
                 <!-- 内容 -->
                 <cont-index></cont-index>
             </div>
-        </div>
+        </main>
         <!-- 底部 -->
         <footer-bar></footer-bar>
     </div>

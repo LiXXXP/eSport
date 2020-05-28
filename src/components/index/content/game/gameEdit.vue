@@ -2,14 +2,21 @@
     <div class="game-edit">
         <table>
             <thead>
-                <th>收藏</th>
+                <th>
+                    <i
+                      :class="['iconfont', isSelect?'icon-shoucang2':'icon-shoucang']"
+                      @click="getStore"
+                    ></i>
+                </th>
             </thead>
             <tbody>
                 <tr>
-                    <td>直播</td>
+                    <td>
+                        <i class="iconfont icon-dianshi"></i>
+                    </td>
                 </tr>
                 <tr>
-                    <td>详情</td>
+                    <td class="detail">详情</td>
                 </tr>
             </tbody>
         </table>
@@ -20,7 +27,17 @@
     export default {
         data() {
             return {
-
+                isSelect: false,    // 是否收藏
+            }
+        },
+        methods: {
+            // 收藏
+            getStore() {
+                if(this.isSelect) {
+                    this.isSelect = false
+                } else {
+                    this.isSelect = true
+                }
             }
         }
     }
@@ -59,8 +76,23 @@
             }
             th,tr {
                 height: 33px;
-                line-height: 33px;
             }
+        }
+        .iconfont {
+            color: #878787;
+            font-size: 18px;
+            font-weight: 500;
+            &:hover {
+                color: #FF7800;
+            }
+        }
+        .icon-shoucang2 {
+            color: #FF7800;
+        }
+        .detail {
+            color: #2F375D;
+            font-size: 14px;
+            font-weight: bold;
         }
     }
 </style>

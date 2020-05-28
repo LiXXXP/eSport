@@ -5,9 +5,17 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 }
 
 body {
-    background: #E4E4E4;
     font-size: 14px;
+    background: #E4E4E4;
     font-family: 'Microsoft YaHei','PingFangSC-Regular';
+}
+/* css禁止鼠标选中元素变蓝 */
+body {
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    -ms-user-select: none; /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;
 }
 
 td, th, caption {
