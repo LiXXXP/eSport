@@ -11,12 +11,14 @@
         </div>
         <!-- 日历 -->
         <div class="picker" v-if="isSelect">
+            <!-- <calendar></calendar> -->
             <el-calendar v-model="value"></el-calendar>
         </div>
     </div>
 </template>
 
 <script>
+    import calendar from '@/components/common/calendar'
     export default {
         data() {
             return {
@@ -27,13 +29,11 @@
         methods: {
             // 选择日期
             dateSelect() {
-                if(this.isSelect) {
-                    this.isSelect = false
-                } else {
-                    this.isSelect = true
-                }
-
+                this.isSelect = !this.isSelect
             }
+        },
+        components: {
+            calendar
         }
     }
 </script>

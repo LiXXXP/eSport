@@ -20,33 +20,27 @@
                 :loading="loading">
                     <el-option
                         v-for="item in searchList"
-                        :key="item.value"
-                        :value="item.value">
-                        <div class="flex flex_start">
-                          <!-- slot -->
-                            <img src="../../../assets/imgs/1.png" style="width:36px;height:36px;">
-                            <div class="info">
-                                <div class="flex flex_start flex_only_center">
-                                    <img src="../../../assets/imgs/1.png">
-                                    <p>dddd</p>
-                                </div>
-                                <div>地点：中国</div>
-                                <div>游戏项目：守望先锋</div>
-                                <div>效力战队：Liquld</div>
-                                <div>联赛级别：一级联赛</div>
-                            </div>
-                        </div>
+                        :key="item.id"
+                        :value="item.team">
+                        <!-- slot -->
+                        <search-box :searchData="item"></search-box>
                     </el-option>
+                    <!-- 分页 -->
+                    <div class="page flex flex_end">
+                        <p>上一页</p>
+                        <p>下一页</p>
+                    </div>
             </el-select>
         </div>
     </div>
 </template>
 
 <script>
+    import searchBox from '@/components/header/search/searchBox'
     export default {
         data() {
             return {
-                selectList: [   // 选择列表
+                selectList: [   // 俱乐部选择列表
                     {
                         value: '1',
                         label: '选手'
@@ -56,19 +50,38 @@
                         label: '赛事'
                     }
                 ],
-                selectValue: '',  // 选择的值
+                selectValue: '',  // 俱乐部选择的值
                 searchList: [],   // 搜索列表
                 searchValue: [],  // 搜索框的值
                 resultList: [],   // 搜索条件返回的值
                 loading: false,   // 搜索状态
                 searchStates: [   // 搜索联想
-                    "pro", "proooo", "prohhh"
+                    {
+                        id: 0,
+                        eventUrl: require('../../../assets/imgs/1.png'),
+                        url: require('../../../assets/imgs/1.png'),
+                        title: 'Virtus.Pro',
+                        game: '英雄联盟',
+                        team: 'IG',
+                        rank: '二级联赛',
+                        addr: '韩国'
+                    },
+                    {
+                        id: 1,
+                        eventUrl: require('../../../assets/imgs/1.png'),
+                        url: require('../../../assets/imgs/1.png'),
+                        title: 'Virtus.Pro',
+                        game: '英雄联盟',
+                        team: 'Liquid',
+                        rank: '二级联赛',
+                        addr: '韩国'
+                    }
                 ]
             }
         },
         mounted() {
             this.resultList = this.searchStates.map(item => {
-                return { value: `value:${item}`, label: `label:${item}` };
+                return item
             });
         },
         methods: {
@@ -78,13 +91,18 @@
                     setTimeout(() => {
                         this.loading = false;
                         this.searchList = this.resultList.filter(item => {
-                            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+                            if(item.team.toLowerCase().indexOf(query.toLowerCase()) > -1) {
+                                return item
+                            }
                         });
                     }, 200);
                 } else {
                     this.searchList = [];
                 }
             }
+        },
+        components: {
+            searchBox
         }
     }
 </script>
@@ -95,7 +113,21 @@
         .select {
             width: 124px;
         }
-
+    }
+    .page {
+        padding-top: 7px;
+        p {
+            color: #2F375D;
+            padding: 0 15px;
+            cursor: pointer;
+            border-right: 1px solid #2F375D;
+            &:last-child {
+                border: 0;
+            }
+            &:hover {
+                color: #FF7800;
+            }
+        }
     }
 </style>
 

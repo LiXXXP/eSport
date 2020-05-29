@@ -2,27 +2,23 @@
     <div class="event-select">
         <div class="event-box">
             <el-checkbox-group
-                v-model="checkedCities"
-                @change="handleCheckedCitiesChange"
+                v-model="checkedAll"
+                @change="checkedData"
             >
                 <el-checkbox
                     class="select-box"
-                    v-for="city in cities"
-                    :label="city"
-                    :key="city"
+                    v-for="item in games"
+                    :label="item"
+                    :key="item"
                 >
-                    {{city}}
+                    {{item}}
                 </el-checkbox>
             </el-checkbox-group>
         </div>
         <div class="event-btn flex flex_between">
             <div class="flex flex_start">
-                <div class="select"
-                    :indeterminate="isIndeterminate"
-                    v-model="checkAll"
-                    @click="handleCheckAllChange"
-                >全选</div>
-                <div class="select">反选</div>
+                <div class="select" @click="checkAll">全选</div>
+                <div class="select" @click="checkCon">反选</div>
                 <div class="hide">隐藏了36场</div>
             </div>
             <div class="btn" @click="eventSelect">确定</div>
@@ -35,9 +31,8 @@
         data() {
             return {
                 isEvent: false,       // 是否打开赛事筛选
-                checkAll: false,
-                checkedCities: [],
-                cities: [
+                checkedAll: [],       // 全选结果
+                games: [
                     'LPL夏季联赛',
                     'ige南亚杯',
                     '黄金职业联赛',
@@ -46,21 +41,28 @@
                     'ige南亚杯2',
                     '2019国际邀请赛',
                     '黄金职业联赛2'
-                ],
-                isIndeterminate: true
+                ]
             }
         },
         methods: {
-            handleCheckAllChange(val) {
-                this.checkedCities = val ? this.cities : [];
-                this.isIndeterminate = false;
+            checkedData(value) {
+                this.checkedAll = value
             },
-            handleCheckedCitiesChange(value) {
-                let checkedCount = value.length;
-                this.checkAll = checkedCount === this.cities.length;
-                this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+            // 全选
+            checkAll(val) {
+                this.checkedAll = val ? this.games : []
+            },
+            // 反选
+            checkCon() {
+                let conArr = this.checkedAll
+                this.checkedAll = this.games.filter(function (item) {
+                    return conArr.indexOf(item) < 0
+                })
             },
             eventSelect() {
+                if(this.checkedAll.length !== 0) {
+
+                }
                 this.$emit('openEvents', this.isEvent)
             }
         }
@@ -128,6 +130,7 @@
         .select-box {
             .el-checkbox__inner {
                 border-radius: 100%;
+                border-color: #DCDFE6;
                 &::after {
                     border: 0;
                     width: 6px;
