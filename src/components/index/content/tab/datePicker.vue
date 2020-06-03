@@ -11,8 +11,12 @@
         </div>
         <!-- 日历 -->
         <div class="picker" v-if="isSelect">
-            <!-- <calendar></calendar> -->
-            <el-calendar v-model="value"></el-calendar>
+            <calendar
+                agoDayHide="1530115221"
+                @isToday="clickToday"
+                @choseDay="clickDay"
+                @changeMonth="changeDate"
+            ></calendar>
         </div>
     </div>
 </template>
@@ -23,14 +27,22 @@
         data() {
             return {
                 isSelect: false,    // 选择日期是否打开
-                value: new Date()
             }
         },
         methods: {
             // 选择日期
             dateSelect() {
                 this.isSelect = !this.isSelect
-            }
+            },
+            clickToday(data) {
+                console.log("跳到了本月今天", data); //跳到了本月
+            },
+            clickDay(data) {
+                console.log("选中了", data); //选中某天
+            },
+            changeDate(data) {
+                console.log("左右点击切换月份", data); //左右点击切换月份
+            },
         },
         components: {
             calendar
