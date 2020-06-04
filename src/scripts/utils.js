@@ -256,6 +256,7 @@ function formatDate(date, fmt) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
     }
     let o = {
+        'Y+': date.getFullYear(),
         'M+': date.getMonth() + 1,
         'd+': date.getDate(),
         'h+': date.getHours(),
@@ -281,6 +282,20 @@ function getCurrentDate() {
     let timer = new Date();
     let mytime = timer.toLocaleTimeString();
     return mytime
+}
+
+/**
+ *
+ * 设置年月日星期
+ * @param {*} date 日期
+ */
+function setDate(date) {
+    const weeks = ["日", "一", "二", "三", "四", "五", "六"]
+    let y = date.getFullYear()
+    let m = date.getMonth() + 1
+    let d = date.getDate()
+    let w = date.getDay()
+    return `${y}年${m}月${d}日 星期${weeks[w]}`
 }
 
 /**
@@ -312,5 +327,6 @@ export {
     getTrueData,
     formatDate,
     resolveDeleteKey,
-    getCurrentDate
+    getCurrentDate,
+    setDate
 };

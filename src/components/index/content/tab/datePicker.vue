@@ -1,21 +1,19 @@
 <template>
     <div class="date-picker">
         <div class="flex flex_between">
-            <p class="left"> < </p>
+            <p class="left" @click="preDay"> < </p>
             <p class="date flex flex_start flex_center"
                 @click="dateSelect">
                 <i class="date-icon"></i>
-                <span>2020年7月23日周五</span>
+                <span>{{currentTime}}</span>
             </p>
-            <p class="right"> > </p>
+            <p class="right" @click="nextDay"> > </p>
         </div>
         <!-- 日历 -->
-        <div class="picker" v-if="isSelect">
+        <div class="picker" v-show="isSelect">
             <calendar
-                agoDayHide="1530115221"
-                @isToday="clickToday"
                 @choseDay="clickDay"
-                @changeMonth="changeDate"
+                :showDate="showDate"
             ></calendar>
         </div>
     </div>
@@ -23,26 +21,37 @@
 
 <script>
     import calendar from '@/components/common/calendar'
+    import { setDate } from '@/scripts/utils'
     export default {
         data() {
             return {
                 isSelect: false,    // 选择日期是否打开
+                currentTime: '',    // 当前显示时间
+                showDate: ''        // 选择的日期
             }
         },
+        created() {
+            this.currentTime = setDate(new Date())
+        },
         methods: {
-            // 选择日期
+            // 打开日历
             dateSelect() {
                 this.isSelect = !this.isSelect
             },
-            clickToday(data) {
-                console.log("跳到了本月今天", data); //跳到了本月
-            },
+            // 选择日期
             clickDay(data) {
-                console.log("选中了", data); //选中某天
+                this.currentTime = setDate(new Date(data))
+                this.showDate = data
+                this.isSelect = false
             },
-            changeDate(data) {
-                console.log("左右点击切换月份", data); //左右点击切换月份
+            // 前一天
+            preDay() {
+
             },
+            // 后一天
+            nextDay() {
+
+            }
         },
         components: {
             calendar

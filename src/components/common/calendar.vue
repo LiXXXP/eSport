@@ -33,7 +33,6 @@
                         'wh_item_date',
                         {wh_isToday:item.isToday},
                         {wh_chose_day:item.chooseDay},
-                        {wh_want_dayhide:item.dayHide},
                         {wh_other_dayhide:item.otherMonth!=='nowMonth'}]"
                     >
                       {{item.id}}
@@ -60,49 +59,29 @@
             type: Array,
             default: () => ["一", "二", "三", "四", "五", "六", "日"]
         },
-        sundayStart: {
-            type: Boolean,
-            default: () => false
-        },
-        agoDayHide: {
+        showDate: {
             type: String,
-            default: `0`
-        },
-        futureDayHide: {
-            type: String,
-            default: `2554387200`
+            default: ''
         }
     },
     created() {
-        this.intStart();
         this.myDate = new Date()
     },
+    mounted() {
+        this.getList(this.myDate,this.showDate)
+    },
     methods: {
-        intStart() {
-            timeUtil.sundayStart = this.sundayStart
-        },
         clickDay: function(item, index) {
-            if (item.otherMonth === "nowMonth" && !item.dayHide) {
+            if (item.otherMonth === "nowMonth") {
                 this.getList(this.myDate, item.date)
             }
             if (item.otherMonth !== "nowMonth") {
                 item.otherMonth === "preMonth" ? this.PreMonth(item.date) : this.NextMonth(item.date)
             }
         },
-        ChoseMonth: function(date, isChosedDay = true) {
-            date = timeUtil.dateFormat(date)
-            this.myDate = new Date(date)
-            this.$emit("changeMonth", timeUtil.dateFormat(this.myDate))
-            if (isChosedDay) {
-                this.getList(this.myDate, date, isChosedDay)
-            } else {
-                this.getList(this.myDate)
-            }
-        },
         PreMonth: function(date, isChosedDay = true) {
             date = timeUtil.dateFormat(date)
             this.myDate = timeUtil.getOtherMonth(this.myDate, "preMonth")
-            this.$emit("changeMonth", timeUtil.dateFormat(this.myDate))
             if (isChosedDay) {
                 this.getList(this.myDate, date, isChosedDay)
             } else {
@@ -112,7 +91,6 @@
         NextMonth: function(date, isChosedDay = true) {
             date = timeUtil.dateFormat(date)
             this.myDate = timeUtil.getOtherMonth(this.myDate, "nextMonth")
-            this.$emit("changeMonth", timeUtil.dateFormat(this.myDate))
             if (isChosedDay) {
                 this.getList(this.myDate, date, isChosedDay)
             } else {
@@ -127,13 +105,7 @@
                 k.chooseDay = false
                 const nowTime = k.date
                 const t = new Date(nowTime).getTime() / 1000
-
-                //无法选中某天
-                k.dayHide = t < this.agoDayHide || t > this.futureDayHide
-                if (k.isToday) {
-                    this.$emit("isToday", nowTime)
-                }
-                let flag = !k.dayHide && k.otherMonth === "nowMonth"
+                let flag = k.otherMonth === "nowMonth"
                 if (chooseDay && chooseDay === nowTime && flag) {
                     this.$emit("choseDay", nowTime)
                     this.historyChose.push(nowTime)
@@ -145,30 +117,6 @@
                 }
             }
             this.list = arr;
-        }
-    },
-    mounted() {
-        this.getList(this.myDate)
-    },
-    watch: {
-        agoDayHide: {
-            handler(val, oldVal) {
-                this.getList(this.myDate)
-            },
-            deep: true
-        },
-        futureDayHide: {
-            handler(val, oldVal) {
-                this.getList(this.myDate)
-            },
-            deep: true
-        },
-        sundayStart: {
-            handler(val, oldVal) {
-                this.intStart();
-                this.getList(this.myDate)
-            },
-            deep: true
         }
     }
 };
@@ -229,6 +177,9 @@
                     border-radius: 100px;
                     transform: scale(0.8);
                     background-color: #2f375d;
+                }
+                .wh_isToday {
+                    opacity: .8;
                 }
             }
         }

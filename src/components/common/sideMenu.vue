@@ -1,35 +1,34 @@
 <template>
     <div class="side-bar">
         <div class="bar-title">
-            <span class="title">{{sideData.title}}</span>
+            <span class="title">{{titleData.title}}</span>
             <!-- <span>（2804）</span> -->
         </div>
         <slot name="search"></slot>
         <div class="bar-list">
-            <!-- 无折叠 -->
-            <div class="twig flex flex_start flex_only_center"
-                v-for="item in sideData.lists"
-                :key="item.id">
-                <img :src="sideData.icon">
-                <span class="beyond-ellipsis">{{item.name}}</span>
-            </div>
             <!-- 折叠面板 -->
-            <el-collapse accordion>
+            <el-collapse accordion v-if="titleData.title === '全部游戏'">
                 <el-collapse-item
-                    v-for="item in sideData.list"
-                    :key="item.id"
+                    v-for="item in sideData"
+                    :key="item.game_id"
                 >
                     <template slot="title">
-                        <img :src="sideData.icon" class="title-icon">
+                        <img :src="item.image" class="title-icon">
                         <span class="beyond-ellipsis">{{item.name}}</span>
                     </template>
-                    <div class="detail"
-                        v-for="key in item.text"
-                        :key="key.id">
-                        {{key.dec}}
+                    <div class="detail">
+                        赛事
                     </div>
                 </el-collapse-item>
             </el-collapse>
+            <!-- 无折叠 -->
+            <div class="twig flex flex_start flex_only_center" v-else
+                v-for="item in sideData"
+                :key="item.game_id"
+            >
+                <img :src="item.image">
+                <span class="beyond-ellipsis">{{item.name}}</span>
+            </div>
         </div>
         <slot name="page"></slot>
     </div>
@@ -38,9 +37,13 @@
 <script>
     export default {
         props: {
-            sideData: {
+            titleData: {
                 type: Object,
                 default: null
+            },
+            sideData: {
+                type: Array,
+                default: []
             }
         },
         data() {
@@ -115,6 +118,9 @@
                       color: #101010;
                       font-size: 16px;
                       font-weight: 500;
+                }
+                .el-collapse-item__wrap {
+                    border-bottom: 0;
                 }
                 &:nth-child(2n) {
                     .el-collapse-item__header,

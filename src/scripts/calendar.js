@@ -26,28 +26,28 @@ export default {
         let year2 = year;
         let month2;
         if (str === 'nextMonth') {
-        month2 = parseInt(month) + 1;
-        if (month2 == 13) {
-            year2 = parseInt(year2) + 1;
-            month2 = 1;
-        }
+            month2 = parseInt(month) + 1;
+            if (month2 == 13) {
+                year2 = parseInt(year2) + 1;
+                month2 = 1;
+            }
         } else {
-        month2 = parseInt(month) - 1;
-        if (month2 == 0) {
-            year2 = parseInt(year2) - 1;
-            month2 = 12;
-        }
+            month2 = parseInt(month) - 1;
+            if (month2 == 0) {
+                year2 = parseInt(year2) - 1;
+                month2 = 12;
+            }
         }
         let day2 = day;
         const days2 = new Date(year2, month2, 0).getDate();
         if (day2 > days2) {
-        day2 = days2;
+            day2 = days2;
         }
         if (month2 < 10) {
-        month2 = '0' + month2;
+            month2 = '0' + month2;
         }
         if (day2 < 10) {
-        day2 = '0' + day2;
+            day2 = '0' + day2;
         }
         const t2 = year2 + '/' + month2 + '/' + day2;
         return new Date(t2);
@@ -60,13 +60,13 @@ export default {
         const preDate = this.getOtherMonth(date, 'preMonth');
         // 上个月多少开始
         for (let i = 0; i < leftNum; i++) {
-        const nowTime = preDate.getFullYear() + '/' + (preDate.getMonth() + 1) + '/' + (num + i);
-        arr.push({
-            id: num + i,
-            date: nowTime,
-            isToday: false,
-            otherMonth: 'preMonth',
-        });
+            const nowTime = preDate.getFullYear() + '/' + (preDate.getMonth() + 1) + '/' + (num + i);
+            arr.push({
+                id: num + i,
+                date: nowTime,
+                isToday: false,
+                otherMonth: 'preMonth',
+            });
         }
         return arr;
     },
@@ -77,13 +77,13 @@ export default {
         const leftLength = this.getDaysInOneMonth(date) + this.getMonthweek(date);
         const _length = 7 - leftLength % 7;
         for (let i = 0; i < _length; i++) {
-        const nowTime = nextDate.getFullYear() + '/' + (nextDate.getMonth() + 1) + '/' + (i + 1);
-        arr.push({
-            id: i + 1,
-            date: nowTime,
-            isToday: false,
-            otherMonth: 'nextMonth',
-        });
+            const nowTime = nextDate.getFullYear() + '/' + (nextDate.getMonth() + 1) + '/' + (i + 1);
+            arr.push({
+                id: i + 1,
+                date: nowTime,
+                isToday: false,
+                otherMonth: 'nextMonth',
+            });
         }
         return arr;
     },
@@ -102,13 +102,13 @@ export default {
         const toDay = this.dateFormat(new Date());
 
         for (let i = 0; i < num; i++) {
-        const nowTime = year + '/' + month + '/' + (i + 1);
-        arr.push({
-            id: i + 1,
-            date: nowTime,
-            isToday: toDay === nowTime,
-            otherMonth: 'nowMonth',
-        });
+            const nowTime = year + '/' + month + '/' + (i + 1);
+            arr.push({
+                id: i + 1,
+                date: nowTime,
+                isToday: toDay === nowTime,
+                otherMonth: 'nowMonth',
+            });
         }
         return arr;
     },
