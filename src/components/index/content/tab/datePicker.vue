@@ -1,35 +1,56 @@
 <template>
     <div class="date-picker">
         <div class="flex flex_between">
-            <p class="left"> < </p>
+            <p class="left" @click="preDay"> < </p>
             <p class="date flex flex_start flex_center"
                 @click="dateSelect">
                 <i class="date-icon"></i>
-                <span>2020年7月23日周五</span>
+                <span>{{currentTime}}</span>
             </p>
-            <p class="right"> > </p>
+            <p class="right" @click="nextDay"> > </p>
         </div>
         <!-- 日历 -->
-        <div class="picker" v-if="isSelect">
-            <!-- <calendar></calendar> -->
-            <el-calendar v-model="value"></el-calendar>
+        <div class="picker" v-show="isSelect">
+            <calendar
+                @choseDay="clickDay"
+                :showDate="showDate"
+            ></calendar>
         </div>
     </div>
 </template>
 
 <script>
     import calendar from '@/components/common/calendar'
+    import { setDate } from '@/scripts/utils'
     export default {
         data() {
             return {
                 isSelect: false,    // 选择日期是否打开
-                value: new Date()
+                currentTime: '',    // 当前显示时间
+                showDate: ''        // 选择的日期
             }
         },
+        created() {
+            this.currentTime = setDate(new Date())
+        },
         methods: {
-            // 选择日期
+            // 打开日历
             dateSelect() {
                 this.isSelect = !this.isSelect
+            },
+            // 选择日期
+            clickDay(data) {
+                this.currentTime = setDate(new Date(data))
+                this.showDate = data
+                this.isSelect = false
+            },
+            // 前一天
+            preDay() {
+
+            },
+            // 后一天
+            nextDay() {
+
             }
         },
         components: {
