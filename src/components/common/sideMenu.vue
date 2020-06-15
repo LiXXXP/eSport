@@ -9,7 +9,7 @@
             <!-- 折叠面板 -->
             <el-collapse accordion v-if="titleData.title === '全部游戏'">
                 <el-collapse-item
-                    v-for="item in sideData"
+                    v-for="item in titleData.list"
                     :key="item.game_id"
                 >
                     <template slot="title">
@@ -23,7 +23,7 @@
             </el-collapse>
             <!-- 无折叠 -->
             <div class="twig flex flex_start flex_only_center" v-else
-                v-for="item in sideData"
+                v-for="item in titleData.list"
                 :key="item.game_id"
             >
                 <img :src="item.image">
@@ -40,10 +40,6 @@
             titleData: {
                 type: Object,
                 default: null
-            },
-            sideData: {
-                type: Array,
-                default: []
             }
         },
         data() {

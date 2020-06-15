@@ -114,7 +114,57 @@ function getGames(params) {
     return getRequest('/games/list', params)
 }
 
+/**
+ *
+ * 获取赛事列表
+ * @param {*} params
+ */
+function getEvents(params) {
+  return getRequest('/tournaments/list', params)
+}
+
+/**
+ *
+ * 获取俱乐部列表
+ * @param {*} params
+ */
+function getClubs(params) {
+  return getRequest('/organizations/list', params)
+}
+
+/**
+ *
+ * 获取进行中的比赛列表
+ * @param {*} params
+ */
+function getOnGoing(params) {
+  return getRequest('/tournaments/ongoing', params)
+}
+
+/**
+ *
+ * 获取未开始的比赛列表
+ * @param {*} params
+ */
+function getUpComning(params) {
+  return getRequest('/tournaments/upcomning', params)
+}
+
+/**
+ *
+ * 获取已结束的比赛列表
+ * @param {*} params
+ */
+function getPast(params) {
+  return getRequest('/tournaments/past', params)
+}
+
 export {
-    getGames
+    getGames,
+    getEvents,
+    getClubs,
+    getOnGoing,
+    getUpComning,
+    getPast
 }
 
