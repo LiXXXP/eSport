@@ -71,9 +71,9 @@
         }
         .bar-list {
             .title-icon {
-                width: 20px;
-                height: 20px;
-                margin: 10px;
+                width: 22px;
+                height: 22px;
+                margin: 10px 12px 10px 10px;
             }
             .detail {
                 color: #878787;
@@ -127,9 +127,9 @@
             }
         }
         .el-collapse-item__header {
-            height: 40px;
+            height: 44px;
             border-bottom: 0;
-            line-height: 40px;
+            line-height: 44px;
         }
     }
 </style>

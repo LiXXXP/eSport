@@ -7,11 +7,15 @@
                 {{item.title}}
             </div>
             <!-- 游戏比分 -->
-            <div class="list flex flex_between"
+            <div class="list"
                 v-for="key in item.list"
                 :key="key.tournament_id">
-                <game-table></game-table>
-                <game-edit></game-edit>
+                <div class="flex flex_between">
+                    <game-table :inningData="key"></game-table>
+                    <game-edit></game-edit>
+                </div>
+                <!-- 详情 -->
+                <game-info></game-info>
             </div>
             <!-- 分页 -->
             <paging-page v-if="item.list.length>5"></paging-page>
@@ -22,6 +26,7 @@
 <script>
     import gameTable from '@/components/index/content/game/gameTable'   // 游戏比分列表
     import gameEdit from '@/components/index/content/game/gameEdit'     // 游戏操作板
+    import gameInfo from '@/components/index/content/game/gameInfo'     // 游戏详情
     import pagingPage from '@/components/common/pagingPage'             // 分页
     import {
         getOnGoing,
@@ -48,8 +53,8 @@
            }
        },
        mounted() {
-            this.getGoingList()
-            this.getComningList()
+            // this.getGoingList()
+            // this.getComningList()
             this.getPastList()
        },
        methods: {
@@ -84,6 +89,7 @@
        components: {
           gameTable,
           gameEdit,
+          gameInfo,
           pagingPage
        }
     }

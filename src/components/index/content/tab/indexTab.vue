@@ -33,19 +33,15 @@
                 isEvent: false,     // 是否打开赛事筛选
                 navList: [
                     {
-                        id: 0,
                         title: '全部赛事'
                     },
                     {
-                        id: 1,
                         title: '已结束赛事'
                     },
                     {
-                        id: 2,
                         title: '我的收藏'
                     },
                     {
-                        id: 3,
                         title: '赛事筛选'
                     }
                 ]

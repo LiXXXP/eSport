@@ -23,7 +23,52 @@
                 titleList: [    // 首页侧边栏标题
                     {
                         title: '全部游戏',
-                        list: []
+                        list: [
+                            {
+                                image: require('../../../assets/logo/COD.png'),
+                                name: '使命召唤：现代战争'
+                            },
+                            {
+                                image: require('../../../assets/logo/csgo.png'),
+                                name: '反恐精英：全球攻势'
+                            },
+                            {
+                                image: require('../../../assets/logo/dota2.png'),
+                                name: '刀塔 2'
+                            },
+                            {
+                                image: require('../../../assets/logo/Rocket League.png'),
+                                name: '火箭联盟'
+                            },
+                            {
+                                image: require('../../../assets/logo/彩虹6号.png'),
+                                name: '彩虹六号：围攻'
+                            },
+                            {
+                                image: require('../../../assets/logo/炉石-图标.png'),
+                                name: '炉石传说'
+                            },
+                            {
+                                image: require('../../../assets/logo/守望-图标.png'),
+                                name: '守望先锋'
+                            },
+                            {
+                                image: require('../../../assets/logo/守望先锋.png'),
+                                name: '风暴英雄'
+                            },
+                            {
+                                image: require('../../../assets/logo/王者荣耀-图标.png'),
+                                name: '王者荣耀'
+                            },
+                            {
+                                image: require('../../../assets/logo/星际2.png'),
+                                name: '星际争霸Ⅱ'
+                            },
+                            {
+                                image: require('../../../assets/logo/英雄联盟.png'),
+                                name: '英雄联盟'
+                            }
+                        ]
                     },
                     {
                         title: '热门赛事',
@@ -47,7 +92,7 @@
                 let _this = this
                 getGames().then(res => {
                     if (res.code === 1000) {
-                        _this.titleList[0].list = res.data.list
+                        // _this.titleList[0].list = res.data.list
                     }
                 })
             },

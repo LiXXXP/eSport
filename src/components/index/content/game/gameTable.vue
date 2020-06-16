@@ -4,8 +4,8 @@
             <thead>
                 <th>
                     <div class="flex flex_start flex_only_center">
-                        <img src="../../../../assets/imgs/1.png" class="event-icon">
-                        <span class="beyond-ellipsis">2019国际邀请赛</span>
+                        <img :src="inningData.image" class="event-icon">
+                        <span class="beyond-ellipsis">{{inningData.name}}</span>
                     </div>
                 </th>
                 <th colspan="3">BO5</th>
@@ -39,7 +39,7 @@
                     <td rowspan="2">
                         <div class="flex flex_start">
                             <div class="flex flex_start flex_only_center">
-                                <img src="../../../../assets/imgs/1.png" class="game-icon">
+                                <img :src="inningData.game.image" class="game-icon">
                                 <div class="game-time">
                                     <p>09:30</p>
                                     <p>28/02</p>
@@ -118,6 +118,12 @@
 
 <script>
     export default {
+        props: {
+            inningData: {
+                type: Object,
+                defalue: {}
+            }
+        },
         data() {
             return {
 
