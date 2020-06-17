@@ -3,14 +3,15 @@
         <el-progress
             v-if="progressData.barType === 'line'"
             type="line"
+            :show-text="progressData.showText"
             :stroke-width="progressData.width"
             :text-inside="progressData.inside"
-            :percentage="percentage" 
+            :percentage="percentage"
             :color="customColor">
         </el-progress>
-        <el-progress 
-            v-else 
-            type="circle" 
+        <el-progress
+            v-else
+            type="circle"
             :percentage="100">
         </el-progress>
     </div>
@@ -27,7 +28,7 @@
         data() {
             return {
                 percentage: 60,
-                customColor: '#409eff',
+                customColor: '#2980D9',
             }
         },
         mounted() {

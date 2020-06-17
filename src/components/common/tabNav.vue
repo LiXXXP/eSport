@@ -88,11 +88,12 @@
             }
             .select-style3 {
                 color: #2F375D;
-                border: 1px solid #2F375D;
+                background-color: #fff;
+                border: 1px solid #CFCFCF;
                 &.active {
                     color: #fff;
-                    border: 1px solid #2F375D;
-                    background-color: #2F375D;
+                    border: 1px solid #FF7600;
+                    background-color: #FF7600;
                 }
             }
             .select-style4 {

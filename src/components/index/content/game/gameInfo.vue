@@ -10,6 +10,9 @@
             </tab-nav>
         </div>
         <lol-detail-content></lol-detail-content>
+        <div class="pack">
+            收起
+        </div>
     </div>
 </template>
 
@@ -69,6 +72,13 @@
                     margin-top: -3px;
                 }
             }
+        }
+        .pack {
+            color: #878787;
+            font-size: 16px;
+            font-weight: 500;
+             cursor: pointer;
+            text-align: center;
         }
     }
 </style>
