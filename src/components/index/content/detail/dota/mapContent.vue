@@ -1,25 +1,22 @@
 <template>
     <div class="map-content">
         <div class="top">
-            <div class="head">
-                <type-sign class="type-sign"></type-sign>
-                <div class="score flex flex_center">
-                    <p class="left">43</p>
-                    <p class="right">38</p>
-                </div>
-            </div>
             <div class="flex flex_between flex_center">
                   <team-play :isPlace="playPlace.left"></team-play>
-                  <div class="chessboard">
-                      <p>第一局</p>
-                      <p>24:36</p>
+                  <div class="score flex flex_center">
+                      <p class="left">28</p>
+                      <div class="chessboard">
+                          <p>第一局</p>
+                          <p>24:36</p>
+                      </div>
+                      <p class="right">38</p>
+                      <type-sign class="type-sign"></type-sign>
                   </div>
                   <team-play :isPlace="playPlace.right"></team-play>
             </div>
             <div class="flex flex_between flex_center">
                 <div>
                     <role-list
-                        :isPlace="playPlace.left"
                         v-for="item in leftRole"
                         :key="item.id"
                     ></role-list>
@@ -27,7 +24,6 @@
                 <map-block></map-block>
                 <div>
                     <role-list
-                        :isPlace="playPlace.right"
                         v-for="item in leftRole"
                         :key="item.id"
                     ></role-list>
@@ -45,12 +41,12 @@
 </template>
 
 <script>
-    import typeSign from '@/components/index/content/detail/typeSign'     // 标志
-    import teamPlay from '@/components/index/content/detail/teamPlay'     // 对局数据
-    import roleList from '@/components/index/content/detail/lol/roleList' // 角色列表
-    import mapBlock from '@/components/index/content/detail/mapBlock'     // 地图
-    import logsList from '@/components/index/content/detail/logsList'     // 比赛日志
-    import tabNav from '@/components/common/tabNav'                       // tab切换
+    import typeSign from '@/components/index/content/detail/typeSign'      // 标志
+    import teamPlay from '@/components/index/content/detail/teamPlay'      // 对局数据
+    import roleList from '@/components/index/content/detail/dota/roleList' // 角色列表
+    import mapBlock from '@/components/index/content/detail/mapBlock'      // 地图
+    import logsList from '@/components/index/content/detail/logsList'      // 比赛日志
+    import tabNav from '@/components/common/tabNav'                        // tab切换
     export default {
         data () {
             return {
@@ -112,35 +108,31 @@
     .map-content {
         .top {
             height: 516px;
-            padding: 20px 70px 0;
+            padding: 10px 70px 0;
             box-sizing: border-box;
-            .head {
+            .score {
+                font-size: 20px;
+                margin-top: 25px;
                 position: relative;
+                .left {
+                    color: #10CA10;
+                    margin-left: 20px;
+                }
+                .right {
+                    color: #FF1E00;
+                    margin-right: 20px;
+                }
+                .chessboard {
+                    width: 100px;
+                    color: #fff;
+                    font-size: 14px;
+                    text-align: center;
+                }
                 .type-sign {
                     position: absolute;
-                    top: 3px;
-                    left: 50%;
-                    margin-left: -150px;
+                    left: -74px;
+                    bottom: -10px;
                 }
-                .score {
-                    font-size: 20px;
-                    font-weight: bold;
-                    p {
-                        margin: 0 20px;
-                        &.left {
-                            color: #228EFC;
-                        }
-                        &.right {
-                            color: #FF1E00;
-                        }
-                    }
-                }
-            }
-            .chessboard {
-                color: #fff;
-                font-size: 14px;
-                text-align: center;
-                margin-top: 20px;
             }
         }
         .bottom {

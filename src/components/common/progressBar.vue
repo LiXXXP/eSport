@@ -6,29 +6,36 @@
             :show-text="progressData.showText"
             :stroke-width="progressData.width"
             :text-inside="progressData.inside"
-            :percentage="percentage"
-            :color="customColor">
-        </el-progress>
+            :percentage="progressRate"
+            :color="progressColor"
+        ></el-progress>
         <el-progress
             v-else
             type="circle"
-            :percentage="100">
-        </el-progress>
+            :percentage="100"
+        ></el-progress>
     </div>
 </template>
 
 <script>
     export default {
         props:{
-            progressData: {      // 进度条子组件接收父组件的参数
+            progressData: {
                 type: Object,
                 default: {}
+            },
+            progressRate: {
+                type: Number,
+                default: 0
+            },
+            progressColor: {
+                type: String,
+                default: ''
             }
         },
         data() {
             return {
-                percentage: 60,
-                customColor: '#2980D9',
+
             }
         },
         mounted() {

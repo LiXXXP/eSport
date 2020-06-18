@@ -9,17 +9,29 @@
                 </div>
             </tab-nav>
         </div>
-        <lol-detail-content></lol-detail-content>
-        <div class="pack">
-            收起
+        <div class="tips">
+            <i class="iconfont icon-jinggao"></i>
+            报告网站错误数据
+        </div>
+        <lol-detail-content v-if="openType === 'League of Legends'"></lol-detail-content>
+        <dota-detail-content v-else></dota-detail-content>
+        <div class="pack" @click="packUp">
+            <i></i> 收起
         </div>
     </div>
 </template>
 
 <script>
-    import tabNav from '@/components/common/tabNav'                                    // tab切换
-    import lolDetailContent from '@/components/index/content/detail/lol/detailContent' // 内容
+    import tabNav from '@/components/common/tabNav'          // tab切换
+    import lolDetailContent from '@/components/index/content/detail/lol/detailContent'   // lol详情
+    import dotaDetailContent from '@/components/index/content/detail/dota/detailContent' // dota详情
     export default {
+        props: {
+            openType: {
+                type: String,
+                default: ''
+            }
+        },
         data () {
             return {
                 // 当前tab栏样式，
@@ -39,11 +51,14 @@
             }
         },
         methods: {
-
+            packUp() {
+                this.$emit('packDetail',-1)
+            }
         },
         components: {
             tabNav,
-            lolDetailContent
+            lolDetailContent,
+            dotaDetailContent
         }
     }
 </script>
@@ -52,6 +67,11 @@
     .game-info {
         padding: 20px 10px;
         background-color: #F2F2F2;
+        .tips {
+            color: #878787;
+            margin-top: -15px;
+            text-align: right;
+        }
         .open-live {
             width: 48px;
             height: 48px;
@@ -77,8 +97,19 @@
             color: #878787;
             font-size: 16px;
             font-weight: 500;
-             cursor: pointer;
+            cursor: pointer;
             text-align: center;
+            i {
+                width: 9px;
+                height: 9px;
+                color: #878787;
+                margin-right: 5px;
+                display: inline-block;
+                vertical-align: middle;
+                transform: rotate(45deg);
+                border-top: 1px solid #878787;
+                border-left: 1px solid #878787;
+            }
         }
     }
 </style>

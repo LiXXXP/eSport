@@ -10,6 +10,7 @@
                 <play-hero
                     :heroData="heroList"
                     :sizeData="size"
+                    :seatData="true"
                 ></play-hero>
                 <div class="role">
                     <p>Ban</p>
@@ -35,9 +36,9 @@
     export default {
         data() {
             return {
-                size: 'lol',
+                size: 'dota',
                 colorData: {
-                    left: '#2980D9',
+                    left: '#3CAB3C',
                     right: '#CC5728'
                 },
                 heroList: [
@@ -70,6 +71,9 @@
                     },
                     {
                         id: 9
+                    },
+                    {
+                        id: 10
                     }
                 ]
             }
@@ -102,15 +106,15 @@
         }
         .content {
             width: 960px;
-            height: 472px;
+            height: 430px;
             margin-top: 10px;
             padding: 20px 70px;
             box-sizing: border-box;
             background-color: #fff;
             .role {
-                height: 119px;
+                height: 79px;
                 margin-top: 9px;
-                line-height: 60px;
+                line-height: 40px;
                 p {
                     width: 100px;
                     color: #101010;

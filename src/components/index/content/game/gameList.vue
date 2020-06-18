@@ -8,14 +8,23 @@
             </div>
             <!-- 游戏比分 -->
             <div class="list"
-                v-for="key in item.list"
+                v-for="(key,index) in item.list"
                 :key="key.tournament_id">
                 <div class="flex flex_between">
-                    <game-table :inningData="key"></game-table>
-                    <game-edit></game-edit>
+                    <game-table
+                        :inningData="key"
+                    ></game-table>
+                    <game-edit
+                        :clickIndex="index"
+                        @openDetail="openDetail"
+                    ></game-edit>
                 </div>
                 <!-- 详情 -->
-                <game-info></game-info>
+                <game-info
+                    :openType="key.game.name"
+                    v-show="currentIndex===index"
+                    @packDetail="packDetail"
+                ></game-info>
             </div>
             <!-- 分页 -->
             <paging-page v-if="item.list.length>5"></paging-page>
@@ -49,11 +58,12 @@
                        title: '已结束的比赛',
                        list: []
                    }
-               ]
+               ],
+               currentIndex: -1,      // 当前index
            }
        },
        mounted() {
-            // this.getGoingList()
+            this.getGoingList()
             // this.getComningList()
             this.getPastList()
        },
@@ -85,6 +95,14 @@
                     }
                 })
             },
+            // 打开游戏详情
+            openDetail(openDetail) {
+                this.currentIndex = openDetail
+            },
+            // 收起游戏详情
+            packDetail(packDetail) {
+                this.currentIndex = packDetail
+            }
        },
        components: {
           gameTable,

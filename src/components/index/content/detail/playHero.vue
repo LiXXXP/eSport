@@ -1,7 +1,9 @@
 <template>
-    <div class="play-hero flex flex_wrap flex_start">
-        <div class="hero"
-            v-for="item in heroList"
+    <div :class="['play-hero flex flex_wrap flex_start',
+          {flex_row_reverse:seatData}]">
+        <div :class="['hero',
+            sizeData==='dota'?'dota-size':'lol-size']"
+            v-for="item in heroData"
             :key="item.id"
         >
             <img src="../../../../assets/imgs/detail/2.png">
@@ -12,40 +14,23 @@
 
 <script>
     export default {
+        props: {
+            sizeData: {
+                type: String,
+                default: ''
+            },
+            seatData: {
+                type: Boolean,
+                default: true
+            },
+            heroData: {
+                type: Array,
+                default: []
+            }
+        },
         data() {
             return {
-                heroList: [
-                    {
-                        id: 0
-                    },
-                    {
-                        id: 1
-                    },
-                    {
-                        id: 2
-                    },
-                    {
-                        id: 3
-                    },
-                    {
-                        id: 4
-                    },
-                    {
-                        id: 5
-                    },
-                    {
-                        id: 6
-                    },
-                    {
-                        id: 7
-                    },
-                    {
-                        id: 8
-                    },
-                    {
-                        id: 9
-                    }
-                ]
+
             }
         }
     }
@@ -53,11 +38,8 @@
 
 <style lang="less" scoped>
     .play-hero {
-        width: 320px;
         .hero {
-            width: 54px;
-            height: 55px;
-            margin: 9px 9px 0 0;
+            margin-top: 9px;
             position: relative;
             img {
                 width: 100%;
@@ -77,6 +59,16 @@
                 left: 50%;
                 margin-left: -8px;
             }
+        }
+        .dota-size {
+            width: 55px;
+            height: 35px;
+            margin-right: 5px;
+        }
+        .lol-size {
+            width: 54px;
+            height: 55px;
+            margin-right: 9px;
         }
     }
 </style>

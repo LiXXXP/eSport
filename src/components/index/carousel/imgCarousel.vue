@@ -25,19 +25,19 @@
                 carouselList: [   // 轮播图片列表
                     {
                         id: 0,
-                        url: require('../../../assets/imgs/1.png')
+                        url: require('../../../assets/imgs/index/1.png')
                     },
                     {
                         id: 1,
-                        url: require('../../../assets/imgs/index/logo.png')
+                        url: require('../../../assets/imgs/detail/1.png')
                     },
                     {
                         id: 2,
-                        url: ''
+                        url: require('../../../assets/imgs/index/1.png')
                     },
                     {
                         id: 3,
-                        url: ''
+                        url: require('../../../assets/imgs/index/1.png')
                     }
                 ]
             }

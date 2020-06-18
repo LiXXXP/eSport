@@ -18,6 +18,7 @@
     .map-block {
         width: 300px;
         height: 300px;
-        border: 1px solid #000;
+        background: url('../../../../assets/imgs/detail/map.png') no-repeat 0 0;
+        background-size: 100%;
     }
 </style>

@@ -16,7 +16,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="detail">详情</td>
+                    <td class="detail" @click="openInfo(clickIndex)">详情</td>
                 </tr>
             </tbody>
         </table>
@@ -25,6 +25,12 @@
 
 <script>
     export default {
+        props: {
+            clickIndex: {
+                type: Number,
+                default: 0
+            }
+        },
         data() {
             return {
                 isSelect: false,    // 是否收藏
@@ -38,6 +44,10 @@
                 } else {
                     this.isSelect = true
                 }
+            },
+            // 展开游戏详情
+            openInfo(index) {
+                this.$emit('openDetail',index)
             }
         }
     }
