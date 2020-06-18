@@ -4,8 +4,18 @@
             v-for="item in outputList"
             :key="item.head">
             <div class="icons flex flex_start flex_only_center">
-                <img src="../../../../assets/imgs/index/icon09.png">
-                <img src="../../../../assets/imgs/index/icon08.png">
+                <el-tooltip placement="top">
+                    <div slot="content">
+                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
+                    </div>
+                    <el-button><img src="../../../../assets/imgs/index/icon08.png"></el-button>
+                </el-tooltip>
+                <el-tooltip placement="top">
+                    <div slot="content">
+                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
+                    </div>
+                    <el-button><img src="../../../../assets/imgs/index/icon08.png"></el-button>
+                </el-tooltip>
             </div>
             <div class="left flex flex_only_center">
                 <p :style="{'color': barColor.left}">
@@ -31,8 +41,19 @@
                 </p>
             </div>
             <div class="icons flex flex_start flex_only_center">
-                <img src="../../../../assets/imgs/index/icon09.png">
-                <img src="../../../../assets/imgs/index/icon08.png">
+                <el-tooltip placement="top">
+                    <div slot="content">
+                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
+                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
+                    </div>
+                    <el-button><img src="../../../../assets/imgs/index/icon08.png"></el-button>
+                </el-tooltip>
+                <el-tooltip placement="top">
+                    <div slot="content">
+                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
+                    </div>
+                    <el-button><img src="../../../../assets/imgs/index/icon08.png"></el-button>
+                </el-tooltip>
             </div>
         </div>
     </div>
@@ -140,7 +161,24 @@
             img {
                 width: 20px;
                 height: 20px;
-                margin-right: 5px;
+            }
+            .tip {
+                width: 15px;
+                height: 17px;
+                margin-right: 2px;
+            }
+        }
+    }
+</style>
+
+<style lang="less">
+    .play-progress {
+        .el-button {
+            border: 0;
+            height: 0;
+            padding: 0;
+            &:hover {
+                background-color: #fff;
             }
         }
     }

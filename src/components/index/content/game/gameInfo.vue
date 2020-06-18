@@ -47,7 +47,8 @@
                     {
                         title: '图文直播'
                     }
-                ]
+                ],
+                currentView: ''
             }
         },
         methods: {
