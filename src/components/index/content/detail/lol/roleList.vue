@@ -136,10 +136,10 @@
             }
         }
         .role {
+            margin-left: 10px;
             img {
                 width: 24px;
                 height: 24px;
-                margin-left: 10px;
             }
         }
         .info {
@@ -189,8 +189,8 @@
     .role-list {
         .el-button {
             border: 0;
-            height: 0;
             padding: 0;
+            line-height: 0;
             &:hover {
                 background-color: #fff;
             }

@@ -33,6 +33,7 @@
         <div class="bottom">
             <logs-list></logs-list>
         </div>
+        <play-score></play-score>
         <tab-nav
             :selectStyle="selectStyle"
             :navData="navList"
@@ -46,6 +47,7 @@
     import roleList from '@/components/index/content/detail/dota/roleList' // 角色列表
     import mapBlock from '@/components/index/content/detail/mapBlock'      // 地图
     import logsList from '@/components/index/content/detail/logsList'      // 比赛日志
+    import playScore from '@/components/index/content/detail/playScore'    // 比赛比分
     import tabNav from '@/components/common/tabNav'                        // tab切换
     export default {
         data () {
@@ -99,6 +101,7 @@
             roleList,
             mapBlock,
             logsList,
+            playScore,
             tabNav
         }
     }

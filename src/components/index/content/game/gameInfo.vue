@@ -9,10 +9,6 @@
                 </div>
             </tab-nav>
         </div>
-        <div class="tips">
-            <i class="iconfont icon-jinggao"></i>
-            报告网站错误数据
-        </div>
         <lol-detail-content v-if="openType === 'League of Legends'"></lol-detail-content>
         <dota-detail-content v-else></dota-detail-content>
         <div class="pack" @click="packUp">
@@ -68,11 +64,6 @@
     .game-info {
         padding: 20px 10px;
         background-color: #F2F2F2;
-        .tips {
-            color: #878787;
-            margin-top: -15px;
-            text-align: right;
-        }
         .open-live {
             width: 48px;
             height: 48px;

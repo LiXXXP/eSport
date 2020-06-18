@@ -175,8 +175,8 @@
     .play-progress {
         .el-button {
             border: 0;
-            height: 0;
             padding: 0;
+            line-height: 0;
             &:hover {
                 background-color: #fff;
             }
