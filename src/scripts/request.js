@@ -138,7 +138,7 @@ function getClubs(params) {
  * @param {*} params
  */
 function getOnGoing(params) {
-  return getRequest('/tournaments/ongoing', params)
+  return getRequest('/matches/list', params)
 }
 
 /**

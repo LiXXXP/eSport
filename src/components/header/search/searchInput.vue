@@ -159,4 +159,12 @@
             color: #606266;
         }
     }
+    .el-select-dropdown {
+        top: 30px !important;
+        border-radius: 0;
+        border: 1px solid #b8bcd2;
+    }
+    .el-popper[x-placement^=bottom] .popper__arrow {
+        display: none;
+    }
 </style>

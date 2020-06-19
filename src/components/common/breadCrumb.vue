@@ -4,8 +4,8 @@
             <div class="step"
                 v-for="item in stepNav"
                 :key="item.id">
-                <span>{{item.title}} > </span>
-                <i></i>
+                <span>{{item.title}} <i></i> </span>
+                <i class="arrow"></i>
             </div>
         </div>
         <div class="contact">
@@ -53,17 +53,29 @@
             &:hover {
                 span {
                     color: #FF7800;
+                    i {
+                        border-color: #FF7800;
+                    }
                 }
             }
             span {
-                height: 24px;
-                padding: 0 10px;
-                line-height: 24px;
                 color: #878787;
+                padding: 0 12px;
                 overflow: hidden;
+                line-height: 24px;
                 background-color: #F6F6F6;
+                i {
+                    width: 6px;
+                    height: 6px;
+                    color: #878787;
+                    margin-bottom: 2px;
+                    display: inline-block;
+                    transform: rotate(135deg);
+                    border-top: 1px solid #878787;
+                    border-left: 1px solid #878787;
+                }
             }
-            i {
+            .arrow {
                 width: 14px;
                 height: 14px;
                 z-index: 999;

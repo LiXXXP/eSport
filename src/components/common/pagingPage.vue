@@ -4,17 +4,30 @@
             small
             background
             :pager-count="5"
+            :total="countData"
+            :current-page="currentPage"
             layout="prev, pager, next"
-            :total="30">
+            @current-change="handleCurrentChange">
         </el-pagination>
     </div>
 </template>
 
 <script>
     export default {
+        props: {
+            countData: {
+                type: Number,
+                default: 0
+            }
+        },
         data() {
             return {
-
+                currentPage: 1
+            }
+        },
+        methods: {
+            handleCurrentChange(val) {
+                this.$emit('currentPage',val)
             }
         }
     }

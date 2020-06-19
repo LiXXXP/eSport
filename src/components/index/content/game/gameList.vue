@@ -9,25 +9,29 @@
             <!-- 游戏比分 -->
             <div class="list"
                 v-for="key in item.list"
-                :key="key.tournament_id">
+                :key="key.match_id">
                 <div class="flex flex_between">
                     <game-table
                         :inningData="key"
                     ></game-table>
                     <game-edit
-                        :clickId="key.tournament_id"
+                        :clickId="key.match_id"
                         @openDetailId="openDetailId"
                     ></game-edit>
                 </div>
                 <!-- 详情 -->
                 <game-info
                     :openType="key.game.name"
-                    v-show="currentId === key.tournament_id"
+                    v-show="currentId === key.match_id"
                     @packDetailId="packDetailId"
                 ></game-info>
             </div>
             <!-- 分页 -->
-            <paging-page v-if="item.list.length>10"></paging-page>
+            <paging-page
+                v-if="item.count>10"
+                :countData="item.count"
+                @currentPage="currentPage"
+            ></paging-page>
         </div>
     </div>
 </template>
@@ -48,32 +52,41 @@
                gameList: [
                    {
                        title: '进行中的比赛',
-                       list: []
+                       list: [],
+                       count: 0
                    },
                    {
                        title: '未开始的比赛',
-                       list: []
+                       list: [],
+                       count: 0
                    },
                    {
                        title: '已结束的比赛',
-                       list: []
+                       list: [],
+                       count: 0
                    }
                ],
                currentId: -1,      // 当前打开详情的赛事id：tournament_id
+               page: 1             // 当前页
            }
        },
        mounted() {
             this.getGoingList()
             // this.getComningList()
-            this.getPastList()
+            // this.getPastList()
        },
        methods: {
             // 进行中的比赛
             getGoingList() {
+                let params = {
+                    page: this.page,
+                    per_page: 10
+                }
                 let _this = this
-                getOnGoing().then(res => {
+                getOnGoing(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[0].list = res.data.list
+                        _this.gameList[0].count = res.data.count
                     }
                 })
             },
@@ -102,6 +115,11 @@
             // 收起游戏详情
             packDetailId(id) {
                 this.currentId = id
+            },
+            // 获取分页页数
+            currentPage(val) {
+                this.page = val
+                this.getGoingList()
             }
        },
        components: {

@@ -4,8 +4,8 @@
             <thead>
                 <th>
                     <div class="flex flex_start flex_only_center">
-                        <img :src="inningData.image" class="event-icon">
-                        <span class="beyond-ellipsis">{{inningData.name}}</span>
+                        <img :src="inningData.tournament.image" class="event-icon">
+                        <span class="beyond-ellipsis">{{inningData.tournament.name_cn}}</span>
                     </div>
                 </th>
                 <th colspan="3">BO5</th>
