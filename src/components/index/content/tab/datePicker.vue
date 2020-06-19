@@ -1,13 +1,13 @@
 <template>
     <div class="date-picker">
-        <div class="flex flex_between">
-            <p class="left" @click="preDay"> < </p>
+        <div class="flex flex_between flex_only_center">
+            <p class="left" @click="preDay"></p>
             <p class="date flex flex_start flex_center"
                 @click="dateSelect">
                 <i class="date-icon"></i>
                 <span>{{currentTime}}</span>
             </p>
-            <p class="right" @click="nextDay"> > </p>
+            <p class="right" @click="nextDay"></p>
         </div>
         <!-- 日历 -->
         <div class="picker" v-show="isSelect">
@@ -71,9 +71,18 @@
         position: relative;
         .left,
         .right {
-            color: #2F375D;
-            font-size: 18px;
-            font-weight: 500;
+            width: 9px;
+            height: 9px;
+            color: #101010;
+            display: inline-block;
+            border-top: 1px solid #101010;
+            border-left: 1px solid #101010;
+        }
+        .left {
+            transform: rotate(-45deg);
+        }
+        .right {
+            transform: rotate(135deg);
         }
         .date {
             color: #101010;
@@ -88,6 +97,7 @@
             }
         }
         .picker {
+            z-index: 999;
             width: 308px;
             height: 308px;
             position: absolute;

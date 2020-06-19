@@ -2,7 +2,7 @@
     <div :class="['team-play flex flex_between flex_only_center',
         isPlace?'':'flex_row_reverse']">
         <div class="name">Alliance</div>
-        <div class="plays flex flex_start">
+        <div class="plays flex flex_between">
             <p class="flex flex_center">
                 <i class="icon-play01"></i>
                 <span>10</span>
@@ -50,10 +50,10 @@
             font-size: 16px;
         }
         .plays {
+            width: 200px;
             color: #CFCFCF;
             font-size: 14px;
             p {
-                margin-right: 20px;
                 i {
                     display: block;
                     margin-right: 5px;
@@ -82,14 +82,6 @@
                         background-size: 100%;
                     }
                 }
-            }
-        }
-    }
-    .flex_row_reverse {
-        .plays {
-            p {
-                margin-right: 0;
-                margin-left: 20px;
             }
         }
     }

@@ -136,12 +136,13 @@
                 }
                 p {
                     width: 15px;
-                    margin: 0 5px;
-                    text-align: right;
+                    margin-right: 3px;
+                    margin-left: 12px;
+                    text-align: center;
                 }
             }
             .head {
-                width: 100px;
+                width: 109px;
                 color: #101010;
                 font-size: 16px;
                 text-align: center;
@@ -153,7 +154,9 @@
                 }
                 p {
                     width: 15px;
-                    margin: 0 5px;
+                    margin-left: 3px;
+                    margin-right: 12px;
+                    text-align: center;
                 }
             }
         }
@@ -177,6 +180,7 @@
             border: 0;
             padding: 0;
             line-height: 0;
+            margin-left: 3px;
             &:hover {
                 background-color: #fff;
             }

@@ -127,6 +127,7 @@
         width: 308px;
         box-sizing: border-box;
         background-color: #fff;
+        border: 1px solid #b8bcd2;
         .wh_content_all {
             width: 100%;
             overflow: hidden;

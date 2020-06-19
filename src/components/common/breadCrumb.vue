@@ -76,9 +76,6 @@
                 right: 0;
             }
             &:last-child {
-                span {
-                    border-radius: 0 12px 12px 0;
-                }
                 i {
                     display: none;
                 }

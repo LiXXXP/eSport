@@ -10,7 +10,7 @@
     export default {
         data() {
             return {
-                spaceUrl: '',      // 广告位图片地址
+                spaceUrl: require('../../../assets/imgs/index/s.png'),      // 广告位图片地址
             }
         },
         methods: {

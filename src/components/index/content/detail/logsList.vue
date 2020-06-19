@@ -13,7 +13,7 @@
                 <p>摧毁了</p>
                 <div class="blue flex flex_start flex_only_center">
                     <img src="../../../../assets/imgs/detail/2.png">
-                    <p>蓝色防御塔</p>
+                    <p>蓝色防御塔，</p>
                 </div>
                 <div class="help flex flex_start flex_only_center">
                     <p>助攻</p>
@@ -108,8 +108,8 @@
                         border: 1px solid #228EFC;
                     }
                     p {
-                        margin: 0 7px;
                         color: #228EFC;
+                        margin-left: 7px;
                     }
                 }
                 .help {

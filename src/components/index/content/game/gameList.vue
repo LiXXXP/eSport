@@ -8,26 +8,26 @@
             </div>
             <!-- 游戏比分 -->
             <div class="list"
-                v-for="(key,index) in item.list"
+                v-for="key in item.list"
                 :key="key.tournament_id">
                 <div class="flex flex_between">
                     <game-table
                         :inningData="key"
                     ></game-table>
                     <game-edit
-                        :clickIndex="index"
-                        @openDetail="openDetail"
+                        :clickId="key.tournament_id"
+                        @openDetailId="openDetailId"
                     ></game-edit>
                 </div>
                 <!-- 详情 -->
                 <game-info
                     :openType="key.game.name"
-                    v-show="currentIndex===index"
-                    @packDetail="packDetail"
+                    v-show="currentId === key.tournament_id"
+                    @packDetailId="packDetailId"
                 ></game-info>
             </div>
             <!-- 分页 -->
-            <paging-page v-if="item.list.length>5"></paging-page>
+            <paging-page v-if="item.list.length>10"></paging-page>
         </div>
     </div>
 </template>
@@ -59,12 +59,12 @@
                        list: []
                    }
                ],
-               currentIndex: -1,      // 当前index
+               currentId: -1,      // 当前打开详情的赛事id：tournament_id
            }
        },
        mounted() {
             this.getGoingList()
-            this.getComningList()
+            // this.getComningList()
             this.getPastList()
        },
        methods: {
@@ -96,12 +96,12 @@
                 })
             },
             // 打开游戏详情
-            openDetail(openDetail) {
-                this.currentIndex = openDetail
+            openDetailId(id) {
+                this.currentId = id
             },
             // 收起游戏详情
-            packDetail(packDetail) {
-                this.currentIndex = packDetail
+            packDetailId(id) {
+                this.currentId = id
             }
        },
        components: {

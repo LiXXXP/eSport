@@ -16,7 +16,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="detail" @click="openInfo(clickIndex)">详情</td>
+                    <td class="detail"
+                        @click="openInfo(clickId)"
+                    >
+                        <span>详情</span>
+                        <i></i>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -26,7 +31,7 @@
 <script>
     export default {
         props: {
-            clickIndex: {
+            clickId: {
                 type: Number,
                 default: 0
             }
@@ -34,6 +39,7 @@
         data() {
             return {
                 isSelect: false,    // 是否收藏
+                isOpen: false,      // 是否打开详情
             }
         },
         methods: {
@@ -46,8 +52,14 @@
                 }
             },
             // 展开游戏详情
-            openInfo(index) {
-                this.$emit('openDetail',index)
+            openInfo(id) {
+                if(this.isOpen) {
+                    this.isOpen = false
+                    this.$emit('openDetailId',-1)
+                } else {
+                    this.isOpen = true
+                    this.$emit('openDetailId',id)
+                }
             }
         }
     }
@@ -103,6 +115,16 @@
             color: #2F375D;
             font-size: 14px;
             font-weight: bold;
+            i {
+                width: 9px;
+                height: 9px;
+                color: #2F375D;
+                margin-bottom: 2px;
+                display: inline-block;
+                transform: rotate(225deg);
+                border-top: 1px solid #2F375D;
+                border-left: 1px solid #2F375D;
+            }
         }
     }
 </style>

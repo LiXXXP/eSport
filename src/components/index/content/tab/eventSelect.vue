@@ -78,7 +78,7 @@
         overflow: hidden;
         box-sizing: border-box;
         background-color: #fff;
-        border: 1px solid #2f375d;
+        border: 1px solid #b8bcd2;
         position: absolute;
         top: 46px;
         left: 51.5%;

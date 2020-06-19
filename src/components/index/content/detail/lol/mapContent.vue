@@ -38,10 +38,6 @@
             <logs-list></logs-list>
         </div>
         <play-score></play-score>
-        <tab-nav
-            :selectStyle="selectStyle"
-            :navData="navList"
-        ></tab-nav>
     </div>
 </template>
 
@@ -52,7 +48,6 @@
     import mapBlock from '@/components/index/content/detail/mapBlock'     // 地图
     import logsList from '@/components/index/content/detail/logsList'     // 比赛日志
     import playScore from '@/components/index/content/detail/playScore'   // 比赛比分
-    import tabNav from '@/components/common/tabNav'                       // tab切换
     export default {
         data () {
             return {
@@ -76,26 +71,6 @@
                     {
                         id: 4
                     }
-                ],
-                // 当前tab栏样式，
-                // 1为首页橙色填充样式
-                // 2为详情页边框样式
-                // 3为详情页填充样式
-                // 4为详情直播按钮
-                selectStyle: 3,
-                navList: [
-                    {
-                        title: 'MAP 1'
-                    },
-                    {
-                        title: 'MAP 2'
-                    },
-                    {
-                        title: 'MAP 3'
-                    },
-                    {
-                        title: 'MAP 4'
-                    }
                 ]
             }
         },
@@ -105,8 +80,7 @@
             roleList,
             mapBlock,
             logsList,
-            playScore,
-            tabNav
+            playScore
         }
     }
 </script>

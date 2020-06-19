@@ -56,7 +56,7 @@
         },
         methods: {
             packUp() {
-                this.$emit('packDetail',-1)
+                this.$emit('packDetailId',-1)
             },
             getIndex(val) {
                 this.currentIndex = val
@@ -72,7 +72,7 @@
 
 <style lang="less" scoped>
     .game-info {
-        padding: 20px 10px;
+        padding: 20px 10px 12px;
         background-color: #F2F2F2;
         .open-live {
             width: 48px;
