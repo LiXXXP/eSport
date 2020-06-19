@@ -2,15 +2,22 @@
     <div class="game-info">
         <div class="flex flex_center">
             <tab-nav :selectStyle="selectStyle"
-                     :navData="navList">
+                     :navData="navList"
+                     @clickIndex="getIndex">
                 <div slot="openlive"
                     class="open-live">
                     <i></i><i></i>
                 </div>
             </tab-nav>
         </div>
-        <lol-detail-content v-if="openType === 'League of Legends'"></lol-detail-content>
-        <dota-detail-content v-else></dota-detail-content>
+        <lol-detail-content
+            :currentData="currentIndex"
+            v-if="openType === 'League of Legends'"
+        ></lol-detail-content>
+        <dota-detail-content
+            v-else
+            :currentData="currentIndex"
+        ></dota-detail-content>
         <div class="pack" @click="packUp">
             <i></i> 收起
         </div>
@@ -44,12 +51,15 @@
                         title: '图文直播'
                     }
                 ],
-                currentView: ''
+                currentIndex: 0,
             }
         },
         methods: {
             packUp() {
                 this.$emit('packDetail',-1)
+            },
+            getIndex(val) {
+                this.currentIndex = val
             }
         },
         components: {

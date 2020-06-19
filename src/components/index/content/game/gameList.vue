@@ -64,7 +64,7 @@
        },
        mounted() {
             this.getGoingList()
-            // this.getComningList()
+            this.getComningList()
             this.getPastList()
        },
        methods: {

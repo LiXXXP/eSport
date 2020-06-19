@@ -44,6 +44,7 @@
         methods: {
             cutTab(index,title) {
                 this.currentIndex = index
+                this.$emit('clickIndex',index)
                 if(title === '赛事筛选') {
                     this.$emit('openEvents', this.isEvent)
                     return

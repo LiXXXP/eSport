@@ -109,6 +109,11 @@
 
 <style lang="less" scoped>
     .map-content {
+        width: 960px;
+        margin-top: 12px;
+        box-sizing: border-box;
+        background: url('../../../../../assets/imgs/detail/1.png') no-repeat 0 0;
+        background-size: 100%;
         .top {
             height: 516px;
             padding: 10px 70px 0;
