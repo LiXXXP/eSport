@@ -133,6 +133,22 @@ function getClubs(params) {
 }
 
 /**
+ * 获取战队列表
+ * @param {*} params
+ */
+function getTeams(params) {
+  return getRequest('/teams/list', params)
+}
+
+/**
+ * 获取选手列表
+ * @param {*} params
+ */
+function getPlayers(params) {
+  return getRequest('/players/list', params)
+}
+
+/**
  *
  * 获取进行中的比赛列表
  * @param {*} params
@@ -163,6 +179,8 @@ export {
     getGames,
     getEvents,
     getClubs,
+    getTeams,
+    getPlayers,
     getOnGoing,
     getUpComning,
     getPast

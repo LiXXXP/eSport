@@ -14,7 +14,10 @@
                 >
                     <template slot="title">
                         <img :src="item.image" class="title-icon">
-                        <span class="beyond-ellipsis">{{item.name}}</span>
+                        <span class="beyond-ellipsis"
+                            :title="item.name">
+                            {{item.name}}
+                        </span>
                     </template>
                     <div class="detail">
                         赛事

@@ -1,15 +1,23 @@
 <template>
     <div class="search-box flex flex_start" v-if="searchData.length !== 0">
-        <img :src="searchData.eventUrl" class="events-img">
+        <img :src="searchData.image" class="events-img">
         <div class="info">
             <div class="flex flex_start flex_only_center">
-                <img :src="searchData.url">
-                <p>{{searchData.title}}</p>
+                <img :src="searchData.country.image">
+                <p>{{searchData.name}}</p>
             </div>
-            <p>地点：{{searchData.addr}}</p>
-            <p>游戏项目：{{searchData.game}}</p>
-            <p>效力战队：{{searchData.team}}</p>
-            <p>联赛级别：{{searchData.rank}}</p>
+            <p>地点：{{searchData.country.name_cn}}</p>
+            <p v-if="searchData.game">
+                游戏项目：{{searchData.game.name_cn}}
+            </p>
+            <p v-if="searchData.teams">
+                效力战队：
+                <span
+                    v-for="item in searchData.teams"
+                    :key="item.team_id"
+                >{{item.name}},</span>
+            </p>
+            <!-- <p>联赛级别：{{searchData.rank}}</p> -->
         </div>
     </div>
 </template>

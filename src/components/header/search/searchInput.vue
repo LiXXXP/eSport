@@ -1,13 +1,17 @@
 <template>
     <div class="search-input flex flex_start">
         <div class="select">
-            <el-select v-model="selectValue" placeholder="俱乐部/战队">
+            <el-select
+                v-model="selectValue"
+                placeholder="俱乐部/战队"
+                @change="changeEvent"
+            >
                 <el-option
                     v-for="item in selectList"
                     :key="item.value"
                     :label="item.label"
-                    :value="item.value">
-                </el-option>
+                    :value="item.value"
+                ></el-option>
             </el-select>
         </div>
         <div class="search">
@@ -37,46 +41,29 @@
 
 <script>
     import searchBox from '@/components/header/search/searchBox'
+    import {
+        getClubs,
+        getTeams
+    } from '@/scripts/request'
     export default {
         data() {
             return {
-                selectList: [   // 俱乐部选择列表
+                selectValue: '',  // 俱乐部选择的值
+                selectList: [     // 俱乐部选择列表
                     {
-                        value: '1',
-                        label: '选手'
+                        value: 1,
+                        label: '俱乐部'
                     },
                     {
-                        value: '2',
-                        label: '赛事'
+                        value: 2,
+                        label: '战队'
                     }
                 ],
-                selectValue: '',  // 俱乐部选择的值
                 searchList: [],   // 搜索列表
                 searchValue: [],  // 搜索框的值
                 resultList: [],   // 搜索条件返回的值
                 loading: false,   // 搜索状态
-                searchStates: [   // 搜索联想
-                    {
-                        id: 0,
-                        eventUrl: require('../../../assets/imgs/1.png'),
-                        url: require('../../../assets/imgs/1.png'),
-                        title: 'Virtus.Pro',
-                        game: '英雄联盟',
-                        team: 'IG',
-                        rank: '二级联赛',
-                        addr: '韩国'
-                    },
-                    {
-                        id: 1,
-                        eventUrl: require('../../../assets/imgs/1.png'),
-                        url: require('../../../assets/imgs/1.png'),
-                        title: 'Virtus.Pro',
-                        game: '英雄联盟',
-                        team: 'Liquid',
-                        rank: '二级联赛',
-                        addr: '韩国'
-                    }
-                ]
+                searchStates: []  // 搜索联想
             }
         },
         mounted() {
@@ -85,6 +72,14 @@
             });
         },
         methods: {
+            // 选择俱乐部or战队
+            changeEvent(val) {
+                if(val === 1) {
+                    this.getClubsList()
+                } else {
+                    this.getTeamsList()
+                }
+            },
             searchMethod(query) {
                 if (query !== '') {
                     this.loading = true;
@@ -99,7 +94,25 @@
                 } else {
                     this.searchList = [];
                 }
-            }
+            },
+            // 获取俱乐部列表
+            getClubsList() {
+                let _this = this
+                getClubs().then(res => {
+                    if (res.code === 1000) {
+                         _this.searchList = res.data.list
+                    }
+                })
+            },
+            // 获取战队列表
+            getTeamsList() {
+                let _this = this
+                getTeams().then(res => {
+                    if (res.code === 1000) {
+                         _this.searchList = res.data.list
+                    }
+                })
+            },
         },
         components: {
             searchBox
