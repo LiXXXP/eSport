@@ -4,7 +4,7 @@
             <div class="step"
                 v-for="item in stepNav"
                 :key="item.id">
-                <span>{{item.title}} <i></i> </span>
+                <span>{{item.title}} <i class="to"></i> </span>
                 <i class="arrow"></i>
             </div>
         </div>
@@ -53,7 +53,7 @@
             &:hover {
                 span {
                     color: #FF7800;
-                    i {
+                    .to {
                         border-color: #FF7800;
                     }
                 }
@@ -64,7 +64,7 @@
                 overflow: hidden;
                 line-height: 24px;
                 background-color: #F6F6F6;
-                i {
+                .to {
                     width: 6px;
                     height: 6px;
                     color: #878787;
@@ -88,7 +88,7 @@
                 right: 0;
             }
             &:last-child {
-                i {
+                .arrow {
                     display: none;
                 }
             }

@@ -1,7 +1,7 @@
 <template>
     <div class="play-progress">
         <div class="list flex flex_center"
-            v-for="item in outputList"
+            v-for="item in outputData"
             :key="item.head">
             <div class="icons flex flex_start flex_only_center">
                 <el-tooltip placement="top">
@@ -67,6 +67,10 @@
                 type: Object,
                 default: null
             },
+            outputData: {
+                type: Array,
+                default: []
+            }
         },
         data() {
             return {
@@ -75,44 +79,7 @@
                     inside: false,     // 进度条显示文字是否在进度条内 true / false
                     width: 12,         // 进度条的高度
                     showText: false,   // 是否显示文字
-                },
-                outputList: [
-                    {
-                        head: '击杀',
-                        num1: 7,
-                        num2: 28
-                    },
-                    {
-                        head: '经济(k)',
-                        num1: 8,
-                        num2: 5
-                    },
-                    {
-                        head: '推塔',
-                        num1: 32,
-                        num2: 28
-                    },
-                    {
-                        head: '水晶',
-                        num1: 8,
-                        num2: 5
-                    },
-                    {
-                        head: '峡谷先锋',
-                        num1: 8,
-                        num2: 5
-                    },
-                    {
-                        head: '元素巨龙',
-                        num1: 8,
-                        num2: 5
-                    },
-                    {
-                        head: '纳什男爵',
-                        num1: 8,
-                        num2: 5
-                    }
-                ]
+                }
             }
         },
         components: {

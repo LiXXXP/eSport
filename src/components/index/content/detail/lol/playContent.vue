@@ -27,6 +27,7 @@
             </div>
             <play-progress
                 :barColor="colorData"
+                :outputData="outputList"
             ></play-progress>
         </div>
     </div>
@@ -45,6 +46,43 @@
                     left: '#2980D9',
                     right: '#CC5728'
                 },
+                outputList: [
+                    {
+                        head: '击杀',
+                        num1: 7,
+                        num2: 28
+                    },
+                    {
+                        head: '经济(k)',
+                        num1: 8,
+                        num2: 5
+                    },
+                    {
+                        head: '推塔',
+                        num1: 32,
+                        num2: 28
+                    },
+                    {
+                        head: '水晶',
+                        num1: 8,
+                        num2: 5
+                    },
+                    {
+                        head: '峡谷先锋',
+                        num1: 8,
+                        num2: 5
+                    },
+                    {
+                        head: '元素巨龙',
+                        num1: 8,
+                        num2: 5
+                    },
+                    {
+                        head: '纳什男爵',
+                        num1: 8,
+                        num2: 5
+                    }
+                ],
                 heroList: [
                     {
                         id: 0

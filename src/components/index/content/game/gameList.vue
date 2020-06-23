@@ -96,6 +96,7 @@
                 getUpComning().then(res => {
                     if (res.code === 1000) {
                         _this.gameList[1].list = res.data.list
+                        _this.gameList[1].count = res.data.count
                     }
                 })
             },
@@ -105,6 +106,7 @@
                 getPast().then(res => {
                     if (res.code === 1000) {
                         _this.gameList[2].list = res.data.list
+                        _this.gameList[2].count = res.data.count
                     }
                 })
             },

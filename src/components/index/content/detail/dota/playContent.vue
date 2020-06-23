@@ -27,7 +27,9 @@
                 ></play-hero>
             </div>
             <play-progress
+                class="progress"
                 :barColor="colorData"
+                :outputData="outputList"
             ></play-progress>
         </div>
     </div>
@@ -46,6 +48,38 @@
                     left: '#3CAB3C',
                     right: '#CC5728'
                 },
+                outputList: [
+                    {
+                        head: '击杀',
+                        num1: 7,
+                        num2: 28
+                    },
+                    {
+                        head: '经济(k)',
+                        num1: 8,
+                        num2: 5
+                    },
+                    {
+                        head: '推塔',
+                        num1: 32,
+                        num2: 28
+                    },
+                    {
+                        head: '近战兵营',
+                        num1: 8,
+                        num2: 5
+                    },
+                    {
+                        head: '远程兵营',
+                        num1: 8,
+                        num2: 5
+                    },
+                    {
+                        head: '肉山',
+                        num1: 8,
+                        num2: 5
+                    }
+                ],
                 heroList: [
                     {
                         id: 0
@@ -148,6 +182,9 @@
                     font-size: 16px;
                     text-align: center;
                 }
+            }
+            .progress {
+                padding-top: 30px;
             }
         }
     }
