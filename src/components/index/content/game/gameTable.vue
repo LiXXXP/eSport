@@ -4,11 +4,36 @@
             <thead>
                 <th>
                     <div class="flex flex_start flex_only_center">
-                        <img :src="inningData.tournament.image" class="event-icon">
-                        <span class="beyond-ellipsis">{{inningData.tournament.name_cn}}</span>
+                        <img
+                            :src="inningData.tournament.image"
+                            class="event-icon"
+                            v-if="inningData.tournament"
+                        >
+                        <img
+                            :src="inningData.image"
+                            class="event-icon"
+                            v-else
+                        >
+                        <span
+                            class="beyond-ellipsis"
+                            v-if="inningData.tournament"
+                        >
+                            {{inningData.tournament.name_cn}}
+                        </span>
+                        <span
+                            class="beyond-ellipsis"
+                            v-else
+                        >
+                            {{inningData.name_cn}}
+                        </span>
                     </div>
                 </th>
-                <th colspan="3">BO5</th>
+                <th colspan="3">
+                    <!-- 比赛类型 Best of=BO，OW Best of=BO，Frist to=FT，Best Ranking=BR -->
+                    {{inningData.match_type === 'best_of' || 'OW Best of' ? 'BO' :
+                      inningData.match_type === 'first_to' ? 'FT' : 'BR'
+                    }}{{inningData.number_of_games}}
+                </th>
                 <th>
                     <img src="../../../../assets/imgs/index/sword.png" class="icons">
                 </th>
@@ -41,21 +66,38 @@
                             <div class="flex flex_start flex_only_center">
                                 <img :src="inningData.game.image" class="game-icon">
                                 <div class="game-time">
-                                    <p>09:30</p>
-                                    <p>28/02</p>
+                                    <p v-if="inningData.begin_at">
+                                        {{inningData.begin_at.substring(11,16)}}
+                                        <br>
+                                        {{inningData.begin_at.substring(5,10)}}
+                                    </p>
+                                    <p v-else>
+                                        {{inningData.scheduled_begin_at.substring(11,16)}}
+                                        <br>
+                                        {{inningData.scheduled_begin_at.substring(5,10)}}
+                                    </p>
                                 </div>
                             </div>
-                            <div>
-                                <div
-                                    style="margin-bottom:7px;"
-                                    class="flex flex_start flex_only_center"
+                            <div class="teams">
+                                <div v-for="(item,index) in inningData.teams"
+                                    :key=""
                                 >
-                                    <img src="../../../../assets/imgs/1.png" class="team-icon">
-                                    <p>Team Liquid</p>
-                                </div>
-                                <div class="flex flex_start flex_only_center">
-                                    <img src="../../../../assets/imgs/1.png" class="team-icon">
-                                    <p>Team Liquid</p>
+                                    <div v-if="index<2"
+                                        class="flex flex_start flex_only_center"
+                                    >
+                                        <img
+                                            :src="item.team_snapshot.image"
+                                            class="team-icon"
+                                            v-if="item.team_snapshot"
+                                        >
+                                        <p
+                                            v-if="item.team_snapshot"
+                                            class="beyond-ellipsis"
+                                            :title="item.team_snapshot.name"
+                                        >
+                                            {{item.team_snapshot.name}}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -117,6 +159,7 @@
 </template>
 
 <script>
+    import formatDate from '@/scripts/utils'
     export default {
         props: {
             inningData: {
@@ -185,7 +228,19 @@
             margin-right: 5px;
         }
         .game-time {
+            width: 40px;
             margin-right: 19px;
+        }
+        .teams {
+            & > div {
+                &:nth-child(2) {
+                    margin-top: 7px;
+                }
+                p {
+                    width: 80px;
+                    text-align: left;
+                }
+            }
         }
         .game-etc {
             p {
@@ -210,6 +265,7 @@
             color: #00AB49;
             font-size: 14px;
             font-weight: bold;
+            padding-left: 3px;
         }
         .game-rank {
             span {

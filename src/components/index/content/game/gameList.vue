@@ -1,7 +1,7 @@
 <template>
     <div class="game-list">
         <!-- 标题 -->
-        <div v-for="item in gameList"
+        <div v-for="(item,index) in gameList"
             :key="item.title">
             <div class="game-title">
                 {{item.title}}
@@ -28,8 +28,9 @@
             </div>
             <!-- 分页 -->
             <paging-page
-                v-if="item.count>10"
-                :countData="item.count"
+                :indexData="index"
+                v-if="item.page.count>10"
+                :countData="item.page.count"
                 @currentPage="currentPage"
             ></paging-page>
         </div>
@@ -51,62 +52,78 @@
            return {
                gameList: [
                    {
-                       title: '进行中的比赛',
-                       list: [],
-                       count: 0
+                        title: '进行中的比赛',
+                        list: [],
+                        page: {
+                            count: 0,  // 总数
+                            current: 1   // 当前页
+                        }
                    },
                    {
-                       title: '未开始的比赛',
-                       list: [],
-                       count: 0
+                        title: '未开始的比赛',
+                        list: [],
+                        page: {
+                            count: 0,  // 总数
+                            current: 1   // 当前页
+                        }
                    },
                    {
-                       title: '已结束的比赛',
-                       list: [],
-                       count: 0
+                        title: '已结束的比赛',
+                        list: [],
+                        page: {
+                            count: 0,  // 总数
+                            current: 1   // 当前页
+                        }
                    }
                ],
                currentId: -1,      // 当前打开详情的赛事id：tournament_id
-               page: 1             // 当前页
            }
        },
        mounted() {
             this.getGoingList()
-            // this.getComningList()
-            // this.getPastList()
+            this.getComningList()
+            this.getPastList()
        },
        methods: {
             // 进行中的比赛
             getGoingList() {
                 let params = {
-                    page: this.page,
+                    page: this.gameList[0].page.current,
                     per_page: 10
                 }
                 let _this = this
                 getOnGoing(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[0].list = res.data.list
-                        _this.gameList[0].count = res.data.count
+                        _this.gameList[0].page.count = res.data.count
                     }
                 })
             },
             // 未开始的比赛
             getComningList() {
+                let params = {
+                    page: this.gameList[1].page.current,
+                    per_page: 10
+                }
                 let _this = this
-                getUpComning().then(res => {
+                getUpComning(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[1].list = res.data.list
-                        _this.gameList[1].count = res.data.count
+                        _this.gameList[1].page.count = res.data.count
                     }
                 })
             },
             // 已结束的比赛
             getPastList() {
+                let params = {
+                    page: this.gameList[2].page.current,
+                    per_page: 10
+                }
                 let _this = this
-                getPast().then(res => {
+                getPast(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[2].list = res.data.list
-                        _this.gameList[2].count = res.data.count
+                        _this.gameList[2].page.count = res.data.count
                     }
                 })
             },
@@ -119,9 +136,17 @@
                 this.currentId = id
             },
             // 获取分页页数
-            currentPage(val) {
-                this.page = val
-                this.getGoingList()
+            currentPage(val,index) {
+                if(index === 0) {
+                    this.gameList[0].page.current = val
+                    this.getGoingList()
+                } else if(index === 1) {
+                    this.gameList[1].page.current = val
+                    this.getComningList()
+                } else {
+                    this.gameList[2].page.current = val
+                    this.getPastList()
+                }
             }
        },
        components: {

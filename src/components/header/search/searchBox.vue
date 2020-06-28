@@ -17,7 +17,7 @@
                     :key="item.team_id"
                 >{{item.name}},</span>
             </p>
-            <!-- <p>联赛级别：{{searchData.rank}}</p> -->
+            <p>联赛级别：{{searchData.slug}}</p>
         </div>
     </div>
 </template>

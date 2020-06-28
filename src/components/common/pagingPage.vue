@@ -18,6 +18,10 @@
             countData: {
                 type: Number,
                 default: 0
+            },
+            indexData: {
+                type: Number,
+                default: 0
             }
         },
         data() {
@@ -27,7 +31,7 @@
         },
         methods: {
             handleCurrentChange(val) {
-                this.$emit('currentPage',val)
+                this.$emit('currentPage',val,this.indexData)
             }
         }
     }
