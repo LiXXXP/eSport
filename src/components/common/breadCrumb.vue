@@ -47,6 +47,7 @@
 
 <style lang="less" scoped>
     .bread-crumb {
+        margin-bottom: 14px;
         .step {
             cursor: pointer;
             position: relative;

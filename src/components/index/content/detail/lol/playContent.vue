@@ -4,9 +4,9 @@
             :selectStyle="selectStyle"
             :navData="navList"
         ></tab-nav>
-        <div class="title flex flex_start flex_only_center">
-            <i></i>
-            <span>对局详情</span>
+        <div class="play-header flex flex_start flex_only_center">
+            <i class="play-header-bar"></i>
+            <span class="play-header-text">对局详情</span>
         </div>
         <div class="content">
             <play-team></play-team>
@@ -149,26 +149,9 @@
 <style lang="less" scoped>
     .play-content {
         padding: 18px 0;
-        .title {
-            margin-top: 24px;
-            i {
-                width: 6px;
-                height: 16px;
-                display: block;
-                border-radius: 3px;
-                background-color: #2F3A5A;
-            }
-            span {
-                color: #2F3A5A;
-                font-size: 16px;
-                margin-left: 7px;
-                font-weight: 600;
-            }
-        }
         .content {
             width: 960px;
             height: 472px;
-            margin-top: 10px;
             padding: 20px 70px;
             box-sizing: border-box;
             background-color: #fff;

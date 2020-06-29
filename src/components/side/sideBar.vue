@@ -11,7 +11,7 @@
 
 <script>
     import sideMenu from '@/components/common/sideMenu'    // 侧边栏
-    import sideImg from '@/components/index/side/sideImg'  // 侧边图片位
+    import sideImg from '@/components/side/sideImg'  // 侧边图片位
     import {
         getGames,
         getEvents,

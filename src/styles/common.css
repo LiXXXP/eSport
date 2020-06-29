@@ -267,4 +267,22 @@ button {
 .flex_more_stretch { /* 轴线占满整个交叉轴 */
     align-content: stretch;
 }
+/* =================================================================================== */
 
+.play-header {
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+.play-header-bar {
+  width: 6px;
+  height: 16px;
+  display: block;
+  border-radius: 3px;
+  background-color: #2F3A5A;
+}
+.play-header-text {
+  color: #2F3A5A;
+  font-size: 16px;
+  margin-left: 7px;
+  font-weight: 600;
+}

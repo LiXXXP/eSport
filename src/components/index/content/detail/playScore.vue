@@ -1,9 +1,9 @@
 <template>
     <div class="play-score">
         <div class="flex flex_between">
-            <div class="title flex flex_start flex_only_center">
-                <i></i>
-                <span>当前比分</span>
+            <div class="play-header flex flex_start flex_only_center">
+                <i class="play-header-bar"></i>
+                <span class="play-header-text">当前比分</span>
             </div>
             <div class="tips">
                 <i class="iconfont icon-jinggao"></i>
@@ -40,23 +40,9 @@
 
 <style lang="less" scoped>
     .play-score {
-        .title {
-            i {
-                width: 6px;
-                height: 16px;
-                display: block;
-                border-radius: 3px;
-                background-color: #2F3A5A;
-            }
-            span {
-                color: #2F3A5A;
-                font-size: 16px;
-                margin-left: 7px;
-                font-weight: 600;
-            }
-        }
         .tips {
             color: #878787;
+            margin-top: 24px;
         }
         .content {
             width: 960px;
@@ -64,7 +50,7 @@
             color: #101010;
             padding: 0 30px;
             font-size: 18px;
-            margin: 12px 0 24px;
+            margin-bottom: 12px;
             box-sizing: border-box;
             background-color: #fff;
             img {

@@ -120,7 +120,6 @@
         }
         .bottom {
             height: 208px;
-            margin-bottom: 24px;
             background-color: #283459;
             border: 2px solid #E4E4E4;
         }

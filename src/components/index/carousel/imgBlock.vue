@@ -24,7 +24,7 @@
 
 <style lang="less" scoped>
     .img-block {
-        margin: 14px 0;
+        margin-bottom: 14px;
         .space {
             width: 205px;
             height: 360px;

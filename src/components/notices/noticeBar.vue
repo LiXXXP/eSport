@@ -23,7 +23,7 @@
             height: 24px;
             display: block;
             margin-right: 8px;
-            background: url('../../../assets/imgs/index/notice-icon.png') no-repeat 0 0;
+            background: url('../../assets/imgs/index/notice-icon.png') no-repeat 0 0;
             background-size: 100%;
         }
         p {
