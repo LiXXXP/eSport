@@ -3,20 +3,10 @@
         <div class="filter">
             <div class="head flex flex_start flex_only_center">
                 <i></i>
-                <div class="flex flex_start">
-                    <p>查询比赛数量:</p>
-                    <drop-down></drop-down>
-                </div>
-                <div class="flex flex_start">
-                    <p>比赛时长:</p>
-                    <drop-down></drop-down>
-                </div>
-                <div class="flex flex_start">
-                    <p>总击杀:</p>
-                    <drop-down></drop-down>
-                </div>
-                <div class="flex flex_start">
-                    <p>阵营:</p>
+                <div class="flex flex_start"
+                    v-for="item in filterData"
+                    :key="item.title">
+                    <p>{{item.title}}:</p>
                     <drop-down></drop-down>
                 </div>
             </div>
@@ -27,6 +17,12 @@
 <script>
     import dropDown from '@/components/common/dropDown'
     export default {
+        props: {
+            filterData: {
+                type: Array,
+                default: []
+            }
+        },
         data() {
             return {
 

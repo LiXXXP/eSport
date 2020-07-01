@@ -23,7 +23,7 @@ import './assets/iconfont/iconfont.css'
 import VeHistogram from 'v-charts/lib/histogram.common'
 import VeLine from 'v-charts/lib/line.common'
 Vue.component(VeHistogram.name,VeHistogram)
-Vue.component(VeLine.name, VeLine)
+// Vue.component(VeLine.name, VeLine)
 
 /* 用于低版本浏览器兼容问题 es6语法兼容 */
 import 'babel-polyfill'
