@@ -1,14 +1,13 @@
 <template>
-    <div class="data-hero">
+    <div class="data-player">
         <div class="play-header flex flex_start flex_only_center">
             <i class="play-header-bar"></i>
-            <span class="play-header-text">擅长英雄</span>
+            <span class="play-header-text">选手对位信息</span>
         </div>
-        <div class="hero">
+        <div class="player">
             <filter-bar :filterData="filterTitle"></filter-bar>
-            <div class="content flex flex_start">
+            <div class="content">
                 <side-bar></side-bar>
-                <hero-list></hero-list>
             </div>
         </div>
     </div>
@@ -17,7 +16,6 @@
 <script>
     import filterBar from '@/components/detail/content/filter/filterBar'  // 筛选
     import sideBar from '@/components/detail/content/side/sideBar'        // 侧边栏
-    import heroList from '@/components/detail/content/chart/heroList'     // 英雄列表
     export default {
         data() {
             return {
@@ -33,15 +31,14 @@
         },
         components: {
             filterBar,
-            sideBar,
-            heroList
+            sideBar
         }
     }
 </script>
 
 <style lang="less" scoped>
-    .data-hero {
-        .hero {
+    .data-player {
+        .player {
             .content {
                 width: 960px;
                 margin-top: 3px;

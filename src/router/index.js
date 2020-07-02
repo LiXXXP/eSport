@@ -8,25 +8,32 @@ import { checkBrowser } from '@/scripts/utils'
 
 /* 异步引入路由 */
 const Index =() => import('@/components/index')
+const contIndex =() => import('@/components/index/contIndex')
 const Detail =() => import('@/components/detail/detailCont')
 
 const routes = [
     {
         path: '/',
-        name: 'index',
-        meta: {
-            title: '电竞比分网 - eSportLiveScore.cn|实时比分直播|比赛日程|比赛结果|历史数据',
-        },
-        component: Index
-    },
-    {
-      path: '/detail',
-      name: 'detail',
-      meta: {
-          title: '游戏详情',
-      },
-      component: Detail
-  }
+        component: Index,
+        children: [
+              {
+                path: '/index',
+                name: 'index',
+                meta: {
+                    title: '电竞比分网 - eSportLiveScore.cn|实时比分直播|比赛日程|比赛结果|历史数据',
+                },
+                component: contIndex
+            },
+            {
+                path: '/detail',
+                name: 'detail',
+                meta: {
+                    title: '游戏详情',
+                },
+                component: Detail
+            }
+        ]
+    }
 ]
 
 const router = new Router({

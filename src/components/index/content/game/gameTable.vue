@@ -3,7 +3,8 @@
         <table>
             <thead>
                 <th>
-                    <div class="flex flex_start flex_only_center">
+                    <div class="flex flex_start flex_only_center"
+                        @click="gotoDetail">
                         <img
                             :src="inningData.tournament.image"
                             class="event-icon"
@@ -171,6 +172,13 @@
             return {
 
             }
+        },
+        methods: {
+            gotoDetail() {
+                this.$router.push({
+                    path: '/detail'
+                })
+            }
         }
     }
 </script>
@@ -191,7 +199,6 @@
                 border-bottom: 1px solid #cfcfcf;
                 th {
                     width: 36px;
-                    color: #303030;
                     font-weight: 400;
                     text-align: left;
                     &:nth-child(1) {

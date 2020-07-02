@@ -76,7 +76,6 @@
             thead {
                 border-bottom: 1px solid #cfcfcf;
                 th {
-                    color: #303030;
                     font-weight: 400;
                     text-align: right;
                     padding-right: 15px;

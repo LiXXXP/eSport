@@ -6,6 +6,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 
 body {
     font-size: 14px;
+    color: #303030;
     background: #E4E4E4;
     font-family: 'Microsoft YaHei','PingFangSC-Regular';
 }

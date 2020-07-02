@@ -10,7 +10,7 @@
             <tbody>
                 <tr v-for="item in heroList.dataList"
                     :key="item.team">
-                    <td>
+                    <td class="t-left">
                         <img :src="item.url">
                         {{item.team}}
                     </td>
@@ -21,7 +21,7 @@
                     <td>{{item.control3}}</td>
                     <td>{{item.control4}}</td>
                     <td>{{item.win}}</td>
-                    <td>
+                    <td class="t-left">
                         {{item.rate}}
                         <progress-bar
                             :progressData="playContrast"
@@ -95,7 +95,7 @@
                         },
                         {
                             url: require('../../../../assets/imgs/detail/2.png'),
-                            team: '寒冰射手2',
+                            team: '寒冰射手艾希',
                             number: '17/30',
                             choose: '34%',
                             control1: '57.3%',
@@ -139,12 +139,18 @@
             display: inline-block;
             vertical-align: middle;
         }
+        .t-left {
+            text-align: left;
+        }
         table {
             width: 883px;
             margin: 0 auto;
             th {
                 height: 45px;
                 width: 50px;
+                &:nth-child(1) {
+                    text-align: left;
+                }
             }
             td {
                 height: 45px;

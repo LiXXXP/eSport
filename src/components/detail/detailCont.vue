@@ -15,6 +15,7 @@
     import gameInfo from '@/components/index/content/game/gameInfo'  // 游戏详情
     import playData from '@/components/detail/content/playData'      // 数据分析
     export default {
+        name: 'detail',
         data() {
             return {
                 currentIndex: 0,

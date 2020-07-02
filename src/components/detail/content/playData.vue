@@ -4,12 +4,18 @@
         <data-contrast></data-contrast>
         <!-- 擅长英雄 -->
         <data-hero></data-hero>
+        <!-- 最尝禁用英雄 -->
+        <data-no-hero></data-no-hero>
+        <!-- 选手对位信息 -->
+        <data-player></data-player>
     </div>
 </template>
 
 <script>
     import dataContrast from '@/components/detail/content/data/dataContrast'  // 数据分析
-    import dataHero from '@/components/detail/content/data/dataHero'      // 擅长英雄
+    import dataHero from '@/components/detail/content/data/dataHero'          // 擅长英雄
+    import dataNoHero from '@/components/detail/content/data/dataNoHero'      // 禁用英雄
+    import dataPlayer from '@/components/detail/content/data/dataPlayer'      // 选手信息
     export default {
         data() {
             return {
@@ -18,7 +24,9 @@
         },
         components: {
             dataContrast,
-            dataHero
+            dataHero,
+            dataNoHero,
+            dataPlayer
         }
     }
 </script>

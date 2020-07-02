@@ -1,6 +1,6 @@
 <template>
     <div class="filter-bar">
-        <div class="filter">
+        <div class="filter flex flex_between">
             <div class="head flex flex_start flex_only_center">
                 <i></i>
                 <div class="flex flex_start"
@@ -10,6 +10,9 @@
                     <drop-down></drop-down>
                 </div>
             </div>
+            <p class="text">
+                （Newbee<span>对局总数:246局</span> / Liquid<span>对局总数:342局</span>）
+            </p>
         </div>
     </div>
 </template>
@@ -37,12 +40,12 @@
 <style lang="less" scoped>
     .filter-bar {
         .filter {
+            width: 960px;
+            height: 40px;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #fff;
             .head {
-                width: 960px;
-                height: 40px;
-                padding: 10px;
-                box-sizing: border-box;
-                background-color: #fff;
                 i {
                     width: 18px;
                     height: 18px;
@@ -56,6 +59,11 @@
                         color: #2F3A5A;
                         margin-right: 5px;
                     }
+                }
+            }
+            .text {
+                span {
+                    color: #878787;
                 }
             }
         }
