@@ -14,6 +14,7 @@ const Detail =() => import('@/components/detail/detailCont')
 const routes = [
     {
         path: '/',
+        redirect: '/index',
         component: Index,
         children: [
               {
@@ -33,10 +34,6 @@ const routes = [
                 component: Detail
             }
         ]
-    },
-    {
-        path: '*',
-        redirect: '/index'
     }
 ]
 

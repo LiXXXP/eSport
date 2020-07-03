@@ -1,20 +1,29 @@
 <template>
     <div class="player-head">
-        <div class="flex flex_start">
-            <img src="" alt="">
-        </div>
-        <div class="flex flex_start">
-            <img src="" alt="">
+        <div :class="['small flex',playerSeat? 'flex_end':'flex_start']">
             <div>
-                <div>
-                    <img src="" alt="">
-                    <p></p>
+                <img src="../../../../assets/imgs/detail/head.png">
+            </div>
+            <div>
+                <img src="../../../../assets/imgs/detail/head.png">
+            </div>
+            <div>
+                <img src="../../../../assets/imgs/detail/head.png">
+            </div>
+        </div>
+        <div :class="['big flex flex_start flex_only_center',
+            {flex_row_reverse:playerSeat}]">
+            <img src="../../../../assets/imgs/detail/head.png">
+            <div>
+                <div class="team flex flex_start flex_only_center">
+                    <img src="../../../../assets/imgs/detail/4.png">
+                    <p>UZI</p>
                 </div>
-                <div>
-                    <img src="" alt="">
-                    <p></p>
+                <div class="country flex flex_start flex_only_center">
+                    <img src="../../../../assets/imgs/detail/q.png">
+                    <p>何双龙</p>
                 </div>
-                <div>(对局总数：258局)</div>
+                <div class="text">(对局总数：258局)</div>
             </div>
         </div>
     </div>
@@ -22,6 +31,12 @@
 
 <script>
     export default {
+        props: {
+            playerSeat: {
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
             return {
 
@@ -31,5 +46,64 @@
 </script>
 
 <style lang="less" scoped>
-
+    .player-head {
+        width: 245px;
+        margin: 15px 0;
+        .small {
+            div {
+                width: 42px;
+                height: 42px;
+                cursor: pointer;
+                border-radius: 50%;
+                margin-right: 10px;
+                position: relative;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+                &::after {
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                    border-radius: 50%;
+                    background-color: rgba(232,232,232,.5);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+            }
+        }
+        .big {
+            color: #101010;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 15px;
+            & > img {
+                width: 112px;
+                height: 112px;
+                margin-right: 6px;
+                border-radius: 100%;
+            }
+            .team {
+                img {
+                    width: 18px;
+                    height: 20px;
+                    margin-right: 7px;
+                }
+            }
+            .country {
+                margin: 10px 0;
+                img {
+                    width: 20px;
+                    height: 12px;
+                    margin-right: 5px;
+                }
+            }
+            .text {
+                color: #878787;
+                font-size: 14px;
+            }
+        }
+    }
 </style>

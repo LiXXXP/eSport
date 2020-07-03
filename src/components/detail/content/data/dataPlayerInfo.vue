@@ -6,13 +6,17 @@
         ></tab-nav>
         <div class="flex flex_between">
             <div>
-                <!-- <player-head></player-head> -->
+                <player-head
+                    :playerSeat="false"
+                ></player-head>
             </div>
             <div>
 
             </div>
             <div>
-
+                <player-head
+                    :playerSeat="true"
+                ></player-head>
             </div>
         </div>
     </div>
