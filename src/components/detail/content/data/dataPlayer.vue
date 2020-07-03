@@ -6,8 +6,9 @@
         </div>
         <div class="player">
             <filter-bar :filterData="filterTitle"></filter-bar>
-            <div class="content">
+            <div class="content flex flex_start">
                 <side-bar></side-bar>
+                <data-player-info></data-player-info>
             </div>
         </div>
     </div>
@@ -16,6 +17,7 @@
 <script>
     import filterBar from '@/components/detail/content/filter/filterBar'  // 筛选
     import sideBar from '@/components/detail/content/side/sideBar'        // 侧边栏
+    import dataPlayerInfo from '@/components/detail/content/data/dataPlayerInfo' // 选手信息
     export default {
         data() {
             return {
@@ -31,7 +33,8 @@
         },
         components: {
             filterBar,
-            sideBar
+            sideBar,
+            dataPlayerInfo
         }
     }
 </script>

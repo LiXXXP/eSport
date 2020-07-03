@@ -33,6 +33,10 @@ const routes = [
                 component: Detail
             }
         ]
+    },
+    {
+        path: '*',
+        redirect: '/index'
     }
 ]
 
