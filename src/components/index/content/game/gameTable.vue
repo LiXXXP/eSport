@@ -50,7 +50,9 @@
                 <th>
                     <img src="../../../../assets/imgs/index/icon04.png" class="icons">
                 </th>
-                <th></th>
+                <th>
+                    <img src="../../../../assets/imgs/index/rs.png" class="icons">
+                </th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -118,7 +120,7 @@
                     <td>1</td>
                     <td>1</td>
                     <td>1</td>
-                    <td></td>
+                    <td>1</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -138,6 +140,7 @@
                     <td>1</td>
                     <td>1</td>
                     <td>1</td>
+                    <td>1</td>
                     <td>
                         <i class="sign-icon"></i>
                     </td>
@@ -147,12 +150,21 @@
                     <td>
                         <i class="sign-icon"></i>
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        <i class="sign-icon"></i>
+                    </td>
+                    <td>
+                        <i class="sign-icon"></i>
+                    </td>
+                    <td>
+                        <i class="sign-icon"></i>
+                    </td>
+                    <td>
+                        <i class="sign-icon"></i>
+                    </td>
+                    <td>
+                        <i class="sign-icon"></i>
+                    </td>
                 </tr>
             </tbody>
         </table>

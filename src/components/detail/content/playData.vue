@@ -8,6 +8,8 @@
         <data-no-hero></data-no-hero>
         <!-- 选手对位信息 -->
         <data-player></data-player>
+        <!-- 近期比赛情况 -->
+        <data-events></data-events>
     </div>
 </template>
 
@@ -16,6 +18,7 @@
     import dataHero from '@/components/detail/content/data/dataHero'          // 擅长英雄
     import dataNoHero from '@/components/detail/content/data/dataNoHero'      // 禁用英雄
     import dataPlayer from '@/components/detail/content/data/dataPlayer'      // 选手信息
+    import dataEvents from '@/components/detail/content/data/dataEvents'      // 比赛情况
     export default {
         data() {
             return {
@@ -26,7 +29,8 @@
             dataContrast,
             dataHero,
             dataNoHero,
-            dataPlayer
+            dataPlayer,
+            dataEvents
         }
     }
 </script>
