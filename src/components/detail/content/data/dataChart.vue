@@ -1,6 +1,12 @@
 <template>
     <div class="data-chart">
-        <diagram-bar></diagram-bar>
+        <div class="diagram flex flex_start flex_wrap">
+            <diagram-bar
+                :diagramData="item.title"
+                v-for="item in diagramList"
+                :key="item.title"
+            ></diagram-bar>
+        </div>
         <histogram></histogram>
     </div>
 </template>
@@ -10,7 +16,25 @@
     import histogram from '@/components/detail/content/chart/histogram'   // 柱状图
     export default {
         data() {
-            return {}
+            return {
+                diagramList: [
+                    {
+                        title: '比赛总数'
+                    },
+                    {
+                        title: '实际比赛总数'
+                    },
+                    {
+                        title: '比赛胜率'
+                    },
+                    {
+                        title: '对局总数'
+                    },
+                    {
+                        title: '实际对局总数'
+                    }
+                ]
+            }
         },
         components: {
             diagramBar,
@@ -38,6 +62,10 @@
         &::-webkit-scrollbar-track {
             background: #E4E4E4;
             box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        }
+        .diagram {
+            padding: 10px;
+            box-sizing: border-box;
         }
     }
 </style>

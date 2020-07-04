@@ -12,7 +12,9 @@
         <el-progress
             v-else
             type="circle"
-            :percentage="100"
+            :width="120"
+            :color="progressColor"
+            :percentage="progressRate"
         ></el-progress>
     </div>
 </template>
@@ -43,7 +45,3 @@
         }
     }
 </script>
-
-<style lang="less" scoped>
-
-</style>

@@ -1,9 +1,7 @@
 <template>
-    <div class="diagram-bar flex flex_start flex_wrap">
-        <div class="list"
-            v-for="item in diagramList"
-            :key="item.title">
-            <p class="title">{{item.title}}</p>
+    <div class="diagram-bar">
+        <div class="list">
+            <p class="title">{{diagramData}}</p>
             <div class="flex flex_between">
                 <div class="bar">
                     <p>999</p>
@@ -30,6 +28,12 @@
 <script>
     import progressBar from '@/components/common/progressBar'
     export default {
+        props: {
+            diagramData: {
+                type: String,
+                default: ''
+            }
+        },
         data() {
             return {
                 playContrast: {        // 进度条配置参数
@@ -37,24 +41,7 @@
                     inside: false,     // 进度条显示文字是否在进度条内 true / false
                     width: 7,          // 进度条的高度
                     showText: false,   // 是否显示文字
-                },
-                diagramList: [
-                    {
-                        title: '比赛总数'
-                    },
-                    {
-                        title: '实际比赛总数'
-                    },
-                    {
-                        title: '比赛胜率'
-                    },
-                    {
-                        title: '对局总数'
-                    },
-                    {
-                        title: '实际对局总数'
-                    }
-                ]
+                }
             }
         },
         components: {
@@ -65,9 +52,7 @@
 
 <style lang="less" scoped>
     .diagram-bar {
-        padding: 10px;
-        min-width: 923px;
-        box-sizing: border-box;
+        margin-top: 10px;
         .list {
             width: 261px;
             margin: 0 40px 20px 0;

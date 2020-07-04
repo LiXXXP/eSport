@@ -1,25 +1,24 @@
 <template>
     <div class="player-head">
         <div :class="['small flex',playerSeat? 'flex_end':'flex_start']">
-            <div>
-                <img src="../../../../assets/imgs/detail/head.png">
-            </div>
-            <div>
-                <img src="../../../../assets/imgs/detail/head.png">
-            </div>
-            <div>
-                <img src="../../../../assets/imgs/detail/head.png">
+            <div v-for="(item,index) in playerList"
+                :key="item.id"
+                :class="{active:currentIndex===index}"
+                @click="getPlayer(index,item.url)">
+                <img :src="item.url">
             </div>
         </div>
         <div :class="['big flex flex_start flex_only_center',
             {flex_row_reverse:playerSeat}]">
-            <img src="../../../../assets/imgs/detail/head.png">
+            <img :src="currentPlayer">
             <div>
-                <div class="team flex flex_start flex_only_center">
+                <div :class="['team flex flex_start flex_only_center',
+                    {flex_row_reverse:playerSeat}]">
                     <img src="../../../../assets/imgs/detail/4.png">
                     <p>UZI</p>
                 </div>
-                <div class="country flex flex_start flex_only_center">
+                <div :class="['country flex flex_start flex_only_center',
+                    {flex_row_reverse:playerSeat}]">
                     <img src="../../../../assets/imgs/detail/q.png">
                     <p>何双龙</p>
                 </div>
@@ -39,7 +38,28 @@
         },
         data() {
             return {
-
+                currentIndex: 0,     // 当前index
+                currentPlayer: require('../../../../assets/imgs/detail/head.png'),   // 当前选手
+                playerList: [
+                    {
+                        id: 0,
+                        url: require('../../../../assets/imgs/detail/head.png')
+                    },
+                    {
+                        id: 1,
+                        url: require('../../../../assets/imgs/detail/head.png')
+                    },
+                    {
+                        id: 2,
+                        url: require('../../../../assets/imgs/detail/head.png')
+                    }
+                ]
+            }
+        },
+        methods: {
+            getPlayer(index,url) {
+                this.currentIndex = index
+                this.currentPlayer = url
             }
         }
     }
@@ -72,6 +92,9 @@
                     top: 0;
                     left: 0;
                 }
+                &.active::after {
+                    display: none;
+                }
             }
         }
         .big {
@@ -89,7 +112,7 @@
                 img {
                     width: 18px;
                     height: 20px;
-                    margin-right: 7px;
+                    margin: 0 7px;
                 }
             }
             .country {
@@ -97,7 +120,7 @@
                 img {
                     width: 20px;
                     height: 12px;
-                    margin-right: 5px;
+                    margin: 0 5px;
                 }
             }
             .text {
