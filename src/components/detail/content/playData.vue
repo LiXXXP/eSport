@@ -10,6 +10,8 @@
         <data-player></data-player>
         <!-- 近期比赛情况 -->
         <data-events></data-events>
+        <!-- 历史交锋记录 -->
+        <data-history></data-history>
     </div>
 </template>
 
@@ -19,6 +21,7 @@
     import dataNoHero from '@/components/detail/content/data/dataNoHero'      // 禁用英雄
     import dataPlayer from '@/components/detail/content/data/dataPlayer'      // 选手信息
     import dataEvents from '@/components/detail/content/data/dataEvents'      // 比赛情况
+    import dataHistory from '@/components/detail/content/data/dataHistory'    // 比赛情况
     export default {
         data() {
             return {
@@ -30,7 +33,8 @@
             dataHero,
             dataNoHero,
             dataPlayer,
-            dataEvents
+            dataEvents,
+            dataHistory
         }
     }
 </script>

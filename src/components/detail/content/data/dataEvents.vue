@@ -4,20 +4,27 @@
             <i class="play-header-bar"></i>
             <span class="play-header-text">近期比赛情况</span>
         </div>
-        <div class="content flex flex_between">
-            <div class="team">
+        <div class="content clearfix">
+            <div class="team f-left">
                 <div class="title flex flex_start flex_only_center">
                     <img src="../../../../assets/imgs/detail/4.png">
                     <p>Liquid</p>
                 </div>
                 <div>
-                    <collapse-board></collapse-board>
+                    <collapse-board
+                        :blockType="'short'"
+                    ></collapse-board>
                 </div>
             </div>
-            <div class="team">
+            <div class="team f-right">
                 <div class="title flex flex_start flex_only_center">
                     <img src="../../../../assets/imgs/detail/4.png">
                     <p>Team.Liquid</p>
+                </div>
+                <div>
+                    <collapse-board
+                        :blockType="'short'"
+                    ></collapse-board>
                 </div>
             </div>
         </div>
