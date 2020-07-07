@@ -1,24 +1,34 @@
 <template>
-    <div class="player-head">
-        <div :class="['small flex',playerSeat? 'flex_end':'flex_start']">
+    <div :class="['player-head',
+          typeBase?'flex flex_between':'',
+          {flex_row_reverse:!playerSeat&&typeBase}]"
+    >
+        <div :class="['small flex',
+              typeBase?'flex_column':'',
+              playerSeat? 'flex_end':'flex_start']"
+        >
             <div v-for="(item,index) in playerList"
                 :key="item.id"
                 :class="{active:currentIndex===index}"
-                @click="getPlayer(index,item.url)">
+                @click="getPlayer(index,item.url)"
+            >
                 <img :src="item.url">
             </div>
         </div>
         <div :class="['big flex flex_start flex_only_center',
-            {flex_row_reverse:playerSeat}]">
+            {flex_row_reverse:playerSeat}]"
+        >
             <img :src="currentPlayer">
             <div>
                 <div :class="['team flex flex_start flex_only_center',
-                    {flex_row_reverse:playerSeat}]">
+                      {flex_row_reverse:playerSeat}]"
+                >
                     <img src="../../../../assets/imgs/detail/4.png">
                     <p>UZI</p>
                 </div>
                 <div :class="['country flex flex_start flex_only_center',
-                    {flex_row_reverse:playerSeat}]">
+                      {flex_row_reverse:playerSeat}]"
+                >
                     <img src="../../../../assets/imgs/detail/q.png">
                     <p>何双龙</p>
                 </div>
@@ -31,6 +41,10 @@
 <script>
     export default {
         props: {
+            typeBase: {
+                type: Boolean,
+                default: false
+            },
             playerSeat: {
                 type: Boolean,
                 default: false
@@ -69,6 +83,9 @@
     .player-head {
         width: 245px;
         margin: 15px 0;
+        &.flex_between {
+            width: 400px;
+        }
         .small {
             div {
                 width: 42px;
@@ -94,6 +111,12 @@
                 }
                 &.active::after {
                     display: none;
+                }
+            }
+            &.flex_column {
+                div {
+                    margin-right: 0;
+                    margin-bottom: 10px;
                 }
             }
         }

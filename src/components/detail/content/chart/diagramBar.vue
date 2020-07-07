@@ -1,25 +1,23 @@
 <template>
     <div class="diagram-bar">
-        <div class="list">
-            <p class="title">{{diagramData}}</p>
-            <div class="flex flex_between">
-                <div class="bar">
-                    <p>999</p>
-                    <progress-bar
-                        class="rotate"
-                        :progressData="playContrast"
-                        :progressColor="'#2980D9'"
-                        :progressRate="77"
-                    ></progress-bar>
-                </div>
-                <div class="bar">
-                    <p class="right">666</p>
-                    <progress-bar
-                        :progressData="playContrast"
-                        :progressColor="'#D94629'"
-                        :progressRate="66"
-                    ></progress-bar>
-                </div>
+        <p class="title">{{diagramData}}</p>
+        <div class="flex flex_between">
+            <div class="bar">
+                <p>999</p>
+                <progress-bar
+                    class="rotate"
+                    :progressData="playContrast"
+                    :progressColor="'#2980D9'"
+                    :progressRate="77"
+                ></progress-bar>
+            </div>
+            <div class="bar">
+                <p class="right">666</p>
+                <progress-bar
+                    :progressData="playContrast"
+                    :progressColor="'#D94629'"
+                    :progressRate="66"
+                ></progress-bar>
             </div>
         </div>
     </div>
@@ -52,32 +50,28 @@
 
 <style lang="less" scoped>
     .diagram-bar {
-        margin-top: 10px;
-        .list {
-            width: 261px;
-            margin: 0 40px 20px 0;
-            .title {
+        width: 265px;
+        .title {
                 color: #101010;
                 font-size: 12px;
                 font-weight: 500;
                 text-align: center;
                 margin-bottom: -16px;
             }
-            .bar {
-                width: 128px;
-                p {
-                    color: #2980D9;
-                    font-size: 12px;
-                    margin-bottom: 7px;
-                    &.right {
-                        color: #D94629;
-                        text-align: right;
-                    }
-                }
-                .rotate{
-                    transform:rotate(180deg);
-                }
-            }
-        }
+          .bar {
+              width: 128px;
+              p {
+                  color: #2980D9;
+                  font-size: 12px;
+                  margin-bottom: 7px;
+                  &.right {
+                      color: #D94629;
+                      text-align: right;
+                  }
+              }
+              .rotate{
+                  transform:rotate(180deg);
+              }
+          }
     }
 </style>

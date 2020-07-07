@@ -77,7 +77,8 @@
                     background-color: #FF7800;
                 }
             }
-            .select-style2 {
+            .select-style2,
+            .select-style5 {
                 width: 178px;
                 height: 40px;
                 color: #2F3A5A;
@@ -86,19 +87,24 @@
                 background-color: #fff;
                 border: 1px solid #2F3A5A;
                 border-right: 0;
-
                 &.active {
                     color: #fff;
                     background-color: #2F3A5A;
                 }
             }
+            .select-style5 {
+                width: 94px;
+                font-size: 12px;
+            }
             &:first-child {
-                .select-style2 {
+                .select-style2,
+                .select-style5 {
                     border-radius: 4px 0 0 4px;
                 }
             }
             &:last-child {
-                .select-style2 {
+                .select-style2,
+                .select-style5 {
                     border-radius: 0 4px 4px 0;
                     border-right: 1px solid #2F3A5A;
                 }

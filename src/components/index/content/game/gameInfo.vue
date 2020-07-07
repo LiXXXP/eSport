@@ -18,7 +18,8 @@
             v-else
             :currentData="currentIndex"
         ></dota-detail-content>
-        <play-data></play-data>
+        <!-- <play-data></play-data> -->
+        <play-detail></play-detail>
         <div class="pack" @click="packUp">
             <i></i> 收起
         </div>
@@ -29,7 +30,8 @@
     import tabNav from '@/components/common/tabNav'          // tab切换
     import lolDetailContent from '@/components/index/content/detail/lol/detailContent'   // lol详情
     import dotaDetailContent from '@/components/index/content/detail/dota/detailContent' // dota详情
-    import playData from '@/components/detail/content/playData'      // 数据分析
+    import playData from '@/components/detail/content/playData'       // 数据分析
+    import playDetail from '@/components/detail/content/playDetail'   // 数据详情
     export default {
         props: {
             openType: {
@@ -68,7 +70,8 @@
             tabNav,
             lolDetailContent,
             dotaDetailContent,
-            playData
+            playData,
+            playDetail
         }
     }
 </script>

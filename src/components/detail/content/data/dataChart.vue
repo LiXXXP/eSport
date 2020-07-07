@@ -2,6 +2,7 @@
     <div class="data-chart">
         <div class="diagram flex flex_start flex_wrap">
             <diagram-bar
+                class="bar"
                 :diagramData="item.title"
                 v-for="item in diagramList"
                 :key="item.title"
@@ -66,6 +67,12 @@
         .diagram {
             padding: 10px;
             box-sizing: border-box;
+            .bar {
+                margin: 0 40px 20px 0;
+                &:nth-child(3n) {
+                    margin-right: 0;
+                }
+            }
         }
     }
 </style>
