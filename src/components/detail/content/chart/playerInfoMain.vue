@@ -63,7 +63,7 @@
 </template>
 
 <script>
-    import playerHead from '@/components/detail/content/chart/playerHead'     // 选手头像部分
+    import playerHead from '@/components/detail/content/chart/playerHead'         // 选手头像部分
     import stateList from '@/components/detail/content/chart/stateList'           // 胜负标记
     import progressBar from '@/components/common/progressBar'                     // 环形进度条
     import diagramBar from '@/components/detail/content/chart/diagramBar'         // 条形图

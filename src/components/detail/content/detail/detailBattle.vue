@@ -11,6 +11,34 @@
                     :selectStyle="selectStyle"
                     :navData="navList"
                 ></tab-nav>
+                <div class="teams flex flex_between flex_only_center">
+                    <div class="flex flex_start flex_only_center">
+                        <img src="../../../../assets/imgs/detail/4.png">
+                        <p>Team Liquid</p>
+                    </div>
+                    <div class="block flex flex_around">
+                        <div class="blue">
+                            <span></span>
+                            <span>蓝色方</span>
+                        </div>
+                        <div class="red">
+                            <span></span>
+                            <span>红色方</span>
+                        </div>
+                        <div class="all">
+                            <span></span>
+                            <span>全部阵营</span>
+                        </div>
+                    </div>
+                    <div class="flex flex_end flex_only_center">
+                        <p>Alliance</p>
+                        <img src="../../../../assets/imgs/detail/4.png">
+                    </div>
+                </div>
+                <div class="battle flex flex_between">
+                    <battle-team></battle-team>
+                    <battle-team></battle-team>
+                </div>
             </div>
         </div>
     </div>
@@ -19,6 +47,7 @@
 <script>
     import filterBar from '@/components/detail/content/filter/filterBar'  // 筛选
     import tabNav from '@/components/common/tabNav'                       // tab切换
+    import battleTeam from '@/components/detail/content/chart/battleTeam' // 战队
     export default {
         data() {
             return {
@@ -69,7 +98,8 @@
         },
         components: {
             filterBar,
-            tabNav
+            tabNav,
+            battleTeam
         }
     }
 </script>
@@ -82,6 +112,54 @@
             padding: 15px 10px;
             box-sizing: border-box;
             background-color: #fff;
+            .teams {
+                color: #333;
+                font-size: 14px;
+                font-weight: 600;
+                padding: 20px 0 40px;
+                img {
+                    width: 24px;
+                    height: 24px;
+                    margin: 0 7px;
+                }
+                .block {
+                    width: 360px;
+                    height: 24px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    line-height: 24px;
+                    border-radius:4px;
+                    border: 1px solid #CFCFCF;
+                    div {
+                        span {
+                            &:first-child {
+                                width: 20px;
+                                height: 8px;
+                                border-radius: 4px;
+                                display: inline-block;
+                            }
+                        }
+                    }
+                    .blue {
+                        color: #2980D9;
+                        span:first-child {
+                            background-color: #2980D9;
+                        }
+                    }
+                    .red {
+                        color: #D94629;
+                        span:first-child {
+                            background-color: #D94629;
+                        }
+                    }
+                    .all {
+                        color: #5166A4;
+                        span:first-child {
+                            background-color: #5166A4;
+                        }
+                    }
+                }
+            }
         }
     }
 </style>
