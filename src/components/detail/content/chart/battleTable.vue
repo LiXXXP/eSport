@@ -116,7 +116,7 @@
                         },
                         {
                             url: require('../../../../assets/imgs/detail/2.png'),
-                            team: 'RNG.uzi',
+                            team: 'RNG.uzii',
                             number1: '8/3/29',
                             number2: '7.45',
                             choose: '328',

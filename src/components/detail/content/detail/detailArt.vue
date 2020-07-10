@@ -5,8 +5,8 @@
             <span class="play-header-text">出装/技能/天赋</span>
         </div>
         <div class="content flex flex_between">
-            <battle-art></battle-art>
-            <battle-art></battle-art>
+            <battle-art :borderColor="true"></battle-art>
+            <battle-art :borderColor="false"></battle-art>
         </div>
     </div>
 </template>
