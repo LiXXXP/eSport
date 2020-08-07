@@ -10,17 +10,21 @@
                 </div>
             </tab-nav>
         </div>
-        <lol-detail-content
+        <!-- <lol-detail-content
             :currentData="currentIndex"
-            v-if="openType === 'League of Legends'"
+            v-if="openType === 'lol'"
         ></lol-detail-content>
         <dota-detail-content
             v-else
             :currentData="currentIndex"
-        ></dota-detail-content>
+        ></dota-detail-content> -->
+        <csgo-detail-content
+            :currentData="currentIndex"
+        >
+        </csgo-detail-content>
         <!-- <play-data></play-data> -->
-        <play-detail></play-detail>
-        <div class="pack" @click="packUp">
+        <!-- <play-detail></play-detail> -->
+        <div class="pack" @click="packUp" v-if="!isHide">
             <i></i> 收起
         </div>
     </div>
@@ -30,13 +34,20 @@
     import tabNav from '@/components/common/tabNav'          // tab切换
     import lolDetailContent from '@/components/index/content/detail/lol/detailContent'   // lol详情
     import dotaDetailContent from '@/components/index/content/detail/dota/detailContent' // dota详情
-    import playData from '@/components/detail/content/playData'       // 数据分析
-    import playDetail from '@/components/detail/content/playDetail'   // 数据详情
+    import csgoDetailContent from '@/components/index/content/detail/csgo/detailContent' // dota详情
+    import playData from '@/components/detail/content/playData'       // lol，dota 数据分析
+    import playDetail from '@/components/detail/content/playDetail'   // lol，dota 数据详情
     export default {
         props: {
+            // 游戏类型
             openType: {
                 type: String,
                 default: ''
+            },
+            // 详情页 收起按钮 隐藏
+            isHide: {
+                type: Boolean,
+                default: true
             }
         },
         data () {
@@ -55,7 +66,7 @@
                         title: '图文直播'
                     }
                 ],
-                currentIndex: 0,
+                currentIndex: 0
             }
         },
         methods: {
@@ -70,6 +81,7 @@
             tabNav,
             lolDetailContent,
             dotaDetailContent,
+            csgoDetailContent,
             playData,
             playDetail
         }

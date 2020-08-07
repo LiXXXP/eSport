@@ -62,6 +62,7 @@
             line-height: 60px;
             border-radius:4px;
             text-align: center;
+            border: 1px solid #CFCFCF;
             background-color: #F6F6F6;
             &.low {
                 color: @r;

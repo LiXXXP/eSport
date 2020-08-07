@@ -4,6 +4,7 @@
         <play-info></play-info>
         <game-info
             :openType="'lol'"
+            :isHide="true"
         ></game-info>
     </div>
 </template>

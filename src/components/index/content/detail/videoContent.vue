@@ -13,7 +13,6 @@
         <div class="video">
             <video src=""></video>
         </div>
-
     </div>
 </template>
 
