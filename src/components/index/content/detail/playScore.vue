@@ -16,9 +16,19 @@
                 <p>Astralis</p>
             </div>
             <div class="score flex flex_center">
-                <p>2</p>
+                <div class="bar flex flex_start">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <p class="left">2</p>
                 <p>:</p>
-                <p>0</p>
+                <p class="right">0</p>
+                <div class="bar flex flex_start">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
             <div class="flex flex_center">
                 <p>Astralis</p>
@@ -59,15 +69,25 @@
                 margin: 0 14px;
             }
             .score {
-                color: #3D3D3D;
+                color:#3D3D3D;
                 font-size: 30px;
                 p {
                     margin: 0 5px;
-                    &:nth-child(1) {
+                    &.left {
                         color: #12BF12;
+                        margin-left: 30px;
                     }
-                    &:nth-child(3) {
+                    &.right {
                         color: #E74E11;
+                        margin-right: 30px;
+                    }
+                }
+                .bar {
+                    div {
+                        width:3px;
+                        height:20px;
+                        margin-right: 3px;
+                        background-color: #E7E7E7;
                     }
                 }
             }

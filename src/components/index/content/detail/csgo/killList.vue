@@ -20,8 +20,24 @@
                 </div>
             </div>
             <kill-table :colorBar="'blue'"></kill-table>
-            <kill-board></kill-board>
+            <div class="board">
+                <kill-bar
+                    class="top-bar"
+                    :barData="barData"
+                ></kill-bar>
+                <div class="flex flex_center">
+                    <kill-board></kill-board>
+                    <kill-board class="kill"></kill-board>
+                </div>
+                <kill-bar
+                    class="bottom-bar"
+                    :barData="barData"
+                ></kill-bar>
+            </div>
             <kill-table :colorBar="'yellow'"></kill-table>
+        </div>
+        <div class="bottom">
+            <logs-list></logs-list>
         </div>
     </div>
 </template>
@@ -29,15 +45,45 @@
 <script>
     import killTable from '@/components/detail/content/table/killTable'     // 击杀表格
     import killBoard from '@/components/detail/content/table/killBoard'     // 击杀面板
+    import killBar from '@/components/detail/content/table/killBar'         // 击杀条状
+    import logsList from '@/components/index/content/detail/logsList'       // 比赛日志
     export default {
         data() {
             return {
-
+                // 击杀条状数据
+                barData: [
+                    {
+                        id: 0
+                    },
+                    {
+                        id: 1
+                    },
+                    {
+                        id: 2
+                    },
+                    {
+                        id: 3
+                    },
+                    {
+                        id: 4
+                    },
+                    {
+                        id: 5
+                    },
+                    {
+                        id: 6
+                    },
+                    {
+                        id: 7
+                    }
+                ]
             }
         },
         components: {
             killTable,
-            killBoard
+            killBoard,
+            killBar,
+            logsList
         }
     }
 </script>
@@ -95,6 +141,26 @@
                     }
                 }
             }
+            .board {
+                position: relative;
+                .top-bar {
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                }
+                .bottom-bar {
+                    position: absolute;
+                    bottom: 10px;
+                    left: 10px;
+                }
+                .kill {
+                    border-right: 0;
+                }
+            }
+        }
+        .bottom {
+            height: 200px;
+            background-color: #1B1F29;
         }
     }
 </style>

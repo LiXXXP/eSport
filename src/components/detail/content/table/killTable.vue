@@ -154,7 +154,7 @@
             width: 940px;
             color: #fff;
             text-align: center;
-            border-spacing: 0px 2px;
+            border-spacing: 0px 4px;
             border-collapse:separate;
             thead {
                 height: 18px;

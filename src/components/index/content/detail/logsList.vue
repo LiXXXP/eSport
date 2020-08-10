@@ -1,28 +1,45 @@
 <template>
     <div class="logs-list">
-        <div class="title">比赛日志：</div>
-        <div class="list">
-            <div class="item flex flex_start flex_only_center"
-                v-for="item in listData"
-                :key="item.id">
-                <p class="time">12:24</p>
-                <div class="red flex flex_start flex_only_center">
-                    <img src="../../../../assets/imgs/detail/2.png">
-                    <p>Liquid.Marecle(猛犸人战士)</p>
+        <div v-if="type === 'lol'">
+            <div class="title">比赛日志：</div>
+            <div class="lol-list">
+                <div class="item flex flex_start flex_only_center"
+                    v-for="item in listData"
+                    :key="item.id"
+                >
+                    <p class="time">12:24</p>
+                    <div class="red flex flex_start flex_only_center">
+                        <img src="../../../../assets/imgs/detail/2.png">
+                        <p>Liquid.Marecle(猛犸人战士)</p>
+                    </div>
+                    <p>摧毁了</p>
+                    <div class="blue flex flex_start flex_only_center">
+                        <img src="../../../../assets/imgs/detail/2.png">
+                        <p>蓝色防御塔，</p>
+                    </div>
+                    <div class="help flex flex_start flex_only_center">
+                        <p>助攻</p>
+                        <img src="../../../../assets/imgs/detail/2.png">
+                        <img src="../../../../assets/imgs/detail/2.png">
+                        <img src="../../../../assets/imgs/detail/2.png">
+                        <img src="../../../../assets/imgs/detail/2.png">
+                    </div>
+                    <p class="type">(摧毁第一个防御塔)</p>
                 </div>
-                <p>摧毁了</p>
-                <div class="blue flex flex_start flex_only_center">
-                    <img src="../../../../assets/imgs/detail/2.png">
-                    <p>蓝色防御塔，</p>
+            </div>
+        </div>
+        <div v-if="type === 'csgo'">
+            <div class="csgo-list">
+                <div class="item flex flex_start flex_only_center"
+                    v-for="item in listData"
+                    :key="item.id"
+                >
+                    <p class="blue">SyrsoN</p>
+                    <p>击杀了</p>
+                    <p class="yellow">Pronax</p>
+                    <p class="info">(爆头)</p>
+                    <img src="../../../../assets/imgs/detail/csgo/ak47.png">
                 </div>
-                <div class="help flex flex_start flex_only_center">
-                    <p>助攻</p>
-                    <img src="../../../../assets/imgs/detail/2.png">
-                    <img src="../../../../assets/imgs/detail/2.png">
-                    <img src="../../../../assets/imgs/detail/2.png">
-                    <img src="../../../../assets/imgs/detail/2.png">
-                </div>
-                <p class="type">(摧毁第一个防御塔)</p>
             </div>
         </div>
     </div>
@@ -32,6 +49,7 @@
     export default {
         data () {
             return {
+                type: 'csgo',
                 listData: [
                     {
                         id: 0
@@ -68,7 +86,7 @@
             padding-left: 25px;
             border-bottom: 1px solid #fff;
         }
-        .list {
+        .lol-list {
             height: 171px;
             overflow-y: auto;
             padding-left: 25px;
@@ -122,6 +140,41 @@
                 }
                 .type {
                     margin-left: 7px;
+                }
+            }
+        }
+        .csgo-list {
+            height: 200px;
+            overflow-y: auto;
+            padding: 15px 20px;
+            box-sizing: border-box;
+            &::-webkit-scrollbar {
+                width: 14px;
+                background-color: #1B1F29;
+            }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 7px;
+                background-color: #1B1F29;
+            }
+            .item {
+                margin-bottom: 10px;
+                p {
+                    font-size: 16px;
+                    padding: 0 3px;
+                    &.blue {
+                        color: #008BD3;
+                    }
+                    &.yellow {
+                        color: #F6B600;
+                    }
+                    &.info {
+                        color: #D94629;
+                    }
+                }
+                img {
+                    width: auto;
+                    height: 18px;
+                    margin-left: 10px;
                 }
             }
         }
