@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
+import store from '../store'
+
 /* 引入公共方法 */
 import { BASE_PATH } from '@/scripts/config'
 import { checkBrowser } from '@/scripts/utils'
@@ -44,6 +46,13 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+    // 判断首页轮播图显示
+    if(to.path !== '/index') {
+        store.commit('carouselShow', false)
+    } else {
+        store.commit('carouselShow', true)
+    }
+
     /* 判断 ie9 以下 */
     if (checkBrowser() < 9) {
         if (to.path === '/') {

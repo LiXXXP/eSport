@@ -65,6 +65,7 @@
     .video-content {
         width: 960px;
         margin-top: 15px;
+        margin-bottom: 18px;
         .item {
             cursor: pointer;
             padding: 12px 20px;

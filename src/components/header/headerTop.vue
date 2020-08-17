@@ -2,7 +2,10 @@
     <div class="header-nav">
         <div class="page-content flex flex_between flex_center">
             <!-- logo -->
-            <img src="../../assets/imgs/index/logo.png" class="logo">
+            <img class="logo"
+                src="../../assets/imgs/index/logo.png"
+                @click="gotoHome"
+            >
             <div>
                 <div class="top flex flex_start">
                     <!-- 搜索 -->
@@ -34,7 +37,9 @@
             }
         },
         methods: {
-
+            gotoHome() {
+                this.$router.push('/')
+            }
         },
         components: {
             searchInput,
@@ -55,6 +60,7 @@
             width: 149px;
             height: 49px;
             display: block;
+            cursor: pointer;
         }
         .top {
             color: #fff;

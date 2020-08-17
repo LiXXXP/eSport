@@ -9,7 +9,7 @@
             <!-- 面包屑导航 -->
             <bread-crumb></bread-crumb>
             <!-- 轮播图 -->
-            <img-block v-if="isShow"></img-block>
+            <img-block v-if="this.$store.state.isCarouselShow"></img-block>
             <!-- 赛事内容 -->
             <div class="flex flex_between">
                 <!-- 左侧边栏 -->
@@ -33,19 +33,7 @@
     export default {
         data () {
             return {
-                isShow: true    // 是否显示轮播图，为首页时显示
-            }
-        },
-        created() {
 
-        },
-        watch:{
-            $route(now,old){
-                if(now.path !== '/index') {
-                    this.isShow = false
-                } else {
-                    this.isShow = true
-                }
             }
         },
         components: {

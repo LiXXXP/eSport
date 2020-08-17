@@ -10,21 +10,21 @@
                 </div>
             </tab-nav>
         </div>
-        <!-- <lol-detail-content
+        <lol-detail-content
             :currentData="currentIndex"
             v-if="openType === 'lol'"
         ></lol-detail-content>
         <dota-detail-content
-            v-else
+            v-if="openType === 'dota2'"
             :currentData="currentIndex"
-        ></dota-detail-content> -->
+        ></dota-detail-content>
         <csgo-detail-content
+            v-if="openType === 'csgo'"
             :currentData="currentIndex"
-        >
-        </csgo-detail-content>
+        ></csgo-detail-content>
         <!-- <play-data></play-data> -->
         <!-- <play-detail></play-detail> -->
-        <csgo-play-data></csgo-play-data>
+        <!-- <csgo-play-data></csgo-play-data> -->
         <!-- <csgo-play-detail></csgo-play-detail> -->
         <div class="pack" @click="packUp" v-if="!isHide">
             <i></i> 收起
@@ -36,7 +36,7 @@
     import tabNav from '@/components/common/tabNav'          // tab切换
     import lolDetailContent from '@/components/index/content/detail/lol/detailContent'   // lol详情
     import dotaDetailContent from '@/components/index/content/detail/dota/detailContent' // dota详情
-    import csgoDetailContent from '@/components/index/content/detail/csgo/detailContent' // dota详情
+    import csgoDetailContent from '@/components/index/content/detail/csgo/detailContent' // csgo详情
     import playData from '@/components/detail/content/playData'               // lol，dota 数据分析
     import playDetail from '@/components/detail/content/playDetail'           // lol，dota 数据详情
     import csgoPlayData from '@/components/detail/content/csgoPlayData'       // csgo 数据分析

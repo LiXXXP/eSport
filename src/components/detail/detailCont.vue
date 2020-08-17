@@ -3,7 +3,7 @@
         <play-score></play-score>
         <play-info></play-info>
         <game-info
-            :openType="'lol'"
+            :openType="this.$route.query.openType"
             :isHide="true"
         ></game-info>
     </div>

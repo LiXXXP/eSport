@@ -1,31 +1,15 @@
 <template>
     <div class="game-table">
         <table>
-            <thead>
+            <thead @click="gotoDetail(inningData.match_id)">
                 <th>
-                    <div class="flex flex_start flex_only_center"
-                        @click="gotoDetail">
+                    <div class="flex flex_start flex_only_center">
                         <img
                             :src="inningData.tournament.image"
                             class="event-icon"
-                            v-if="inningData.tournament"
                         >
-                        <img
-                            :src="inningData.image"
-                            class="event-icon"
-                            v-else
-                        >
-                        <span
-                            class="beyond-ellipsis"
-                            v-if="inningData.tournament"
-                        >
+                        <span class="beyond-ellipsis">
                             {{inningData.tournament.name_cn}}
-                        </span>
-                        <span
-                            class="beyond-ellipsis"
-                            v-else
-                        >
-                            {{inningData.name_cn}}
                         </span>
                     </div>
                 </th>
@@ -69,12 +53,7 @@
                             <div class="flex flex_start flex_only_center">
                                 <img :src="inningData.game.image" class="game-icon">
                                 <div class="game-time">
-                                    <p v-if="inningData.begin_at">
-                                        {{inningData.begin_at.substring(11,16)}}
-                                        <br>
-                                        {{inningData.begin_at.substring(5,10)}}
-                                    </p>
-                                    <p v-else>
+                                    <p>
                                         {{inningData.scheduled_begin_at.substring(11,16)}}
                                         <br>
                                         {{inningData.scheduled_begin_at.substring(5,10)}}
@@ -82,12 +61,10 @@
                                 </div>
                             </div>
                             <div class="teams">
-                                <div v-for="(item,index) in inningData.teams"
+                                <div v-for="item in inningData.teams"
                                     :key=""
                                 >
-                                    <div v-if="index<2"
-                                        class="flex flex_start flex_only_center"
-                                    >
+                                    <div class="flex flex_start flex_only_center">
                                         <img
                                             :src="item.team_snapshot.image"
                                             class="team-icon"
@@ -105,7 +82,14 @@
                             </div>
                         </div>
                     </td>
-                    <td class="game-score">2</td>
+                    <td :class="['game-score',
+                        {
+                            red: inningData.scores[0].opponent_order < inningData.scores[1].opponent_order,
+                            green: inningData.scores[0].opponent_order >= inningData.scores[1].opponent_order
+                        }]"
+                    >
+                        {{inningData.scores[0].opponent_order}}
+                    </td>
                     <td rowspan="2">
                         <div class="game-etc">
                             <p>第五局</p>
@@ -131,7 +115,14 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="game-score">2</td>
+                    <td :class="['game-score',
+                        {
+                            red: inningData.scores[1].opponent_order < inningData.scores[0].opponent_order,
+                            green: inningData.scores[1].opponent_order >= inningData.scores[0].opponent_order
+                        }]"
+                    >
+                        {{inningData.scores[1].opponent_order}}
+                    </td>
                     <td class="game-rank d">
                         <span>D</span>
                     </td>
@@ -186,9 +177,13 @@
             }
         },
         methods: {
-            gotoDetail() {
+            gotoDetail(matchId) {
                 this.$router.push({
-                    path: '/detail'
+                    path: '/detail',
+                    query: {
+                        matchId: matchId,
+                        openType: this.inningData.game.short_name
+                    }
                 })
             }
         }
@@ -281,10 +276,15 @@
         }
         .game-score {
             border: 0;
-            color: #00AB49;
             font-size: 14px;
             font-weight: bold;
             padding-left: 3px;
+            &.red {
+                color: #F22509;
+            }
+            &.green {
+                color: #00AB49;
+            }
         }
         .game-rank {
             span {

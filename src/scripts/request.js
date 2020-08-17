@@ -163,7 +163,7 @@ function getOnGoing(params) {
  * @param {*} params
  */
 function getUpComning(params) {
-  return getRequest('/tournaments/upcomning', params)
+  return getRequest('/matches/upcoming', params)
 }
 
 /**
@@ -172,7 +172,7 @@ function getUpComning(params) {
  * @param {*} params
  */
 function getPast(params) {
-  return getRequest('/tournaments/past', params)
+  return getRequest('/matches/past', params)
 }
 
 export {

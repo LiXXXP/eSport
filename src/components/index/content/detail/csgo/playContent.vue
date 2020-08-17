@@ -5,14 +5,12 @@
             :selectStyle="selectStyle"
             :navData="navList"
         ></tab-nav>
-        <play-csgo></play-csgo>
     </div>
 </template>
 
 <script>
     import mapInfo from '@/components/index/content/detail/mapInfo'     // 地图模块
     import tabNav from '@/components/common/tabNav'                     // 导航
-    import playCsgo from '@/components/index/content/detail/playCsgo'   // 对局详情
 
     export default {
         data() {
@@ -44,8 +42,7 @@
         },
         components: {
             mapInfo,
-            tabNav,
-            playCsgo
+            tabNav
         }
     }
 </script>

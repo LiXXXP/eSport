@@ -21,7 +21,7 @@
                 </div>
                 <!-- 详情 -->
                 <game-info
-                    :openType="key.game.name"
+                    :openType="key.game.short_name"
                     v-show="currentId === key.match_id"
                     @packDetailId="packDetailId"
                 ></game-info>
@@ -95,6 +95,7 @@
                 getOnGoing(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[0].list = res.data.list
+                        // console.log('进行中的比赛',_this.gameList[0].list)
                         _this.gameList[0].page.count = res.data.count
                     }
                 })
@@ -109,6 +110,7 @@
                 getUpComning(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[1].list = res.data.list
+                        // console.log('未开始的比赛',_this.gameList[1].list)
                         _this.gameList[1].page.count = res.data.count
                     }
                 })
@@ -123,6 +125,7 @@
                 getPast(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[2].list = res.data.list
+                        // console.log('已结束的比赛',_this.gameList[2].list)
                         _this.gameList[2].page.count = res.data.count
                     }
                 })
