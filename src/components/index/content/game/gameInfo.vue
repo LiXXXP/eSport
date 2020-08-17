@@ -24,6 +24,8 @@
         </csgo-detail-content>
         <!-- <play-data></play-data> -->
         <!-- <play-detail></play-detail> -->
+        <csgo-play-data></csgo-play-data>
+        <!-- <csgo-play-detail></csgo-play-detail> -->
         <div class="pack" @click="packUp" v-if="!isHide">
             <i></i> 收起
         </div>
@@ -35,8 +37,10 @@
     import lolDetailContent from '@/components/index/content/detail/lol/detailContent'   // lol详情
     import dotaDetailContent from '@/components/index/content/detail/dota/detailContent' // dota详情
     import csgoDetailContent from '@/components/index/content/detail/csgo/detailContent' // dota详情
-    import playData from '@/components/detail/content/playData'       // lol，dota 数据分析
-    import playDetail from '@/components/detail/content/playDetail'   // lol，dota 数据详情
+    import playData from '@/components/detail/content/playData'               // lol，dota 数据分析
+    import playDetail from '@/components/detail/content/playDetail'           // lol，dota 数据详情
+    import csgoPlayData from '@/components/detail/content/csgoPlayData'       // csgo 数据分析
+    import csgoPlayDetail from '@/components/detail/content/csgoPlayDetail'   // csgo 数据详情
     export default {
         props: {
             // 游戏类型
@@ -83,7 +87,9 @@
             dotaDetailContent,
             csgoDetailContent,
             playData,
-            playDetail
+            playDetail,
+            csgoPlayData,
+            csgoPlayDetail
         }
     }
 </script>

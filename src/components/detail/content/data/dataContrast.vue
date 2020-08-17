@@ -6,9 +6,10 @@
         </div>
         <div class="contrast">
             <filter-bar :filterData="filterTitle"></filter-bar>
+            <data-chart></data-chart>
             <div class="content flex flex_start">
                 <side-bar></side-bar>
-                <data-chart></data-chart>
+                <histogram></histogram>
             </div>
         </div>
     </div>
@@ -18,6 +19,7 @@
     import filterBar from '@/components/detail/content/filter/filterBar'  // 筛选
     import sideBar from '@/components/detail/content/side/sideBar'        // 侧边栏
     import dataChart from '@/components/detail/content/data/dataChart'    // 图表
+    import histogram from '@/components/detail/content/chart/histogram'   // 柱状图
     export default {
         data() {
             return {
@@ -40,7 +42,8 @@
         components: {
             filterBar,
             sideBar,
-            dataChart
+            dataChart,
+            histogram
         }
     }
 </script>
@@ -51,6 +54,7 @@
             .content {
                 width: 960px;
                 margin-top: 3px;
+                margin-bottom: 24px;
             }
         }
     }

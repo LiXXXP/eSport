@@ -1,5 +1,15 @@
 <template>
     <div class="data-chart">
+        <div class="team flex flex_between">
+            <div class="flex flex_start">
+                <img src="../../../../assets/imgs/detail/4.png">
+                <p>Immortal Gaming</p>
+            </div>
+            <div class="flex flex_start">
+                <p>Immortal Gaming</p>
+                <img src="../../../../assets/imgs/detail/4.png">
+            </div>
+        </div>
         <div class="diagram flex flex_start flex_wrap">
             <diagram-bar
                 class="bar"
@@ -8,13 +18,11 @@
                 :key="item.title"
             ></diagram-bar>
         </div>
-        <histogram></histogram>
     </div>
 </template>
 
 <script>
     import diagramBar from '@/components/detail/content/chart/diagramBar' // 条形图
-    import histogram from '@/components/detail/content/chart/histogram'   // 柱状图
     export default {
         data() {
             return {
@@ -38,16 +46,16 @@
             }
         },
         components: {
-            diagramBar,
-            histogram
+            diagramBar
         }
     }
 </script>
 
 <style lang="less" scoped>
     .data-chart {
-        min-width: 923px;
+        width: 960px;
         padding: 10px 0;
+        margin-top: 2px;
         overflow-x: auto;
         overflow-y: hidden;
         box-sizing: border-box;
@@ -64,11 +72,23 @@
             background: #E4E4E4;
             box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
         }
+        .team {
+            margin-bottom: 5px;
+            img {
+                width: 30px;
+                height: 30px;
+                margin: 0 15px;
+            }
+            p {
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
         .diagram {
             padding: 10px;
             box-sizing: border-box;
             .bar {
-                margin: 0 40px 20px 0;
+                margin: 0 70px 20px 0;
                 &:nth-child(3n) {
                     margin-right: 0;
                 }
