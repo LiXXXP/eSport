@@ -9,7 +9,7 @@ environmentVar = '开发'
 // environmentVar = '线上'
 
 if(environmentVar === '开发') {
-    sparkUrlVar = 'http://api.score.playesport.cn/v1'
+    sparkUrlVar = '/games/api/v1'
     basePathVar = '/'
 } else if(environmentVar === '测试') {
     sparkUrlVar = ''

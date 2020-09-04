@@ -61,20 +61,13 @@
                                 </div>
                             </div>
                             <div class="teams">
-                                <div v-for="item in inningData.teams"
-                                    :key=""
-                                >
-                                    <div class="flex flex_start flex_only_center">
-                                        <img
-                                            :src="item.team_snapshot.image"
-                                            class="team-icon"
-                                            v-if="item.team_snapshot"
-                                        >
-                                        <p
-                                            v-if="item.team_snapshot"
-                                            class="beyond-ellipsis"
-                                            :title="item.team_snapshot.name"
-                                        >
+                                <div v-for="item in inningData.teams" :key="">
+                                    <div class="flex flex_start flex_only_center"
+                                        v-if="item.team_snapshot.length !== 0">
+                                        <img :src="item.team_snapshot.image"
+                                            class="team-icon">
+                                        <p class="beyond-ellipsis"
+                                            :title="item.team_snapshot.name">
                                             {{item.team_snapshot.name}}
                                         </p>
                                     </div>
@@ -84,20 +77,23 @@
                     </td>
                     <td :class="['game-score',
                         {
-                            red: inningData.scores[0].opponent_order < inningData.scores[1].opponent_order,
-                            green: inningData.scores[0].opponent_order >= inningData.scores[1].opponent_order
+                            red: (inningData.scores[0].score || 0) < (inningData.scores[1].score || 0),
+                            green: (inningData.scores[0].score || 0) >= (inningData.scores[1].score || 0)
                         }]"
                     >
-                        {{inningData.scores[0].opponent_order}}
+                        <div v-if="inningData.status !== 'upcoming'">
+                            {{inningData.scores[0].score || 0}}
+                        </div>
                     </td>
-                    <td rowspan="2">
-                        <div class="game-etc">
-                            <p>第五局</p>
-                            <p>25:06</p>
+                    <td rowspan="2" colspan="1">
+                        <div class="game-etc"
+                            v-if="inningData.battles.length !== 0">
+                            <p>第{{inningData.battles.length}}局</p>
+                            <p>{{durationTime(inningData.battles[inningData.battles.length-1].duration)}}</p>
                         </div>
                     </td>
                     <td class="game-rank r">
-                        <span>R</span>
+                        <span v-if="inningData.status !== 'upcoming'">R</span>
                     </td>
                     <td>1</td>
                     <td>1</td>
@@ -117,14 +113,16 @@
                 <tr>
                     <td :class="['game-score',
                         {
-                            red: inningData.scores[1].opponent_order < inningData.scores[0].opponent_order,
-                            green: inningData.scores[1].opponent_order >= inningData.scores[0].opponent_order
+                            red: (inningData.scores[1].score || 0) < (inningData.scores[0].score || 0),
+                            green: (inningData.scores[1].score || 0) >= (inningData.scores[0].score || 0)
                         }]"
                     >
-                        {{inningData.scores[1].opponent_order}}
+                        <div v-if="inningData.status !== 'upcoming'">
+                            {{inningData.scores[1].score || 0}}
+                        </div>
                     </td>
                     <td class="game-rank d">
-                        <span>D</span>
+                        <span v-if="inningData.status !== 'upcoming'">D</span>
                     </td>
                     <td>1</td>
                     <td>1</td>
@@ -163,13 +161,16 @@
 </template>
 
 <script>
-    import formatDate from '@/scripts/utils'
+    import { formatDate, formatSeconds } from '@/scripts/utils'
     export default {
         props: {
             inningData: {
                 type: Object,
-                defalue: {}
+                default: {}
             }
+        },
+        mounted() {
+            // console.log(this.inningData)
         },
         data() {
             return {
@@ -186,7 +187,14 @@
                     }
                 })
             }
-        }
+        },
+        computed: {
+            durationTime(sec) {
+                return function(sec) {
+                    return formatSeconds(sec)
+                }
+            }
+        },
     }
 </script>
 
@@ -278,7 +286,7 @@
             border: 0;
             font-size: 14px;
             font-weight: bold;
-            padding-left: 3px;
+            padding-left: 4px;
             &.red {
                 color: #F22509;
             }

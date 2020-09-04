@@ -17,8 +17,7 @@
                 </tr>
                 <tr>
                     <td class="detail"
-                        @click="openInfo(clickId)"
-                    >
+                        @click="openInfo(matchId)">
                         <span>详情</span>
                         <i></i>
                     </td>
@@ -29,9 +28,10 @@
 </template>
 
 <script>
+    import bus from '@/scripts/bus'
     export default {
         props: {
-            clickId: {
+            matchId: {
                 type: Number,
                 default: 0
             }
@@ -52,13 +52,13 @@
                 }
             },
             // 展开游戏详情
-            openInfo(id) {
+            openInfo(Mid) {
                 if(this.isOpen) {
                     this.isOpen = false
                     this.$emit('openDetailId',-1)
                 } else {
                     this.isOpen = true
-                    this.$emit('openDetailId',id)
+                    this.$emit('openDetailId',Mid)
                 }
             }
         }

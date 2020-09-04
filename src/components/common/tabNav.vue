@@ -12,7 +12,10 @@
                 </i>
                 <span>{{item.title}}</span>
             </div>
-            <slot name="openlive" v-if="index===currentIndex"></slot>
+            <slot
+                name="openlive"
+                v-if="index===currentIndex"
+            ></slot>
         </div>
     </div>
 </template>

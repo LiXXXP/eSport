@@ -20,13 +20,12 @@
         ></dota-detail-content>
         <csgo-detail-content
             v-if="openType === 'csgo'"
+            :battlesData="gameDetail.battles"
             :currentData="currentIndex"
         ></csgo-detail-content>
-        <!-- <play-data></play-data> -->
-        <!-- <play-detail></play-detail> -->
-        <!-- <csgo-play-data></csgo-play-data> -->
-        <!-- <csgo-play-detail></csgo-play-detail> -->
-        <div class="pack" @click="packUp" v-if="!isHide">
+        <div class="pack"
+            @click="packUp"
+            v-if="!this.$route.query.openType">
             <i></i> 收起
         </div>
     </div>
@@ -37,10 +36,9 @@
     import lolDetailContent from '@/components/index/content/detail/lol/detailContent'   // lol详情
     import dotaDetailContent from '@/components/index/content/detail/dota/detailContent' // dota详情
     import csgoDetailContent from '@/components/index/content/detail/csgo/detailContent' // csgo详情
-    import playData from '@/components/detail/content/playData'               // lol，dota 数据分析
-    import playDetail from '@/components/detail/content/playDetail'           // lol，dota 数据详情
-    import csgoPlayData from '@/components/detail/content/csgoPlayData'       // csgo 数据分析
-    import csgoPlayDetail from '@/components/detail/content/csgoPlayDetail'   // csgo 数据详情
+
+    import bus from '@/scripts/bus'
+
     export default {
         props: {
             // 游戏类型
@@ -48,10 +46,9 @@
                 type: String,
                 default: ''
             },
-            // 详情页 收起按钮 隐藏
-            isHide: {
-                type: Boolean,
-                default: true
+            gameDetail: {
+                type: Object,
+                default: {}
             }
         },
         data () {
@@ -73,6 +70,9 @@
                 currentIndex: 0
             }
         },
+        created() {
+
+        },
         methods: {
             packUp() {
                 this.$emit('packDetailId',-1)
@@ -85,11 +85,7 @@
             tabNav,
             lolDetailContent,
             dotaDetailContent,
-            csgoDetailContent,
-            playData,
-            playDetail,
-            csgoPlayData,
-            csgoPlayDetail
+            csgoDetailContent
         }
     }
 </script>
@@ -124,6 +120,7 @@
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
+            padding-top: 15px;
             text-align: center;
             i {
                 width: 9px;

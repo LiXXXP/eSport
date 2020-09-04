@@ -154,7 +154,7 @@ function getPlayers(params) {
  * @param {*} params
  */
 function getOnGoing(params) {
-  return getRequest('/matches/list', params)
+  return getRequest('/matches/ongoing', params)
 }
 
 /**
@@ -175,6 +175,24 @@ function getPast(params) {
   return getRequest('/matches/past', params)
 }
 
+/**
+ *
+ * 获取比赛对局详情
+ * @param {*} params
+ */
+function getBattles(params) {
+  return getRequest('/battles/detail', params)
+}
+
+/**
+ *
+ * 获取比赛详情
+ * @param {*} params
+ */
+function getMatches(params) {
+  return getRequest('/matches/detail', params)
+}
+
 export {
     getGames,
     getEvents,
@@ -183,6 +201,8 @@ export {
     getPlayers,
     getOnGoing,
     getUpComning,
-    getPast
+    getPast,
+    getBattles,
+    getMatches
 }
 

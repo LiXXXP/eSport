@@ -5,15 +5,21 @@
             <span class="play-header-text">比赛信息</span>
         </div>
         <div class="info">
-            <p>赛事进度：常规赛/第23轮</p>
-            <p>比赛地点：北京五棵松体育馆</p>
-            <p>相关描述：这里是比赛的其他相关信息...</p>
+            <p>赛事进度：{{infoData.round_name}}/第{{infoData.round_order}}轮</p>
+            <p>比赛地点：{{infoData.location}}</p>
+            <p>相关描述：{{infoData.description}}</p>
         </div>
     </div>
 </template>
 
 <script>
     export default {
+        props: {
+            infoData: {
+                type: Object,
+                default: {}
+            }
+        },
         data() {
             return {
 

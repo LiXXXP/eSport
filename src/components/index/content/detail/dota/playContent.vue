@@ -1,9 +1,5 @@
 <template>
     <div class="play-content">
-        <tab-nav
-            :selectStyle="selectStyle"
-            :navData="navList"
-        ></tab-nav>
         <div class="play-header flex flex_start flex_only_center">
             <i class="play-header-bar"></i>
             <span class="play-header-text">对局详情</span>
@@ -39,7 +35,7 @@
     import playTeam from '@/components/index/content/detail/playTeam'
     import playHero from '@/components/index/content/detail/playHero'
     import playProgress from '@/components/index/content/detail/playProgress'
-    import tabNav from '@/components/common/tabNav'          // tab切换
+
     export default {
         data() {
             return {
@@ -115,33 +111,12 @@
                         id: 10
                     }
                 ],
-                // 当前tab栏样式，
-                // 1为首页橙色填充样式
-                // 2为详情页边框样式
-                // 3为详情页填充样式
-                // 4为详情直播按钮
-                selectStyle: 3,
-                navList: [
-                    {
-                        title: 'MAP 1'
-                    },
-                    {
-                        title: 'MAP 2'
-                    },
-                    {
-                        title: 'MAP 3'
-                    },
-                    {
-                        title: 'MAP 4'
-                    }
-                ]
             }
         },
         components: {
             playTeam,
             playHero,
             playProgress,
-            tabNav
         }
     }
 </script>

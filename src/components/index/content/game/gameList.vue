@@ -3,7 +3,8 @@
         <!-- 标题 -->
         <div v-for="(item,index) in gameList"
             :key="item.title">
-            <div class="game-title">
+            <div class="game-title"
+                v-if="item.list.length!==0">
                 {{item.title}}
             </div>
             <!-- 游戏比分 -->
@@ -15,7 +16,7 @@
                         :inningData="key"
                     ></game-table>
                     <game-edit
-                        :clickId="key.match_id"
+                        :matchId="key.match_id"
                         @openDetailId="openDetailId"
                     ></game-edit>
                 </div>
@@ -45,7 +46,9 @@
     import {
         getOnGoing,
         getUpComning,
-        getPast
+        getPast,
+        getBattles,
+        getMatches
     } from '@/scripts/request'
     export default {
        data() {
@@ -95,7 +98,6 @@
                 getOnGoing(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[0].list = res.data.list
-                        // console.log('进行中的比赛',_this.gameList[0].list)
                         _this.gameList[0].page.count = res.data.count
                     }
                 })
@@ -110,7 +112,6 @@
                 getUpComning(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[1].list = res.data.list
-                        // console.log('未开始的比赛',_this.gameList[1].list)
                         _this.gameList[1].page.count = res.data.count
                     }
                 })
@@ -125,14 +126,22 @@
                 getPast(params).then(res => {
                     if (res.code === 1000) {
                         _this.gameList[2].list = res.data.list
-                        // console.log('已结束的比赛',_this.gameList[2].list)
                         _this.gameList[2].page.count = res.data.count
                     }
                 })
             },
             // 打开游戏详情
-            openDetailId(id) {
-                this.currentId = id
+            openDetailId(Mid,Bid) {
+                this.currentId = Mid
+                let params = {
+                    match_id: Mid
+                }
+                let _this = this
+                getMatches(params).then(res => {
+                    if (res.code === 1000) {
+                        // console.log(res)
+                    }
+                })
             },
             // 收起游戏详情
             packDetailId(id) {

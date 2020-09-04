@@ -6,7 +6,12 @@
             :selectStyle="selectStyle"
             :navData="navList"
         ></tab-nav>
+        <!-- 对局详情 -->
         <play-content></play-content>
+        <!-- 对局分析 -->
+        <play-data></play-data>
+        <!-- 对局详情 -->
+        <play-detail></play-detail>
     </div>
 </template>
 
@@ -15,6 +20,9 @@
     import playContent from '@/components/index/content/detail/lol/playContent'   // 对局详情
     import videoContent from '@/components/index/content/detail/videoContent'     // 视频模块
     import tabNav from '@/components/common/tabNav'                               // tab切换
+    import playData from '@/components/detail/content/playData'                   // 数据分析
+    import playDetail from '@/components/detail/content/playDetail'               // 数据详情
+
     export default {
         props: {
             currentData: {
@@ -34,7 +42,7 @@
             }
         },
         mounted() {
-            if(this.$store.state.isCarouselShow) {
+            if(!this.$route.query.openType) {
                 this.navList = [
                     {
                         title: 'MAP 1'
@@ -73,7 +81,9 @@
             mapContent,
             playContent,
             videoContent,
-            tabNav
+            tabNav,
+            playData,
+            playDetail
         }
     }
 </script>
