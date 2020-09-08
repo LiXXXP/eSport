@@ -179,6 +179,7 @@ function getPast(params) {
  *
  * 获取比赛对局详情
  * @param {*} params
+ * battle_id
  */
 function getBattles(params) {
   return getRequest('/battles/detail', params)
@@ -188,6 +189,7 @@ function getBattles(params) {
  *
  * 获取比赛详情
  * @param {*} params
+ * matche_id
  */
 function getMatches(params) {
   return getRequest('/matches/detail', params)

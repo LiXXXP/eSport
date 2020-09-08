@@ -1,18 +1,31 @@
 <template>
     <div class="kill-sign flex flex_column flex_around">
-        <div v-for="item in signList"
-            :key="item.sign"
+        <div :class="['block flex flex_only_center',{
+            flex_row_reverse: isReverse
+        }]">
+            <span>{{sideData.first_half_score}}</span>
+            <span :class="['sign',sideData.starting_side === 'terrorist'? 't':'ct']">
+                {{
+                    sideData.starting_side === 'terrorist' ? 'T':'CT'
+                }}
+            </span>
+        </div>
+        <div :class="['block flex flex_only_center',{
+            flex_row_reverse: isReverse
+        }]">
+            <span>{{sideData.second_half_score}}</span>
+            <span :class="['sign',sideData.starting_side === 'terrorist'? 'ct':'t']">
+                {{
+                    sideData.starting_side === 'terrorist' ? 'CT':'T'
+                }}
+            </span>
+        </div>
+        <div v-if="sideData.ot_score > 0"
             :class="['block flex flex_only_center',{
                 flex_row_reverse: isReverse
-            }]">
-            <span>{{item.num}}</span>
-            <span :class="['sign',{
-                t: item.sign === 'T',
-                ct: item.sign === 'CT',
-                ot: item.sign === 'OT'
-            }]">
-                {{item.sign}}
-            </span>
+        }]">
+            <span>{{sideData.ot_score}}</span>
+            <span class="sign ot">OT</span>
         </div>
     </div>
 </template>
@@ -23,24 +36,15 @@
             isReverse: {
                 type: Boolean,
                 default: false
+            },
+            sideData: {
+                type: Object,
+                default: {}
             }
         },
         data() {
             return {
-                signList: [
-                    {
-                        num: 10,
-                        sign: 'T'
-                    },
-                    {
-                        num: 4,
-                        sign: 'CT'
-                    },
-                    {
-                        num: 3,
-                        sign: 'OT'
-                    }
-                ]
+
             }
         }
     }

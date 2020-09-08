@@ -20,7 +20,6 @@
         ></dota-detail-content>
         <csgo-detail-content
             v-if="openType === 'csgo'"
-            :battlesData="gameDetail.battles"
             :currentData="currentIndex"
         ></csgo-detail-content>
         <div class="pack"
@@ -37,18 +36,12 @@
     import dotaDetailContent from '@/components/index/content/detail/dota/detailContent' // dota详情
     import csgoDetailContent from '@/components/index/content/detail/csgo/detailContent' // csgo详情
 
-    import bus from '@/scripts/bus'
-
     export default {
         props: {
             // 游戏类型
             openType: {
                 type: String,
                 default: ''
-            },
-            gameDetail: {
-                type: Object,
-                default: {}
             }
         },
         data () {
@@ -67,7 +60,7 @@
                         title: '图文直播'
                     }
                 ],
-                currentIndex: 0
+                currentIndex: 0,   // 当前index
             }
         },
         created() {

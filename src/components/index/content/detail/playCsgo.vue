@@ -5,19 +5,35 @@
             <span class="play-header-text">对局详情</span>
         </div>
         <div class="map flex flex_center">
-            <kill-arms></kill-arms>
+            <kill-arms
+                :sideData="battleDetail.battle_detail.teams[0].starting_side"
+            ></kill-arms>
             <kill-sign
                 :isReverse="false"
+                :sideData="battleDetail.battle_detail.teams[0]"
             ></kill-sign>
             <div class="center flex flex_center">
-                <p class="left">19</p>
-                <img src="../../../../assets/imgs/detail/csgo/map_big06.png">
-                <p class="right">16</p>
+                <p :class="['left',{
+                    green: battleDetail.scores[0].score > battleDetail.scores[1].score,
+                    red: battleDetail.scores[0].score < battleDetail.scores[1].score
+                }]">
+                    {{battleDetail.scores[0].score}}
+                </p>
+                <img :src="battleDetail.map.image.square_image">
+                <p :class="['right',{
+                    green: battleDetail.scores[1].score > battleDetail.scores[0].score,
+                    red: battleDetail.scores[1].score < battleDetail.scores[0].score
+                }]">
+                    {{battleDetail.scores[1].score}}
+                </p>
             </div>
             <kill-sign
                 :isReverse="true"
+                :sideData="battleDetail.battle_detail.teams[1]"
             ></kill-sign>
-            <kill-arms></kill-arms>
+            <kill-arms
+                :sideData="battleDetail.battle_detail.teams[1].starting_side"
+            ></kill-arms>
         </div>
         <div class="kill">
             <table cellspacing="0" cellpadding="0">
@@ -131,7 +147,6 @@
                 <div class="hide">隐藏阵亡详情</div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -152,10 +167,23 @@
                 ]
             }
         },
+        created() {
+
+        },
         components: {
             killArms,
             killSign,
             killBar
+        },
+        computed: {
+            battleDetail() {
+                return this.$store.state.battlesData
+            }
+        },
+        watch: {
+            battleDetail(val) {
+                return this.$store.state.battlesData
+            }
         }
     }
 </script>
@@ -168,15 +196,21 @@
             background-color: #fff;
             .center {
                 p {
+                    width: 24px;
                     font-size: 18px;
                     font-weight: 600;
+                    text-align: center;
                     &.left {
-                        color: #09A709;
                         margin-left: 10px;
                     }
                     &.right {
-                        color: #E64D11;
                         margin-right: 10px;
+                    }
+                    &.green {
+                        color: #09A709;
+                    }
+                    &.red {
+                        color: #E64D11;
                     }
                 }
                 img {

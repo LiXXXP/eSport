@@ -10,6 +10,7 @@
 <script>
     import indexTab from '@/components/index/content/tab/indexTab'  // tab切换栏
     import gameList from '@/components/index/content/game/gameList' // 游戏列表
+
     export default {
         name: 'index',
         data() {

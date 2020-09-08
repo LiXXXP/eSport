@@ -5,12 +5,15 @@
             <span class="play-header-text">选手数据</span>
         </div>
         <div class="hero">
-            <table>
+            <table v-for="item in battleDetail.teams"
+                  :key="item.opponent_order">
                 <thead>
                     <th>
                         <div class="flex flex_only_center">
-                            <img src="../../../../assets/imgs/detail/4.png">
-                            <p>Rating2.0</p>
+                            <img :src="item.team_snapshot.image">
+                            <p :title="item.team_snapshot.full_name">
+                                {{item.team_snapshot.full_name}}
+                            </p>
                         </div>
                     </th>
                     <th>击杀（爆头击杀）</th>
@@ -23,89 +26,25 @@
                     <th>Rating2.0</th>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr v-for="key in battleDetail.battle_detail.teams[0].players"
+                        :key="key.player.player_id">
                         <td>
                             <div class="flex flex_only_center">
-                                <p>Nipdfqqdzzr</p>
-                                <i>Ace</i>
+                                <p>{{key.player.nick_name}}</p>
+                                <i class="knife" v-if="key.is_knife_kill"></i>
+                                <i class="ace" v-if="key.is_ace_kill">Ace</i>
                             </div>
                         </td>
-                        <td>12（9）</td>
-                        <td>27（3）</td>
-                        <td>23</td>
-                        <td>78.29%</td>
-                        <td>12-99</td>
-                        <td>87.4</td>
-                        <td>33-66</td>
-                        <td>1.05</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="flex flex_only_center">
-                                <p>Nipdfqqdzzr</p>
-                                <i>Ace</i>
-                            </div>
+                        <td>{{key.kills || 0}}（{{key.headshot_kills || 0}}）</td>
+                        <td>{{key.assists || 0}}（{{key.flash_assists || 0}}）</td>
+                        <td>{{key.deaths || 0}}</td>
+                        <td>{{key.kast || 0}}%</td>
+                        <td>{{key.kills || 0}}-{{key.deaths || 0}}</td>
+                        <td>{{key.adr || 0}}</td>
+                        <td :title="`${key.first_kills}-${key.first_deaths}`">
+                              {{key.first_kills_diff || 0}}
                         </td>
-                        <td>12（9）</td>
-                        <td>27（3）</td>
-                        <td>23</td>
-                        <td>78.29%</td>
-                        <td>12-99</td>
-                        <td>87.4</td>
-                        <td>33-66</td>
-                        <td>1.05</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table>
-                <thead>
-                    <th>
-                        <div class="flex flex_only_center">
-                            <img src="../../../../assets/imgs/detail/4.png">
-                            <p>Rating2.0</p>
-                        </div>
-                    </th>
-                    <th>击杀（爆头击杀）</th>
-                    <th>助攻（闪光弹助攻）</th>
-                    <th>死亡</th>
-                    <th>KAST</th>
-                    <th>K-D Diff</th>
-                    <th>平均每局伤害</th>
-                    <th>FK Diff</th>
-                    <th>Rating2.0</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="flex flex_only_center">
-                                <p>Nipdfqqdzzr</p>
-                                <i>Ace</i>
-                            </div>
-                        </td>
-                        <td>12（9）</td>
-                        <td>27（3）</td>
-                        <td>23</td>
-                        <td>78.29%</td>
-                        <td>12-99</td>
-                        <td>87.4</td>
-                        <td>33-66</td>
-                        <td>1.05</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="flex flex_only_center">
-                                <p>Nipdfqqdzzr</p>
-                                <i>Ace</i>
-                            </div>
-                        </td>
-                        <td>12（9）</td>
-                        <td>27（3）</td>
-                        <td>23</td>
-                        <td>78.29%</td>
-                        <td>12-99</td>
-                        <td>87.4</td>
-                        <td>33-66</td>
-                        <td>1.05</td>
+                        <td>{{key.rating || 0}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -118,13 +57,18 @@
     export default {
         data() {
             return {
-                heroList: {
 
-                }
             }
         },
-        components: {
-
+        computed: {
+            battleDetail() {
+                return this.$store.state.battlesData
+            }
+        },
+        watch: {
+            battleDetail(val) {
+                return this.$store.state.battlesData
+            }
         }
     }
 </script>
@@ -134,6 +78,7 @@
         .hero {
             table {
                 width: 960px;
+                cursor: pointer;
                 margin-bottom: 5px;
                 box-sizing: border-box;
                 background-color: #fff;
@@ -156,7 +101,15 @@
                     &:nth-child(1) {
                         text-align: left;
                         padding-left: 8px;
-                        i {
+                        .knife {
+                            width: 11px;
+                            height: 18px;
+                            display: block;
+                            margin: 0 5px;
+                            background: url('../../../../assets/imgs/detail/csgo/knife.png') no-repeat 0 0;
+                            background-size: 100%;
+                        }
+                        .ace {
                             font-size: 12px;
                             font-weight: 600;
                             color: #EF1111;

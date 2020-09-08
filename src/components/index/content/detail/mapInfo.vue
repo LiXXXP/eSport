@@ -12,32 +12,35 @@
                 @click="currentIndex = index"
             >{{item.name}}</div>
         </div>
-        <div class="map-bp" v-if="currentIndex===0">
-            <div class="team flex flex_start flex_only_center">
-                <img src="../../../../assets/imgs/detail/4.png">
-                <p>Astralis</p>
-            </div>
-            <div class="team flex flex_start flex_only_center">
-                <img src="../../../../assets/imgs/detail/4.png">
-                <p>Liquid</p>
+        <div
+            class="map-bp"
+            v-if="currentIndex===0"
+        >
+            <div class="team flex flex_start flex_only_center"
+                v-for="item in teamsData" :key="item.team_id">
+                <img :src="item.team_snapshot.image">
+                <p>{{item.team_snapshot.name}}</p>
             </div>
             <div class="map flex flex_only_center">
                 <div class="map-item"
                     v-for="item in mapList"
-                    :key="item.name"
+                    :key="item.order"
                 >
                     <div class="block">
-                        <img :src="item.url">
-                        <p>{{item.name}}</p>
+                        <img :src="item.map.image.square_image">
+                        <p>{{item.map.name}}</p>
                     </div>
-                    <p class="text">ban</p>
+                    <p class="text">{{item.map.short_name}}</p>
                 </div>
             </div>
         </div>
-        <div class="map-fight flex flex_start flex_only_center" v-else>
+        <div
+            v-else
+            class="map-fight flex flex_start flex_only_center"
+        >
             <img v-for="item in mapList"
-                :key="item.name"
-                :src="item.url">
+                :key="item.order"
+                :src="item.map.image.thumbnail">
         </div>
     </div>
 </template>
@@ -55,21 +58,13 @@
                         name: '对战地图'
                     }
                 ],
-                mapList: [
-                    {
-                        url: require('../../../../assets/imgs/detail/csgo/map_big06.png'),
-                        name: 'Nuke'
-                    },
-                    {
-                        url: require('../../../../assets/imgs/detail/csgo/map_big06.png'),
-                        name: 'overpass'
-                    },
-                    {
-                        url: require('../../../../assets/imgs/detail/csgo/map_big06.png'),
-                        name: 'pick'
-                    }
-                ]
+                teamsData: [],    // 比赛对局战队
+                mapList: []       // 地图列表
             }
+        },
+        created() {
+            this.teamsData = this.$store.state.matchsData.teams
+            this.mapList = this.$store.state.matchsData.maps
         },
         components: {
 
@@ -187,7 +182,7 @@
                                 bottom: 100%;
                             }
                             &:after {
-                                border-bottom-color: #CFCFCF;
+                                border-bottom-color: #878787;
                             }
                             &:before {
                                 border-bottom-color: #878787;
@@ -204,7 +199,7 @@
                                 top: 100%;
                             }
                             &:after {
-                                border-top-color: #CFCFCF;
+                                border-top-color: #878787;
                             }
                             &:before {
                                 border-top-color: #878787;

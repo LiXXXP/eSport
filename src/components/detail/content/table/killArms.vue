@@ -1,26 +1,50 @@
 <template>
     <div class="kill-arms">
         <div class="block flex flex_center">
-            <img v-for="item in iconList"
-                :key="item.url"
-                :src="item.url">
+            <div
+                v-for="item in eventsList"
+                :key="item.type"
+                :class="{back:item.side !== sideData}"
+            >
+                <img :src="item.url" v-if="item.side === sideData">
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     export default {
+        props: {
+            sideData: {
+                type: String,
+                default: ''
+            }
+        },
         data() {
             return {
-                iconList: [
+                eventsList: []
+            }
+        },
+        created() {
+            this.getEvents()
+        },
+        methods: {
+            getEvents() {
+                this.eventsList = [
                     {
-                        url: require('../../../../assets/imgs/detail/csgo/q1.png')
+                        url: require('../../../../assets/imgs/detail/csgo/q2.png'),
+                        type: 'win_round_16',
+                        side: this.$store.state.battlesData.battle_detail.special_events.win_round_16.side
                     },
                     {
-                        url: require('../../../../assets/imgs/detail/csgo/q.png')
+                        url: require('../../../../assets/imgs/detail/csgo/q.png'),
+                        type: 'first_to_5_rounds_wins',
+                        side: this.$store.state.battlesData.battle_detail.special_events.first_to_5_rounds_wins.side
                     },
                     {
-                        url: require('../../../../assets/imgs/detail/csgo/q2.png')
+                        url: require('../../../../assets/imgs/detail/csgo/q1.png'),
+                        type: 'win_round_1',
+                        side: this.$store.state.battlesData.battle_detail.special_events.win_round_1.side
                     }
                 ]
             }
@@ -44,11 +68,18 @@
                 top: 50%;
                 transform: translate(-50%, -50%);
             }
-            img {
+            div {
                 z-index: 99;
                 width: 20px;
                 height: 20px;
                 margin: 0 4px;
+                &.back {
+                    background-color: #E3E3E3;
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
 

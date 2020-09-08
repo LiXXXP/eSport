@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import playScore from '@/components/index/content/detail/playScore'     // 比赛比分
+    import playScore from '@/components/index/content/detail/playScore' // 比赛比分
     import mapInfo from '@/components/index/content/detail/mapInfo'     // 地图模块
 
     export default {

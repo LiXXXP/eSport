@@ -14,16 +14,13 @@
 
 <script>
     export default {
-        props: {
-            infoData: {
-                type: Object,
-                default: {}
-            }
-        },
         data() {
             return {
-
+                infoData: {}
             }
+        },
+        created() {
+            this.infoData = this.$store.state.matchsData
         }
     }
 </script>

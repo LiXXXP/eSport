@@ -10,40 +10,65 @@
                 报告网站错误数据
             </div>
         </div>
-        <div class="content flex flex_between">
+        <div class="content flex flex_between" v-if="scoresData">
             <div class="flex flex_center">
-                <img src="../../../../assets/imgs/detail/4.png">
-                <p>Astralis</p>
+                <img :src="scoresData[0].team_snapshot.image">
+                <p>{{scoresData[0].team_snapshot.full_name}}</p>
             </div>
             <div class="score flex flex_center">
                 <div class="bar flex flex_start">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div
+                        :class="{
+                            win: item.scores[0].score > item.scores[1].score
+                        }"
+                        v-for="item in battlesData"
+                        :key="item.battle_id"
+                    ></div>
                 </div>
-                <p class="left">2</p>
+                <p :class="['left',{
+                    green: scoresData[0].score > scoresData[1].score,
+                    red: scoresData[0].score < scoresData[1].score
+                }]">
+                    {{scoresData[0].score}}
+                </p>
                 <p>:</p>
-                <p class="right">0</p>
+                <p :class="['right',{
+                    green: scoresData[1].score > scoresData[0].score,
+                    red: scoresData[1].score < scoresData[0].score
+                }]">
+                    {{scoresData[1].score}}
+                </p>
                 <div class="bar flex flex_start">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div
+                        :class="{
+                            win: item.scores[1].score > item.scores[0].score
+                        }"
+                        v-for="item in battlesData"
+                        :key="item.battle_id"
+                    ></div>
                 </div>
             </div>
             <div class="flex flex_center">
-                <p>Astralis</p>
-                <img src="../../../../assets/imgs/detail/4.png">
+                <p>{{scoresData[1].team_snapshot.full_name}}</p>
+                <img :src="scoresData[1].team_snapshot.image">
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import bus from '@/scripts/bus'
     export default {
+
         data() {
             return {
-
+                scoresData: [],
+                battlesData: []
             }
+        },
+        created() {
+            this.scoresData = this.$store.state.matchsData.scores
+            this.battlesData = this.$store.state.matchsData.battles
         }
     }
 </script>
@@ -74,12 +99,16 @@
                 p {
                     margin: 0 5px;
                     &.left {
-                        color: #12BF12;
                         margin-left: 30px;
                     }
                     &.right {
-                        color: #E74E11;
                         margin-right: 30px;
+                    }
+                    &.green {
+                        color: #12BF12;
+                    }
+                    &.red {
+                        color: #E74E11;
                     }
                 }
                 .bar {
@@ -88,6 +117,9 @@
                         height:20px;
                         margin-right: 3px;
                         background-color: #E7E7E7;
+                        &.win {
+                            background-color: #2F3A5A;
+                        }
                     }
                 }
             }

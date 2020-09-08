@@ -55,19 +55,13 @@
 
 <script>
     export default {
-        props: {
-            teamsData: {
-                type: Object,
-                default: {}
-            }
-        },
         data() {
             return {
-
+                teamsData: {}
             }
         },
-        mounted() {
-
+        created() {
+            this.teamsData = this.$store.state.matchsData
         }
     }
 </script>
