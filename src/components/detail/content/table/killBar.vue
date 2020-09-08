@@ -1,12 +1,15 @@
 <template>
     <div class="kill-bar flex flex_start">
-        <div class="bar"
-            v-for="bar in barData"
-            :key="bar.id">
-            <p v-for="item in barList"
-                :key="item.id"
+        <div class="bar">
+            <p
+                v-for="item in barList"
+                :key="item.i"
                 :style="{'background-color': item.color}"
-            ></p>
+            >
+                <i v-if="item.color==='#434343' && killsData.headshot_kills > 0"
+                    :style="{'width': `${4*killsData.headshot_kills}px`}"
+                ></i>
+            </p>
         </div>
     </div>
 </template>
@@ -14,9 +17,17 @@
 <script>
     export default {
         props: {
-            barData: {
-                type: Array,
-                default: []
+            killsData: {  // 击杀数据
+                type: Object,
+                default: {}
+            },
+            backColor: {  // 显示颜色
+                type: String,
+                default: ''
+            },
+            isReverse: {  // 显示反转
+                type: Boolean,
+                default: false
             }
         },
         data() {
@@ -24,25 +35,52 @@
                 barList: [
                     {
                         i: 0,
-                        color: '#F5B500'
+                        color: '#CFCFCF'
                     },
                     {
                         i: 1,
-                        color: '#434343'
+                        color: '#CFCFCF'
                     },
                     {
                         i: 2,
-                        color: '#434343'
+                        color: '#CFCFCF'
                     },
                     {
                         i: 3,
-                        color: '#434343'
+                        color: '#CFCFCF'
                     },
                     {
                         i: 4,
-                        color: '#008BD3'
+                        color: '#CFCFCF'
                     }
                 ]
+            }
+        },
+        created() {
+            this.getkillsData()
+        },
+        methods: {
+            getkillsData() {
+                for(let i in this.barList) {
+                    this.barList[i].color = '#CFCFCF'
+                    if( i < this.killsData.survived_players) {
+                        this.barList[i].color = this.backColor
+                    }
+                }
+                if( (this.killsData.headshot_kills || 0 ) > 0) {
+                    let index = this.killsData.survived_players || 0
+                    if(index < 5) {
+                        this.barList[index].color = '#434343'
+                    }
+                }
+                if(this.isReverse) {
+                    this.barList.reverse()
+                }
+            }
+        },
+        watch: {
+            killsData(val,old) {
+                this.getkillsData()
             }
         }
     }
@@ -51,11 +89,21 @@
 <style lang="less" scoped>
     .kill-bar {
         .bar {
-            margin-right: 7px;
+            margin-left: 8px;
             p {
-                width:16px;
-                height:3px;
+                width: 16px;
+                height: 3px;
+                overflow: hidden;
                 margin-bottom: 2px;
+                position: relative;
+                i {
+                    height: 3px;
+                    display: block;
+                    background-color: #FF1E34;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                }
             }
         }
     }

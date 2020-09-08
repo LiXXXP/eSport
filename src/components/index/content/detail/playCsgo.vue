@@ -43,70 +43,118 @@
                         <td>
                             <div class="flex flex_start">
                                 <kill-bar
-                                    :barData="barData"
+                                    v-for="item in battleDetail.battle_detail.rounds_detail.slice(0,15)"
+                                    :key="item.round_ordinal"
+                                    :killsData="item.side[0]"
+                                    :backColor="'#008CD4'"
+                                    :isReverse="true"
                                 ></kill-bar>
                             </div>
                         </td>
-                        <td></td>
-                    </tr>
-                    <tr>
                         <td>
-                            <div class="flex flex_only_center">
-                                <img src="../../../../assets/imgs/detail/4.png" class="team-img">
-                                <p class="team-name">Astralis</p>
-                                <img src="../../../../assets/imgs/detail/win.png" class="team-win">
-                            </div>
-                        </td>
-                        <td class="list">
-                            <div class="flex flex_start flex_only_center">
-                                <div class="item">
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png">
-                                </div>
-                                <div class="item">
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png">
-                                </div>
-                            </div>
-                        </td>
-                        <td class="list">
-                            <div class="flex flex_start flex_only_center">
-                                <div class="item">
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png">
-                                </div>
-                                <div class="item">
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png">
-                                </div>
+                            <div class="flex flex_start">
+                                <kill-bar
+                                    v-for="item in battleDetail.battle_detail.rounds_detail.slice(15,30)"
+                                    :key="item.round_ordinal"
+                                    :killsData="item.side[1]"
+                                    :backColor="'#F6B600'"
+                                    :isReverse="true"
+                                ></kill-bar>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="flex flex_only_center">
-                                <img src="../../../../assets/imgs/detail/4.png" class="team-img">
-                                <p class="team-name">Astralis</p>
-                                <img src="../../../../assets/imgs/detail/win.png" class="team-win">
+                                <img :src="battleDetail.teams[0].team_snapshot.image" class="team-img">
+                                <p class="team-name"
+                                    :title="battleDetail.teams[0].team_snapshot.full_name">
+                                    {{battleDetail.teams[0].team_snapshot.name}}
+                                </p>
+                                <img v-if="battleDetail.teams[0].team_id === battleDetail.winner.team_id"
+                                    src="../../../../assets/imgs/detail/win.png"
+                                    class="team-win"
+                                >
                             </div>
                         </td>
                         <td class="list">
                             <div class="flex flex_start flex_only_center">
-                                <div class="item"></div>
-                                <div class="item"></div>
-                                <div class="item">
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png">
-                                </div>
-                                <div class="item">
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png">
+                                <div class="item"
+                                    v-for="item in battleDetail.battle_detail.rounds_detail.slice(0,15)"
+                                    :key="item.round_ordinal"
+                                >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
+                                        v-if="item.win_type === 'cts_win'"
+                                    >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
+                                        v-if="item.win_type === 'bomb_defused'"
+                                    >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
+                                        v-if="item.win_type === 'target_saved'"
+                                    >
                                 </div>
                             </div>
                         </td>
                         <td class="list">
                             <div class="flex flex_start flex_only_center">
-                                <div class="item"></div>
-                                <div class="item"></div>
-                                <div class="item">
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png">
+                                <div class="item"
+                                    v-for="item in battleDetail.battle_detail.rounds_detail.slice(15,30)"
+                                    :key="item.round_ordinal"
+                                >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
+                                        v-if="item.win_type === 'terrorists_win'"
+                                    >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
+                                        v-if="item.win_type === 'target_bombed'"
+                                    >
                                 </div>
-                                <div class="item">
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex flex_only_center">
+                                <img :src="battleDetail.teams[1].team_snapshot.image" class="team-img">
+                                <p class="team-name"
+                                    :title="battleDetail.teams[1].team_snapshot.full_name">
+                                    {{battleDetail.teams[1].team_snapshot.name}}
+                                </p>
+                                <img v-if="battleDetail.teams[1].team_id === battleDetail.winner.team_id"
+                                    src="../../../../assets/imgs/detail/win.png"
+                                    class="team-win"
+                                >
+                            </div>
+                        </td>
+                        <td class="list">
+                            <div class="flex flex_start flex_only_center">
+                                <div class="item"
+                                    v-for="item in battleDetail.battle_detail.rounds_detail.slice(0,15)"
+                                    :key="item.round_ordinal"
+                                >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
+                                        v-if="item.win_type === 'terrorists_win'"
+                                    >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
+                                        v-if="item.win_type === 'target_bombed'"
+                                    >
+                                </div>
+                            </div>
+                        </td>
+                        <td class="list">
+                            <div class="flex flex_start flex_only_center">
+                                <div class="item"
+                                    v-for="item in battleDetail.battle_detail.rounds_detail.slice(15,30)"
+                                    :key="item.round_ordinal"
+                                >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
+                                        v-if="item.win_type === 'cts_win'"
+                                    >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
+                                        v-if="item.win_type === 'bomb_defused'"
+                                    >
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
+                                        v-if="item.win_type === 'target_saved'"
+                                    >
                                 </div>
                             </div>
                         </td>
@@ -116,11 +164,25 @@
                         <td>
                             <div class="flex flex_start">
                                 <kill-bar
-                                    :barData="barData"
+                                    v-for="item in battleDetail.battle_detail.rounds_detail.slice(0,15)"
+                                    :key="item.round_ordinal"
+                                    :killsData="item.side[1]"
+                                    :backColor="'#F6B600'"
+                                    :isReverse="false"
                                 ></kill-bar>
                             </div>
                         </td>
-                        <td></td>
+                        <td>
+                            <div class="flex flex_start">
+                                <kill-bar
+                                    v-for="item in battleDetail.battle_detail.rounds_detail.slice(15,30)"
+                                    :key="item.round_ordinal"
+                                    :killsData="item.side[0]"
+                                    :backColor="'#008CD4'"
+                                    :isReverse="false"
+                                ></kill-bar>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -157,18 +219,8 @@
     export default {
         data() {
             return {
-                barData: [
-                    {
-                        id: 0
-                    },
-                    {
-                        id: 1
-                    }
-                ]
-            }
-        },
-        created() {
 
+            }
         },
         components: {
             killArms,
@@ -253,6 +305,7 @@
                     font-size: 16px;
                     font-weight: 500;
                     color: #0F0F0F;
+                    cursor: pointer;
                 }
                 .team-win {
                     width: 42px;

@@ -26,11 +26,19 @@
         name: 'detail',
         data() {
             return {
-                flag: false
+                flag: false,
+                timer: null
             }
         },
         created() {
             this.getMatchDetail()
+            let _this = this
+            this.timer = setInterval( () => {
+                _this.getMatchDetail()
+            }, 5000)
+        },
+        destroyed() {
+            clearInterval(this.timer)
         },
         methods: {
             // 请求赛事详情
@@ -44,6 +52,9 @@
                         // console.log(res.data)
                         _this.$store.commit('getMatchsData',res.data)
                         _this.flag = true
+                        if(res.data.status !== 'ongoing') {
+                            clearInterval(_this.timer)
+                        }
                     }
                 })
             }
