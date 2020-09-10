@@ -5,7 +5,9 @@
             <span class="play-header-text">选手对位信息</span>
         </div>
         <div class="player">
-            <filter-bar :filterData="filterTitle"></filter-bar>
+            <filter-bar
+                :filterData="filtersData"
+            ></filter-bar>
             <div class="content flex flex_start">
                 <side-bar></side-bar>
                 <!-- <data-player-info></data-player-info> -->
@@ -23,14 +25,17 @@
     export default {
         data() {
             return {
-                filterTitle: [   // 筛选条件
-                    {
-                        title: '查询对局数量'
-                    },
-                    {
-                        title: '阵营'
-                    }
-                ]
+                filtersData: {
+                    isText: false,
+                    filterTitle: [   // 筛选条件
+                        {
+                            title: '查询比赛数量'
+                        },
+                        {
+                            title: '回合数超过'
+                        }
+                    ]
+                }
             }
         },
         components: {

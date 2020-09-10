@@ -1,13 +1,20 @@
 <template>
-    <div :class="['play-hero flex flex_wrap flex_start',
-          {flex_row_reverse:seatData}]">
+    <div :class="['play-hero flex flex_wrap',
+          {
+            flex_start: seatData,
+            flex_end: !seatData,
+    }]">
         <div :class="['hero',
-            sizeData==='dota'?'dota-size':'lol-size']"
-            v-for="item in heroData"
-            :key="item.id"
+              {
+                  'dota-size': sizeData === 'dota',
+                  'lol-size': sizeData === 'lol'
+              }]"
+            v-for="item in heroList"
+            :key="item.champion.champion_id"
         >
-            <img src="../../../../assets/imgs/detail/2.png">
-            <span>1</span>
+            <img :src="item.champion.image.image"
+                :title="item.champion.name">
+            <span>{{item.order || 0}}</span>
         </div>
     </div>
 </template>
@@ -23,7 +30,7 @@
                 type: Boolean,
                 default: true
             },
-            heroData: {
+            heroList: {
                 type: Array,
                 default: []
             }
@@ -44,6 +51,7 @@
             img {
                 width: 100%;
                 height: 100%;
+                cursor: pointer;
             }
             span {
                 width: 16px;

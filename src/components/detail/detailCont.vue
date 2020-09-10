@@ -49,7 +49,6 @@
                 }
                 getMatches(params).then(res => {
                     if (res.code === 1000) {
-                        // console.log(res.data)
                         _this.$store.commit('getMatchsData',res.data)
                         _this.flag = true
                         if(res.data.status !== 'ongoing') {

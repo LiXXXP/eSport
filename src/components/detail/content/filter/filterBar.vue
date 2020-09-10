@@ -4,13 +4,13 @@
             <div class="head flex flex_start flex_only_center">
                 <i></i>
                 <div class="flex flex_start"
-                    v-for="item in filterData"
+                    v-for="item in filterData.filterTitle"
                     :key="item.title">
                     <p>{{item.title}}:</p>
                     <drop-down></drop-down>
                 </div>
             </div>
-            <p class="text">
+            <p class="text" v-if="filterData.isText">
                 （Newbee<span>对局总数:246局</span> / Liquid<span>对局总数:342局</span>）
             </p>
         </div>
@@ -22,8 +22,8 @@
     export default {
         props: {
             filterData: {
-                type: Array,
-                default: []
+                type: Object,
+                default: {}
             }
         },
         data() {

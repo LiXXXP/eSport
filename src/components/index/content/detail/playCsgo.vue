@@ -222,11 +222,6 @@
 
             }
         },
-        components: {
-            killArms,
-            killSign,
-            killBar
-        },
         computed: {
             battleDetail() {
                 return this.$store.state.battlesData
@@ -236,6 +231,11 @@
             battleDetail(val) {
                 return this.$store.state.battlesData
             }
+        },
+        components: {
+            killArms,
+            killSign,
+            killBar
         }
     }
 </script>

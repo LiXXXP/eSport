@@ -1,21 +1,22 @@
 <template>
     <div class="data-chart">
         <div class="team flex flex_between">
-            <div class="flex flex_start">
-                <img src="../../../../assets/imgs/detail/4.png">
-                <p>Immortal Gaming</p>
+            <div class="flex flex_start flex_only_center">
+                <img :src="matchTeams[0].team_snapshot.image">
+                <p>{{matchTeams[0].team_snapshot.full_name}}</p>
             </div>
-            <div class="flex flex_start">
-                <p>Immortal Gaming</p>
-                <img src="../../../../assets/imgs/detail/4.png">
+            <div class="flex flex_start flex_only_center">
+                <p>{{matchTeams[1].team_snapshot.full_name}}</p>
+                <img :src="matchTeams[1].team_snapshot.image">
             </div>
         </div>
         <div class="diagram flex flex_start flex_wrap">
             <diagram-bar
                 class="bar"
-                :diagramData="item.title"
-                v-for="item in diagramList"
+                v-for="item in parameter.diagramList"
                 :key="item.title"
+                :diagramTitle="item.title"
+                :diagramData="parameter"
             ></diagram-bar>
         </div>
     </div>
@@ -26,24 +27,29 @@
     export default {
         data() {
             return {
-                diagramList: [
-                    {
-                        title: '比赛总数'
-                    },
-                    {
-                        title: '实际比赛总数'
-                    },
-                    {
-                        title: '比赛胜率'
-                    },
-                    {
-                        title: '对局总数'
-                    },
-                    {
-                        title: '实际对局总数'
-                    }
-                ]
+                matchTeams: [],   // 战队
+                parameter: {
+                    leftColor: '#2980D9',
+                    rightColor: '#F6B600',
+                    diagramList: [
+                        {
+                            title: '比赛总数'
+                        },
+                        {
+                            title: '实际统计比赛总数'
+                        },
+                        {
+                            title: '比赛获胜数量'
+                        },
+                        {
+                            title: '比赛胜率'
+                        },
+                    ]
+                }
             }
+        },
+        created() {
+            this.matchTeams = this.$store.state.matchsData.teams
         },
         components: {
             diagramBar

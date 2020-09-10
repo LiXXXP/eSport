@@ -1,9 +1,9 @@
 <template>
     <div class="diagram-bar">
-        <p class="title">{{diagramData}}</p>
+        <p class="title">{{diagramTitle}}</p>
         <div class="flex flex_between">
             <div class="bar">
-                <p>999</p>
+                <p :style="{}">999</p>
                 <progress-bar
                     class="rotate"
                     :progressData="playContrast"
@@ -12,10 +12,10 @@
                 ></progress-bar>
             </div>
             <div class="bar">
-                <p class="right">666</p>
+                <p :style="{}" class="right">666</p>
                 <progress-bar
                     :progressData="playContrast"
-                    :progressColor="'#D94629'"
+                    :progressColor="'#F6B600'"
                     :progressRate="66"
                 ></progress-bar>
             </div>
@@ -27,10 +27,10 @@
     import progressBar from '@/components/common/progressBar'
     export default {
         props: {
-            diagramData: {
+            diagramTitle: {
                 type: String,
                 default: ''
-            }
+            },
         },
         data() {
             return {

@@ -1,29 +1,56 @@
 <template>
     <div class="play-team flex flex_between flex_center">
         <div class="team flex flex_only_center">
-            <p class="left">B</p>
-            <p>dsdsd</p>
-            <img src="../../../../assets/imgs/detail/win.png">
+            <p class="left">
+                {{
+                    teamsData.battle_detail.factions[0].team_id === teamsData.teams[0].team_id
+                    && teamsData.battle_detail.factions[0].faction === 'blue' ? 'B':'R'
+                }}
+            </p>
+            <p :title="teamsData.teams[0].team_snapshot.full_name">
+                {{teamsData.teams[0].team_snapshot.name}}
+            </p>
+            <img src="../../../../assets/imgs/detail/win.png"
+                v-if="teamsData.teams[0].team_id === teamsData.winner.team_id"
+            >
         </div>
         <div class="time flex flex_only_center">
             <i class="iconfont icon-shijian"></i>
-            <p>00:32:24</p>
+            <p>{{durationTime(teamsData.battle_detail.duration)}}</p>
         </div>
-        <div class="team flex flex_only_center">
-            <img src="../../../../assets/imgs/detail/win.png">
-            <p>sddddd</p>
-            <p class="right">R</p>
+        <div class="team flex flex_only_center flex_end">
+            <img src="../../../../assets/imgs/detail/win.png"
+                v-if="teamsData.teams[1].team_id === teamsData.winner.team_id"
+            >
+            <p :title="teamsData.teams[1].team_snapshot.full_name">
+                {{teamsData.teams[1].team_snapshot.name}}
+            </p>
+            <p class="right">
+                {{
+                    teamsData.battle_detail.factions[1].team_id === teamsData.teams[1].team_id
+                    && teamsData.battle_detail.factions[1].faction === 'red' ? 'R':'B'
+                }}
+            </p>
         </div>
     </div>
 </template>
 
 <script>
+    import { formatSeconds } from '@/scripts/utils'
     export default {
-        data() {
-            return {
-
+        props: {
+            teamsData: {
+                type: Object,
+                default: {}
             }
-        }
+        },
+        computed: {
+            durationTime(sec) {
+                return function(sec) {
+                    return formatSeconds(sec)
+                }
+            }
+        },
     }
 </script>
 
@@ -32,6 +59,7 @@
         padding-bottom: 4px;
         border-bottom: 1px solid #CFCFCF;
         .team {
+            width: 200px;
             color: #101010;
             font-size: 18px;
             font-weight: 500;

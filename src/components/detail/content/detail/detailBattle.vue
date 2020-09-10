@@ -5,7 +5,9 @@
             <span class="play-header-text">阵容分析</span>
         </div>
         <div class="player">
-            <filter-bar :filterData="filterTitle"></filter-bar>
+            <filter-bar
+                :filterData="filtersData"
+            ></filter-bar>
             <div class="content">
                 <tab-nav
                     :selectStyle="selectStyle"
@@ -51,11 +53,17 @@
     export default {
         data() {
             return {
-                filterTitle: [   // 筛选条件
-                    {
-                        title: '查询时间范围'
-                    }
-                ],
+                filtersData: {
+                    isText: false,
+                    filterTitle: [   // 筛选条件
+                        {
+                            title: '查询比赛数量'
+                        },
+                        {
+                            title: '回合数超过'
+                        }
+                    ]
+                },
                 // 当前tab栏样式，
                 // 1为首页橙色填充样式
                 // 2,5为详情页蓝色边框样式

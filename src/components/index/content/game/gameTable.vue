@@ -170,7 +170,7 @@
             }
         },
         mounted() {
-            // console.log(this.inningData)
+
         },
         data() {
             return {

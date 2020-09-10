@@ -1,20 +1,22 @@
 <template>
     <div class="play-score flex flex_between flex_center">
         <div class="country left">
-            <p>#{{teamsData.teams[0].team_snapshot.world_ranking}}</p>
+            <p>#{{teamsData.teams[0].team_snapshot.world_ranking || 0}}</p>
             <img :src="teamsData.teams[0].team_snapshot.country.c_image">
             <div></div>
         </div>
         <div class="team left">
             <img :src="teamsData.teams[0].team_snapshot.image">
-            <p>{{teamsData.teams[0].team_snapshot.full_name}}</p>
+            <p :title="teamsData.teams[0].team_snapshot.full_name">
+                {{teamsData.teams[0].team_snapshot.name}}
+            </p>
         </div>
         <div :class="['score',
               {
                   low: teamsData.scores[0].score < teamsData.scores[1].score,
                   high: teamsData.scores[0].score > teamsData.scores[1].score
               }]">
-            {{teamsData.scores[0].score}}
+            {{teamsData.scores[0].score || 0}}
         </div>
         <div class="text">
             <p>{{teamsData.scheduled_begin_at}}</p>
@@ -39,14 +41,16 @@
                   low: teamsData.scores[1].score < teamsData.scores[0].score,
                   high: teamsData.scores[1].score > teamsData.scores[0].score
               }]">
-            {{teamsData.scores[1].score}}
+            {{teamsData.scores[1].score || 0}}
         </div>
         <div class="team right">
             <img :src="teamsData.teams[1].team_snapshot.image">
-            <p>{{teamsData.teams[1].team_snapshot.full_name}}</p>
+            <p :title="teamsData.teams[1].team_snapshot.full_name">
+                {{teamsData.teams[1].team_snapshot.name}}
+            </p>
         </div>
         <div class="country right">
-            <p>#{{teamsData.teams[1].team_snapshot.world_ranking}}</p>
+            <p>#{{teamsData.teams[1].team_snapshot.world_ranking || 0}}</p>
             <img :src="teamsData.teams[1].team_snapshot.country.c_image">
             <div></div>
         </div>
@@ -146,6 +150,7 @@
                 margin: 0 auto 10px;
             }
             p {
+                width: 100px;
                 color: #434343;
                 font-size: 18px;
                 font-weight: 500;

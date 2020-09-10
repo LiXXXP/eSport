@@ -5,23 +5,23 @@
         <tab-nav
             :selectStyle="selectStyle"
             :navData="navList"
+             @clickIndex="navDetail"
         ></tab-nav>
-        <!-- 对局详情 -->
-        <play-content></play-content>
         <!-- 对局分析 -->
-        <play-data></play-data>
+        <play-data v-if="isDetai"></play-data>
         <!-- 对局详情 -->
-        <play-detail></play-detail>
+        <play-detail v-else></play-detail>
     </div>
 </template>
 
 <script>
     import mapContent from '@/components/index/content/detail/lol/mapContent'     // 地图模块
-    import playContent from '@/components/index/content/detail/lol/playContent'   // 对局详情
     import videoContent from '@/components/index/content/detail/videoContent'     // 视频模块
     import tabNav from '@/components/common/tabNav'                               // tab切换
     import playData from '@/components/detail/content/playData'                   // 数据分析
     import playDetail from '@/components/detail/content/playDetail'               // 数据详情
+
+    import { getBattles } from '@/scripts/request'
 
     export default {
         props: {
@@ -38,48 +38,48 @@
                 // 3为详情页填充样式
                 // 4为详情直播按钮
                 selectStyle: 3,
-                navList: []
+                navList: [],
+                isDetai: true,  // 显示对战分析
             }
         },
-        mounted() {
-            if(!this.$route.query.openType) {
-                this.navList = [
-                    {
-                        title: 'MAP 1'
-                    },
-                    {
-                        title: 'MAP 2'
-                    },
-                    {
-                        title: 'MAP 3'
-                    },
-                    {
-                        title: 'MAP 4'
+        created() {
+            this.getNavTitle()
+        },
+        methods: {
+            navDetail(index) {
+                if( index > 0 ) {
+                    let _this = this
+                    let params = {
+                        battle_id: this.navList[index].battleId
                     }
-                ]
-            } else {
-                this.navList = [
-                    {
+                    getBattles(params).then(res => {
+                        if (res.code === 1000) {
+                            _this.$store.dispatch('getBattles',res.data)
+                            _this.isDetai = false
+                        }
+                    })
+                } else {
+                    this.isDetai = true
+                }
+            },
+            getNavTitle() {
+                let battlesData = this.$store.state.matchsData.battles
+                for(let index in battlesData) {
+                    let item = {
+                        title: `MAP ${parseInt(index)+1}`,
+                        battleId: battlesData[index].battle_id
+                    }
+                    this.navList.push(item)
+                }
+                if(this.$route.query.openType) {
+                    this.navList.unshift({
                         title: '对战分析'
-                    },
-                    {
-                        title: 'MAP 1'
-                    },
-                    {
-                        title: 'MAP 2'
-                    },
-                    {
-                        title: 'MAP 3'
-                    },
-                    {
-                        title: 'MAP 4'
-                    }
-                ]
+                    })
+                }
             }
         },
         components: {
             mapContent,
-            playContent,
             videoContent,
             tabNav,
             playData,

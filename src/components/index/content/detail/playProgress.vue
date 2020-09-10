@@ -70,6 +70,10 @@
             outputData: {
                 type: Array,
                 default: []
+            },
+            progressData: {
+                type: Object,
+                default: {}
             }
         },
         data() {

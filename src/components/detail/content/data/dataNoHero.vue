@@ -5,7 +5,9 @@
             <span class="play-header-text">最常禁用英雄</span>
         </div>
         <div class="hero">
-            <filter-bar :filterData="filterTitle"></filter-bar>
+            <filter-bar
+                :filterData="filtersData"
+            ></filter-bar>
             <div class="content">
                 <div class="list flex flex_between flex_center"
                     v-for="item in heroList"
@@ -33,14 +35,17 @@
     export default {
         data() {
             return {
-                filterTitle: [   // 筛选条件
-                    {
-                        title: '查询对局数量'
-                    },
-                    {
-                        title: '阵营'
-                    }
-                ],
+                filtersData: {
+                    isText: false,
+                    filterTitle: [   // 筛选条件
+                        {
+                            title: '查询比赛数量'
+                        },
+                        {
+                            title: '回合数超过'
+                        }
+                    ]
+                },
                 heroList: [
                     {
                         title: 'Alliance',

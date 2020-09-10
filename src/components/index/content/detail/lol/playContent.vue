@@ -2,28 +2,32 @@
     <div class="play-content">
         <div class="play-header flex flex_start flex_only_center">
             <i class="play-header-bar"></i>
-            <span class="play-header-text">对局详情</span>
+            <span class="play-header-text">队伍对局详情</span>
         </div>
         <div class="content">
-            <play-team></play-team>
+            <play-team
+                :teamsData="battleDetail"
+            ></play-team>
             <div class="flex flex_center">
                 <play-hero
-                    :heroData="heroList"
                     :sizeData="size"
+                    :seatData="false"
+                    :heroList="battleDetail.battle_detail.ban_pick"
                 ></play-hero>
                 <div class="role">
                     <p>Ban</p>
-                    <p>pick</p>
+                    <p>Pick</p>
                 </div>
                 <play-hero
-                    :heroData="heroList"
                     :sizeData="size"
-                    :seatData="false"
+                    :seatData="true"
+                    :heroList="battleDetail.battle_detail.ban_pick"
                 ></play-hero>
             </div>
             <play-progress
                 :barColor="colorData"
                 :outputData="outputList"
+                :progressData="battleDetail.battle_detail"
             ></play-progress>
         </div>
     </div>
@@ -37,7 +41,7 @@
     export default {
         data() {
             return {
-                size: 'lol',
+                size: 'lol',  // 英雄列表头像大小区分
                 colorData: {
                     left: '#2980D9',
                     right: '#CC5728'
@@ -79,38 +83,16 @@
                         num2: 5
                     }
                 ],
-                heroList: [
-                    {
-                        id: 0
-                    },
-                    {
-                        id: 1
-                    },
-                    {
-                        id: 2
-                    },
-                    {
-                        id: 3
-                    },
-                    {
-                        id: 4
-                    },
-                    {
-                        id: 5
-                    },
-                    {
-                        id: 6
-                    },
-                    {
-                        id: 7
-                    },
-                    {
-                        id: 8
-                    },
-                    {
-                        id: 9
-                    }
-                ],
+            }
+        },
+        computed: {
+            battleDetail() {
+                return this.$store.state.battlesData
+            }
+        },
+        watch: {
+            battleDetail() {
+                return this.$store.state.battlesData
             }
         },
         components: {

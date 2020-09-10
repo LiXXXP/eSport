@@ -47,19 +47,7 @@
             }
         },
         created() {
-            let battlesData = this.$store.state.matchsData.battles
-            for(let index in battlesData) {
-                let item = {
-                    title: `MAP ${parseInt(index)+1}`,
-                    battleId: battlesData[index].battle_id
-                }
-                this.navList.push(item)
-            }
-            if(this.$route.query.openType) {
-                this.navList.unshift({
-                    title: '对战分析'
-                })
-            }
+            this.getNavTitle()
         },
         methods: {
             navDetail(index) {
@@ -70,13 +58,27 @@
                     }
                     getBattles(params).then(res => {
                         if (res.code === 1000) {
-                            // console.log(res.data)
                             _this.$store.dispatch('getBattles',res.data)
                             _this.isDetai = false
                         }
                     })
                 } else {
                     this.isDetai = true
+                }
+            },
+            getNavTitle() {
+                let battlesData = this.$store.state.matchsData.battles
+                for(let index in battlesData) {
+                    let item = {
+                        title: `MAP ${parseInt(index)+1}`,
+                        battleId: battlesData[index].battle_id
+                    }
+                    this.navList.push(item)
+                }
+                if(this.$route.query.openType) {
+                    this.navList.unshift({
+                        title: '对战分析'
+                    })
                 }
             }
         },

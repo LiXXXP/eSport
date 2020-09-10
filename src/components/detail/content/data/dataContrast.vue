@@ -5,7 +5,9 @@
             <span class="play-header-text">数据对比</span>
         </div>
         <div class="contrast">
-            <filter-bar :filterData="filterTitle"></filter-bar>
+            <filter-bar
+                :filterData="filtersData"
+            ></filter-bar>
             <data-chart></data-chart>
             <div class="content flex flex_start">
                 <side-bar></side-bar>
@@ -23,20 +25,17 @@
     export default {
         data() {
             return {
-                filterTitle: [   // 筛选条件
-                    {
-                        title: '查询比赛数量'
-                    },
-                    {
-                        title: '比赛时长'
-                    },
-                    {
-                        title: '总击杀'
-                    },
-                    {
-                        title: '阵营'
-                    }
-                ]
+                filtersData: {
+                    isText: false,
+                    filterTitle: [   // 筛选条件
+                        {
+                            title: '查询比赛数量'
+                        },
+                        {
+                            title: '回合数超过'
+                        }
+                    ]
+                }
             }
         },
         components: {
