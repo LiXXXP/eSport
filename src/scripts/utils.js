@@ -337,6 +337,20 @@ function formatSeconds(sec) {
   return result
 }
 
+/**
+ * 将数值四舍五入后格式化.
+ *
+ * @param num 数值(Number或者String)
+ * @return 格式的字符串,如'1,234,567.45'
+ * @type String
+ */
+function formatNumber(num) {
+  if(num>=1000) {
+      return `${num.toLocaleString()}`.slice(0,-2) + 'k'
+  }
+  return num
+}
+
 export {
     setTitle,
     transHtml,
@@ -355,5 +369,6 @@ export {
     resolveDeleteKey,
     getCurrentDate,
     setDate,
-    formatSeconds
-};
+    formatSeconds,
+    formatNumber
+}

@@ -8,7 +8,7 @@
                 }}
             </p>
             <p :title="teamsData.teams[0].team_snapshot.full_name">
-                {{teamsData.teams[0].team_snapshot.name}}
+                {{teamsData.teams[0].team_snapshot.short_name}}
             </p>
             <img src="../../../../assets/imgs/detail/win.png"
                 v-if="teamsData.teams[0].team_id === teamsData.winner.team_id"
@@ -23,7 +23,7 @@
                 v-if="teamsData.teams[1].team_id === teamsData.winner.team_id"
             >
             <p :title="teamsData.teams[1].team_snapshot.full_name">
-                {{teamsData.teams[1].team_snapshot.name}}
+                {{teamsData.teams[1].team_snapshot.short_name}}
             </p>
             <p class="right">
                 {{

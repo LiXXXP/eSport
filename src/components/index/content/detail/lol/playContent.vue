@@ -27,7 +27,6 @@
             <play-progress
                 :barColor="colorData"
                 :outputData="outputList"
-                :progressData="battleDetail.battle_detail"
             ></play-progress>
         </div>
     </div>
@@ -49,44 +48,126 @@
                 outputList: [
                     {
                         head: '击杀',
-                        num1: 7,
-                        num2: 28
+                        type: 'kills',
+                        num1: 0,
+                        num2: 0,
+                        imgs: [
+                            {
+                                ingame: 0,
+                                faction: '',
+                                type: 'first_to_10_kills',
+                                url: require('../../../../../assets/imgs/detail/kills01.png')
+                            },
+                            {
+                                ingame: 0,
+                                faction: '',
+                                type: 'first_to_5_kills',
+                                url: require('../../../../../assets/imgs/detail/kills02.png')
+                            },
+                            {
+                                ingame: 0,
+                                faction: '',
+                                type: 'first_blood',
+                                url: require('../../../../../assets/imgs/detail/kills03.png')
+                            }
+                        ]
                     },
                     {
-                        head: '经济(k)',
-                        num1: 8,
-                        num2: 5
+                        head: '经济',
+                        type: 'gold',
+                        num1: 0,
+                        num2: 0,
+                        imgs: []
                     },
                     {
-                        head: '推塔',
-                        num1: 32,
-                        num2: 28
+                        head: '防御塔',
+                        type: 'turret_kills',
+                        num1: 0,
+                        num2: 0,
+                        imgs: [
+                            {
+                                ingame: 0,
+                                faction: '',
+                                type: 'first_turret',
+                                url: require('../../../../../assets/imgs/detail/kills04.png')
+                            }
+                        ]
                     },
                     {
                         head: '水晶',
-                        num1: 8,
-                        num2: 5
+                        type: 'inhibitor_kills',
+                        num1: 0,
+                        num2: 0,
+                        imgs: [
+                            {
+                                ingame: 0,
+                                faction: '',
+                                type: 'first_inhibitor',
+                                url: require('../../../../../assets/imgs/detail/kills05.png')
+                            }
+                        ]
                     },
                     {
                         head: '峡谷先锋',
-                        num1: 8,
-                        num2: 5
+                        type: 'rift_herald_kills',
+                        num1: 0,
+                        num2: 0,
+                        imgs: [
+                            {
+                                ingame: 0,
+                                faction: '',
+                                type: 'first_rift_herald',
+                                url: require('../../../../../assets/imgs/detail/kills06.png')
+                            }
+                        ]
                     },
                     {
                         head: '元素巨龙',
-                        num1: 8,
-                        num2: 5
+                        type: 'dragon_kills',
+                        num1: 0,
+                        num2: 0,
+                        imgs: [
+                            {
+                                ingame: 0,
+                                faction: '',
+                                type: 'first_dragon',
+                                url: require('../../../../../assets/imgs/detail/kills07.png')
+                            }
+                        ]
                     },
                     {
                         head: '纳什男爵',
-                        num1: 8,
-                        num2: 5
+                        type: 'baron_nashor_kills',
+                        num1: 0,
+                        num2: 0,
+                        imgs: [
+                            {
+                                ingame: 0,
+                                faction: '',
+                                type: 'first_baron_nashor',
+                                url: require('../../../../../assets/imgs/detail/kills08.png')
+                            }
+                        ]
                     }
                 ],
             }
         },
+        created() {
+
+        },
         computed: {
             battleDetail() {
+                let detail = this.$store.state.battlesData.battle_detail
+                for(let item of this.outputList) {
+                    let field = item.type
+                    item.num1 = detail.factions[0][field]
+                    item.num2 = detail.factions[1][field]
+                    for(let key of item.imgs) {
+                        let type = key.type
+                        key.ingame = detail.first_events[type].ingame_timestamp
+                        key.faction = detail.first_events[type].faction
+                    }
+                }
                 return this.$store.state.battlesData
             }
         },

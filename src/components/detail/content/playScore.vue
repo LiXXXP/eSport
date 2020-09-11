@@ -8,7 +8,7 @@
         <div class="team left">
             <img :src="teamsData.teams[0].team_snapshot.image">
             <p :title="teamsData.teams[0].team_snapshot.full_name">
-                {{teamsData.teams[0].team_snapshot.name}}
+                {{teamsData.teams[0].team_snapshot.short_name}}
             </p>
         </div>
         <div :class="['score',
@@ -46,7 +46,7 @@
         <div class="team right">
             <img :src="teamsData.teams[1].team_snapshot.image">
             <p :title="teamsData.teams[1].team_snapshot.full_name">
-                {{teamsData.teams[1].team_snapshot.name}}
+                {{teamsData.teams[1].team_snapshot.short_name}}
             </p>
         </div>
         <div class="country right">

@@ -3,29 +3,30 @@
         <div class="list flex flex_center"
             v-for="item in outputData"
             :key="item.head">
-            <div class="icons flex flex_start flex_only_center">
-                <el-tooltip placement="top">
-                    <div slot="content">
-                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
-                    </div>
-                    <el-button><img src="../../../../assets/imgs/index/icon08.png"></el-button>
-                </el-tooltip>
-                <el-tooltip placement="top">
-                    <div slot="content">
-                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
-                    </div>
-                    <el-button><img src="../../../../assets/imgs/index/icon08.png"></el-button>
-                </el-tooltip>
+            <div class="icons flex flex_start flex_only_center"
+                v-if="item.imgs">
+                <div v-for="key in item.imgs"
+                    :key="key.type" class="tooltip">
+                    <el-tooltip placement="top"
+                        v-if="key.faction === 'blue'">
+                        <div slot="content">
+                            {{durationTime(key.ingame)}}
+                        </div>
+                        <el-button>
+                            <img :src="key.url" class="tip">
+                        </el-button>
+                    </el-tooltip>
+                </div>
             </div>
             <div class="left flex flex_only_center">
                 <p :style="{'color': barColor.left}">
-                    {{item.num1}}
+                    {{thousands(parseInt(item.num1 || 0))}}
                 </p>
                 <progress-bar
                     class="bar"
                     :progressData="playContrast"
                     :progressColor="barColor.left"
-                    :progressRate="parseInt(item.num1/(item.num1+item.num2)*100)"
+                    :progressRate="parseInt(item.num1/(item.num1+item.num2)*100 || 0)"
                 ></progress-bar>
             </div>
             <p class="head">{{item.head}}</p>
@@ -34,26 +35,26 @@
                     class="bar"
                     :progressData="playContrast"
                     :progressColor="barColor.right"
-                    :progressRate="parseInt(item.num2/(item.num1+item.num2)*100)"
+                    :progressRate="parseInt(item.num2/(item.num1+item.num2)*100 || 0)"
                 ></progress-bar>
                 <p :style="{'color': barColor.right}">
-                    {{item.num2}}
+                    {{thousands(parseInt(item.num2 || 0))}}
                 </p>
             </div>
-            <div class="icons flex flex_start flex_only_center">
-                <el-tooltip placement="top">
-                    <div slot="content">
-                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
-                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
-                    </div>
-                    <el-button><img src="../../../../assets/imgs/index/icon08.png"></el-button>
-                </el-tooltip>
-                <el-tooltip placement="top">
-                    <div slot="content">
-                        <img src="../../../../assets/imgs/detail/t.png" class="tip">
-                    </div>
-                    <el-button><img src="../../../../assets/imgs/index/icon08.png"></el-button>
-                </el-tooltip>
+            <div class="icons flex flex_start flex_only_center"
+                v-if="item.imgs">
+                <div v-for="key in item.imgs"
+                    :key="key.type" class="tooltip">
+                    <el-tooltip placement="top"
+                        v-if="key.faction === 'red'">
+                        <div slot="content">
+                            {{durationTime(key.ingame)}}
+                        </div>
+                        <el-button>
+                            <img :src="key.url" class="tip">
+                        </el-button>
+                    </el-tooltip>
+                </div>
             </div>
         </div>
     </div>
@@ -61,6 +62,9 @@
 
 <script>
     import progressBar from '@/components/common/progressBar'
+
+    import {formatNumber, formatSeconds} from '@/scripts/utils'
+
     export default {
         props: {
             barColor: {
@@ -70,10 +74,6 @@
             outputData: {
                 type: Array,
                 default: []
-            },
-            progressData: {
-                type: Object,
-                default: {}
             }
         },
         data() {
@@ -83,6 +83,18 @@
                     inside: false,     // 进度条显示文字是否在进度条内 true / false
                     width: 12,         // 进度条的高度
                     showText: false,   // 是否显示文字
+                }
+            }
+        },
+        computed: {
+            thousands(num) {
+                return function (num) {
+                    return formatNumber(num)
+                }
+            },
+            durationTime(sec) {
+                return function(sec) {
+                    return formatSeconds(sec)
                 }
             }
         },
@@ -106,10 +118,9 @@
                     transform:rotate(180deg);
                 }
                 p {
-                    width: 15px;
-                    margin-right: 3px;
-                    margin-left: 12px;
-                    text-align: center;
+                    width: 30px;
+                    margin: 0 10px;
+                    text-align: right;
                 }
             }
             .head {
@@ -124,22 +135,27 @@
                     margin-right: 2px;
                 }
                 p {
-                    width: 15px;
-                    margin-left: 3px;
-                    margin-right: 12px;
-                    text-align: center;
+                    width: 30px;
+                    margin: 0 10px;
                 }
             }
         }
         .icons {
-            img {
+            .tooltip {
                 width: 20px;
                 height: 20px;
-            }
-            .tip {
-                width: 15px;
-                height: 17px;
-                margin-right: 2px;
+                margin: 0 2px;
+                &:nth-child(3) {
+                    .tip {
+                        width: 14px;
+                        height: 18px;
+                        margin-top: 1px;
+                    }
+                }
+                .tip {
+                    width: 20px;
+                    height: 20px;
+                }
             }
         }
     }
