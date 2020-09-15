@@ -4,17 +4,29 @@
             flex_start: seatData,
             flex_end: !seatData,
     }]">
-        <div :class="['hero',
-              {
-                  'dota-size': sizeData === 'dota',
-                  'lol-size': sizeData === 'lol'
-              }]"
-            v-for="item in heroList"
-            :key="item.champion.champion_id"
-        >
-            <img :src="item.champion.image.image"
+        <div v-for="item in heroList" :key="">
+            <div v-if="item.team_id === teamId && item.type === 'Ban'"
+                :class="['hero',
+                {
+                    'dota-size': sizeData === 'dota',
+                    'lol-size': sizeData === 'lol'
+            }]">
+                <img :src="item.champion.image.image"
                 :title="item.champion.name">
-            <span>{{item.order || 0}}</span>
+                <span>{{item.order || 0}}</span>
+            </div>
+        </div>
+        <div v-for="item in heroList" :key="">
+            <div v-if="item.team_id === teamId && item.type === 'Pick'"
+                :class="['hero',
+                {
+                    'dota-size': sizeData === 'dota',
+                    'lol-size': sizeData === 'lol'
+            }]">
+                <img :src="item.champion.image.image"
+                :title="item.champion.name">
+                <span>{{item.order || 0}}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -29,6 +41,10 @@
             seatData: {
                 type: Boolean,
                 default: true
+            },
+            teamId: {
+                type: Number,
+                default: 0
             },
             heroList: {
                 type: Array,

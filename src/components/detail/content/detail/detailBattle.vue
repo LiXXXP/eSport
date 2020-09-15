@@ -15,8 +15,18 @@
                 ></tab-nav>
                 <div class="teams flex flex_between flex_only_center">
                     <div class="flex flex_start flex_only_center">
-                        <img src="../../../../assets/imgs/detail/4.png">
-                        <p>Team Liquid</p>
+                        <img :src="(battleDetail.battle_detail.factions[0].faction === 'blue' &&
+                                battleDetail.battle_detail.factions[0].team_id === battleDetail.teams[0].team_id) ?
+                                battleDetail.teams[0].team_snapshot.image : battleDetail.teams[1].team_snapshot.image">
+                        <p :title="(battleDetail.battle_detail.factions[0].faction === 'blue' &&
+                                battleDetail.battle_detail.factions[0].team_id === battleDetail.teams[0].team_id) ?
+                                battleDetail.teams[0].team_snapshot.full_name : battleDetail.teams[1].team_snapshot.full_name">
+                            {{
+                                (battleDetail.battle_detail.factions[0].faction === 'blue' &&
+                                battleDetail.battle_detail.factions[0].team_id === battleDetail.teams[0].team_id) ?
+                                battleDetail.teams[0].team_snapshot.name : battleDetail.teams[1].team_snapshot.name
+                            }}
+                        </p>
                     </div>
                     <div class="block flex flex_around">
                         <div class="blue">
@@ -33,8 +43,18 @@
                         </div>
                     </div>
                     <div class="flex flex_end flex_only_center">
-                        <p>Alliance</p>
-                        <img src="../../../../assets/imgs/detail/4.png">
+                        <p :title="(battleDetail.battle_detail.factions[1].faction === 'red' &&
+                                battleDetail.battle_detail.factions[1].team_id === battleDetail.teams[1].team_id) ?
+                                battleDetail.teams[1].team_snapshot.full_name : battleDetail.teams[0].team_snapshot.full_name">
+                            {{
+                                (battleDetail.battle_detail.factions[1].faction === 'red' &&
+                                battleDetail.battle_detail.factions[1].team_id === battleDetail.teams[1].team_id) ?
+                                battleDetail.teams[1].team_snapshot.name : battleDetail.teams[0].team_snapshot.name
+                            }}
+                        </p>
+                        <img :src="(battleDetail.battle_detail.factions[1].faction === 'red' &&
+                                battleDetail.battle_detail.factions[1].team_id === battleDetail.teams[1].team_id) ?
+                                battleDetail.teams[1].team_snapshot.image : battleDetail.teams[0].team_snapshot.image">
                     </div>
                 </div>
                 <div class="battle flex flex_between">
@@ -57,10 +77,7 @@
                     isText: false,
                     filterTitle: [   // 筛选条件
                         {
-                            title: '查询比赛数量'
-                        },
-                        {
-                            title: '回合数超过'
+                            title: '查询时间范围'
                         }
                     ]
                 },
@@ -102,6 +119,16 @@
                         title: '元素巨龙控制率'
                     }
                 ],
+            }
+        },
+        computed: {
+            battleDetail() {
+                return this.$store.state.battlesData
+            }
+        },
+        watch: {
+            battleDetail() {
+                return this.$store.state.battlesData
             }
         },
         components: {

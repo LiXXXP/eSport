@@ -12,6 +12,9 @@
                 <play-hero
                     :sizeData="size"
                     :seatData="false"
+                    :teamId="battleDetail.battle_detail.factions[0].faction === 'blue'?
+                            parseInt(battleDetail.battle_detail.factions[0].team_id) :
+                            parseInt(battleDetail.battle_detail.factions[1].team_id)"
                     :heroList="battleDetail.battle_detail.ban_pick"
                 ></play-hero>
                 <div class="role">
@@ -21,6 +24,9 @@
                 <play-hero
                     :sizeData="size"
                     :seatData="true"
+                    :teamId="battleDetail.battle_detail.factions[1].faction === 'red'?
+                            parseInt(battleDetail.battle_detail.factions[1].team_id) :
+                            parseInt(battleDetail.battle_detail.factions[0].team_id)"
                     :heroList="battleDetail.battle_detail.ban_pick"
                 ></play-hero>
             </div>
@@ -152,16 +158,19 @@
                 ],
             }
         },
-        created() {
-
-        },
         computed: {
             battleDetail() {
                 let detail = this.$store.state.battlesData.battle_detail
                 for(let item of this.outputList) {
                     let field = item.type
-                    item.num1 = detail.factions[0][field]
-                    item.num2 = detail.factions[1][field]
+                    if(detail.factions[0].faction === 'blue') {
+                        item.num1 = detail.factions[0][field]
+                        item.num2 = detail.factions[1][field]
+                    }
+                    else {
+                        item.num1 = detail.factions[1][field]
+                        item.num2 = detail.factions[0][field]
+                    }
                     for(let key of item.imgs) {
                         let type = key.type
                         key.ingame = detail.first_events[type].ingame_timestamp
