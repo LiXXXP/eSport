@@ -9,7 +9,7 @@ environmentVar = '开发'
 // environmentVar = '线上'
 
 if(environmentVar === '开发') {
-    sparkUrlVar = '/games/api/v1'
+    sparkUrlVar = 'http://59.110.6.209/v1'
     basePathVar = '/'
 } else if(environmentVar === '测试') {
     sparkUrlVar = ''
