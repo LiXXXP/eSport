@@ -58,8 +58,14 @@
                     </div>
                 </div>
                 <div class="battle flex flex_between">
-                    <battle-team></battle-team>
-                    <battle-team></battle-team>
+                    <battle-team
+                        :teamsData="battleDetail.battle_detail.factions[0].faction === 'blue'?
+                                    battleDetail.battle_detail.factions[0]:battleDetail.battle_detail.factions[1]"
+                    ></battle-team>
+                    <battle-team
+                        :teamsData="battleDetail.battle_detail.factions[1].faction === 'red'?
+                                    battleDetail.battle_detail.factions[1]:battleDetail.battle_detail.factions[0]"
+                    ></battle-team>
                 </div>
             </div>
         </div>

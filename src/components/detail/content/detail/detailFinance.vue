@@ -22,10 +22,21 @@
     import battleLog from '@/components/detail/content/chart/battleLog'      // 比赛日志
     import veLine from '@/components/detail/content/chart/veLine'            // 折线图
     import battleRank from '@/components/detail/content/chart/battleRank'    // 排行榜
+
     export default {
         data() {
             return {
 
+            }
+        },
+        computed: {
+            battleDetail() {
+                return this.$store.state.battlesData
+            }
+        },
+        watch: {
+            battleDetail() {
+                return this.$store.state.battlesData
             }
         },
         components: {

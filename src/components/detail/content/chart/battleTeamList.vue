@@ -29,7 +29,10 @@
                 ></progressBar>
             </div>
         </div>
-        <img src="../../../../assets/imgs/detail/2.png">
+        <img
+            :src="championData.image.image"
+            :title="`${championData.name_cn}-${championData.title_cn}`"
+        >
         <div class="bar">
             <div class="flex flex_start flex_only_center">
                 <progressBar
@@ -65,6 +68,12 @@
 <script>
     import progressBar from '@/components/common/progressBar'
     export default {
+        props: {
+            championData: {
+                type: Object,
+                default: {}
+            }
+        },
         data() {
             return {
                 playContrast: {        // 进度条配置参数
@@ -87,6 +96,7 @@
         img {
             width: 40px;
             height: 40px;
+            cursor: pointer;
         }
         .bar {
             font-size: 12px;

@@ -8,8 +8,9 @@
             </div>
             <div class="list">
                 <battleTeam-list
-                    v-for="item in list"
-                    :key="item.id"
+                    v-for="item in teamsData.players"
+                    :key="item.team_id"
+                    :championData="item.champion"
                 ></battleTeam-list>
             </div>
         </div>
@@ -19,25 +20,15 @@
 <script>
     import battleTeamList from '@/components/detail/content/chart/battleTeamList' // 战队
     export default {
+        props: {
+            teamsData: {
+                type: Object,
+                default: {}
+            }
+        },
         data() {
             return {
-                list: [
-                    {
-                        id: 0
-                    },
-                    {
-                        id: 1
-                    },
-                    {
-                        id: 2
-                    },
-                    {
-                        id: 3
-                    },
-                    {
-                        id: 4
-                    }
-                ]
+
             }
         },
         components: {
