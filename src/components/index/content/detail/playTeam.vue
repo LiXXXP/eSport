@@ -39,7 +39,7 @@
                     teamsData.teams[1].team_snapshot.full_name :
                     teamsData.teams[0].team_snapshot.full_name">
                 {{
-                    (teamsData.battle_detail.factions[1].faction === 'blue' &&
+                    (teamsData.battle_detail.factions[1].faction === 'red' &&
                     teamsData.battle_detail.factions[1].team_id === teamsData.teams[1].team_id) ?
                     teamsData.teams[1].team_snapshot.short_name :
                     teamsData.teams[0].team_snapshot.short_name

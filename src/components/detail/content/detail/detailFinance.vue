@@ -12,8 +12,12 @@
             </div>
         </div>
         <div class="content flex flex_between">
-            <ve-line></ve-line>
-            <battle-rank></battle-rank>
+            <ve-line
+                :timeLine="battleDetail.battle_detail.events_timeline"
+            ></ve-line>
+            <battle-rank
+                :factionData="battleDetail.battle_detail.factions"
+            ></battle-rank>
         </div>
     </div>
 </template>

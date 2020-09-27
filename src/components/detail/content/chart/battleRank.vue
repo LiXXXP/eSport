@@ -1,20 +1,30 @@
 <template>
     <div class="battle-rank">
-        <drop-down class="drop"></drop-down>
+        <drop-down
+            class="drop"
+            :dropList="dropDownList"
+        ></drop-down>
         <div class="list flex flex_between"
-            v-for="item in list"
-            :key="item.id">
-            <img src="../../../../assets/imgs/detail/2.png">
+            v-for="item in playerList"
+            :key="item.nick_name">
+            <div class="head"
+                :title="`${item.name}-${item.title}`"
+            >
+                <img :src="item.image">
+                <span>{{item.level}}</span>
+            </div>
             <div class="right">
-                <div class="flex flex_between"
-                    :style="{'color':item.color}">
-                    <span>RNG.UIZ</span>
-                    <span>22354</span>
+                <div :class="['flex flex_between',{
+                    blue: item.faction === 'blue',
+                    red: item.faction === 'red'
+                }]">
+                    <span>{{item.nick_name}}</span>
+                    <span>{{item.gold}}</span>
                 </div>
                 <progressBar
                     :progressData="playContrast"
-                    :progressColor="item.color"
-                    :progressRate="77"
+                    :progressColor="item.faction==='blue'?'#2980D9':'#CC5728'"
+                    :progressRate="Math.floor(item.gold/200)"
                 ></progressBar>
             </div>
         </div>
@@ -24,7 +34,14 @@
 <script>
     import progressBar from '@/components/common/progressBar'
     import dropDown from '@/components/common/dropDown'
+
     export default {
+        props: {
+            factionData: {
+                type: Array,
+                default: []
+            }
+        },
         data() {
             return {
                 playContrast: {        // 进度条配置参数
@@ -33,48 +50,62 @@
                     width: 8,          // 进度条的高度
                     showText: false,   // 是否显示文字
                 },
-                list: [
+                playerList: [],
+                dropDownList: [
                     {
-                        id: 0,
-                        color: '#2980D9'
+                        title: '当前经济'
                     },
                     {
-                        id: 1,
-                        color: '#CC5728'
+                        title: '补刀'
                     },
                     {
-                        id: 2,
-                        color: '#2980D9'
+                        title: '分均补刀'
                     },
                     {
-                        id: 3,
-                        color: '#CC5728'
+                        title: '分均金钱'
                     },
                     {
-                        id: 4,
-                        color: '#2980D9'
+                        title: '分均经验'
                     },
                     {
-                        id: 5,
-                        color: '#CC5728'
+                        title: '分均伤害'
                     },
                     {
-                        id: 6,
-                        color: '#2980D9'
+                        title: '分均承伤'
                     },
                     {
-                        id: 7,
-                        color: '#CC5728'
-                    },
-                    {
-                        id: 8,
-                        color: '#2980D9'
-                    },
-                    {
-                        id: 9,
-                        color: '#CC5728'
+                        title: '插眼/排眼'
                     }
                 ]
+            }
+        },
+        created() {
+            this.getPlayers()
+        },
+        methods: {
+            getPlayers() {
+                let arr = []
+                for(let item of this.factionData) {
+                    for(let key of item.players) {
+                        let o = {
+                            'faction': item.faction,
+                            'nick_name': key.player.nick_name,
+                            'image': key.champion.image.image,
+                            'name': key.champion.name,
+                            'title': key.champion.title,
+                            'level': key.level,
+                            'gold': key.gold_earned
+                        }
+                        arr.push(o)
+                    }
+                }
+                arr.sort((a, b) => {return a.gold - b.gold})
+                this.playerList = arr
+            }
+        },
+        watch: {
+            factionData(val,old) {
+                this.getPlayers()
             }
         },
         components: {
@@ -100,13 +131,33 @@
         }
         .list {
             margin-bottom: 5px;
-            img {
+            .head {
                 width: 30px;
                 height: 30px;
+                cursor: pointer;
+                position: relative;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+                span {
+                    color: #fff;
+                    font-size: 12px;
+                    background-color: #000;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                }
             }
             .right {
                 width: 170px;
                 font-size: 12px;
+                .blue {
+                    color: #2980D9;
+                }
+                .red {
+                    color: #CC5728;
+                }
                 span {
                     margin-bottom: 4px;
                 }

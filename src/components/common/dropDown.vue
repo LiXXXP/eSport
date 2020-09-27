@@ -5,8 +5,10 @@
                 全部<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>1111</el-dropdown-item>
-                <el-dropdown-item>2222</el-dropdown-item>
+                <el-dropdown-item
+                    v-for="item in dropList"
+                    :key="item.title"
+                >{{item.title}}</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
     </div>
@@ -14,6 +16,12 @@
 
 <script>
     export default {
+        props: {
+            dropList:{
+                type: Array,
+                default: []
+            }
+        },
         data() {
             return {
 

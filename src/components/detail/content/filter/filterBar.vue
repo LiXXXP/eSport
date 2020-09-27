@@ -7,7 +7,9 @@
                     v-for="item in filterData.filterTitle"
                     :key="item.title">
                     <p>{{item.title}}:</p>
-                    <drop-down></drop-down>
+                    <drop-down
+                        :dropList="[]"
+                    ></drop-down>
                 </div>
             </div>
             <p class="text" v-if="filterData.isText">

@@ -9,7 +9,15 @@
 </template>
 
 <script>
+    import { formatSeconds } from '@/scripts/utils'
+
     export default {
+        props: {
+            timeLine: {
+                type: Object,
+                default: {}
+            }
+        },
         data() {
             this.chartExtend = {
                 series: {
@@ -27,15 +35,31 @@
             return {
                 chartData: {
                     columns: ['日期', '经济差', '经验差'],
-                    rows: [
-                        { 'time': '00:00', '经济差': 1393, '经验差': 1093 },
-                        { 'time': '08:20', '经济差': 3530, '经验差': 3230 },
-                        { 'time': '16:40', '经济差': 2923, '经验差': 2623 },
-                        { 'time': '25:00', '经济差': 1723, '经验差': 1423 },
-                        { 'time': '33:20', '经济差': 3792, '经验差': 3492 },
-                        { 'time': '41:40', '经济差': 4593, '经验差': 4293 }
-                    ]
+                    rows: []
                 }
+            }
+        },
+        created() {
+            this.getRows()
+        },
+        methods: {
+            getRows() {
+                for(let item of this.timeLine.gold_diff_timeline) {
+                    for(let key of this.timeLine.experience_diff_timeline) {
+                        item.experience_diff = key.experience_diff
+                    }
+                    let rowItem = {
+                        'time': formatSeconds(item.ingame_timestamp),
+                        '经济差': parseInt(item.gold_diff) || 0,
+                        '经验差': parseInt(item.experience_diff) || 0,
+                    }
+                    this.chartData.rows.push(rowItem)
+                }
+            }
+        },
+        watch: {
+            timeLine(val,old) {
+                this.getRows()
             }
         }
     }
