@@ -14,17 +14,17 @@
             ></kill-sign>
             <div class="center flex flex_center">
                 <p :class="['left',{
-                    green: battleDetail.scores[0].score > battleDetail.scores[1].score,
-                    red: battleDetail.scores[0].score < battleDetail.scores[1].score
+                    green: battleDetail.battle_detail.teams[0].score > battleDetail.battle_detail.teams[1].score,
+                    red: battleDetail.battle_detail.teams[0].score < battleDetail.battle_detail.teams[1].score
                 }]">
-                    {{battleDetail.scores[0].score}}
+                    {{battleDetail.battle_detail.teams[0].score}}
                 </p>
                 <img :src="battleDetail.map.image.square_image">
                 <p :class="['right',{
-                    green: battleDetail.scores[1].score > battleDetail.scores[0].score,
-                    red: battleDetail.scores[1].score < battleDetail.scores[0].score
+                    green: battleDetail.battle_detail.teams[1].score > battleDetail.battle_detail.teams[0].score,
+                    red: battleDetail.battle_detail.teams[1].score < battleDetail.battle_detail.teams[0].score
                 }]">
-                    {{battleDetail.scores[1].score}}
+                    {{battleDetail.battle_detail.teams[1].score}}
                 </p>
             </div>
             <kill-sign
@@ -101,10 +101,10 @@
                                     v-for="item in battleDetail.battle_detail.rounds_detail.slice(15,30)"
                                     :key="item.round_ordinal"
                                 >
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
                                         v-if="item.win_type === 'terrorists_win'"
                                     >
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
                                         v-if="item.win_type === 'target_bombed'"
                                     >
                                 </div>
@@ -131,10 +131,10 @@
                                     v-for="item in battleDetail.battle_detail.rounds_detail.slice(0,15)"
                                     :key="item.round_ordinal"
                                 >
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
                                         v-if="item.win_type === 'terrorists_win'"
                                     >
-                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
+                                    <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
                                         v-if="item.win_type === 'target_bombed'"
                                     >
                                 </div>
@@ -215,7 +215,7 @@
 <script>
     import killArms from '@/components/detail/content/table/killArms'  // 对局击杀
     import killSign from '@/components/detail/content/table/killSign'  // 对局击杀
-    import killBar from '@/components/detail/content/table/killBar'         // 击杀条状
+    import killBar from '@/components/detail/content/table/killBar'    // 击杀条状
     export default {
         data() {
             return {

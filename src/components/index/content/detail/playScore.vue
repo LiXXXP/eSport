@@ -13,13 +13,17 @@
         <div class="content flex flex_between" v-if="scoresData">
             <div class="flex flex_center">
                 <img :src="scoresData[0].team_snapshot.image">
-                <p>{{scoresData[0].team_snapshot.full_name}}</p>
+                <p class="beyond-ellipsis" :title="scoresData[0].team_snapshot.full_name">
+                    {{scoresData[0].team_snapshot.short_name}}
+                </p>
             </div>
             <div class="score flex flex_center">
                 <div class="bar flex flex_start">
                     <div
                         :class="{
-                            win: item.scores[0].score > item.scores[1].score
+                            win: item.scores[0].team_id === scoresData[0].team_id ?
+                                 item.scores[0].score > item.scores[1].score :
+                                 item.scores[1].score > item.scores[0].score
                         }"
                         v-for="item in battlesData"
                         :key="item.battle_id"
@@ -41,7 +45,9 @@
                 <div class="bar flex flex_start">
                     <div
                         :class="{
-                            win: item.scores[1].score > item.scores[0].score
+                            win: item.scores[1].team_id === scoresData[1].team_id ?
+                                 item.scores[1].score > item.scores[0].score :
+                                 item.scores[0].score > item.scores[1].score
                         }"
                         v-for="item in battlesData"
                         :key="item.battle_id"
@@ -49,7 +55,9 @@
                 </div>
             </div>
             <div class="flex flex_center">
-                <p>{{scoresData[1].team_snapshot.full_name}}</p>
+                <p class="beyond-ellipsis" :title="scoresData[1].team_snapshot.full_name">
+                    {{scoresData[1].team_snapshot.short_name}}
+                </p>
                 <img :src="scoresData[1].team_snapshot.image">
             </div>
         </div>
@@ -122,6 +130,9 @@
                         }
                     }
                 }
+            }
+            .beyond-ellipsis {
+                width: 200px;
             }
         }
     }
