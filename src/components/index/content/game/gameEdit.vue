@@ -12,12 +12,12 @@
             <tbody>
                 <tr>
                     <td>
-                        <i class="iconfont icon-dianshi"></i>
+                        <i class="iconfont icon-dianshi" v-if="supported"></i>
                     </td>
                 </tr>
                 <tr>
                     <td class="detail"
-                        @click="openInfo(matchId)">
+                        @click="openInfo(matchId,gameId)">
                         <span>详情</span>
                         <i></i>
                     </td>
@@ -31,9 +31,17 @@
     import bus from '@/scripts/bus'
     export default {
         props: {
-            matchId: {
+            matchId: {    // 赛事id
                 type: Number,
                 default: 0
+            },
+            gameId: {     // 游戏id
+                type: Number,
+                default: 0
+            },
+            supported: {   // 是否提供视频直播源(true,false)
+                type: Boolean,
+                default: false
             }
         },
         data() {
@@ -52,13 +60,13 @@
                 }
             },
             // 展开游戏详情
-            openInfo(Mid) {
+            openInfo(Mid, Gid) {
                 if(this.isOpen) {
                     this.isOpen = false
-                    this.$emit('openDetailId',-1)
+                    this.$emit('openDetailId',-1,-1)
                 } else {
                     this.isOpen = true
-                    this.$emit('openDetailId',Mid)
+                    this.$emit('openDetailId',Mid,Gid)
                 }
             }
         }

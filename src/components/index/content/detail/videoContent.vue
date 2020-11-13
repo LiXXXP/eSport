@@ -1,61 +1,43 @@
 <template>
     <div class="video-content">
-        <div class="flex flex_start flex_wrap flex_wrap_reverse">
-            <div :class="['item flex flex_start',
-                {active:index===currentIndex}]"
-                v-for="(item,index) in videoData"
-                :key="item.id"
-                @click="cutTab(index)">
+        <div class="flex flex_start flex_wrap flex_wrap_reverse" v-if="streamsData">
+            <div :class="['item flex flex_start',{active:index===currentIndex}]"
+                v-for="(item,index) in streamsData.streams"
+                :key="item.stream_id"
+                @click="cutTab(index,item.embed_url)">
                 <i></i>
-                <p>{{item.text}}</p>
+                <p>{{item.title}}</p>
             </div>
         </div>
-        <div class="video">
-            <video src=""></video>
+        <div class="video" v-if="streamsData">
+            <iframe :src="streamUrl"></iframe>
         </div>
     </div>
 </template>
 
 <script>
     export default {
+        props: {
+            streamsData: {
+                type: Object,
+                default: null
+            }
+        },
         data() {
             return {
                 currentIndex: 0,    // 当前标题索引
-                videoData: [
-                    {
-                        id: 0,
-                        text: 'lck冠军联赛(GBR)'
-                    },
-                    {
-                        id: 1,
-                        text: 'lck-korea(GBR)'
-                    },
-                    {
-                        id: 2,
-                        text: 'lck-koreasdq(GBR)'
-                    },
-                    {
-                        id: 3,
-                        text: 'lck-koreasdq(GBR)'
-                    },
-                    {
-                        id: 4,
-                        text: 'lck冠军联赛(GBR)'
-                    },
-                    {
-                        id: 5,
-                        text: 'lck-korea(GBR)'
-                    },
-                    {
-                        id: 6,
-                        text: 'lck-koreasdq(GBR)'
-                    }
-                ]
+                streamUrl: ''
+            }
+        },
+        created() {
+            if(this.streamsData) {
+                this.streamUrl = this.streamsData.streams[0].embed_url
             }
         },
         methods: {
-            cutTab(index) {
+            cutTab(index, url) {
                 this.currentIndex = index
+                this.streamUrl = url
             }
         }
     }
@@ -97,12 +79,11 @@
             background-color: #fff;
             box-sizing: border-box;
             border: 1px solid #CFCFCF;
-            video {
+            iframe {
+                border: 0;
                 width: 950px;
                 height: 534px;
                 display: block;
-                background: url('../../../../assets/imgs/detail/video.png') no-repeat 0 0;
-                background-size: 100%;
             }
         }
     }

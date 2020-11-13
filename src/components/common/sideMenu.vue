@@ -7,30 +7,37 @@
         <slot name="search"></slot>
         <div class="bar-list">
             <!-- 折叠面板 -->
-            <el-collapse accordion v-if="titleData.title === '全部游戏'">
+            <el-collapse
+                accordion
+                v-model="activeNames"
+                @change="getEvent"
+                v-if="titleData.title === '全部游戏'"
+            >
                 <el-collapse-item
                     v-for="item in titleData.list"
                     :key="item.game_id"
+                    :name="item.game_id"
                 >
                     <template slot="title">
                         <img :src="item.image" class="title-icon">
-                        <span class="beyond-ellipsis"
-                            :title="item.name">
-                            {{item.name}}
-                        </span>
+                        <span class="beyond-ellipsis" :title="item.name">{{item.name}}</span>
                     </template>
                     <div class="detail">
-                        赛事
+                        <p v-for="key in eventsList" :key="key.tournament_id">
+                            {{key.name}}
+                        </p>
                     </div>
                 </el-collapse-item>
             </el-collapse>
             <!-- 无折叠 -->
-            <div class="twig flex flex_start flex_only_center" v-else
+            <div
+                v-else
                 v-for="item in titleData.list"
                 :key="item.game_id"
+                class="twig flex flex_start flex_only_center"
             >
                 <img :src="item.image">
-                <span class="beyond-ellipsis">{{item.name}}</span>
+                <span class="beyond-ellipsis" :title="item.name">{{item.name}}</span>
             </div>
         </div>
         <slot name="page"></slot>
@@ -38,6 +45,9 @@
 </template>
 
 <script>
+
+    import { getGameTournament } from '@/scripts/request'
+
     export default {
         props: {
             titleData: {
@@ -47,11 +57,22 @@
         },
         data() {
             return {
-
+                activeNames: '',
+                eventsList: []
             }
         },
-        mounted() {
-            // console.log(this.sideData)
+        methods: {
+            getEvent(val) {
+                let params = {
+                    game_id: val
+                }
+                let _this = this
+                getGameTournament(params).then(res => {
+                    if (res.code === 200) {
+                        _this.eventsList = res.data
+                    }
+                })
+            }
         }
     }
 </script>

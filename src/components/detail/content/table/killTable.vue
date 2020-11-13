@@ -4,8 +4,8 @@
             <thead :class="colorBar==='blue'?'blue':'yellow'">
                 <th>
                     <div class="flex flex_start flex_only_center">
-                        <img src="../../../../assets/imgs/detail/4.png" class="team-icon">
-                        <span class="beyond-ellipsis">Cloud9</span>
+                        <img :src="tableData.team.image" class="team-icon">
+                        <span class="beyond-ellipsis">{{tableData.team.name}}</span>
                     </div>
                 </th>
                 <th></th>
@@ -25,11 +25,11 @@
                 <th>ADR</th>
             </thead>
             <tbody>
-                <tr v-for="item in warData"
-                    :key="item.name"
-                    :class="[colorBar==='blue'?'blue':'yellow',{dark:item.add<=0}]"
+                <tr v-for="item in tableData.players"
+                    :key="item.player.player_id"
+                    :class="[colorBar==='blue'?'blue':'yellow',{dark:parseInt(item.hp)<=0}]"
                 >
-                    <td>{{item.name}}</td>
+                    <td>{{item.player.nick_name}}</td>
                     <td>
                         <i class="td-win" v-if="item.win"></i>
                     </td>
@@ -40,20 +40,20 @@
                         <div class="td-bar">
                             <progress-bar
                                 :progressData="playContrast"
-                                :progressColor="item.add>59?'#00AB49':item.add>39?'#F6B600':'#D94629'"
-                                :progressRate="item.add"
+                                :progressColor="parseInt(item.hp)>59?'#00AB49':parseInt(item.hp)>39?'#F6B600':'#D94629'"
+                                :progressRate="parseInt(item.hp) || 0"
                             ></progress-bar>
-                            <p>{{item.add}}</p>
+                            <p>{{item.hp}}</p>
                         </div>
                     </td>
                     <td>
                         <i class="td-head"></i>
                     </td>
-                    <td>${{item.coin}}</td>
-                    <td>{{item.k}}</td>
-                    <td>{{item.a}}</td>
-                    <td>{{item.d}}</td>
-                    <td>{{item.adr}}</td>
+                    <td>${{item.money || 0}}</td>
+                    <td>{{item.kills || 0}}</td>
+                    <td>{{item.flash_assist || 0}}</td>
+                    <td>{{item.deaths || 0}}</td>
+                    <td>{{item.adr || 0}}</td>
                 </tr>
             </tbody>
         </table>
@@ -64,9 +64,13 @@
     import progressBar from '@/components/common/progressBar'
     export default {
         props: {
-            colorBar: {
+            colorBar: {     // 定义颜色
                 type: String,
                 default: ''
+            },
+            tableData: {    // 表格数据
+                type: Object,
+                default: {}
             }
         },
         data() {
@@ -77,68 +81,6 @@
                     width: 17,          // 进度条的高度
                     showText: false,   // 是否显示文字
                 },
-                warData: [
-                    {
-                        name: 'jksjksjksjksjksjksjksjks',
-                        win: true,
-                        buy: require('../../../../assets/imgs/detail/csgo/ak47.png'),
-                        add: 77,
-                        isHead: true,
-                        coin: 4700,
-                        k: 23,
-                        a: 5,
-                        d: 17,
-                        adr: 97.7
-                    },
-                    {
-                        name: 'jksjksjs',
-                        win: false,
-                        buy: require('../../../../assets/imgs/detail/csgo/ak47.png'),
-                        add: 8,
-                        isHead: true,
-                        coin: 4700,
-                        k: 23,
-                        a: 5,
-                        d: 17,
-                        adr: 97.7
-                    },
-                    {
-                        name: 'jksjksjksjksjksjks',
-                        win: false,
-                        buy: require('../../../../assets/imgs/detail/csgo/ak47.png'),
-                        add: 40,
-                        isHead: true,
-                        coin: 4700,
-                        k: 23,
-                        a: 5,
-                        d: 17,
-                        adr: 97.7
-                    },
-                    {
-                        name: 'ddddasd',
-                        win: false,
-                        buy: require('../../../../assets/imgs/detail/csgo/ak47.png'),
-                        add: 0,
-                        isHead: true,
-                        coin: 4700,
-                        k: 23,
-                        a: 5,
-                        d: 17,
-                        adr: 97.7
-                    },
-                    {
-                        name: 'ererf',
-                        win: false,
-                        buy: require('../../../../assets/imgs/detail/csgo/ak47.png'),
-                        add: 0,
-                        isHead: true,
-                        coin: 4700,
-                        k: 23,
-                        a: 5,
-                        d: 17,
-                        adr: 97.7
-                    },
-                ],
 
             }
         },

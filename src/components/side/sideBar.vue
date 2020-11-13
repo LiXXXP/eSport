@@ -11,11 +11,10 @@
 
 <script>
     import sideMenu from '@/components/common/sideMenu'    // 侧边栏
-    import sideImg from '@/components/side/sideImg'  // 侧边图片位
+    import sideImg from '@/components/side/sideImg'        // 侧边图片位
     import {
         getGames,
-        getEvents,
-        getClubs
+        getEvents
     } from '@/scripts/request'
     export default {
         data() {
@@ -39,15 +38,18 @@
         mounted() {
             this.getGameList()
             this.getEventList()
-            this.getClubList()
         },
         methods: {
             // 获取全部游戏列表
             getGameList() {
                 let _this = this
-                getGames().then(res => {
-                    if (res.code === 1000) {
-                        _this.titleList[0].list = res.data.list
+                let params = {
+                    language: 1,   // 显示语言，1.中文,2.英文(默认为中文)
+                    is_all: 0      // 是否显示全部:1.显示全部
+                }
+                getGames(params).then(res => {
+                    if (res.code === 200) {
+                        _this.titleList[0].list = res.data
                     }
                 })
             },
@@ -55,20 +57,12 @@
             getEventList() {
                 let _this = this
                 getEvents().then(res => {
-                    if (res.code === 1000) {
-                        _this.titleList[1].list = res.data.list
+                    if (res.code === 200) {
+                        _this.titleList[1].list = res.data
                     }
                 })
             },
             // 获取热门俱乐部
-            getClubList() {
-                let _this = this
-                getClubs().then(res => {
-                    if (res.code === 1000) {
-                         _this.titleList[2].list = res.data.list
-                    }
-                })
-            },
         },
         components: {
             sideMenu,

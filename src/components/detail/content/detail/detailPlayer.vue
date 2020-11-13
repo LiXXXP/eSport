@@ -4,7 +4,7 @@
             <i class="play-header-bar"></i>
             <span class="play-header-text">选手对局详情</span>
         </div>
-        <battle-table></battle-table>
+        <battle-table :battleData="battleDetail.battle_detail"></battle-table>
     </div>
 </template>
 
@@ -14,6 +14,16 @@
         data() {
             return {
 
+            }
+        },
+        computed: {
+            battleDetail() {
+                return this.$store.state.battlesData
+            }
+        },
+        watch: {
+            battleDetail() {
+                return this.$store.state.battlesData
             }
         },
         components: {

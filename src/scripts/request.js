@@ -111,33 +111,60 @@ function putRequest(url,params = {}){
  * @param {*} params
  */
 function getGames(params) {
-    return getRequest('/games/list', params)
+    return postRequest('/games/games_list', params)
 }
 
 /**
  *
- * 获取赛事列表
+ * 获取指定游戏的赛事名称
+ * @param {*} params
+ */
+function getGameTournament(params) {
+  return postRequest('/tournaments/game_tournaments_list', params)
+}
+
+/**
+ *
+ * 获取热门赛事列表
  * @param {*} params
  */
 function getEvents(params) {
-  return getRequest('/tournaments/list', params)
+  return postRequest('/tournaments/tournaments_list', params)
 }
 
 /**
  *
- * 获取俱乐部列表
+ * 获取搜索战队基本资料
  * @param {*} params
  */
-function getClubs(params) {
-  return getRequest('/organizations/list', params)
+function getSearchTeams(params) {
+  return postRequest('/teams/search_team_info', params)
 }
 
 /**
- * 获取战队列表
+ *
+ * 获取搜索选手基本资料
  * @param {*} params
  */
-function getTeams(params) {
-  return getRequest('/teams/list', params)
+function getSearchPlayers(params) {
+  return postRequest('/players/search_player_info', params)
+}
+
+/**
+ * 获取搜索赛事列表
+ * @param {*} params
+ */
+function getSearchTournament(params) {
+  return postRequest('/tournaments/search_tournament_info', params)
+}
+
+/**
+ *
+ * 赛事筛选列表
+ * @param {*} params
+ */
+function getScreen(params) {
+  return postRequest('/tournaments/screen_list', params)
 }
 
 /**
@@ -154,7 +181,7 @@ function getPlayers(params) {
  * @param {*} params
  */
 function getOnGoing(params) {
-  return getRequest('/matches/ongoing', params)
+  return postRequest('/match/ongoing_match', params)
 }
 
 /**
@@ -163,7 +190,7 @@ function getOnGoing(params) {
  * @param {*} params
  */
 function getUpComning(params) {
-  return getRequest('/matches/upcoming', params)
+  return postRequest('/match/upcoming_match', params)
 }
 
 /**
@@ -172,7 +199,17 @@ function getUpComning(params) {
  * @param {*} params
  */
 function getPast(params) {
-  return getRequest('/matches/past', params)
+  return postRequest('/match/completed_match', params)
+}
+
+/**
+ *
+ * 获取比赛详情
+ * @param {*} params
+ * matche_id
+ */
+function getMatches(params) {
+  return postRequest('/match/match_detail', params)
 }
 
 /**
@@ -185,26 +222,19 @@ function getBattles(params) {
   return getRequest('/battles/detail', params)
 }
 
-/**
- *
- * 获取比赛详情
- * @param {*} params
- * matche_id
- */
-function getMatches(params) {
-  return getRequest('/matches/detail', params)
-}
-
 export {
     getGames,
+    getGameTournament,
     getEvents,
-    getClubs,
-    getTeams,
+    getSearchPlayers,
+    getSearchTournament,
+    getSearchTeams,
     getPlayers,
     getOnGoing,
     getUpComning,
     getPast,
     getBattles,
-    getMatches
+    getMatches,
+    getScreen
 }
 

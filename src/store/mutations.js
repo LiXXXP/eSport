@@ -10,6 +10,14 @@ const mutations = {
     // 获取比赛数据
     getBattlesData: (state, val) => {
         state.battlesData = val
+    },
+    // 获取赛事筛选结果
+    getSelectMatchData: (state, val) => {
+        state.selectMatchData = val
+    },
+    // 获取详情matchid
+    getMatchId: (state, val) => {
+        state.matchId = val
     }
 }
 

@@ -4,12 +4,8 @@
             v-for="(item,index) in navData"
             :key="item.title"
             @click="cutTab(index,item.title)">
-            <div :class="['title',`select-style${selectStyle}`,
-                {active:index===currentIndex}]"
-            >
-                <i v-if="item.icon">
-                    {{item.icon}}
-                </i>
+            <div :class="['title',`select-style${selectStyle}`,{active:index===currentIndex}]">
+                <i v-if="item.icon">{{item.icon}}</i>
                 <span>{{item.title}}</span>
             </div>
             <slot
@@ -34,8 +30,8 @@
         },
         data() {
             return {
+                userClick: false,
                 currentIndex: 0,    // 当前标题索引
-                isEvent: true,      // 是否打开赛事筛选
             }
         },
         created() {
@@ -45,13 +41,9 @@
 
         },
         methods: {
-            cutTab(index,title) {
+            cutTab(index) {
                 this.currentIndex = index
                 this.$emit('clickIndex',index)
-                if(title === '赛事筛选') {
-                    this.$emit('openEvents', this.isEvent)
-                    return
-                }
             }
         }
     }

@@ -1,23 +1,39 @@
 <template>
     <div class="search-box flex flex_start" v-if="searchData.length !== 0">
-        <img :src="searchData.image" class="events-img">
+        <img :src="searchData.team_image" class="events-img" v-if="searchData.team_image">
+        <img :src="searchData.player_image" class="events-img" v-if="searchData.player_image">
+        <img :src="searchData.tournament_image" class="events-img" v-if="searchData.tournament_image">
         <div class="info">
-            <div class="flex flex_start flex_only_center">
-                <img :src="searchData.country.image">
-                <p>{{searchData.name}}</p>
+            <div
+                class="flex flex_start flex_only_center"
+                v-if="searchData.team_image"
+            >
+                <img :src="searchData.country_image">
+                <p>{{searchData.team_name}}</p>
             </div>
-            <p>地点：{{searchData.country.name_cn}}</p>
-            <p v-if="searchData.game">
-                游戏项目：{{searchData.game.name_cn}}
+            <div
+                class="flex flex_start flex_only_center"
+                v-if="searchData.nationality_image"
+            >
+                <img :src="searchData.nationality_image">
+                <p>{{searchData.player_nickname}}</p>
+            </div>
+            <p v-if="searchData.teams_name">
+                效力战队：{{searchData.teams_name}}
             </p>
-            <p v-if="searchData.teams">
-                效力战队：
-                <span
-                    v-for="item in searchData.teams"
-                    :key="item.team_id"
-                >{{item.name}},</span>
+            <div
+                class="flex flex_start flex_only_center"
+                v-if="searchData.location_image"
+            >
+                <img :src="searchData.location_image">
+                <p>{{searchData.tournament_name}}</p>
+            </div>
+            <p v-if="searchData.game_name_cn || searchData.game_name">
+                游戏项目：{{searchData.game_name_cn || searchData.game_name}}
             </p>
-            <p>联赛级别：{{searchData.slug}}</p>
+            <p v-if="searchData.location">
+                地点：{{searchData.location}}
+            </p>
         </div>
     </div>
 </template>
@@ -34,9 +50,6 @@
             return {
 
             }
-        },
-        mounted() {
-
         }
     }
 </script>
@@ -56,6 +69,7 @@
                 width: 20px;
                 height: 12px;
                 margin-right: 5px;
+                border: 1px solid #999;
             }
             p {
                 color: #101010;

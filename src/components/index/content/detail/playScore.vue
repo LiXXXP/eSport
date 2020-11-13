@@ -10,73 +10,70 @@
                 报告网站错误数据
             </div>
         </div>
-        <div class="content flex flex_between" v-if="scoresData">
+        <div class="content flex flex_between" v-if="scoreData">
             <div class="flex flex_center">
-                <img :src="scoresData[0].team_snapshot.image">
-                <p class="beyond-ellipsis" :title="scoresData[0].team_snapshot.full_name">
-                    {{scoresData[0].team_snapshot.short_name}}
-                </p>
+                <img :src="scoreData[0].team_snapshot.image">
+                <p class="beyond-ellipsis"
+                    :title="scoreData[0].team_snapshot.name"
+                >{{scoreData[0].team_snapshot.name}}</p>
             </div>
             <div class="score flex flex_center">
                 <div class="bar flex flex_start">
-                    <div
-                        :class="{
-                            win: item.scores[0].team_id === scoresData[0].team_id ?
-                                 item.scores[0].score > item.scores[1].score :
-                                 item.scores[1].score > item.scores[0].score
-                        }"
-                        v-for="item in battlesData"
-                        :key="item.battle_id"
+                    <div :class="{win: item.winner.team_id === scoreData[0].team_id}"
+                        v-for="item in battleData"
+                        :key="item.winner.team_id"
                     ></div>
                 </div>
                 <p :class="['left',{
-                    green: scoresData[0].score > scoresData[1].score,
-                    red: scoresData[0].score < scoresData[1].score
+                    green: scoreData[0].score > scoreData[1].score,
+                    red: scoreData[0].score < scoreData[1].score
                 }]">
-                    {{scoresData[0].score}}
+                    {{scoreData[0].score}}
                 </p>
                 <p>:</p>
                 <p :class="['right',{
-                    green: scoresData[1].score > scoresData[0].score,
-                    red: scoresData[1].score < scoresData[0].score
+                    green: scoreData[1].score > scoreData[0].score,
+                    red: scoreData[1].score < scoreData[0].score
                 }]">
-                    {{scoresData[1].score}}
+                    {{scoreData[1].score}}
                 </p>
                 <div class="bar flex flex_start">
-                    <div
-                        :class="{
-                            win: item.scores[1].team_id === scoresData[1].team_id ?
-                                 item.scores[1].score > item.scores[0].score :
-                                 item.scores[0].score > item.scores[1].score
-                        }"
-                        v-for="item in battlesData"
-                        :key="item.battle_id"
+                    <div :class="{win: item.winner.team_id === scoreData[1].team_id}"
+                        v-for="item in battleData"
+                        :key="item.winner.team_id"
                     ></div>
                 </div>
             </div>
             <div class="flex flex_center">
-                <p class="beyond-ellipsis" :title="scoresData[1].team_snapshot.full_name">
-                    {{scoresData[1].team_snapshot.short_name}}
-                </p>
-                <img :src="scoresData[1].team_snapshot.image">
+                <p class="beyond-ellipsis"
+                    style="text-align:right;"
+                    :title="scoreData[1].team_snapshot.name"
+                >{{scoreData[1].team_snapshot.name}}</p>
+                <img :src="scoreData[1].team_snapshot.image">
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import bus from '@/scripts/bus'
     export default {
-
+        props: {
+            scoreData: {
+                type: Array,
+                default: () => []
+            },
+            battleData: {
+                type: Array,
+                default: () => []
+            }
+        },
         data() {
             return {
-                scoresData: [],
-                battlesData: []
+
             }
         },
         created() {
-            this.scoresData = this.$store.state.matchsData.scores
-            this.battlesData = this.$store.state.matchsData.battles
+
         }
     }
 </script>

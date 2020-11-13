@@ -16,23 +16,24 @@
         </div>
         <div class="search">
             <el-select
-                v-model="searchValue"
-                filterable
                 remote
+                filterable
+                v-model="query"
                 placeholder="请输入关键词"
                 :remote-method="searchMethod"
-                :loading="loading">
+                :loading="loading"
+            >
                     <el-option
                         v-for="item in searchList"
-                        :key="item.id"
-                        :value="item.team">
+                        :key="item.player_nickname"
+                        :value="item.player_nickname">
                         <!-- slot -->
                         <search-box :searchData="item"></search-box>
                     </el-option>
                     <!-- 分页 -->
                     <div class="page flex flex_end">
-                        <p>上一页</p>
-                        <p>下一页</p>
+                        <p @click="prePage">上一页</p>
+                        <p @click="nextPage">下一页</p>
                     </div>
             </el-select>
         </div>
@@ -41,78 +42,124 @@
 
 <script>
     import searchBox from '@/components/header/search/searchBox'
-    import {
-        getClubs,
-        getTeams
-    } from '@/scripts/request'
+    import { getSearchTeams, getSearchPlayers, getSearchTournament } from '@/scripts/request'
     export default {
         data() {
             return {
                 selectValue: '',  // 俱乐部选择的值
                 selectList: [     // 俱乐部选择列表
-                    {
-                        value: 1,
-                        label: '俱乐部'
-                    },
+                    // {
+                    //     value: 1,
+                    //     label: '俱乐部'
+                    // },
                     {
                         value: 2,
                         label: '战队'
+                    },
+                    {
+                        value: 3,
+                        label: '选手'
+                    },
+                    {
+                        value: 4,
+                        label: '赛事'
                     }
                 ],
-                searchList: [],   // 搜索列表
-                searchValue: [],  // 搜索框的值
-                resultList: [],   // 搜索条件返回的值
-                loading: false,   // 搜索状态
-                searchStates: []  // 搜索联想
+                searchList: [],    // 搜索列表
+                resultList: [],    // 搜索条件返回的值
+                loading: false,    // 搜索状态
+                searchStates: [],  // 搜索联想
+                query: '',         // 搜索框的值
+                optionVal: 0,      // 选择 val值
+                count: 0,          // 搜索结果总条数
+                page: 1,           // 当前页
+
             }
         },
         mounted() {
             this.resultList = this.searchStates.map(item => {
                 return item
-            });
+            })
         },
         methods: {
             // 选择俱乐部or战队
             changeEvent(val) {
-                if(val === 1) {
-                    this.getClubsList()
-                } else {
-                    this.getTeamsList()
-                }
+                this.optionVal = val
             },
             searchMethod(query) {
                 if (query !== '') {
-                    this.loading = true;
-                    setTimeout(() => {
-                        this.loading = false;
-                        this.searchList = this.resultList.filter(item => {
-                            if(item.team.toLowerCase().indexOf(query.toLowerCase()) > -1) {
-                                return item
-                            }
-                        });
-                    }, 200);
+                    let params = {
+                        search_info: query,
+                        page: this.page,
+                        limit: 10
+                    }
+                    this.query = query
+                    if(this.optionVal === 2) {
+                        this.getTeamList(params)
+                    }
+                    if(this.optionVal === 3) {
+                        this.getPlayerList(params)
+                    }
+                    if(this.optionVal === 4) {
+                        this.getTournamentList(params)
+                    }
+                    this.searchList = this.resultList.filter(item => {
+                        if(item.team.toLowerCase().indexOf(query.toLowerCase()) > -1) {
+                            return item
+                        }
+                    })
                 } else {
-                    this.searchList = [];
+                    this.searchList = []
                 }
             },
-            // 获取俱乐部列表
-            getClubsList() {
-                let _this = this
-                getClubs().then(res => {
-                    if (res.code === 1000) {
-                         _this.searchList = res.data.list
-                    }
-                })
-            },
             // 获取战队列表
-            getTeamsList() {
+            getTeamList(params) {
                 let _this = this
-                getTeams().then(res => {
-                    if (res.code === 1000) {
-                         _this.searchList = res.data.list
+                _this.loading = true
+                getSearchTeams(params).then(res => {
+                    if (res.code === 200) {
+                         _this.searchList = res.data.team_list
+                         _this.count = res.data.count
+                         _this.loading = false
                     }
                 })
             },
+            // 获取选手列表
+            getPlayerList(params) {
+                let _this = this
+                _this.loading = true
+                getSearchPlayers(params).then(res => {
+                    if (res.code === 200) {
+                         _this.searchList = res.data.player_list
+                         _this.count = res.data.count
+                         _this.loading = false
+                    }
+                })
+            },
+            // 获取赛事列表
+            getTournamentList(params) {
+                let _this = this
+                _this.loading = true
+                getSearchTournament(params).then(res => {
+                    if (res.code === 200) {
+                         _this.searchList = res.data.tournament_list
+                          _this.count = res.data.count
+                         _this.loading = false
+                    }
+                })
+            },
+            prePage() {
+                if(this.page > 1) {
+                    this.page -= 1
+                    this.searchMethod(this.query)
+                }
+            },
+            nextPage() {
+                if(this.page < (this.count / 10)) {
+                    this.page += 1
+                    this.searchMethod(this.query)
+                }
+            }
         },
         components: {
             searchBox

@@ -67,6 +67,12 @@
 <script>
     import progressBar from '@/components/common/progressBar'
     export default {
+        props: {
+            battleData: {
+                type: Object,
+                default: {}
+            }
+        },
         data() {
             return {
                 playContrast: {        // 进度条配置参数
@@ -128,6 +134,9 @@
                     ]
                 }
             }
+        },
+        created() {
+            console.log(this.battleData)
         },
         components: {
             progressBar

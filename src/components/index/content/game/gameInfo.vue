@@ -10,16 +10,19 @@
                 </div>
             </tab-nav>
         </div>
+        <!-- lol -->
         <lol-detail-content
             :currentData="currentIndex"
-            v-if="openType === 'lol'"
+            v-if="openType === 2"
         ></lol-detail-content>
+        <!-- dota2 -->
         <dota-detail-content
-            v-if="openType === 'dota2'"
+            v-if="openType === 3"
             :currentData="currentIndex"
         ></dota-detail-content>
+        <!-- csgo -->
         <csgo-detail-content
-            v-if="openType === 'csgo'"
+            v-if="openType === 1"
             :currentData="currentIndex"
         ></csgo-detail-content>
         <div class="pack"
@@ -40,8 +43,8 @@
         props: {
             // 游戏类型
             openType: {
-                type: String,
-                default: ''
+                type: Number,
+                default: 0
             }
         },
         data () {

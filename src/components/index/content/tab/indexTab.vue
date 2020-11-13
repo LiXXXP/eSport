@@ -3,16 +3,15 @@
         <div class="flex flex_start">
             <!-- tab栏 -->
             <tab-nav
-                @openEvents="openEvents"
-                :selectStyle="selectStyle"
                 :navData="navList"
+                :selectStyle="selectStyle"
+                @clickIndex="openEvents"
             ></tab-nav>
             <!-- 日历筛选 -->
             <date-picker></date-picker>
         </div>
         <!-- 赛事筛选 -->
         <event-select
-            @openEvents="openEvents"
             v-if="isEvent"
         ></event-select>
     </div>
@@ -47,9 +46,18 @@
                 ]
             }
         },
+        mounted() {
+            document.addEventListener('click', (e) => {
+                if (!this.$el.contains(e.target)) this.isEvent = false
+            })
+        },
         methods: {
-            openEvents(openEvents) {
-                this.isEvent = openEvents
+            openEvents(val) {
+                this.isEvent = false
+                this.$emit('getAllMatch', val)
+                if(val === 3) {
+                    this.isEvent = true
+                }
             }
         },
         components: {

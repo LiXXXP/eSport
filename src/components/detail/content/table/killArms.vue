@@ -1,12 +1,14 @@
 <template>
     <div class="kill-arms">
         <div class="block flex flex_center">
-            <div
-                v-for="item in eventsList"
+            <div v-for="item in eventsList"
                 :key="item.type"
-                :class="{back:item.side !== sideData}"
+                :class="{back:eventsData[item.type].side !== sideData}"
             >
-                <img :src="item.url" v-if="item.side === sideData">
+                <img
+                    :src="item.url"
+                    v-if="eventsData[item.type].side === sideData"
+                >
             </div>
         </div>
     </div>
@@ -18,37 +20,30 @@
             sideData: {
                 type: String,
                 default: ''
+            },
+            eventsData: {
+                type: Object,
+                default: {}
             }
         },
         data() {
             return {
-                eventsList: []
-            }
-        },
-        created() {
-            this.getEvents()
-        },
-        methods: {
-            getEvents() {
-                this.eventsList = [
+                eventsList: [
                     {
                         url: require('../../../../assets/imgs/detail/csgo/q2.png'),
-                        type: 'win_round_16',
-                        side: this.$store.state.battlesData.battle_detail.special_events.win_round_16.side
+                        type: 'win_round_16'
                     },
                     {
                         url: require('../../../../assets/imgs/detail/csgo/q.png'),
-                        type: 'first_to_5_rounds_wins',
-                        side: this.$store.state.battlesData.battle_detail.special_events.first_to_5_rounds_wins.side
+                        type: 'first_to_5_rounds_wins'
                     },
                     {
                         url: require('../../../../assets/imgs/detail/csgo/q1.png'),
-                        type: 'win_round_1',
-                        side: this.$store.state.battlesData.battle_detail.special_events.win_round_1.side
+                        type: 'win_round_1'
                     }
                 ]
             }
-        }
+        },
     }
 </script>
 

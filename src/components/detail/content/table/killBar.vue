@@ -6,8 +6,8 @@
                 :key="item.i"
                 :style="{'background-color': item.color}"
             >
-                <i v-if="item.color==='#434343' && killsData.headshot_kills > 0"
-                    :style="{'width': `${4*killsData.headshot_kills}px`}"
+                <i v-if="item.color==='#434343' && 3 > 0"
+                    :style="{'width': `${4*3}px`}"
                 ></i>
             </p>
         </div>
@@ -17,10 +17,6 @@
 <script>
     export default {
         props: {
-            killsData: {  // 击杀数据
-                type: Object,
-                default: {}
-            },
             backColor: {  // 显示颜色
                 type: String,
                 default: ''
@@ -57,31 +53,13 @@
             }
         },
         created() {
-            this.getkillsData()
+
         },
         methods: {
-            getkillsData() {
-                for(let i in this.barList) {
-                    this.barList[i].color = '#CFCFCF'
-                    if( i < this.killsData.survived_players) {
-                        this.barList[i].color = this.backColor
-                    }
-                }
-                if( (this.killsData.headshot_kills || 0 ) > 0) {
-                    let index = this.killsData.survived_players || 0
-                    if(index < 5) {
-                        this.barList[index].color = '#434343'
-                    }
-                }
-                if(this.isReverse) {
-                    this.barList.reverse()
-                }
-            }
+
         },
         watch: {
-            killsData(val,old) {
-                this.getkillsData()
-            }
+
         }
     }
 </script>

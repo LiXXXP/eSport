@@ -2,24 +2,27 @@
     <div class="event-select">
         <div class="event-box">
             <el-checkbox-group
-                v-model="checkedAll"
-                @change="checkedData"
-            >
+                v-model="checkedGames"
+                @change="handleCheckedGamesChange">
                 <el-checkbox
-                    class="select-box"
+                    class="select-box flex flex_only_center"
                     v-for="item in games"
-                    :label="item"
-                    :key="item"
-                >
-                    {{item}}
-                </el-checkbox>
+                    v-model="checkedGames"
+                    :label="item.tournament_id"
+                    :title="item.name"
+                    :key="item.name"
+                >{{item.name}}</el-checkbox>
             </el-checkbox-group>
         </div>
         <div class="event-btn flex flex_between">
             <div class="flex flex_start">
-                <div class="select" @click="checkAll">全选</div>
+                <el-checkbox
+                    v-model="checkAll"
+                    :indeterminate="isIndeterminate"
+                    @change="handleCheckAllChange"
+                >全选</el-checkbox>
                 <div class="select" @click="checkCon">反选</div>
-                <div class="hide">隐藏了36场</div>
+                <div class="hide">隐藏了{{num}}场</div>
             </div>
             <div class="btn" @click="eventSelect">确定</div>
         </div>
@@ -27,43 +30,58 @@
 </template>
 
 <script>
+    import { getScreen } from '@/scripts/request'
     export default {
         data() {
             return {
-                isEvent: false,       // 是否打开赛事筛选
-                checkedAll: [],       // 全选结果
-                games: [
-                    'LPL夏季联赛',
-                    'ige南亚杯',
-                    '黄金职业联赛',
-                    'esl越南冠军联赛',
-                    'LPL夏季联赛2',
-                    'ige南亚杯2',
-                    '2019国际邀请赛',
-                    '黄金职业联赛2'
-                ]
+                isEvent: false,         // 是否打开赛事筛选
+                games: [],              // 赛事列表
+                num: 0,                 // 隐藏场
+                checkedGames: [],       // 选择的赛事
+                checkAll: false,        // 是否全选
+                isIndeterminate: true,  // 设置 indeterminate 状态，只负责样式控制
             }
         },
+        created(){
+            let params = {
+                page: 1,
+                limit: 8
+            }
+            let _this = this
+            getScreen(params).then(res => {
+                if (res.code === 200) {
+                    _this.games = res.data.tournament_list
+                    _this.num = res.data.count - 8
+                }
+            })
+        },
         methods: {
-            checkedData(value) {
-                this.checkedAll = value
+            // 赛事选择
+            handleCheckedGamesChange(value) {
+                this.checkedGames = value
+                // console.log(this.checkedGames)
+                let checkedCount = value.length
+                this.checkAll = checkedCount === this.games.length
+                this.isIndeterminate = checkedCount > 0 && checkedCount < this.games.length
             },
             // 全选
-            checkAll(val) {
-                this.checkedAll = val ? this.games : []
+            handleCheckAllChange(val) {
+                // console.log(val)
+                this.checkedGames = val ? this.games : []
+                this.isIndeterminate = false
             },
             // 反选
             checkCon() {
-                let conArr = this.checkedAll
-                this.checkedAll = this.games.filter(function (item) {
+                let conArr = this.checkedGames
+                this.checkedGames = this.games.filter(function (item) {
                     return conArr.indexOf(item) < 0
                 })
+                // console.log(this.checkedGames)
             },
             eventSelect() {
-                if(this.checkedAll.length !== 0) {
-
+                if(this.checkedGames.length !== 0) {
+                    this.$store.commit('getSelectMatchData',this.checkedGames)
                 }
-                this.$emit('openEvents', this.isEvent)
             }
         }
     }
@@ -111,6 +129,7 @@
                 }
             }
             .hide {
+                font-size: 12px;
                 color: #878787;
                 margin-left: 10px;
             }
@@ -143,12 +162,36 @@
                     margin-left: -3px;
                 }
             }
+            .el-checkbox__input {
+                vertical-align: revert;
+            }
+            .el-checkbox__label {
+                    width: 150px;
+                    line-height: 15px;
+                    padding-left: 5px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    -o-text-overflow: ellipsis;
+                    text-overflow: ellipsis;
+                }
             .el-checkbox__input.is-checked+.el-checkbox__label {
                 color: #FF7800;
             }
             .el-checkbox__input.is-checked .el-checkbox__inner {
                 border-color: #FF7800;
                 background-color: #fff;
+            }
+
+        }
+        .event-btn {
+            .el-checkbox__input {
+                display: none;
+            }
+            .el-checkbox__label {
+                padding-right: 10px;
+            }
+            .el-checkbox__input.is-checked+.el-checkbox__label {
+                color: #FF7800;
             }
         }
     }
