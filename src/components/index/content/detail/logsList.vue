@@ -3,10 +3,7 @@
         <div v-if="type === 'lol'">
             <div class="title">比赛日志：</div>
             <div class="lol-list">
-                <div class="item flex flex_start flex_only_center"
-                    v-for="item in listData"
-                    :key="item.id"
-                >
+                <div class="item flex flex_start flex_only_center">
                     <p class="time">12:24</p>
                     <div class="red flex flex_start flex_only_center">
                         <img src="../../../../assets/imgs/detail/2.png">
@@ -29,16 +26,53 @@
             </div>
         </div>
         <div v-if="type === 'csgo'">
-            <div class="csgo-list">
-                <div class="item flex flex_start flex_only_center"
-                    v-for="item in listData"
-                    :key="item.id"
-                >
-                    <p class="blue">SyrsoN</p>
-                    <p>击杀了</p>
-                    <p class="yellow">Pronax</p>
-                    <p class="info">(爆头)</p>
-                    <img src="../../../../assets/imgs/detail/csgo/ak47.png">
+            <div class="csgo-list" ref="chat_main">
+                <div v-for="item in logsData" :key="item.round_time">
+                    <div class="item flex flex_start flex_only_center"
+                        v-if="item.event_type === 'round_start'">
+                        <p>回合开始 （第{{item.round_ordinal}}回合）</p>
+                    </div>
+                    <div class="item flex flex_start flex_only_center"
+                         v-if="item.killer && item.victim">
+                        <p :class="{
+                            blue:item.killer.side === 'ct',
+                            yellow: item.killer.side === 'terrorist'
+                        }">{{item.killer.nick_name}}</p>
+                        <p>击杀了</p>
+                        <p :class="{
+                            blue:item.victim.side === 'ct',
+                            yellow: item.victim.side === 'terrorist'
+                        }">{{item.victim.nick_name}}</p>
+                        <img :src="item.weapon.image">
+                    </div>
+                    <div class="item flex flex_start flex_only_center"
+                        v-if="item.event_type === 'bomb_planted'">
+                        <p :class="{
+                            blue:item.side === 'ct',
+                            yellow: item.side === 'terrorist'
+                        }">{{item.nick_name}}</p>
+                        <p>放置了炸弹</p>
+                        <div class="flex flex_start">
+                            ( <p class="blue">{{item.survived_players_ct}}</p>
+                            on <p class="yellow">{{item.survived_players_t}}</p> )
+                        </div>
+                    </div>
+                    <div class="item flex flex_start flex_only_center"
+                        v-if="item.event_type === 'player_joined'">
+                        <p>{{item.nick_name}} 进入游戏</p>
+                    </div>
+                    <div class="item flex flex_start flex_only_center"
+                        v-if="item.event_type === 'player_suicide'">
+                        <p>{{item.nick_name}} 自杀</p>
+                    </div>
+                    <div class="item flex flex_start flex_only_center"
+                        v-if="item.event_type === 'round_end'">
+                        <p>回合结束</p>
+                        <div class="flex flex_start">
+                            ( <p class="blue">{{item.ct_score}}</p>
+                            on <p class="yellow">{{item.t_score}}</p> )
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,30 +81,22 @@
 
 <script>
     export default {
+        props: {
+            logsData: {
+                type: Array,
+                default: []
+            }
+        },
         data () {
             return {
                 type: 'csgo',
-                listData: [
-                    {
-                        id: 0
-                    },
-                    {
-                        id: 1
-                    },
-                    {
-                        id: 2
-                    },
-                    {
-                        id: 3
-                    },
-                    {
-                        id: 4
-                    },
-                    {
-                        id: 5
-                    }
-                ]
             }
+        },
+        created() {
+            let _this = this
+            this.$nextTick(() => {
+                _this.$refs.chat_main.scrollTop = _this.$refs.chat_main.scrollHeight
+            })
         }
     }
 </script>

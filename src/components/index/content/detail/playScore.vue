@@ -10,7 +10,7 @@
                 报告网站错误数据
             </div>
         </div>
-        <div class="content flex flex_between" v-if="scoreData">
+        <div class="content flex flex_between" v-if="scoreData.length !== 0">
             <div class="flex flex_center">
                 <img :src="scoreData[0].team_snapshot.image">
                 <p class="beyond-ellipsis"
@@ -21,7 +21,7 @@
                 <div class="bar flex flex_start">
                     <div :class="{win: item.winner.team_id === scoreData[0].team_id}"
                         v-for="item in battleData"
-                        :key="item.winner.team_id"
+                        :key="item.duration"
                     ></div>
                 </div>
                 <p :class="['left',{
@@ -40,7 +40,7 @@
                 <div class="bar flex flex_start">
                     <div :class="{win: item.winner.team_id === scoreData[1].team_id}"
                         v-for="item in battleData"
-                        :key="item.winner.team_id"
+                        :key="item.duration"
                     ></div>
                 </div>
             </div>

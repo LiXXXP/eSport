@@ -10,6 +10,11 @@
                 </div>
             </tab-nav>
         </div>
+        <!-- csgo -->
+        <csgo-detail-content
+            v-if="openType === 1"
+            :currentData="currentIndex"
+        ></csgo-detail-content>
         <!-- lol -->
         <lol-detail-content
             :currentData="currentIndex"
@@ -20,14 +25,9 @@
             v-if="openType === 3"
             :currentData="currentIndex"
         ></dota-detail-content>
-        <!-- csgo -->
-        <csgo-detail-content
-            v-if="openType === 1"
-            :currentData="currentIndex"
-        ></csgo-detail-content>
         <div class="pack"
             @click="packUp"
-            v-if="!this.$route.query.openType">
+            v-if="this.$route.path !== '/detail'">
             <i></i> 收起
         </div>
     </div>
@@ -41,8 +41,7 @@
 
     export default {
         props: {
-            // 游戏类型
-            openType: {
+            openType: { // 游戏类型 1:csgo  2:lol  3:dota2
                 type: Number,
                 default: 0
             }

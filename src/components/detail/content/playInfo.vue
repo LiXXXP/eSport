@@ -5,9 +5,9 @@
             <span class="play-header-text">比赛信息</span>
         </div>
         <div class="info">
-            <p>赛事进度：{{infoData.round_name}}/第{{infoData.round_order}}轮</p>
-            <p>比赛地点：{{infoData.location}}</p>
-            <p>相关描述：{{infoData.description}}</p>
+            <p>赛事进度：{{matchDetail.round_name_cn}}/第{{matchDetail.round_order}}轮</p>
+            <p>比赛地点：{{matchDetail.location_cn}}</p>
+            <p>相关描述：{{matchDetail.description}}</p>
         </div>
     </div>
 </template>
@@ -16,12 +16,22 @@
     export default {
         data() {
             return {
-                infoData: {}
+
             }
         },
         created() {
-            this.infoData = this.$store.state.matchsData
-        }
+
+        },
+        computed: {
+            matchDetail() {
+                return this.$store.state.matchsData
+            }
+        },
+        watch: {
+            matchDetail() {
+                return this.$store.state.matchsData
+            }
+        },
     }
 </script>
 

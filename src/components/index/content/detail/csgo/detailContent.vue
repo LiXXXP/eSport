@@ -12,22 +12,36 @@
             :scoreData="matchDetail.scores"
             :battleData="matchDetail.battle_list"
         ></play-score>
-        <!-- <play-content></play-content> -->
+        <!-- 比赛信息 -->
+        <map-info
+            :teamData="matchDetail.scores"
+            :mapData="matchDetail.maps"
+            v-if="this.$route.path === '/detail' && currentData === 1"
+        ></map-info>
+        <!-- 对局 tab栏切换 -->
         <tab-nav
-            v-if="matchDetail && currentData === 1"
+            v-if="currentData === 1"
             :selectStyle="selectStyle"
             :navData="navList"
             @clickIndex="navDetail"
         ></tab-nav>
         <!-- 对局详情 -->
         <play-csgo
-            v-if="currentData === 1"
-            :targetIndex="currentIndex"
+            v-if="currentData === 1 && currentMatchId > 0"
+            :targetMatchId="currentMatchId"
             :battleData="matchDetail.battle_list"
             :mapData="matchDetail.maps"
+            :teamData="matchDetail.scores"
         ></play-csgo>
-        <!-- <csgo-play-data v-if="isDetai"></csgo-play-data> -->
-        <!-- <csgo-play-detail v-else></csgo-play-detail> -->
+        <!-- 选手数据 -->
+        <csgo-play-detail
+            v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId > 0"
+            :targetMatchId="currentMatchId"
+        ></csgo-play-detail>
+        <!-- 数据分析 -->
+        <csgo-play-data
+            v-if="currentData === 1 && currentMatchId === 0"
+        ></csgo-play-data>
     </div>
 </template>
 
@@ -35,13 +49,11 @@
     import videoContent from '@/components/index/content/detail/videoContent'      // 视频模块
     import mapContent from '@/components/index/content/detail/csgo/mapContent'     // 地图模块
     import playScore from '@/components/index/content/detail/playScore'            // 比赛比分
-    import playContent from '@/components/index/content/detail/csgo/playContent'   // 对局详情
+    import mapInfo from '@/components/index/content/detail/mapInfo'                // 地图模块
     import tabNav from '@/components/common/tabNav'                                // 导航
     import playCsgo from '@/components/index/content/detail/playCsgo'              // 对局详情
     import csgoPlayData from '@/components/detail/content/csgoPlayData'            // 数据分析
     import csgoPlayDetail from '@/components/detail/content/csgoPlayDetail'        // 数据详情
-
-    import { getBattles } from '@/scripts/request'
 
     export default {
         inheritAttrs: false,
@@ -61,27 +73,27 @@
                 selectStyle: 3,
                 navList : [],   // 对局数导航
                 isDetai: true,  // 显示对战分析
-                currentIndex: 0,
+                currentMatchId: 0
             }
-        },
-        created() {
-            this.getNavTitle()
         },
         methods: {
             navDetail(index) {
-                this.currentIndex = index
+                this.currentMatchId = this.navList[index].battleId
             },
             getNavTitle() {
-                let battlesData = this.$store.state.matchsData.battle_list
-                for(let index in battlesData) {
+                let navArr = []
+                for(let index in this.$store.state.matchsData.battle_list) {
                     let item = {
-                        title: `MAP ${parseInt(index)+1}`
+                        title: `MAP ${parseInt(index)+1}`,
+                        battleId: this.$store.state.matchsData.battle_list[index].battle_id
                     }
-                    this.navList.push(item)
+                    navArr.push(item)
+                    this.navList = [...navArr]
                 }
-                if(this.$route.query.openType) {
+                if(this.$route.path === '/detail') {
                     this.navList.unshift({
-                        title: '对战分析'
+                        title: '对战分析',
+                        battleId: 0
                     })
                 }
             },
@@ -94,13 +106,18 @@
         watch: {
             matchDetail() {
                 return this.$store.state.matchsData
+            },
+            currentData(val,old) {
+                if(val === 1) {
+                    this.getNavTitle()
+                }
             }
         },
         components: {
             videoContent,
             mapContent,
             playScore,
-            playContent,
+            mapInfo,
             tabNav,
             playCsgo,
             csgoPlayData,

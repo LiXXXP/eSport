@@ -49,7 +49,7 @@
             }
         },
         created() {
-            this.matchTeams = this.$store.state.matchsData.teams
+            this.matchTeams = this.$store.state.matchsData.scores
         },
         components: {
             diagramBar

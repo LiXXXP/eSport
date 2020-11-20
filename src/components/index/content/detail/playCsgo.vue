@@ -4,208 +4,241 @@
             <i class="play-header-bar"></i>
             <span class="play-header-text">对局详情</span>
         </div>
-        <div v-for="(item,index) in battleData" :key="item.duration">
-            <div v-if="index === targetIndex">
-                <div class="map flex flex_center">
-                    <kill-arms
-                        :sideData="item.teams[0].starting_side"
-                        :eventsData="item.special_events"
-                    ></kill-arms>
-                    <kill-sign
-                        :isReverse="false"
-                        :sideData="item.teams[0]"
-                    ></kill-sign>
-                    <div class="center flex flex_center">
-                        <p :class="['left',{
-                            green: item.teams[0].score > item.teams[1].score,
-                            red: item.teams[0].score < item.teams[1].score
-                        }]">
-                            {{item.teams[0].score}}
-                        </p>
-                        <div v-for="(key,index) in mapData" :key="key.order">
-                            <div v-if="index === targetIndex">
-                                <img :src="key.map.image.square_image">
+        <div v-if="battleData.length !== 0">
+            <div v-for="item in battleData" :key="item.battle_id">
+                <div v-if="item.battle_id === targetMatchId">
+                    <div class="map flex flex_center">
+                        <kill-arms
+                            :sideData="item.teams[0].starting_side"
+                            :eventsData="item.special_events"
+                        ></kill-arms>
+                        <kill-sign
+                            :isReverse="false"
+                            :sideData="item.teams[0]"
+                        ></kill-sign>
+                        <div class="center flex flex_center">
+                            <p :class="['left',{
+                                green: item.teams[0].score > item.teams[1].score,
+                                red: item.teams[0].score < item.teams[1].score
+                            }]">
+                                {{item.teams[0].score}}
+                            </p>
+                            <div v-for="(key,index) in mapData" :key="key.order">
+                                <div v-if="index === targetIndex">
+                                    <img :src="key.map.image.square_image">
+                                </div>
                             </div>
+                            <p :class="['right',{
+                                green: item.teams[1].score > item.teams[0].score,
+                                red: item.teams[1].score < item.teams[0].score
+                            }]">
+                                {{item.teams[1].score}}
+                            </p>
                         </div>
-                        <p :class="['right',{
-                            green: item.teams[1].score > item.teams[0].score,
-                            red: item.teams[1].score < item.teams[0].score
-                        }]">
-                            {{item.teams[1].score}}
-                        </p>
+                        <kill-sign
+                            :isReverse="true"
+                            :sideData="item.teams[1]"
+                        ></kill-sign>
+                        <kill-arms
+                            :sideData="item.teams[1].starting_side"
+                            :eventsData="item.special_events"
+                        ></kill-arms>
                     </div>
-                    <kill-sign
-                        :isReverse="true"
-                        :sideData="item.teams[1]"
-                    ></kill-sign>
-                    <kill-arms
-                        :sideData="item.teams[1].starting_side"
-                        :eventsData="item.special_events"
-                    ></kill-arms>
+                    <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class="flex flex_start" v-if="item.rounds_detail.length>0">
+                                        <kill-bar
+                                            :initColor="'#cfcfcf'"
+                                            :isReverse="true"
+                                            v-for="key in item.rounds_detail.slice(0,15)"
+                                            :key="key.round_ordinal"
+                                            :survivedNum="item.teams[0].team_id === key.side[0].team_id ?
+                                                          key.side[0].survived_players : key.side[1].survived_players"
+                                            :headshotNum="item.teams[0].team_id === key.side[0].team_id ?
+                                                          key.side[0].headshot_kills : key.side[1].headshot_kills"
+                                            :backColor="item.teams[0].team_id === key.side[0].team_id &&
+                                                        key.side[0].side === 'ct' ? '#008CD4':'#F6B600'"
+                                        ></kill-bar>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex_start" v-if="item.rounds_detail.length>0">
+                                        <kill-bar
+                                            :initColor="'#cfcfcf'"
+                                            :isReverse="true"
+                                            v-for="key in item.rounds_detail.slice(15,30)"
+                                            :key="key.round_ordinal"
+                                            :survivedNum="item.teams[1].team_id === key.side[1].team_id?
+                                                          key.side[1].survived_players : key.side[0].survived_players"
+                                            :headshotNum="item.teams[1].team_id === key.side[1].team_id?
+                                                          key.side[1].headshot_kills : key.side[0].headshot_kills"
+                                            :backColor="item.teams[0].team_id === key.side[0].team_id &&
+                                                        key.side[0].side === 'ct'? '#008CD4':'#F6B600 '"
+                                        ></kill-bar>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex flex_only_center">
+                                        <img :src="teamData[0].team_snapshot.image" class="team-img">
+                                        <p class="team-name beyond-ellipsis" :title="teamData[0].team_snapshot.name">
+                                            {{teamData[0].team_snapshot.name}}
+                                        </p>
+                                        <img v-if="item.teams[0].team_id === item.winner.team_id"
+                                            src="../../../../assets/imgs/detail/win.png"
+                                            class="team-win">
+                                    </div>
+                                </td>
+                                <td class="list">
+                                    <div class="flex flex_start flex_only_center" v-if="item.rounds_detail.length>0">
+                                        <div class="item"
+                                            v-for="key in item.rounds_detail.slice(0,15)"
+                                            :key="key.round_ordinal">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
+                                            v-if="key.win_type === 'cts_win' && key.winner === teamData[0].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
+                                            v-if="key.win_type === 'bomb_defused' && key.winner === teamData[0].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
+                                            v-if="key.win_type === 'target_saved' && key.winner === teamData[0].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
+                                            v-if="key.win_type === 'target_bombed' && key.winner === teamData[0].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
+                                            v-if="key.win_type === 'terrorists_win' && key.winner === teamData[0].team_id">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="list">
+                                    <div class="flex flex_start flex_only_center" v-if="item.rounds_detail.length>0">
+                                        <div class="item"
+                                            v-for="key in item.rounds_detail.slice(15,30)"
+                                            :key="key.round_ordinal">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
+                                            v-if="key.win_type === 'terrorists_win' && key.winner === teamData[1].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
+                                            v-if="key.win_type === 'target_bombed' && key.winner === teamData[1].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
+                                            v-if="key.win_type === 'target_saved' && key.winner === teamData[0].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
+                                            v-if="key.win_type === 'bomb_defused' && key.winner === teamData[1].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
+                                            v-if="key.win_type === 'cts_win' && key.winner === teamData[1].team_id">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="flex flex_only_center">
+                                        <img :src="teamData[1].team_snapshot.image" class="team-img">
+                                        <p class="team-name beyond-ellipsis" :title="teamData[1].team_snapshot.name">
+                                            {{teamData[1].team_snapshot.name}}
+                                        </p>
+                                        <img v-if="item.teams[1].team_id === item.winner.team_id"
+                                            src="../../../../assets/imgs/detail/win.png" class="team-win">
+                                    </div>
+                                </td>
+                                <td class="list">
+                                    <div class="flex flex_start flex_only_center">
+                                        <div class="item"
+                                            v-for="key in item.rounds_detail.slice(0,15)"
+                                            :key="key.round_ordinal">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
+                                            v-if="key.win_type === 'cts_win' && key.winner === teamData[1].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
+                                            v-if="key.win_type === 'bomb_defused' && key.winner === teamData[1].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
+                                            v-if="key.win_type === 'target_saved' && key.winner === teamData[1].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
+                                            v-if="key.win_type === 'target_bombed' && key.winner === teamData[1].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
+                                            v-if="key.win_type === 'terrorists_win' && key.winner === teamData[1].team_id">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="list">
+                                    <div class="flex flex_start flex_only_center">
+                                        <div class="item"
+                                            v-for="key in item.rounds_detail.slice(15,30)"
+                                            :key="key.round_ordinal">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
+                                            v-if="key.win_type === 'terrorists_win' && key.winner === teamData[0].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
+                                            v-if="key.win_type === 'target_bombed' && key.winner === teamData[0].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
+                                            v-if="key.win_type === 'target_saved' && key.winner === teamData[1].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
+                                            v-if="key.win_type === 'bomb_defused' && key.winner === teamData[0].team_id">
+                                            <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
+                                            v-if="key.win_type === 'cts_win' && key.winner === teamData[0].team_id">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class="flex flex_start" v-if="item.rounds_detail.length>0">
+                                        <kill-bar
+                                            :initColor="'#cfcfcf'"
+                                            v-for="key in item.rounds_detail.slice(0,15)"
+                                            :key="key.round_ordinal"
+                                            :isReverse="false"
+                                            :survivedNum="item.teams[1].team_id === key.side[1].team_id?
+                                                          key.side[1].survived_players : key.side[0].survived_players"
+                                            :headshotNum="item.teams[1].team_id === key.side[1].team_id?
+                                                          key.side[1].headshot_kills : key.side[0].headshot_kills"
+                                            :backColor="item.teams[1].team_id === key.side[1].team_id &&
+                                                        key.side[1].side === 'terrorist'? '#F6B600':'#008CD4'"
+                                        ></kill-bar>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex flex_start" v-if="item.rounds_detail.length>0">
+                                        <kill-bar
+                                            :initColor="'#cfcfcf'"
+                                            v-for="key in item.rounds_detail.slice(15,30)"
+                                            :key="key.round_ordinal"
+                                            :isReverse="false"
+                                            :survivedNum="item.teams[0].team_id === key.side[0].team_id?
+                                                          key.side[0].survived_players : key.side[1].survived_players"
+                                            :headshotNum="item.teams[0].team_id === key.side[0].team_id?
+                                                          key.side[0].headshot_kills : key.side[1].headshot_kills"
+                                            :backColor="item.teams[1].team_id === key.side[1].team_id &&
+                                                        key.side[1].side === 'terrorist' ? '#F6B600':'#008CD4'"
+                                        ></kill-bar>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <table cellspacing="0" cellpadding="0">
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <div class="flex flex_start">
-                                    <kill-bar
-                                        v-for="obj in item.rounds_detail.slice(0,15)"
-                                        :key="obj.round_ordinal"
-                                        :killsData="obj.side[0]"
-                                        :backColor="'#008CD4'"
-                                        :isReverse="true"
-                                    ></kill-bar>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="flex flex_start">
-                                    <kill-bar
-                                        v-for="obj in item.rounds_detail.slice(15,30)"
-                                        :key="obj.round_ordinal"
-                                        :killsData="obj.side[1]"
-                                        :backColor="'#F6B600'"
-                                        :isReverse="true"
-                                    ></kill-bar>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex flex_only_center">
-                                    <!-- <img :src="battleDetail.teams[0].team_snapshot.image" class="team-img">
-                                    <p class="team-name"
-                                        :title="battleDetail.teams[0].team_snapshot.full_name">
-                                        {{battleDetail.teams[0].team_snapshot.name}}
-                                    </p>
-                                    <img v-if="battleDetail.teams[0].team_id === battleDetail.winner.team_id"
-                                        src="../../../../assets/imgs/detail/win.png"
-                                        class="team-win"
-                                    > -->
-                                </div>
-                            </td>
-                            <td class="list">
-                                <div class="flex flex_start flex_only_center">
-                                    <!-- <div class="item"
-                                        v-for="item in battleDetail.battle_detail.rounds_detail.slice(0,15)"
-                                        :key="item.round_ordinal"
-                                    >
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
-                                            v-if="item.win_type === 'cts_win'">
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
-                                            v-if="item.win_type === 'bomb_defused'">
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
-                                            v-if="item.win_type === 'target_saved'">
-                                    </div> -->
-                                </div>
-                            </td>
-                            <td class="list">
-                                <div class="flex flex_start flex_only_center">
-                                    <!-- <div class="item"
-                                        v-for="item in battleDetail.battle_detail.rounds_detail.slice(15,30)"
-                                        :key="item.round_ordinal"
-                                    >
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
-                                            v-if="item.win_type === 'terrorists_win'">
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
-                                            v-if="item.win_type === 'target_bombed'">
-                                    </div> -->
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="flex flex_only_center">
-                                    <!-- <img :src="battleDetail.teams[1].team_snapshot.image" class="team-img">
-                                    <p class="team-name"
-                                        :title="battleDetail.teams[1].team_snapshot.full_name">
-                                        {{battleDetail.teams[1].team_snapshot.name}}
-                                    </p>
-                                    <img v-if="battleDetail.teams[1].team_id === battleDetail.winner.team_id"
-                                        src="../../../../assets/imgs/detail/win.png"
-                                        class="team-win"
-                                    > -->
-                                </div>
-                            </td>
-                            <td class="list">
-                                <div class="flex flex_start flex_only_center">
-                                    <!-- <div class="item"
-                                        v-for="item in battleDetail.battle_detail.rounds_detail.slice(0,15)"
-                                        :key="item.round_ordinal"
-                                    >
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
-                                            v-if="item.win_type === 'terrorists_win'">
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
-                                            v-if="item.win_type === 'target_bombed'">
-                                    </div> -->
-                                </div>
-                            </td>
-                            <td class="list">
-                                <div class="flex flex_start flex_only_center">
-                                    <!-- <div class="item"
-                                        v-for="item in battleDetail.battle_detail.rounds_detail.slice(15,30)"
-                                        :key="item.round_ordinal"
-                                    >
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
-                                            v-if="item.win_type === 'cts_win'">
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
-                                            v-if="item.win_type === 'bomb_defused'">
-                                        <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
-                                            v-if="item.win_type === 'target_saved'">
-                                    </div> -->
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <div class="flex flex_start">
-                                    <kill-bar
-                                        v-for="obj in item.rounds_detail.slice(0,15)"
-                                        :key="obj.round_ordinal"
-                                        :killsData="obj.side[1]"
-                                        :backColor="'#F6B600'"
-                                        :isReverse="false"
-                                    ></kill-bar>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="flex flex_start">
-                                    <kill-bar
-                                        v-for="obj in item.rounds_detail.slice(15,30)"
-                                        :key="obj.round_ordinal"
-                                        :killsData="obj.side[0]"
-                                        :backColor="'#008CD4'"
-                                        :isReverse="false"
-                                    ></kill-bar>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
-        </div>
-        <div class="info flex flex_end">
-            <div class="flex flex_center">
-                <div>
-                    <p class="bar blue"></p>
-                    <p class="bar yellow"></p>
+            <div class="info flex flex_end">
+                <div class="flex flex_center">
+                    <div>
+                        <p class="bar blue"></p>
+                        <p class="bar yellow"></p>
+                    </div>
+                    <p class="text">存活</p>
                 </div>
-                <p class="text">存活</p>
+                <div class="flex flex_center">
+                    <p class="bar"></p>
+                    <p class="text">阵亡</p>
+                </div>
+                <div class="flex flex_center">
+                    <p class="bar black"></p>
+                    <p class="text black">首个阵亡</p>
+                </div>
+                <div class="flex flex_center">
+                    <p class="bar red"></p>
+                    <p class="text red">被爆头</p>
+                </div>
+                <div class="hide">隐藏阵亡详情</div>
             </div>
-            <div class="flex flex_center">
-                <p class="bar"></p>
-                <p class="text">阵亡</p>
-            </div>
-            <div class="flex flex_center">
-                <p class="bar black"></p>
-                <p class="text black">首个阵亡</p>
-            </div>
-            <div class="flex flex_center">
-                <p class="bar red"></p>
-                <p class="text red">被爆头</p>
-            </div>
-            <div class="hide">隐藏阵亡详情</div>
         </div>
     </div>
 </template>
@@ -216,17 +249,21 @@
     import killBar from '@/components/detail/content/table/killBar'    // 击杀条状
     export default {
         props: {
-            battleData: {
+            battleData: {    // battle 对局数组
                 type: Array,
-                default: []
+                default: () => []
             },
-            mapData: {
+            mapData: {       // 地图数据
                 type: Array,
-                default: []
+                default: () => []
             },
-            targetIndex: {
+            targetMatchId: {    // 当前tab battle id
                 type: Number,
                 default: 0
+            },
+            teamData: {     // 队伍数据
+                type: Array,
+                default: () => []
             }
         },
         data() {
@@ -300,6 +337,7 @@
                 height: 24px;
             }
             .team-name {
+                width: 90px;
                 padding: 0 8px;
                 font-size: 16px;
                 font-weight: 500;

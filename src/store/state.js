@@ -9,6 +9,8 @@ const state = {
     selectMatchData: [],
     // 点击详情存储matchid
     matchId: 0,
+    // 是否有视频直播
+    isSupported: false,
 }
 
 export default state

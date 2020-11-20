@@ -8,15 +8,20 @@
                         <span class="beyond-ellipsis">{{tableData.team.name}}</span>
                     </div>
                 </th>
-                <th></th>
                 <th>
-                    <i class="icon-buy"></i>
+                    <p v-if="isNormal === 1">Op.duels</p>
                 </th>
                 <th>
-                    <i class="icon-add"></i>
+                    <i class="icon-buy" v-if="isNormal === 0"></i>
+                    <p v-if="isNormal === 1">2+kills</p>
                 </th>
                 <th>
-                    <i class="icon-head"></i>
+                    <i class="icon-add" v-if="isNormal === 0"></i>
+                    <p v-if="isNormal === 1">KAST</p>
+                </th>
+                <th>
+                    <i class="icon-head" v-if="isNormal === 0"></i>
+                    <p v-if="isNormal === 1">1vsX</p>
                 </th>
                 <th>$</th>
                 <th>K</th>
@@ -31,13 +36,17 @@
                 >
                     <td>{{item.player.nick_name}}</td>
                     <td>
-                        <i class="td-win" v-if="item.win"></i>
+                        <i class="td-win" v-if="item.has_defusekit && isNormal === 0"></i>
+                        <p v-if="isNormal === 1">
+                            {{item.first_deaths || 0}}:{{item.deaths || 0}}
+                        </p>
                     </td>
                     <td>
-                        <img :src="item.buy" class="td-buy">
+                        <img :src="item.weapon.image" class="td-buy" v-if="isNormal === 0">
+                        <p v-if="isNormal === 1">{{item.multi_kills || 0}}</p>
                     </td>
                     <td>
-                        <div class="td-bar">
+                        <div class="td-bar" v-if="isNormal === 0">
                             <progress-bar
                                 :progressData="playContrast"
                                 :progressColor="parseInt(item.hp)>59?'#00AB49':parseInt(item.hp)>39?'#F6B600':'#D94629'"
@@ -45,9 +54,12 @@
                             ></progress-bar>
                             <p>{{item.hp}}</p>
                         </div>
+                        <p v-if="isNormal === 1">{{item.kast || 0 }}%</p>
                     </td>
                     <td>
-                        <i class="td-head"></i>
+                        <!-- 防弹衣 头盔 -->
+                        <i class="td-head" v-if="(item.has_kevlar || item.has_helmet) && isNormal === 0"></i>
+                        <p v-if="isNormal === 1">{{item.one_on_x_clutches || 0}}</p>
                     </td>
                     <td>${{item.money || 0}}</td>
                     <td>{{item.kills || 0}}</td>
@@ -71,6 +83,10 @@
             tableData: {    // 表格数据
                 type: Object,
                 default: {}
+            },
+            isNormal: {
+                type: Number,
+                default: 0
             }
         },
         data() {

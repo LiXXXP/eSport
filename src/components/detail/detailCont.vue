@@ -10,7 +10,7 @@
         ></play-info>
         <game-info
             v-if="flag"
-            :openType="this.$route.query.openType"
+            :openType="this.$route.query.gameId"
         ></game-info>
     </div>
 </template>
@@ -32,10 +32,10 @@
         },
         created() {
             this.getMatchDetail()
-            let _this = this
-            this.timer = setInterval( () => {
-                _this.getMatchDetail()
-            }, 5000)
+            // let _this = this
+            // this.timer = setInterval( () => {
+            //     _this.getMatchDetail()
+            // }, 5000)
         },
         destroyed() {
             clearInterval(this.timer)
@@ -45,15 +45,17 @@
             getMatchDetail() {
                 let _this = this
                 let params = {
+                    game_id: _this.$route.query.gameId,
                     match_id: _this.$route.query.matchId
                 }
                 getMatches(params).then(res => {
-                    if (res.code === 1000) {
-                        _this.$store.commit('getMatchsData',res.data)
+                    if (res.code === 200) {
+                        _this.$store.dispatch('getMatches',res.data)
+                        _this.$store.commit('getMatchId', _this.$route.query.matchId)
                         _this.flag = true
-                        if(res.data.status !== 'ongoing') {
-                            clearInterval(_this.timer)
-                        }
+                        // if(res.data.status !== 'ongoing') {
+                        //     clearInterval(_this.timer)
+                        // }
                     }
                 })
             }

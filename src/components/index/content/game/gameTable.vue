@@ -1,7 +1,7 @@
 <template>
     <div class="game-table">
         <table>
-            <thead @click="gotoDetail(inningData.match_id)">
+            <thead @click="gotoDetail(inningData.game_id,inningData.match_id)">
                 <th>
                     <div class="flex flex_start flex_only_center">
                         <img
@@ -321,12 +321,12 @@
                     }
                 }
             },
-            gotoDetail(matchId) {
+            gotoDetail(gameId,matchId) {
                 this.$router.push({
                     path: '/detail',
                     query: {
-                        matchId: matchId,
-                        openType: this.inningData.game.short_name
+                        gameId: gameId,
+                        matchId: matchId
                     }
                 })
             }

@@ -11,18 +11,22 @@
             </div>
         </div>
         <div class="content-bg">
-            <img :src="framesData.map.image.thumbnail">
+            <img :src="framesData.map.image.thumbnail" v-if="framesData != null">
             <div class="content">
-                <div class="top">
+                <div class="top" v-if="framesData != null">
                     <div class="header flex flex_between flex_center">
                         <div>
                             Ronud-<span class="round">{{framesData.current_round}}</span>
                             {{framesData.map.name}} (map1)
                         </div>
                         <div class="score">
-                            <span class="left">{{framesData.side[0].score}}</span>
+                            <span :class="framesData.side[0].side === 'ct'?'blue':'yellow'">
+                                {{framesData.side[0].score}}
+                            </span>
                             <span>:</span>
-                            <span class="right">{{framesData.side[1].score}}</span>
+                            <span :class="framesData.side[1].side === 'terrorists'?'yellow':'blue'">
+                                {{framesData.side[1].score}}
+                            </span>
                         </div>
                         <div class="team">
                             <span>{{durationTime(framesData.duration)}}</span>
@@ -30,30 +34,23 @@
                         </div>
                     </div>
                     <kill-table
-                        :colorBar="'blue'"
+                        :colorBar="framesData.side[0].side === 'ct'?'blue':'yellow'"
+                        :isNormal="tabIndex"
                         :tableData="framesData.side[0]"
                     ></kill-table>
-                    <div class="board">
-                        <kill-bar
-                            class="top-bar"
-                        ></kill-bar>
-                        <div class="flex flex_center">
-                            <kill-board></kill-board>
-                            <kill-board
-                                class="kill"
-                            ></kill-board>
-                        </div>
-                        <kill-bar
-                            class="bottom-bar"
-                        ></kill-bar>
-                    </div>
+                    <kill-board
+                        :boardData="framesData.side"
+                    ></kill-board>
                     <kill-table
-                        :colorBar="'yellow'"
+                        :colorBar="framesData.side[1].side === 'terrorists'?'yellow':'blue'"
+                        :isNormal="tabIndex"
                         :tableData="framesData.side[1]"
                     ></kill-table>
                 </div>
-                <div class="bottom">
-                    <logs-list></logs-list>
+                <div class="bottom" v-if="eventsData.length !== 0">
+                    <logs-list
+                        :logsData="eventsData"
+                    ></logs-list>
                 </div>
             </div>
         </div>
@@ -64,7 +61,6 @@
 
     import killTable from '@/components/detail/content/table/killTable'     // 击杀表格
     import killBoard from '@/components/detail/content/table/killBoard'     // 击杀面板
-    import killBar from '@/components/detail/content/table/killBar'         // 击杀条状
     import logsList from '@/components/index/content/detail/logsList'       // 比赛日志
 
     import { formatSeconds } from '@/scripts/utils'
@@ -78,13 +74,17 @@
             return {
                 websock: null, // WebSocket
                 tabIndex: 0,  // 切换tab状态
-                framesData: {},
-                eventsData: {}
+                framesData: null,
+                eventsData: [],
             }
         },
         created() {
             this.initWebSocket('frames')
             this.initWebSocket('events')
+        },
+        destroyed () {
+            // 销毁监听
+            this.websock.close()
         },
         methods: {
             tabNormal() {
@@ -111,7 +111,7 @@
                 if(e.currentTarget.url.indexOf('frames') > 0) {
                     this.framesData = redata
                 } else {
-                    this.eventsData = redata
+                    this.eventsData.push(redata)
                 }
             },
             // 关闭
@@ -130,7 +130,6 @@
         components: {
             killTable,
             killBoard,
-            killBar,
             logsList
         }
     }
@@ -187,10 +186,10 @@
                             color: #fff;
                             font-size: 30px;
                             margin-left: -62px;
-                            .left {
+                            .blue {
                                 color: #008CD4;
                             }
-                            .right {
+                            .yellow {
                                 color: #F6B600;
                             }
                         }
@@ -201,22 +200,6 @@
                                 margin-left: 12px;
                                 vertical-align: middle;
                             }
-                        }
-                    }
-                    .board {
-                        position: relative;
-                        .top-bar {
-                            position: absolute;
-                            top: 10px;
-                            left: 10px;
-                        }
-                        .bottom-bar {
-                            position: absolute;
-                            bottom: 10px;
-                            left: 10px;
-                        }
-                        .kill {
-                            border-right: 0;
                         }
                     }
                 }

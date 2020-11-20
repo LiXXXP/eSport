@@ -1,16 +1,21 @@
 <template>
     <div class="video-content">
-        <div class="flex flex_start flex_wrap flex_wrap_reverse" v-if="streamsData">
-            <div :class="['item flex flex_start',{active:index===currentIndex}]"
-                v-for="(item,index) in streamsData.streams"
-                :key="item.stream_id"
-                @click="cutTab(index,item.embed_url)">
-                <i></i>
-                <p>{{item.title}}</p>
+        <div v-if="this.$store.state.isSupported">
+            <div class="flex flex_start flex_wrap flex_wrap_reverse" v-if="streamsData">
+                <div :class="['item flex flex_start',{active:index===currentIndex}]"
+                    v-for="(item,index) in streamsData.streams"
+                    :key="item.stream_id"
+                    @click="cutTab(index,item.embed_url)">
+                    <i></i>
+                    <p>{{item.title}}</p>
+                </div>
+            </div>
+            <div class="video" v-if="streamsData">
+                <iframe :src="streamUrl"></iframe>
             </div>
         </div>
-        <div class="video" v-if="streamsData">
-            <iframe :src="streamUrl"></iframe>
+        <div class="none" v-else>
+            <div>暂无直播内容...</div>
         </div>
     </div>
 </template>
@@ -29,15 +34,18 @@
                 streamUrl: ''
             }
         },
-        created() {
-            if(this.streamsData) {
-                this.streamUrl = this.streamsData.streams[0].embed_url
-            }
-        },
         methods: {
             cutTab(index, url) {
                 this.currentIndex = index
                 this.streamUrl = url
+            }
+        },
+        watch: {
+            streamsData() {
+                if(this.$store.state.isSupported) {
+                    this.streamUrl = this.streamsData.streams[0].embed_url
+                }
+
             }
         }
     }
@@ -76,8 +84,8 @@
             width: 960px;
             height: 544px;
             margin-top: -1px;
-            background-color: #fff;
             box-sizing: border-box;
+            background-color: #fff;
             border: 1px solid #CFCFCF;
             iframe {
                 border: 0;
@@ -85,6 +93,16 @@
                 height: 534px;
                 display: block;
             }
+        }
+        .none {
+            width: 100%;
+            height: 544px;
+            font-size: 24px;
+            color: #D94629;
+            font-weight: 600;
+            line-height: 544px;
+            text-align: center;
+            background-color: rgba(0,0,0,.75);
         }
     }
 </style>

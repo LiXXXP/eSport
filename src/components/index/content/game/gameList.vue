@@ -16,6 +16,7 @@
                         :matchId="key.match_id"
                         :gameId="key.game_id"
                         :supported="key.is_supported"
+                        :isStatus="key.status"
                         @openDetailId="openDetailId"
                     ></game-edit>
                 </div>
@@ -98,17 +99,32 @@
             },
             // 已结束的比赛
             getPastList() {
-                let _this = this
-                let params = {
-                    page: _this.gameList[2].page.current,
-                    limit: 10
-                }
-                getPast(params).then(res => {
-                    if (res.code === 200) {
-                        _this.gameList[2].list = res.data.match_info
-                        _this.gameList[2].page.count = res.data.count
+                if(this.gameList.length === 1) {
+                    let _this = this
+                    let params = {
+                        page: _this.gameList[0].page.current,
+                        limit: 10
                     }
-                })
+                    getPast(params).then(res => {
+                        if (res.code === 200) {
+                            _this.gameList[0].list = res.data.match_info
+                            _this.gameList[0].page.count = res.data.count
+                        }
+                    })
+                }
+                else {
+                    let _this = this
+                    let params = {
+                        page: _this.gameList[2].page.current,
+                        limit: 10
+                    }
+                    getPast(params).then(res => {
+                        if (res.code === 200) {
+                            _this.gameList[2].list = res.data.match_info
+                            _this.gameList[2].page.count = res.data.count
+                        }
+                    })
+                }
             },
             // 打开游戏详情
             openDetailId(Mid,Gid) {
@@ -152,17 +168,7 @@
         watch: {
             gameList(val,old) {
                 if(val.length === 1) {
-                    let _this = this
-                    let params = {
-                        page: _this.gameList[0].page.current,
-                        limit: 10
-                    }
-                    getPast(params).then(res => {
-                        if (res.code === 200) {
-                            _this.gameList[0].list = res.data.match_info
-                            _this.gameList[0].page.count = res.data.count
-                        }
-                    })
+                    this.getPastList()
                 } else {
                     this.getGoingList()
                     this.getComningList()

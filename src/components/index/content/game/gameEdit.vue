@@ -3,10 +3,7 @@
         <table>
             <thead>
                 <th>
-                    <i
-                      :class="['iconfont', isSelect?'icon-shoucang2':'icon-shoucang']"
-                      @click="getStore"
-                    ></i>
+                    <i :class="['iconfont', isSelect?'icon-shoucang2':'icon-shoucang']" @click="getStore"></i>
                 </th>
             </thead>
             <tbody>
@@ -17,6 +14,7 @@
                 </tr>
                 <tr>
                     <td class="detail"
+                        v-if="isStatus !== '未开始'"
                         @click="openInfo(matchId,gameId)">
                         <span>详情</span>
                         <i></i>
@@ -28,7 +26,6 @@
 </template>
 
 <script>
-    import bus from '@/scripts/bus'
     export default {
         props: {
             matchId: {    // 赛事id
@@ -42,6 +39,10 @@
             supported: {   // 是否提供视频直播源(true,false)
                 type: Boolean,
                 default: false
+            },
+            isStatus: {
+                type: String,
+                default: ''
             }
         },
         data() {
@@ -68,6 +69,7 @@
                     this.isOpen = true
                     this.$emit('openDetailId',Mid,Gid)
                 }
+                this.$store.commit('supportedShow',this.supported)
             }
         }
     }

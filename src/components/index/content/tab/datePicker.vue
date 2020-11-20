@@ -33,6 +33,11 @@
         created() {
             this.currentTime = setDate(new Date())
         },
+        mounted() {
+            document.addEventListener('click', (e) => {
+                if (!this.$el.contains(e.target)) this.isSelect = false
+            })
+        },
         methods: {
             // 打开日历
             dateSelect() {

@@ -51,8 +51,8 @@
 </script>
 
 <style lang="less" scoped>
-    @t: #008BD3;
-    @ct: #F5B500;
+    @ct: #008BD3;
+    @t: #F5B500;
     @ot: #434343;
     .kill-sign {
         height: 90px;

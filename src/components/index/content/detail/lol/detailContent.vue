@@ -21,8 +21,6 @@
     import playData from '@/components/detail/content/playData'                   // 数据分析
     import playDetail from '@/components/detail/content/playDetail'               // 数据详情
 
-    import { getBattles } from '@/scripts/request'
-
     export default {
         props: {
             currentData: {

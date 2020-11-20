@@ -17,13 +17,13 @@
             v-if="currentIndex===0"
         >
             <div class="team flex flex_start flex_only_center"
-                v-for="item in teamsData" :key="item.team_id">
+                v-for="item in teamData" :key="item.team_id">
                 <img :src="item.team_snapshot.image">
                 <p>{{item.team_snapshot.name}}</p>
             </div>
             <div class="map flex flex_only_center">
                 <div class="map-item"
-                    v-for="item in mapList"
+                    v-for="item in mapData"
                     :key="item.order"
                 >
                     <div class="block">
@@ -38,7 +38,7 @@
             v-else
             class="map-fight flex flex_start flex_only_center"
         >
-            <img v-for="item in mapList"
+            <img v-for="item in mapData"
                 :key="item.order"
                 :src="item.map.image.thumbnail">
         </div>
@@ -47,6 +47,16 @@
 
 <script>
     export default {
+        props: {
+            teamData: {    // 战队信息
+                type: Array,
+                default: []
+            },
+            mapData: {    // 地图信息
+                type: Array,
+                default: []
+            }
+        },
         data() {
             return {
                 currentIndex: 0,   // 当前index
@@ -57,17 +67,8 @@
                     {
                         name: '对战地图'
                     }
-                ],
-                teamsData: [],    // 比赛对局战队
-                mapList: []       // 地图列表
+                ]
             }
-        },
-        created() {
-            this.teamsData = this.$store.state.matchsData.teams
-            this.mapList = this.$store.state.matchsData.maps
-        },
-        components: {
-
         }
     }
 </script>
@@ -185,7 +186,7 @@
                                 border-bottom-color: #878787;
                             }
                             &:before {
-                                border-bottom-color: #878787;
+                                border-bottom-color:#878787;
                             }
                         }
                         .text {
@@ -199,10 +200,10 @@
                                 top: 100%;
                             }
                             &:after {
-                                border-top-color: #878787;
+                                border-top-color: rgba(39,45,61,0.88);
                             }
                             &:before {
-                                border-top-color: #878787;
+                                border-top-color: rgba(39,45,61,0.88);
                             }
                         }
                     }

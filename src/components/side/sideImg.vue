@@ -1,16 +1,34 @@
 <template>
     <div class="side-img">
-        <img :src="imgUrl">
+        <a :href="imgHref" target="_blank" v-if="imgHref">
+            <img :src="imgUrl">
+        </a>
     </div>
 </template>
 
 <script>
+    import { getThirdImage } from '@/scripts/request'
     export default {
         data() {
             return {
-                imgUrl: ''
+                imgUrl: '',
+                imgHref: ''
             }
-        }
+        },
+        created() {
+            this.getThirdImg()
+        },
+        methods: {
+            getThirdImg() {
+                let _this = this
+                getThirdImage().then(res => {
+                    if (res.code === 200) {
+                        _this.imgUrl = res.data[0].image_name
+                        _this.imgHref = res.data[0].jump_url
+                    }
+                })
+            }
+        },
     }
 </script>
 

@@ -3,7 +3,7 @@
         <div class="nav-item flex flex_start"
             v-for="(item,index) in navData"
             :key="item.title"
-            @click="cutTab(index,item.title)">
+            @click="cutTab(index)">
             <div :class="['title',`select-style${selectStyle}`,{active:index===currentIndex}]">
                 <i v-if="item.icon">{{item.icon}}</i>
                 <span>{{item.title}}</span>

@@ -1,8 +1,10 @@
 <template>
     <div class="img-carousel flex flex_between">
-        <div class="carousel-big">
+        <div class="carousel-big" v-if="carouselList.length !== 0">
             <transition name="fade" mode="out-in" appear type="transition">
-                <img :src="carouselList[mainIndex].url">
+                <a :href="carouselList[mainIndex].jump_url" target="_blank">
+                    <img :src="carouselList[mainIndex].image_name">
+                </a>
             </transition>
         </div>
         <div class="carousel-small flex flex_column flex_between">
@@ -10,42 +12,29 @@
                 v-for="(item,index) in carouselList"
                 :key="item.id"
                 @click="cutCarousel(index)">
-                <img :src="item.url">
+                <img :src="item.image_name">
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import { getCarousel } from '@/scripts/request'
     export default {
         data() {
             return {
                 mainIndex: 0,     // 图片轮播的当前索引
                 timer: null,      // 轮播图定时器
-                carouselList: [   // 轮播图片列表
-                    {
-                        id: 0,
-                        url: require('../../../assets/imgs/index/b01.png')
-                    },
-                    {
-                        id: 1,
-                        url: require('../../../assets/imgs/index/b02.png')
-                    },
-                    {
-                        id: 2,
-                        url: require('../../../assets/imgs/index/b03.png')
-                    },
-                    {
-                        id: 3,
-                        url: require('../../../assets/imgs/index/b04.png')
-                    }
-                ]
+                carouselList: []  // 轮播图片列表
             }
+        },
+        created() {
+            this.getCarouselImg()
         },
         mounted() {
             this.timer = setInterval(() => {
                 this.cutCarousel(this.nextIndex)
-            }, 3000)
+            }, 3500)
         },
         beforeDestroy() {
             if(this.timer) {
@@ -54,16 +43,24 @@
             }
         },
         methods: {
+            getCarouselImg() {
+                let _this = this
+                getCarousel().then(res => {
+                    if (res.code === 200) {
+                        _this.carouselList = res.data
+                    }
+                })
+            },
             cutCarousel(index) {
                 this.mainIndex = index
             }
         },
         computed: {
             nextIndex() {
-                if(this.mainIndex == this.carouselList.length - 1) {
-                    return 0;
+                if(this.mainIndex === this.carouselList.length - 1) {
+                    return 0
                 }else {
-                    return this.mainIndex + 1;
+                    return this.mainIndex + 1
                 }
             }
         }

@@ -107,6 +107,33 @@ function putRequest(url,params = {}){
 
 /**
  *
+ * 首页轮播图
+ * @param {*} params
+ */
+function getCarousel(params) {
+  return getRequest('/image/carousel_image', params)
+}
+
+/**
+ *
+ * 首页一号位图片
+ * @param {*} params
+ */
+function getFirstImage(params) {
+  return getRequest('/image/first_image', params)
+}
+
+/**
+ *
+ * 首页三号位图片
+ * @param {*} params
+ */
+function getThirdImage(params) {
+  return getRequest('/image/third_image', params)
+}
+
+/**
+ *
  * 获取游戏列表
  * @param {*} params
  */
@@ -212,17 +239,10 @@ function getMatches(params) {
   return postRequest('/match/match_detail', params)
 }
 
-/**
- *
- * 获取比赛对局详情
- * @param {*} params
- * battle_id
- */
-function getBattles(params) {
-  return getRequest('/battles/detail', params)
-}
-
 export {
+    getCarousel,
+    getFirstImage,
+    getThirdImage,
     getGames,
     getGameTournament,
     getEvents,
@@ -233,7 +253,6 @@ export {
     getOnGoing,
     getUpComning,
     getPast,
-    getBattles,
     getMatches,
     getScreen
 }

@@ -1,57 +1,48 @@
 <template>
     <div class="play-score flex flex_between flex_center">
         <div class="country left">
-            <p>#{{teamsData.teams[0].team_snapshot.world_ranking || 0}}</p>
-            <img :src="teamsData.teams[0].team_snapshot.country.c_image">
+            <p>#{{matchDetail.scores[0].team_snapshot.world_ranking || 0}}</p>
+            <img :src="matchDetail.scores[0].team_snapshot.country.c_image">
             <div></div>
         </div>
         <div class="team left">
-            <img :src="teamsData.teams[0].team_snapshot.image">
-            <p :title="teamsData.teams[0].team_snapshot.full_name">
-                {{teamsData.teams[0].team_snapshot.short_name}}
+            <img :src="matchDetail.scores[0].team_snapshot.image">
+            <p :title="matchDetail.scores[0].team_snapshot.name">
+                {{matchDetail.scores[0].team_snapshot.name}}
             </p>
         </div>
         <div :class="['score',
               {
-                  low: teamsData.scores[0].score < teamsData.scores[1].score,
-                  high: teamsData.scores[0].score > teamsData.scores[1].score
+                  low: matchDetail.scores[0].score < matchDetail.scores[1].score,
+                  high: matchDetail.scores[0].score > matchDetail.scores[1].score
               }]">
-            {{teamsData.scores[0].score || 0}}
+            {{matchDetail.scores[0].score || 0}}
         </div>
         <div class="text">
-            <p>{{teamsData.scheduled_begin_at}}</p>
-            <p>{{teamsData.tournament.name}}</p>
-            <p>{{teamsData.match_type}} {{teamsData.number_of_games}}</p>
-            <p :class="['status',
-                {
-                    green: teamsData.status === 'ongoing',
-                    gray: teamsData.status === 'completed' || teamsData.status === 'canceled'
-                }]">
-                {{
-                    teamsData.status === 'upcoming' ? '比赛未开始' :
-                    teamsData.status === 'ongoing' ? '比赛开始' :
-                    teamsData.status === 'completed' ? '比赛结束' :
-                    teamsData.status === 'canceled' ? '比赛取消' :
-                    teamsData.status === 'postponed' ? '比赛推迟' : ''
-                }}
-            </p>
+            <p>{{matchDetail.scheduled_begin_at}}</p>
+            <p>{{matchDetail.tournament_name}}</p>
+            <p>{{matchDetail.match_type_number}}</p>
+            <p :class="['status',{
+                  green: matchDetail.status === '比赛进行中',
+                  gray: matchDetail.status !== '比赛进行中'
+            }]">{{matchDetail.status}}</p>
         </div>
         <div :class="['score',
               {
-                  low: teamsData.scores[1].score < teamsData.scores[0].score,
-                  high: teamsData.scores[1].score > teamsData.scores[0].score
+                  low: matchDetail.scores[1].score < matchDetail.scores[0].score,
+                  high: matchDetail.scores[1].score > matchDetail.scores[0].score
               }]">
-            {{teamsData.scores[1].score || 0}}
+            {{matchDetail.scores[1].score || 0}}
         </div>
         <div class="team right">
-            <img :src="teamsData.teams[1].team_snapshot.image">
-            <p :title="teamsData.teams[1].team_snapshot.full_name">
-                {{teamsData.teams[1].team_snapshot.short_name}}
+            <img :src="matchDetail.scores[1].team_snapshot.image">
+            <p :title="matchDetail.scores[1].team_snapshot.full_name">
+                {{matchDetail.scores[1].team_snapshot.short_name}}
             </p>
         </div>
         <div class="country right">
-            <p>#{{teamsData.teams[1].team_snapshot.world_ranking || 0}}</p>
-            <img :src="teamsData.teams[1].team_snapshot.country.c_image">
+            <p>#{{matchDetail.scores[1].team_snapshot.world_ranking || 0}}</p>
+            <img :src="matchDetail.scores[1].team_snapshot.country.c_image">
             <div></div>
         </div>
     </div>
@@ -61,12 +52,22 @@
     export default {
         data() {
             return {
-                teamsData: {}
+
             }
         },
         created() {
-            this.teamsData = this.$store.state.matchsData
-        }
+
+        },
+        computed: {
+            matchDetail() {
+                return this.$store.state.matchsData
+            }
+        },
+        watch: {
+            matchDetail() {
+                return this.$store.state.matchsData
+            }
+        },
     }
 </script>
 
