@@ -1,9 +1,9 @@
 <template>
     <div class="index-content">
         <!-- tab切换栏 -->
-        <index-tab @getAllMatch="getAllMatch"></index-tab>
+        <index-tab></index-tab>
         <!-- 游戏列表 -->
-        <game-list :gameList="gameListData"></game-list>
+        <game-list></game-list>
     </div>
 </template>
 
@@ -14,84 +14,7 @@
     export default {
         name: 'index',
         data() {
-            return {
-                isAll: true,
-                gameListData: [
-                    {
-                        title: '进行中的比赛',
-                        list: [],
-                        page: {
-                            count: 0,    // 总数
-                            current: 1   // 当前页
-                        }
-                    },
-                    {
-                        title: '未开始的比赛',
-                        list: [],
-                        page: {
-                            count: 0,    // 总数
-                            current: 1   // 当前页
-                        }
-                    },
-                    {
-                        title: '已结束的比赛',
-                        list: [],
-                        page: {
-                            count: 0,    // 总数
-                            current: 1   // 当前页
-                        }
-                    }
-                ]
-            }
-        },
-        methods: {
-            getAllMatch(val) {
-                this.isAll = val
-            }
-        },
-        watch: {
-            isAll(val,old) {
-                if(val === 0) {
-                    this.gameListData = [
-                        {
-                            title: '进行中的比赛',
-                            list: [],
-                            page: {
-                                count: 0,    // 总数
-                                current: 1   // 当前页
-                            }
-                        },
-                        {
-                            title: '未开始的比赛',
-                            list: [],
-                            page: {
-                                count: 0,    // 总数
-                                current: 1   // 当前页
-                            }
-                        },
-                        {
-                            title: '已结束的比赛',
-                            list: [],
-                            page: {
-                                count: 0,    // 总数
-                                current: 1   // 当前页
-                            }
-                        }
-                    ]
-                }
-                if(val === 1) {
-                    this.gameListData = [
-                        {
-                            title: '已结束的比赛',
-                            list: [],
-                            page: {
-                                count: 0,    // 总数
-                                current: 1   // 当前页
-                            }
-                        }
-                    ]
-                }
-            }
+            return {}
         },
         components: {
             indexTab,

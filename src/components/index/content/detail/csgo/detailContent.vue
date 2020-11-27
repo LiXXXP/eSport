@@ -40,7 +40,7 @@
         ></csgo-play-detail>
         <!-- 数据分析 -->
         <csgo-play-data
-            v-if="currentData === 1 && currentMatchId === 0"
+            v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId === 0"
         ></csgo-play-data>
     </div>
 </template>

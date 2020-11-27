@@ -13,6 +13,7 @@
         <!-- 赛事筛选 -->
         <event-select
             v-if="isEvent"
+            @closeEvent="closeEvent"
         ></event-select>
     </div>
 </template>
@@ -53,11 +54,27 @@
         },
         methods: {
             openEvents(val) {
-                this.isEvent = false
-                this.$emit('getAllMatch', val)
-                if(val === 3) {
-                    this.isEvent = true
+                this.$store.commit('allMatch', 0)
+                this.$store.commit('collectStatus', 2)
+                switch(val) {
+                    case 0:
+                        this.$store.commit('allMatch', 1)
+                        break
+                    case 1:
+                        this.$store.commit('allMatch', 2)
+                        break
+                    case 2:
+                        this.$store.commit('collectStatus', 1)
+                        break
+                    case 3:
+                        this.isEvent = !this.isEvent
+                        break
+                    default:
+                        break
                 }
+            },
+            closeEvent(val) {
+                this.isEvent = val
             }
         },
         components: {

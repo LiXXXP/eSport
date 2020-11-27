@@ -3,7 +3,10 @@
         <table>
             <thead>
                 <th>
-                    <i :class="['iconfont', isSelect?'icon-shoucang2':'icon-shoucang']" @click="getStore"></i>
+                    <i
+                        :class="['iconfont', isCollectStatus?'icon-shoucang2':'icon-shoucang']"
+                        @click="getCollect(matchId)"
+                    ></i>
                 </th>
             </thead>
             <tbody>
@@ -26,6 +29,8 @@
 </template>
 
 <script>
+    import { getCollectMatch, getRemoveCollectMatch } from '@/scripts/request'
+
     export default {
         props: {
             matchId: {    // 赛事id
@@ -40,24 +45,44 @@
                 type: Boolean,
                 default: false
             },
-            isStatus: {
+            isStatus: {   // 比赛状态
                 type: String,
                 default: ''
+            },
+            isCollect: {   // 是否收藏(true,false)
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
-                isSelect: false,    // 是否收藏
-                isOpen: false,      // 是否打开详情
+                isOpen: false,                   // 是否打开详情
+                isCollectStatus: this.isCollect, // 是否收藏
             }
         },
         methods: {
             // 收藏
-            getStore() {
-                if(this.isSelect) {
-                    this.isSelect = false
+            getCollect(matchId) {
+                let _this = this
+                let params = {
+                    match_id: matchId
+                }
+                if(this.isCollectStatus) {
+                    // 取消收藏
+                    getRemoveCollectMatch(params).then(res => {
+                        if (res.code === 200) {
+                            _this.isCollectStatus = false
+                            _this.$message.success(res.message)
+                        }
+                    })
                 } else {
-                    this.isSelect = true
+                    // 加入收藏
+                    getCollectMatch(params).then(res => {
+                        if (res.code === 200) {
+                            _this.isCollectStatus = true
+                            _this.$message.success(res.message)
+                        }
+                    })
                 }
             },
             // 展开游戏详情

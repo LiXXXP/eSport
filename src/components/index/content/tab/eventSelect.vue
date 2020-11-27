@@ -8,7 +8,7 @@
                     class="select-box flex flex_only_center"
                     v-for="item in games"
                     v-model="checkedGames"
-                    :label="item.tournament_id"
+                    :label="item"
                     :title="item.name"
                     :key="item.name"
                 >{{item.name}}</el-checkbox>
@@ -21,7 +21,11 @@
                     :indeterminate="isIndeterminate"
                     @change="handleCheckAllChange"
                 >全选</el-checkbox>
-                <div class="select" @click="checkCon">反选</div>
+                <hr>
+                <el-checkbox
+                    :indeterminate="isIndeterminate"
+                    @change="checkCon"
+                >反选</el-checkbox>
                 <div class="hide">隐藏了{{num}}场</div>
             </div>
             <div class="btn" @click="eventSelect">确定</div>
@@ -43,30 +47,31 @@
             }
         },
         created(){
-            let params = {
-                page: 1,
-                limit: 8
-            }
-            let _this = this
-            getScreen(params).then(res => {
-                if (res.code === 200) {
-                    _this.games = res.data.tournament_list
-                    _this.num = res.data.count - 8
-                }
-            })
+            this.init()
         },
         methods: {
+            init() {
+                let params = {
+                    page: 1,
+                    limit: 8
+                }
+                let _this = this
+                getScreen(params).then(res => {
+                    if (res.code === 200) {
+                        _this.games = res.data.tournament_list
+                        _this.num = res.data.count - 8
+                    }
+                })
+            },
             // 赛事选择
             handleCheckedGamesChange(value) {
                 this.checkedGames = value
-                // console.log(this.checkedGames)
                 let checkedCount = value.length
                 this.checkAll = checkedCount === this.games.length
                 this.isIndeterminate = checkedCount > 0 && checkedCount < this.games.length
             },
             // 全选
             handleCheckAllChange(val) {
-                // console.log(val)
                 this.checkedGames = val ? this.games : []
                 this.isIndeterminate = false
             },
@@ -76,11 +81,13 @@
                 this.checkedGames = this.games.filter(function (item) {
                     return conArr.indexOf(item) < 0
                 })
-                // console.log(this.checkedGames)
             },
             eventSelect() {
-                if(this.checkedGames.length !== 0) {
+                if(this.checkedGames.length > 0) {
                     this.$store.commit('getSelectMatchData',this.checkedGames)
+                    this.$emit('closeEvent',false)
+                } else {
+                    this.$message.warning('请先选择赛事哦')
                 }
             }
         }
@@ -187,8 +194,8 @@
             .el-checkbox__input {
                 display: none;
             }
-            .el-checkbox__label {
-                padding-right: 10px;
+            .el-checkbox {
+                margin-right: 10px;
             }
             .el-checkbox__input.is-checked+.el-checkbox__label {
                 color: #FF7800;

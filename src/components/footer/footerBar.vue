@@ -2,16 +2,16 @@
     <div class="footer page-content">
         <div class="footer-top flex flex_around">
             <div v-for="item in clubList"
-                :key="item.id">
+                :key="item.title">
                 <p>{{item.title}}</p>
-                <router-link
+                <a
                     class="link"
                     v-for="key in item.link"
                     :key="key.id"
-                    :to=key.url
+                    href=""
                 >
-                    {{key.title}} 比赛结果及赛程
-                </router-link>
+                    {{key.name}} 比赛结果及赛程
+                </a>
             </div>
         </div>
         <div class="footer-bottom flex flex_start flex_center">
@@ -26,49 +26,53 @@
 </template>
 
 <script>
+    import { getGames, getEvents } from '@/scripts/request'
     export default {
         data() {
             return {
                 clubList: [
                     {
-                        id: 0,
                         title: '热门俱乐部',
-                        link : [
-                            {
-                                id: 0,
-                                title: 'fnatic',
-                                url: ''
-                            },
-                            {
-                                id: 1,
-                                title: 'complexity',
-                                url: ''
-                            }
-                        ]
+                        link : []
                     },
                     {
-                        id: 1,
                         title: '热门游戏',
-                        link : [
-                            {
-                                id: 0,
-                                title: '反恐精英：全球攻势',
-                                url: ''
-                            }
-                        ]
+                        link : []
                     },
                     {
-                        id: 2,
                         title: '热门赛事',
-                        link : [
-                            {
-                                id: 0,
-                                title: '2018 HGC Mid Season Brawl',
-                                url: ''
-                            }
-                        ]
+                        link : []
                     }
                 ]
+            }
+        },
+        created() {
+            this.getGameList()
+            this.getEventList()
+        },
+        methods: {
+            // 获取热门俱乐部
+            // 获取全部游戏列表
+            getGameList() {
+                let _this = this
+                let params = {
+                    language: 1,   // 显示语言，1.中文,2.英文(默认为中文)
+                    is_all: 0      // 是否显示全部:1.显示全部
+                }
+                getGames(params).then(res => {
+                    if (res.code === 200) {
+                        _this.clubList[1].link = res.data
+                    }
+                })
+            },
+            // 获取热门赛事
+            getEventList() {
+                let _this = this
+                getEvents().then(res => {
+                    if (res.code === 200) {
+                        _this.clubList[2].link = res.data
+                    }
+                })
             }
         }
     }

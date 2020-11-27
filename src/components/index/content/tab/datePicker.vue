@@ -1,13 +1,13 @@
 <template>
     <div class="date-picker">
-        <div class="flex flex_between flex_only_center">
-            <p class="left" @click="preDay"></p>
+        <div class="flex flex_center">
+            <!-- <p class="left" @click="preDay"></p> -->
             <p class="date flex flex_start flex_center"
                 @click="dateSelect">
                 <i class="date-icon"></i>
                 <span>{{currentTime}}</span>
             </p>
-            <p class="right" @click="nextDay"></p>
+            <!-- <p class="right" @click="nextDay"></p> -->
         </div>
         <!-- 日历 -->
         <div class="picker" v-show="isSelect">
@@ -48,6 +48,7 @@
                 this.currentTime = setDate(new Date(data))
                 this.showDate = data
                 this.isSelect = false
+                this.$store.commit('getSelectMatchDate',data)
             },
             // 前一天
             preDay() {

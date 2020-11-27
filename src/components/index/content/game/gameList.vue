@@ -15,6 +15,7 @@
                     <game-edit
                         :matchId="key.match_id"
                         :gameId="key.game_id"
+                        :isCollect="key.is_collect"
                         :supported="key.is_supported"
                         :isStatus="key.status"
                         @openDetailId="openDetailId"
@@ -30,7 +31,7 @@
             <!-- 分页 -->
             <paging-page
                 :indexData="index"
-                v-if="item.page.count>10"
+                v-if="item&&item.page.count>10"
                 :countData="item.page.count"
                 @currentPage="currentPage"
             ></paging-page>
@@ -47,23 +48,46 @@
         getOnGoing,
         getUpComning,
         getPast,
-        getBattles,
         getMatches
     } from '@/scripts/request'
     export default {
-        props: {
-            gameList: {
-                type: Array,
-                default: []
-            }
-        },
         data() {
             return {
               currentId: -1, // 当前打开详情的赛事id：tournament_id
-
+              tournamentIds: [],
+              searchTime: '',
+              myCollect: 2,
+              gameList: [],
+              gameInfo: [
+                  {
+                      title: '进行中的比赛',
+                      list: [],
+                      page: {
+                          count: 0,    // 总数
+                          current: 1   // 当前页
+                      }
+                  },
+                  {
+                      title: '未开始的比赛',
+                      list: [],
+                      page: {
+                          count: 0,    // 总数
+                          current: 1   // 当前页
+                      }
+                  },
+                  {
+                      title: '已结束的比赛',
+                      list: [],
+                      page: {
+                          count: 0,    // 总数
+                          current: 1   // 当前页
+                      }
+                  }
+              ]
            }
         },
         created() {
+            this.gameList = this.gameInfo
             this.getGoingList()
             this.getComningList()
             this.getPastList()
@@ -74,7 +98,10 @@
                 let _this = this
                 let params = {
                     page: _this.gameList[0].page.current,
-                    limit: 10
+                    limit: 10,
+                    tournament_ids: _this.tournamentIds,
+                    search_time: _this.searchTime,
+                    my_collect: _this.myCollect
                 }
                 getOnGoing(params).then(res => {
                     if (res.code === 200) {
@@ -88,7 +115,10 @@
                 let _this = this
                 let params = {
                     page: _this.gameList[1].page.current,
-                    limit: 10
+                    limit: 10,
+                    tournament_ids: _this.tournamentIds,
+                    search_time: _this.searchTime,
+                    my_collect: _this.myCollect
                 }
                 getUpComning(params).then(res => {
                     if (res.code === 200) {
@@ -99,11 +129,15 @@
             },
             // 已结束的比赛
             getPastList() {
+                let _this = this
                 if(this.gameList.length === 1) {
                     let _this = this
                     let params = {
                         page: _this.gameList[0].page.current,
-                        limit: 10
+                        limit: 10,
+                        tournament_ids: _this.tournamentIds,
+                        search_time: _this.searchTime,
+                        my_collect: _this.myCollect
                     }
                     getPast(params).then(res => {
                         if (res.code === 200) {
@@ -113,10 +147,12 @@
                     })
                 }
                 else {
-                    let _this = this
                     let params = {
                         page: _this.gameList[2].page.current,
-                        limit: 10
+                        limit: 10,
+                        tournament_ids: _this.tournamentIds,
+                        search_time: _this.searchTime,
+                        my_collect: _this.myCollect
                     }
                     getPast(params).then(res => {
                         if (res.code === 200) {
@@ -139,6 +175,8 @@
                         if (res.code === 200) {
                             _this.$store.dispatch('getMatches',res.data)
                             _this.$store.commit('getMatchId', Mid)
+                        } else {
+                            _this.$message.error(res.message)
                         }
                     })
                 }
@@ -150,7 +188,7 @@
             // 获取分页页数
             currentPage(val,index) {
                 this.gameList[index].page.current = val
-                if (this.gameList.length === 1) {
+                if(this.gameList.length < 2) {
                     this.getPastList()
                 } else {
                     if(index === 0) {
@@ -165,15 +203,64 @@
                 }
             },
         },
+        computed: {
+            matchAll() {
+                return this.$store.state.isAllMatch
+            },
+            matchCollect() {
+                return this.$store.state.myCollectStatus
+            },
+            matchData() {
+                return this.$store.state.selectMatchData
+            },
+            matchDate() {
+                return this.$store.state.selectMatchDate
+            }
+        },
         watch: {
-            gameList(val,old) {
-                if(val.length === 1) {
-                    this.getPastList()
-                } else {
+            matchAll(val,old) {
+                this.myCollect = 2
+                this.searchTime = ''
+                this.tournamentIds = []
+                if(val === 1) {
+                    this.gameList = this.gameInfo
                     this.getGoingList()
                     this.getComningList()
                     this.getPastList()
                 }
+                if(val === 2) {
+                    this.$nextTick( () => {
+                        this.gameList = this.gameInfo.slice(-1)
+                        this.getPastList()
+                    })
+                }
+            },
+            matchCollect(val) {
+                this.searchTime = ''
+                this.tournamentIds = []
+                this.myCollect = val
+                this.gameList = this.gameInfo
+                if(val === 1) {
+                    this.getGoingList()
+                    this.getComningList()
+                    this.getPastList()
+                }
+            },
+            matchData(val) {
+                this.myCollect = 2
+                this.tournamentIds = val
+                this.gameList = this.gameInfo
+                this.getGoingList()
+                this.getComningList()
+                this.getPastList()
+            },
+            matchDate(val) {
+                this.myCollect = 2
+                this.searchTime = val
+                this.gameList = this.gameInfo
+                this.getGoingList()
+                this.getComningList()
+                this.getPastList()
             }
         },
         components: {

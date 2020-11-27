@@ -36,6 +36,19 @@
     methods: {
             active(index) {
                 this.current = index
+                switch (index) {
+                    case 0:
+                        this.$router.push('/index')
+                        break
+                    case 1:
+                        this.$router.push('/events')
+                        break
+                    case 2:
+                        this.$router.push('/teams')
+                        break
+                    default:
+                        break
+                }
             }
         },
     }

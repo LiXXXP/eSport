@@ -5,7 +5,7 @@
             <span class="play-header-text">对局详情</span>
         </div>
         <div v-if="battleData.length !== 0">
-            <div v-for="item in battleData" :key="item.battle_id">
+            <div v-for="(item,battleIndex) in battleData" :key="item.battle_id">
                 <div v-if="item.battle_id === targetMatchId">
                     <div class="map flex flex_center">
                         <kill-arms
@@ -24,7 +24,7 @@
                                 {{item.teams[0].score}}
                             </p>
                             <div v-for="(key,index) in mapData" :key="key.order">
-                                <div v-if="index === targetIndex">
+                                <div v-if="index === battleIndex">
                                     <img :src="key.map.image.square_image">
                                 </div>
                             </div>

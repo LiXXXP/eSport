@@ -1,12 +1,12 @@
 <template>
     <div class="bread-crumb flex flex_between flex_only_center">
         <div class="flex flex_start">
-            <div class="step"
+            <!-- <div class="step"
                 v-for="item in stepNav"
                 :key="item.id">
                 <span>{{item.title}} <i class="to"></i> </span>
                 <i class="arrow"></i>
-            </div>
+            </div> -->
         </div>
         <div class="contact">
             合作联系：business@esportlivescore.com
@@ -22,21 +22,6 @@
                     {
                         id: 0,
                         title: '首页',
-                        url: '/'
-                    },
-                    {
-                        id: 1,
-                        title: '英雄联盟',
-                        url: '/'
-                    },
-                    {
-                        id: 2,
-                        title: 'Invictus Gaming',
-                        url: '/'
-                    },
-                    {
-                        id: 3,
-                        title: 'Invictus Gaming',
                         url: '/'
                     }
                 ]

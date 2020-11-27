@@ -124,17 +124,17 @@ button {
 }
 
 /*滚动条的宽度*/
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 10px;
     height: 10px;
     background-color: rgba(0, 0, 0, 0);
-} */
+}
 
 /*滚动条的设置*/
-/* ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: rgba(140, 140, 140, .3);
     border-radius: 5px;
-} */
+}
 
 /* flex布局 */
 .flex {

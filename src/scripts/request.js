@@ -3,7 +3,7 @@ import Qs from 'qs'
 import { sparkUrl } from './config'
 import { Message } from 'element-ui'
 
-const TIMEOUT = 30000; // 设置请求超时时间 常量
+const TIMEOUT = 30000 // 设置请求超时时间 常量
 
 // 创建axios实例
 const service = axios.create({
@@ -14,9 +14,11 @@ const service = axios.create({
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'X-Requested-With': 'XMLHttpRequest',
-        'accept': 'application/json',
+        'accept': 'application/json'
     }
 })
+
+axios.defaults.headers.common["token"] = localStorage.getItem('userToken') || ''
 
 /**
  * 请求拦截器
@@ -103,6 +105,60 @@ function putRequest(url,params = {}){
              reject(err)
         });
     });
+}
+
+/**
+ *
+ * 用户登录
+ * @param {*} params
+ */
+function getLogin(params) {
+  return postRequest('/login', params)
+}
+
+/**
+ *
+ * 用户退出
+ * @param {*} params
+ */
+function getLogout(params) {
+  return postRequest('/user/logout', params)
+}
+
+/**
+ *
+ * 用户注册
+ * @param {*} params
+ */
+function getRegister(params) {
+  return postRequest('/register', params)
+}
+
+/**
+ *
+ * 用户信息
+ * @param {*} params
+ */
+function getUserInfo(params) {
+  return postRequest('/user/info', params)
+}
+
+/**
+ *
+ * 收藏比赛
+ * @param {*} params
+ */
+function getCollectMatch(params) {
+  return postRequest('/user/collect_match', params)
+}
+
+/**
+ *
+ * 取消收藏比赛
+ * @param {*} params
+ */
+function getRemoveCollectMatch(params) {
+  return postRequest('/user/remove_collect_match', params)
 }
 
 /**
@@ -240,6 +296,12 @@ function getMatches(params) {
 }
 
 export {
+    getLogin,
+    getLogout,
+    getRegister,
+    getUserInfo,
+    getCollectMatch,
+    getRemoveCollectMatch,
     getCarousel,
     getFirstImage,
     getThirdImage,
