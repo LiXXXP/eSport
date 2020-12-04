@@ -48,6 +48,7 @@
                 this.currentTime = setDate(new Date(data))
                 this.showDate = data
                 this.isSelect = false
+                this.$store.commit('allMatch', 0)
                 this.$store.commit('getSelectMatchDate',data)
             },
             // 前一天

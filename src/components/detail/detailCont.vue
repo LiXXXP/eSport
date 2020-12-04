@@ -10,7 +10,7 @@
         ></play-info>
         <game-info
             v-if="flag"
-            :openType="this.$route.query.gameId"
+            :openType="parseInt(this.$route.query.gameId)"
         ></game-info>
     </div>
 </template>

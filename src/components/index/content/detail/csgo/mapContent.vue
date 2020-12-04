@@ -10,10 +10,10 @@
                 >Advanced</p>
             </div>
         </div>
-        <div class="content-bg">
-            <img :src="framesData.map.image.thumbnail" v-if="framesData != null">
+        <div class="content-bg" v-if="framesData != null">
+            <img :src="framesData.map.image.thumbnail">
             <div class="content">
-                <div class="top" v-if="framesData != null">
+                <div class="top">
                     <div class="header flex flex_between flex_center">
                         <div>
                             Ronud-<span class="round">{{framesData.current_round}}</span>
@@ -64,7 +64,6 @@
     import logsList from '@/components/index/content/detail/logsList'       // 比赛日志
 
     import { formatSeconds } from '@/scripts/utils'
-    import { Message } from 'element-ui'
 
     export default {
         props: {
@@ -117,7 +116,6 @@
             // 关闭
             websocketclose(e){
                 console.log('断开连接',e)
-                Message.error('连接断开')
             },
         },
         computed: {
@@ -142,7 +140,7 @@
             height: 28px;
             cursor: pointer;
             color: #2F3A5A;
-            line-height: 28px;
+            line-height: 29px;
             border-radius: 4px;
             border: 1px solid#2F3A5A;
             p {

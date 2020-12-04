@@ -32,8 +32,11 @@
                     }
                 ]
             }
-    },
-    methods: {
+        },
+        created() {
+
+        },
+        methods: {
             active(index) {
                 this.current = index
                 switch (index) {
@@ -41,16 +44,31 @@
                         this.$router.push('/index')
                         break
                     case 1:
-                        this.$router.push('/events')
+                        this.$router.push('/eventlist')
                         break
                     case 2:
-                        this.$router.push('/teams')
+                        this.$router.push('/teamlist')
                         break
                     default:
                         break
                 }
             }
         },
+        watch: {
+            $route (to, from) {
+                switch(to.path) {
+                    case '/index':
+                        this.current = 0
+                        break
+                    case '/events':
+                        this.current = 1
+                        break
+                    case '/teams':
+                        this.current = 2
+                        break
+                }
+            }
+        }
     }
 </script>
 

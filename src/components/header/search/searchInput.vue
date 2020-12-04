@@ -94,6 +94,13 @@
                         limit: 10
                     }
                     this.query = query
+                    if(this.optionVal === 0) {
+                        this.$message({
+                            message: '请先选择 俱乐部/战队',
+                            type: 'warning',
+                            offset: 100
+                        })
+                    }
                     if(this.optionVal === 2) {
                         this.getTeamList(params)
                     }

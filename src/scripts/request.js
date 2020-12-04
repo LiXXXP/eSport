@@ -295,6 +295,64 @@ function getMatches(params) {
   return postRequest('/match/match_detail', params)
 }
 
+/**
+ *
+ * 赛事列表
+ * @param {*} params
+ */
+function getTournamentsList(params) {
+  return postRequest('/tournaments/tournament_list', params)
+}
+
+/**
+ *
+ * 指定赛事详情
+ * @param {*} params
+ * tournament_id
+ */
+function getTournaments(params) {
+  return postRequest('/tournaments/tournament_detail', params)
+}
+
+/**
+ *
+ * 指定赛事的比赛列表
+ * @param {*} params
+ * tournament_id
+ */
+function getTournamentMatch(params) {
+  return postRequest('/match/tournament_match', params)
+}
+
+/**
+ *
+ * 指定战队详情
+ * @param {*} params
+ * tournament_id
+ */
+function getTeamDetail(params) {
+  return postRequest('/teams/team_detail', params)
+}
+
+/**
+ *
+ * 指定战队比赛列表
+ * @param {*} params
+ * game_id team_name
+ */
+function getTeamMatch(params) {
+  return postRequest('/match/team_match', params)
+}
+
+/**
+ *
+ * 战队列表
+ * @param {*} params
+ */
+function getTeamsList(params) {
+  return postRequest('/teams/team_list', params)
+}
+
 export {
     getLogin,
     getLogout,
@@ -316,6 +374,12 @@ export {
     getUpComning,
     getPast,
     getMatches,
-    getScreen
+    getScreen,
+    getTournamentsList,
+    getTournaments,
+    getTournamentMatch,
+    getTeamDetail,
+    getTeamMatch,
+    getTeamsList
 }
 

@@ -11,10 +11,12 @@ import { checkBrowser } from '@/scripts/utils'
 /* 异步引入路由 */
 const Index =() => import('@/components/index')
 const mainIndex =() => import('@/components/main/mainIndex')
-const teamIndex =() => import('@/components/main/teamIndex')
-const eventIndex =() => import('@/components/main/eventIndex')
 const contIndex =() => import('@/components/index/contIndex')
 const Detail =() => import('@/components/detail/detailCont')
+const teamList =() => import('@/components/main/teamList')
+const eventList =() => import('@/components/main/eventList')
+const teamIndex =() => import('@/components/main/teamIndex')
+const eventIndex =() => import('@/components/main/eventIndex')
 const Login =() => import('@/components/header/login/loginPage/index')
 
 const routes = [
@@ -47,15 +49,25 @@ const routes = [
                 ]
             },
             {
+                path: '/eventlist',
+                name: 'eventList',
+                component: eventList,
+            },
+            {
+                path: '/teamlist',
+                name: 'teamList',
+                component: teamList,
+            },
+            {
+                path: '/events',
+                name: 'eventIndex',
+                component: eventIndex,
+            },
+            {
                 path: '/teams',
                 name: 'teamIndex',
                 component: teamIndex,
-            },
-            {
-              path: '/events',
-              name: 'eventIndex',
-              component: eventIndex,
-          }
+            }
         ]
     },
     {

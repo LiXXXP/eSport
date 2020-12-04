@@ -38,7 +38,7 @@
         },
         methods: {
             gotoHome() {
-                this.$router.push('/')
+                this.$router.push('/index')
             }
         },
         components: {

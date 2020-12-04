@@ -4,7 +4,7 @@
         <div v-for="(item,index) in gameList" :key="item.title">
             <div class="game-title flex flex_between" v-if="item.list.length!==0">
                 <p>{{item.title}}</p>
-                <p>更新倒计时：<span>05</span> 秒</p>
+                <p>更新倒计时：<span>0{{count}}</span> 秒</p>
             </div>
             <!-- 游戏比分 -->
             <div class="list" v-for="key in item.list" :key="key.match_id">
@@ -23,7 +23,7 @@
                 </div>
                 <!-- 详情 -->
                 <game-info
-                    :openType="key.game_id"
+                    :openType="parseInt(key.game_id)"
                     v-show="currentId === key.match_id"
                     @packDetailId="packDetailId"
                 ></game-info>
@@ -57,6 +57,8 @@
               tournamentIds: [],
               searchTime: '',
               myCollect: 2,
+              timer: null,  // 倒计时 计时器
+              count: 5,     // 5s 倒计时
               gameList: [],
               gameInfo: [
                   {
@@ -92,7 +94,29 @@
             this.getComningList()
             this.getPastList()
         },
+        mounted() {
+            // this.getCountdown()
+        },
+        destroyed() {
+            clearInterval(this.timer)
+            this.timer = null
+        },
         methods: {
+            // 5s 倒计时
+            getCountdown() {
+                const TIME_COUNT = 5
+                this.count = TIME_COUNT
+                this.timer = setInterval(() => {
+                    if (this.count > 0 && this.count <= TIME_COUNT) {
+                        this.count--
+                    } else {
+                        this.count = TIME_COUNT
+                        this.getGoingList()
+                        this.getComningList()
+                        this.getPastList()
+                    }
+                }, 1000)
+            },
             // 进行中的比赛
             getGoingList() {
                 let _this = this
@@ -218,7 +242,7 @@
             }
         },
         watch: {
-            matchAll(val,old) {
+            matchAll(val) {
                 this.myCollect = 2
                 this.searchTime = ''
                 this.tournamentIds = []
