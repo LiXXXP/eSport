@@ -1,5 +1,5 @@
 <template>
-    <div class="tab-nav flex flex_start">
+    <div class="tab-nav flex flex_start flex_wrap">
         <div class="nav-item flex flex_start"
             v-for="(item,index) in navData"
             :key="item.title"
@@ -53,6 +53,7 @@
     .tab-nav {
         .nav-item {
             width: auto;
+            margin-bottom: 10px;
             .title {
                 width: 160px;
                 height: 45px;

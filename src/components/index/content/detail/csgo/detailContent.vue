@@ -108,9 +108,8 @@
                 return this.$store.state.matchsData
             },
             currentData(val,old) {
-                if(val === 1) {
-                    this.getNavTitle()
-                }
+                this.getNavTitle()
+                this.currentMatchId = this.navList[0].battleId
             }
         },
         components: {
