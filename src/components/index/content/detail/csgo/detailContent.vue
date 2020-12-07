@@ -107,7 +107,7 @@
             matchDetail() {
                 return this.$store.state.matchsData
             },
-            currentData(val,old) {
+            currentData() {
                 this.getNavTitle()
                 this.currentMatchId = this.navList[0].battleId
             }
