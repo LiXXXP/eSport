@@ -1,23 +1,40 @@
 <template>
     <div class="detail-content">
-        <video-content v-if="currentData === 0"></video-content>
-        <map-content v-else></map-content>
+        <video-content
+            v-if="currentData === 0"
+            :streamsData="matchDetail.streams"
+        ></video-content>
+        <map-content
+            v-if="currentData === 1"
+        ></map-content>
         <tab-nav
+            v-if="currentData === 1"
             :selectStyle="selectStyle"
             :navData="navList"
-             @clickIndex="navDetail"
+            @clickIndex="navDetail"
         ></tab-nav>
-        <!-- 对局分析 -->
-        <play-data v-if="isDetai"></play-data>
+        <!-- 队伍对局详情 -->
+        <play-content
+            v-if="currentData === 1"
+            :matchData="matchDetail"
+            :targetMatchId="currentMatchId"
+        ></play-content>
         <!-- 对局详情 -->
-        <play-detail v-else></play-detail>
+        <play-detail
+            v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId > 0"
+        ></play-detail>
+        <!-- 对局分析 -->
+        <play-data
+            v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId === 0"
+        ></play-data>
     </div>
 </template>
 
 <script>
-    import mapContent from '@/components/index/content/detail/lol/mapContent'     // 地图模块
     import videoContent from '@/components/index/content/detail/videoContent'     // 视频模块
+    import mapContent from '@/components/index/content/detail/lol/mapContent'     // 地图模块
     import tabNav from '@/components/common/tabNav'                               // tab切换
+    import playContent from '@/components/index/content/detail/lol/playContent'   // tab切换
     import playData from '@/components/detail/content/playData'                   // 数据分析
     import playDetail from '@/components/detail/content/playDetail'               // 数据详情
 
@@ -37,49 +54,50 @@
                 // 4为详情直播按钮
                 selectStyle: 3,
                 navList: [],
-                isDetai: true,  // 显示对战分析
+                currentMatchId: 0
             }
-        },
-        created() {
-            this.getNavTitle()
         },
         methods: {
             navDetail(index) {
-                if( index > 0 ) {
-                    let _this = this
-                    let params = {
-                        battle_id: this.navList[index].battleId
-                    }
-                    getBattles(params).then(res => {
-                        if (res.code === 1000) {
-                            _this.$store.dispatch('getBattles',res.data)
-                            _this.isDetai = false
-                        }
-                    })
-                } else {
-                    this.isDetai = true
-                }
+                this.currentMatchId = this.navList[index].battleId
             },
             getNavTitle() {
-                let battlesData = this.$store.state.matchsData.battles
-                for(let index in battlesData) {
+                let navArr = []
+                for(let index in this.$store.state.matchsData.battle_list) {
                     let item = {
                         title: `MAP ${parseInt(index)+1}`,
-                        battleId: battlesData[index].battle_id
+                        battleId: this.$store.state.matchsData.battle_list[index].battle_id
                     }
-                    this.navList.push(item)
+                    navArr.push(item)
+                    this.navList = [...navArr]
                 }
-                if(this.$route.query.openType) {
+                if(this.$route.path === '/detail') {
                     this.navList.unshift({
-                        title: '对战分析'
+                        title: '对战分析',
+                        battleId: 0
                     })
                 }
+            }
+        },
+        computed: {
+            matchDetail() {
+                return this.$store.state.matchsData
+            }
+        },
+        watch: {
+            matchDetail() {
+                return this.$store.state.matchsData
+            },
+            currentData() {
+                this.getNavTitle()
+                this.currentMatchId = this.navList[0].battleId
             }
         },
         components: {
             mapContent,
             videoContent,
             tabNav,
+            playContent,
             playData,
             playDetail
         }

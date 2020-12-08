@@ -72,7 +72,6 @@
                 // 4为详情直播按钮
                 selectStyle: 3,
                 navList : [],   // 对局数导航
-                isDetai: true,  // 显示对战分析
                 currentMatchId: 0
             }
         },

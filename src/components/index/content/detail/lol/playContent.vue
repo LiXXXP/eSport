@@ -5,35 +5,39 @@
             <span class="play-header-text">队伍对局详情</span>
         </div>
         <div class="content">
-            <play-team
-                :teamsData="battleDetail"
-            ></play-team>
-            <div class="flex flex_center">
-                <play-hero
-                    :sizeData="size"
-                    :seatData="false"
-                    :teamId="battleDetail.battle_detail.factions[0].faction === 'blue'?
-                            parseInt(battleDetail.battle_detail.factions[0].team_id) :
-                            parseInt(battleDetail.battle_detail.factions[1].team_id)"
-                    :heroList="battleDetail.battle_detail.ban_pick"
-                ></play-hero>
-                <div class="role">
-                    <p>Ban</p>
-                    <p>Pick</p>
+            <div v-if="matchData.battle_list.length > 0">
+                <div v-for="item in matchData.battle_list" :key="item.battle_id">
+                    <div v-if="item.battle_id === targetMatchId">
+                        <play-team
+                            :factionsData="item.factions"
+                            :scoresData="matchData.scores"
+                            :winnerId="item.winner.team_id"
+                            :durationData="item.duration"
+                        ></play-team>
+                        <div class="flex flex_center">
+                            <play-hero
+                                :sizeData="size"
+                                :seatData="false"
+                                :teamId="item.factions[0].faction === 'blue'?item.factions[0].team_id:item.factions[1].team_id"
+                                :heroList="item.ban_pick"
+                            ></play-hero>
+                            <div class="role">
+                                <p>Ban</p>
+                                <p>Pick</p>
+                            </div>
+                            <play-hero
+                                :sizeData="size"
+                                :seatData="true"
+                                :teamId="item.factions[1].faction === 'red'?item.factions[1].team_id:item.factions[0].team_id"
+                                :heroList="item.ban_pick"
+                            ></play-hero>
+                        </div>
+                        <play-progress
+                            :outputData="outputList"
+                        ></play-progress>
+                    </div>
                 </div>
-                <play-hero
-                    :sizeData="size"
-                    :seatData="true"
-                    :teamId="battleDetail.battle_detail.factions[1].faction === 'red'?
-                            parseInt(battleDetail.battle_detail.factions[1].team_id) :
-                            parseInt(battleDetail.battle_detail.factions[0].team_id)"
-                    :heroList="battleDetail.battle_detail.ban_pick"
-                ></play-hero>
             </div>
-            <play-progress
-                :barColor="colorData"
-                :outputData="outputList"
-            ></play-progress>
         </div>
     </div>
 </template>
@@ -44,13 +48,19 @@
     import playProgress from '@/components/index/content/detail/playProgress'
 
     export default {
+        props: {
+            matchData: {
+                type: Object,
+                default: {}
+            },
+            targetMatchId: {    // 当前tab battle id
+                type: Number,
+                default: 0
+            },
+        },
         data() {
             return {
                 size: 'lol',  // 英雄列表头像大小区分
-                colorData: {
-                    left: '#2980D9',
-                    right: '#CC5728'
-                },
                 outputList: [
                     {
                         head: '击杀',
@@ -158,31 +168,30 @@
                 ],
             }
         },
-        computed: {
+        created() {
+            this.battleDetail()
+        },
+        methods: {
             battleDetail() {
-                let detail = this.$store.state.battlesData.battle_detail
-                for(let item of this.outputList) {
-                    let field = item.type
-                    if(detail.factions[0].faction === 'blue') {
-                        item.num1 = detail.factions[0][field]
-                        item.num2 = detail.factions[1][field]
-                    }
-                    else {
-                        item.num1 = detail.factions[1][field]
-                        item.num2 = detail.factions[0][field]
-                    }
-                    for(let key of item.imgs) {
-                        let type = key.type
-                        key.ingame = detail.first_events[type].ingame_timestamp
-                        key.faction = detail.first_events[type].faction
+                let detail = this.matchData.battle_list
+                for(let obj of detail) {
+                    for(let item of this.outputList) {
+                        let field = item.type
+                        if(obj.factions[0].faction === 'blue') {
+                            item.num1 = obj.factions[0][field]
+                            item.num2 = obj.factions[1][field]
+                        }
+                        else {
+                            item.num1 = obj.factions[1][field]
+                            item.num2 = obj.factions[0][field]
+                        }
+                        for(let key of item.imgs) {
+                            let type = key.type
+                            key.ingame = obj.first_events[type].ingame_timestamp
+                            key.faction = obj.first_events[type].faction
+                        }
                     }
                 }
-                return this.$store.state.battlesData
-            }
-        },
-        watch: {
-            battleDetail() {
-                return this.$store.state.battlesData
             }
         },
         components: {

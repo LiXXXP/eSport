@@ -1,56 +1,32 @@
 <template>
     <div class="play-team flex flex_between flex_center">
         <div class="team flex flex_only_center">
-            <p :class="['left',{
-                b: teamsData.battle_detail.factions[0].faction === 'blue',
-                r: teamsData.battle_detail.factions[0].faction === 'red'
-            }]">
-                {{teamsData.battle_detail.factions[0].faction === 'blue' ? 'B':'R'}}
-            </p>
-            <p :title="(teamsData.battle_detail.factions[0].faction === 'blue' &&
-                    teamsData.battle_detail.factions[0].team_id === teamsData.teams[0].team_id) ?
-                    teamsData.teams[0].team_snapshot.full_name :
-                    teamsData.teams[1].team_snapshot.full_name">
+            <p class="left b">B</p>
+            <p>
                 {{
-                    (teamsData.battle_detail.factions[0].faction === 'blue' &&
-                    teamsData.battle_detail.factions[0].team_id === teamsData.teams[0].team_id) ?
-                    teamsData.teams[0].team_snapshot.short_name :
-                    teamsData.teams[1].team_snapshot.short_name
+                    (factionsData[0].faction === 'blue' && factionsData[0].team_id === scoresData[0].team_id) ?
+                    scoresData[0].team_snapshot.full_name : scoresData[1].team_snapshot.full_name
                 }}
             </p>
             <img src="../../../../assets/imgs/detail/win.png"
-                v-if="(teamsData.battle_detail.factions[0].faction === 'blue' &&
-                    teamsData.battle_detail.factions[0].team_id === teamsData.teams[0].team_id) ?
-                    teamsData.teams[0].team_id === teamsData.winner.team_id :
-                    teamsData.teams[1].team_id === teamsData.winner.team_id">
+                v-if="(factionsData[0].faction === 'blue' && factionsData[0].team_id === scoresData.team_id) ?
+                    factionsData[0].team_id === winnerId : factionsData[1].team_id === winnerId">
         </div>
         <div class="time flex flex_only_center">
             <i class="iconfont icon-shijian"></i>
-            <p>{{durationTime(teamsData.battle_detail.duration)}}</p>
+            <p>{{durationTime(durationData)}}</p>
         </div>
         <div class="team flex flex_only_center flex_end">
             <img src="../../../../assets/imgs/detail/win.png"
-                v-if="(teamsData.battle_detail.factions[1].faction === 'red' &&
-                    teamsData.battle_detail.factions[1].team_id === teamsData.teams[1].team_id) ?
-                    teamsData.teams[1].team_id === teamsData.winner.team_id :
-                    teamsData.teams[0].team_id === teamsData.winner.team_id">
-            <p :title="(teamsData.battle_detail.factions[1].faction === 'red' &&
-                    teamsData.battle_detail.factions[1].team_id === teamsData.teams[1].team_id) ?
-                    teamsData.teams[1].team_snapshot.full_name :
-                    teamsData.teams[0].team_snapshot.full_name">
+                v-if="(factionsData[1].faction === 'red' && factionsData[1].team_id === scoresData[1].team_id) ?
+                      factionsData[1].team_id === winnerId : factionsData[0].team_id === winnerId">
+            <p>
                 {{
-                    (teamsData.battle_detail.factions[1].faction === 'red' &&
-                    teamsData.battle_detail.factions[1].team_id === teamsData.teams[1].team_id) ?
-                    teamsData.teams[1].team_snapshot.short_name :
-                    teamsData.teams[0].team_snapshot.short_name
+                    (factionsData[1].faction === 'red' && factionsData[1].team_id === scoresData[1].team_id) ?
+                    scoresData[1].team_snapshot.full_name : scoresData[0].team_snapshot.full_name
                 }}
             </p>
-            <p :class="['right',{
-                b: teamsData.battle_detail.factions[1].faction === 'blue',
-                r: teamsData.battle_detail.factions[1].faction === 'red'
-            }]">
-                {{teamsData.battle_detail.factions[1].faction === 'red' ? 'R':'B'}}
-            </p>
+            <p class="right r">R</p>
         </div>
     </div>
 </template>
@@ -59,9 +35,21 @@
     import { formatSeconds } from '@/scripts/utils'
     export default {
         props: {
-            teamsData: {
-                type: Object,
-                default: {}
+            factionsData: {  // 阵营
+                type: Array,
+                default: () => []
+            },
+            scoresData: {   // 队伍
+                type: Array,
+                default: () => []
+            },
+            winnerId: {    // 赢家id
+                type: Number,
+                default: 0
+            },
+            durationData: {  // 对局时间
+                type: String,
+                default: ''
             }
         },
         computed: {

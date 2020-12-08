@@ -19,13 +19,13 @@
                 </div>
             </div>
             <div class="left flex flex_only_center">
-                <p :style="{'color': barColor.left}">
+                <p style="color: #2980D9;">
                     {{thousands(parseInt(item.num1 || 0))}}
                 </p>
                 <progress-bar
                     class="bar"
                     :progressData="playContrast"
-                    :progressColor="barColor.left"
+                    :progressColor="'#2980D9'"
                     :progressRate="parseInt(item.num1/(item.num1+item.num2)*100 || 0)"
                 ></progress-bar>
             </div>
@@ -34,10 +34,10 @@
                 <progress-bar
                     class="bar"
                     :progressData="playContrast"
-                    :progressColor="barColor.right"
+                    :progressColor="'#CC5728'"
                     :progressRate="parseInt(item.num2/(item.num1+item.num2)*100 || 0)"
                 ></progress-bar>
-                <p :style="{'color': barColor.right}">
+                <p style="color: #CC5728;">
                     {{thousands(parseInt(item.num2 || 0))}}
                 </p>
             </div>
@@ -67,10 +67,6 @@
 
     export default {
         props: {
-            barColor: {
-                type: Object,
-                default: null
-            },
             outputData: {
                 type: Array,
                 default: []

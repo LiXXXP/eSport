@@ -33,7 +33,8 @@
             <div
                 v-else
                 v-for="item in titleData.list"
-                :key="item.game_id"
+                :key="item.tournament_id"
+                @click="gotoEvents(item.tournament_id)"
                 class="twig flex flex_start flex_only_center"
             >
                 <img :src="item.image">
@@ -70,6 +71,14 @@
                 getGameTournament(params).then(res => {
                     if (res.code === 200) {
                         _this.eventsList = res.data
+                    }
+                })
+            },
+            gotoEvents(tournamentId) {
+                this.$router.push({
+                    path: '/events',
+                    query: {
+                        tournamentId: tournamentId
                     }
                 })
             }

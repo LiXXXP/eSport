@@ -2,8 +2,6 @@
     <div class="play-detail">
         <!-- 阵容分析 -->
         <detail-battle></detail-battle>
-        <!-- 对局详情 -->
-        <play-content></play-content>
         <!-- 比赛日志 -->
         <detail-logs></detail-logs>
         <!-- 经济差/经验差 -->
@@ -17,7 +15,6 @@
 
 <script>
     import detailBattle from '@/components/detail/content/detail/detailBattle'   // 阵容分析
-    import playContent from '@/components/index/content/detail/lol/playContent'  // 对局详情
     import detailLogs from '@/components/detail/content/detail/detailLogs'       // 比赛日志
     import detailFinance from '@/components/detail/content/detail/detailFinance' // 经济差
     import detailPlayer from '@/components/detail/content/detail/detailPlayer'   // 对局详情
@@ -30,7 +27,6 @@
         },
         components: {
             detailBattle,
-            playContent,
             detailLogs,
             detailFinance,
             detailPlayer,

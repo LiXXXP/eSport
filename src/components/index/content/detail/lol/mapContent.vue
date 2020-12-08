@@ -35,9 +35,8 @@
             </div>
         </div>
         <div class="bottom">
-            <logs-list></logs-list>
+            <logs-list :logsData="[]"></logs-list>
         </div>
-        <play-score></play-score>
     </div>
 </template>
 
@@ -47,10 +46,15 @@
     import roleList from '@/components/index/content/detail/lol/roleList' // 角色列表
     import mapBlock from '@/components/index/content/detail/mapBlock'     // 地图
     import logsList from '@/components/index/content/detail/logsList'     // 比赛日志
-    import playScore from '@/components/index/content/detail/playScore'   // 比赛比分
+
+    import { formatSeconds } from '@/scripts/utils'
+
     export default {
         data () {
             return {
+                websock: null, // WebSocket
+                framesData: null,
+                eventsData: [],
                 playPlace: {   // 对局数据显示方向，1为左，0为右
                     left: 1,
                     right: 0,
@@ -74,13 +78,54 @@
                 ]
             }
         },
+        created() {
+            // this.initWebSocket('frames')
+            // this.initWebSocket('events')
+        },
+        destroyed () {
+            // 销毁监听
+            this.websock.close()
+        },
+        methods: {
+            // 初始化weosocket
+            initWebSocket(url){
+                const wsuri = `ws://39.105.105.57:9998/pbpdata/${this.$store.state.matchId}/${url}`
+                this.websock = new WebSocket(wsuri)
+                this.websock.onmessage = this.websocketonmessage
+                this.websock.onerror = this.websocketonerror
+                this.websock.onclose = this.websocketclose
+            },
+            // 连接建立失败重连
+            websocketonerror(){
+                this.initWebSocket()
+            },
+            // 数据接收
+            websocketonmessage(e){
+                const redata = JSON.parse(e.data)
+                if(e.currentTarget.url.indexOf('frames') > 0) {
+                    this.framesData = redata
+                } else {
+                    this.eventsData.push(redata)
+                }
+            },
+            // 关闭
+            websocketclose(e){
+                console.log('断开连接',e)
+            },
+        },
+        computed: {
+            durationTime(sec) {
+                return function(sec) {
+                    return formatSeconds(sec)
+                }
+            }
+        },
         components: {
             typeSign,
             teamPlay,
             roleList,
             mapBlock,
-            logsList,
-            playScore
+            logsList
         }
     }
 </script>

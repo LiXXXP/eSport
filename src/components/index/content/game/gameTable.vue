@@ -71,17 +71,17 @@
                         </div>
                     </td>
                     <td :class="['game-rank', {
-                        r: inningData.game_id === 2 && inningData.battle_list[0].factions[0].faction === 'red',
-                        b: inningData.game_id === 2 && inningData.battle_list[0].factions[0].faction === 'blue'
+                        r: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list[0].factions[0].faction === 'red',
+                        b: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list[0].factions[0].faction === 'blue'
                     }]">
                         <p>
-                            <span v-if="inningData.game_id === 2">
+                            <span v-if="inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length !== 0">
                                 {{inningData.battle_list[0].factions[0].faction === 'red'?'R':'B'}}
                             </span>
                         </p>
                     </td>
                     <td v-for="data in tableBodyList.datas" :key="data.td">
-                        <span v-if="inningData.battle_list&&inningData.battle_list.length">
+                        <span v-if="inningData.battle_list&&inningData.battle_list.length !== 0">
                             {{data.red}}
                         </span>
                     </td>
@@ -99,17 +99,17 @@
                         <div>{{inningData.scores[1].score || 0}}</div>
                     </td>
                     <td :class="['game-rank', {
-                        r: inningData.game_id === 2 && inningData.battle_list[0].factions[1].faction === 'red',
-                        b: inningData.game_id === 2 && inningData.battle_list[0].factions[1].faction === 'blue'
+                        r: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list[0].factions[1].faction === 'red',
+                        b: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list[0].factions[1].faction === 'blue'
                     }]">
                         <p>
-                            <span v-if="inningData.game_id === 2">
+                            <span v-if="inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length !== 0">
                                 {{inningData.battle_list[0].factions[1].faction === 'blue'?'B':'R'}}
                             </span>
                         </p>
                     </td>
                     <td v-for="data in tableBodyList.datas" :key="data.td">
-                        <span v-if="inningData.battle_list&&inningData.battle_list.length">
+                        <span v-if="inningData.battle_list&&inningData.battle_list.length !== 0">
                             {{data.blue}}
                         </span>
                     </td>
@@ -302,14 +302,14 @@
         },
         methods: {
             getScores() {
-                if(this.inningData.game_id === 1) {
+                if(this.inningData.game_id === 1 && this.inningData.battle_list) {
                     for(let i in this.inningData.battle_list) {
                         this.tableTitleList[i].mapName = this.inningData.battle_list[i].map_name
                         this.tableBodyList.datas[i].red = this.inningData.battle_list[i].battle_scores[0].score
                         this.tableBodyList.datas[i].blue = this.inningData.battle_list[i].battle_scores[1].score
                     }
                 }
-                if(this.inningData.game_id === 2) {
+                if(this.inningData.game_id === 2 && this.inningData.battle_list) {
                     for(let item of this.tableBodyList.datas) {
                         let field = item.type
                         item.red = this.inningData.battle_list[0].factions[0][field]
