@@ -1,41 +1,75 @@
 <template>
     <div class="map-content">
-        <div class="top">
+        <div class="top" v-if="framesData != null">
             <div class="head">
-                <type-sign class="type-sign"></type-sign>
-                <div class="score flex flex_center">
-                    <p class="left">43</p>
-                    <p class="right">38</p>
+                <div class="flex flex_between flex_center">
+                    <img src="../../../../../assets/imgs/detail/win.png" class="blue"
+                        v-if="framesData.factions[0].faction === 'blue'?
+                              framesData.factions[0].team.team_id === framesData.match_winner :
+                              framesData.factions[1].team.team_id === framesData.match_winner">
+                    <team-play
+                        :isPlace="playPlace.left"
+                        :factionData="framesData.factions[0].faction === 'blue'?framesData.factions[0]:framesData.factions[1]"
+                    ></team-play>
+                    <type-sign
+                        class="type-sign l"
+                        v-if="framesData.factions[0].faction === 'blue' && framesData.factions[0].gold_diff>framesData.factions[1].gold_diff"
+                        :goldDiff="framesData.factions[0].gold_diff > framesData.factions[1].gold_diff ?
+                                  framesData.factions[0].gold_diff : framesData.factions[1].gold_diff"
+                    ></type-sign>
+                    <div class="score">
+                        <p class="left">
+                            {{framesData.factions[0].faction === 'blue'?framesData.factions[0].kills:framesData.factions[1].kills}}
+                        </p>
+                    </div>
+                    <div class="chessboard">
+                        <p>第 {{framesData.battle_order}} 局</p>
+                        <p>{{durationTime(framesData.duration)}}</p>
+                    </div>
+                    <div class="score">
+                        <p class="right">
+                            {{framesData.factions[1].faction === 'red'?framesData.factions[1].kills:framesData.factions[0].kills}}
+                        </p>
+                    </div>
+                    <type-sign
+                        class="type-sign r"
+                        v-if="framesData.factions[1].faction === 'red' && framesData.factions[1].gold_diff>framesData.factions[0].gold_diff"
+                        :goldDiff="framesData.factions[1].gold_diff > framesData.factions[0].gold_diff ?
+                                  framesData.factions[1].gold_diff : framesData.factions[0].gold_diff"
+                    ></type-sign>
+                    <team-play
+                        :isPlace="playPlace.right"
+                        :factionData="framesData.factions[1].faction === 'red'?framesData.factions[1]:framesData.factions[0]"
+                    ></team-play>
+                    <img src="../../../../../assets/imgs/detail/win.png" class="red"
+                        v-if="framesData.factions[1].faction === 'red'?
+                              framesData.factions[1].team.team_id === framesData.match_winner :
+                              framesData.factions[0].team.team_id === framesData.match_winner">
                 </div>
-            </div>
-            <div class="flex flex_between flex_center">
-                  <team-play :isPlace="playPlace.left"></team-play>
-                  <div class="chessboard">
-                      <p>第一局</p>
-                      <p>24:36</p>
-                  </div>
-                  <team-play :isPlace="playPlace.right"></team-play>
             </div>
             <div class="flex flex_between flex_center">
                 <div>
                     <role-list
                         :isPlace="playPlace.left"
-                        v-for="item in leftRole"
-                        :key="item.id"
+                        :factionData="framesData.factions[0].faction === 'blue'?framesData.factions[0]:framesData.factions[1]"
                     ></role-list>
                 </div>
-                <map-block></map-block>
+                <map-block
+                    :mapData="framesData.map"
+                ></map-block>
                 <div>
                     <role-list
                         :isPlace="playPlace.right"
-                        v-for="item in leftRole"
-                        :key="item.id"
+                        :factionData="framesData.factions[1].faction === 'red'?framesData.factions[1]:framesData.factions[0]"
                     ></role-list>
                 </div>
             </div>
         </div>
-        <div class="bottom">
-            <logs-list :logsData="[]"></logs-list>
+        <div class="bottom" v-if="eventsData.length !== 0">
+            <logs-list
+                :logsData="eventsData"
+                :logsType="'lol'"
+            ></logs-list>
         </div>
     </div>
 </template>
@@ -58,29 +92,12 @@
                 playPlace: {   // 对局数据显示方向，1为左，0为右
                     left: 1,
                     right: 0,
-                },
-                leftRole: [
-                    {
-                        id: 0
-                    },
-                    {
-                        id: 1
-                    },
-                    {
-                        id: 2
-                    },
-                    {
-                        id: 3
-                    },
-                    {
-                        id: 4
-                    }
-                ]
+                }
             }
         },
         created() {
-            // this.initWebSocket('frames')
-            // this.initWebSocket('events')
+            this.initWebSocket('frames')
+            this.initWebSocket('events')
         },
         destroyed () {
             // 销毁监听
@@ -89,7 +106,7 @@
         methods: {
             // 初始化weosocket
             initWebSocket(url){
-                const wsuri = `ws://39.105.105.57:9998/pbpdata/${this.$store.state.matchId}/${url}`
+                const wsuri = `ws://39.105.105.57:9997/pbpdata/${this.$store.state.matchId}/${url}?token=HCI0p9JsDmUZEc5ueFitw5emDfKQdanvsxf2C9RjzRM5K1gwPdQ`
                 this.websock = new WebSocket(wsuri)
                 this.websock.onmessage = this.websocketonmessage
                 this.websock.onerror = this.websocketonerror
@@ -97,7 +114,8 @@
             },
             // 连接建立失败重连
             websocketonerror(){
-                this.initWebSocket()
+                this.initWebSocket('frames')
+                this.initWebSocket('events')
             },
             // 数据接收
             websocketonmessage(e){
@@ -140,21 +158,39 @@
         background-size: 100%;
         .top {
             height: 516px;
-            padding: 20px 70px 0;
+            padding: 30px 70px 0;
             box-sizing: border-box;
             .head {
                 position: relative;
+                img {
+                    width: 42px;
+                    height: 23px;
+                    position: absolute;
+                    top: -15px;
+                    &.blue {
+                        left: 0;
+                    }
+                    &.red {
+                        right: 0;
+                    }
+                }
                 .type-sign {
                     position: absolute;
-                    top: 3px;
-                    left: 50%;
-                    margin-left: -150px;
+                    top: 50px;
+                    &.l {
+                        left: 50%;
+                        margin-left: -170px;
+                    }
+                    &.r {
+                        right: 50%;
+                        margin-right: -170px;
+                    }
                 }
                 .score {
                     font-size: 20px;
+                    margin-top: 20px;
                     font-weight: bold;
                     p {
-                        margin: 0 20px;
                         &.left {
                             color: #228EFC;
                         }
@@ -163,12 +199,12 @@
                         }
                     }
                 }
-            }
-            .chessboard {
-                color: #fff;
-                font-size: 14px;
-                text-align: center;
-                margin-top: 20px;
+                .chessboard {
+                    color: #fff;
+                    font-size: 14px;
+                    text-align: center;
+                    margin-top: 20px;
+                }
             }
         }
         .bottom {

@@ -1,15 +1,25 @@
 <template>
     <div class="map-block">
-        <canvas></canvas>
+        <canvas id="myCanvas"></canvas>
     </div>
 </template>
 
 <script>
     export default {
+        props: {
+            mapData: {
+                type: Object,
+                default: {}
+            }
+        },
         data () {
             return {
 
             }
+        },
+        mounted(){
+            //绘制canvas图像
+            // this.getCanvas()
         }
     }
 </script>
@@ -18,7 +28,8 @@
     .map-block {
         width: 300px;
         height: 300px;
-        background: url('../../../../assets/imgs/detail/map.png') no-repeat 0 0;
+        background-repeat: no-repeat;
+        background-position: 0 0;
         background-size: 100%;
     }
 </style>

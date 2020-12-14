@@ -50,6 +50,7 @@
                 <div class="bottom" v-if="eventsData.length !== 0">
                     <logs-list
                         :logsData="eventsData"
+                        :logsType="'csgo'"
                     ></logs-list>
                 </div>
             </div>
@@ -102,7 +103,8 @@
             },
             // 连接建立失败重连
             websocketonerror(){
-                this.initWebSocket()
+                this.initWebSocket('frames')
+                this.initWebSocket('events')
             },
             // 数据接收
             websocketonmessage(e){

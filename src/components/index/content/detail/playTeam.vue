@@ -9,7 +9,7 @@
                 }}
             </p>
             <img src="../../../../assets/imgs/detail/win.png"
-                v-if="(factionsData[0].faction === 'blue' && factionsData[0].team_id === scoresData.team_id) ?
+                v-if="(factionsData[0].faction === 'blue' && factionsData[0].team_id === scoresData[0].team_id) ?
                     factionsData[0].team_id === winnerId : factionsData[1].team_id === winnerId">
         </div>
         <div class="time flex flex_only_center">
@@ -48,8 +48,8 @@
                 default: 0
             },
             durationData: {  // 对局时间
-                type: String,
-                default: ''
+                type: Number,
+                default: 0
             }
         },
         computed: {

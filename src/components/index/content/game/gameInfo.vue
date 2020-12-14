@@ -65,15 +65,14 @@
                 currentIndex: 0,   // 当前index
             }
         },
-        created() {
-
-        },
         methods: {
             packUp() {
                 this.$emit('packDetailId',-1)
             },
             getIndex(val) {
-                this.currentIndex = val
+                if(Object.keys(this.$store.state.matchsData).length !== 0) {
+                    this.currentIndex = val
+                }
             }
         },
         components: {

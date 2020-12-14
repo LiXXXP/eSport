@@ -1,31 +1,33 @@
 <template>
     <div class="logs-list">
-        <div v-if="type === 'lol'">
-            <div class="title">比赛日志：</div>
-            <div class="lol-list">
-                <div class="item flex flex_start flex_only_center">
-                    <p class="time">12:24</p>
-                    <div class="red flex flex_start flex_only_center">
-                        <img src="../../../../assets/imgs/detail/2.png">
-                        <p>Liquid.Marecle(猛犸人战士)</p>
+        <div v-if="logsType === 'lol'">
+            <div ref="chat_main">
+                <div class="title">比赛日志：</div>
+                <div class="lol-list">
+                    <div class="item flex flex_start flex_only_center">
+                        <p class="time">12:24</p>
+                        <div class="red flex flex_start flex_only_center">
+                            <img src="../../../../assets/imgs/detail/2.png">
+                            <p>Liquid.Marecle(猛犸人战士)</p>
+                        </div>
+                        <p>摧毁了</p>
+                        <div class="blue flex flex_start flex_only_center">
+                            <img src="../../../../assets/imgs/detail/2.png">
+                            <p>蓝色防御塔，</p>
+                        </div>
+                        <div class="help flex flex_start flex_only_center">
+                            <p>助攻</p>
+                            <img src="../../../../assets/imgs/detail/2.png">
+                            <img src="../../../../assets/imgs/detail/2.png">
+                            <img src="../../../../assets/imgs/detail/2.png">
+                            <img src="../../../../assets/imgs/detail/2.png">
+                        </div>
+                        <p class="type">(摧毁第一个防御塔)</p>
                     </div>
-                    <p>摧毁了</p>
-                    <div class="blue flex flex_start flex_only_center">
-                        <img src="../../../../assets/imgs/detail/2.png">
-                        <p>蓝色防御塔，</p>
-                    </div>
-                    <div class="help flex flex_start flex_only_center">
-                        <p>助攻</p>
-                        <img src="../../../../assets/imgs/detail/2.png">
-                        <img src="../../../../assets/imgs/detail/2.png">
-                        <img src="../../../../assets/imgs/detail/2.png">
-                        <img src="../../../../assets/imgs/detail/2.png">
-                    </div>
-                    <p class="type">(摧毁第一个防御塔)</p>
                 </div>
             </div>
         </div>
-        <div v-if="type === 'csgo'">
+        <div v-if="logsType === 'csgo'">
             <div class="csgo-list" ref="chat_main">
                 <div v-for="item in logsData" :key="item.round_time">
                     <div class="item flex flex_start flex_only_center"
@@ -85,11 +87,15 @@
             logsData: {
                 type: Array,
                 default: []
+            },
+            logsType: {
+                type: String,
+                default: ''
             }
         },
         data () {
             return {
-                type: 'csgo',
+
             }
         },
         created() {

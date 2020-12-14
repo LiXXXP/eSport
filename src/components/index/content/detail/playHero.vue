@@ -4,7 +4,7 @@
             flex_start: seatData,
             flex_end: !seatData
     }]">
-        <div v-for="item in heroList" :key="item.team_id">
+        <div v-for="item in heroList" :key="">
             <div v-if="item.team_id === teamId && item.type === 'Ban'"
                 :class="['hero',
                 {
@@ -15,7 +15,7 @@
                 <span>{{item.order || 0}}</span>
             </div>
         </div>
-        <div v-for="item in heroList" :key="item.team_id">
+        <div v-for="item in heroList" :key="">
             <div v-if="item.team_id === teamId && item.type === 'Pick'"
                 :class="['hero',
                 {

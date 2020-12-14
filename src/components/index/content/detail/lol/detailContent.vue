@@ -7,26 +7,26 @@
         <map-content
             v-if="currentData === 1"
         ></map-content>
-        <tab-nav
+        <!-- <tab-nav
             v-if="currentData === 1"
             :selectStyle="selectStyle"
             :navData="navList"
             @clickIndex="navDetail"
-        ></tab-nav>
+        ></tab-nav> -->
         <!-- 队伍对局详情 -->
-        <play-content
-            v-if="currentData === 1"
+        <!-- <play-content
+            v-if="currentData === 1 && currentMatchId > 0"
             :matchData="matchDetail"
             :targetMatchId="currentMatchId"
-        ></play-content>
+        ></play-content> -->
         <!-- 对局详情 -->
-        <play-detail
+        <!-- <play-detail
             v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId > 0"
-        ></play-detail>
+        ></play-detail> -->
         <!-- 对局分析 -->
-        <play-data
+        <!-- <play-data
             v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId === 0"
-        ></play-data>
+        ></play-data> -->
     </div>
 </template>
 
@@ -90,7 +90,9 @@
             },
             currentData() {
                 this.getNavTitle()
-                this.currentMatchId = this.navList[0].battleId
+                if(this.navList.length > 0) {
+                    this.currentMatchId = this.navList[0].battleId
+                }
             }
         },
         components: {

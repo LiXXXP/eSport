@@ -1,16 +1,30 @@
 <template>
     <div class="type-sign flex flex_around flex_center">
         <i class="icon-top"></i>
-        <span>2.4k</span>
+        <span>{{thousands(goldDiff)}}</span>
         <i class="icon-jb"></i>
     </div>
 </template>
 
 <script>
+    import { formatNumber } from '@/scripts/utils'
     export default {
+        props: {
+            goldDiff: {
+                type: Number,
+                default: 0
+            }
+        },
         data () {
             return {
 
+            }
+        },
+        computed: {
+            thousands(num) {
+                return function (num) {
+                    return formatNumber(num)
+                }
             }
         }
     }
