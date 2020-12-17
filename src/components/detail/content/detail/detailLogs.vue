@@ -4,23 +4,25 @@
             <i class="play-header-bar"></i>
             <span class="play-header-text">比赛日志</span>
         </div>
-        <div class="logs-block">
-            <div class="tab flex flex_between">
-                <div v-for="(item,index) in timeList"
-                    :key=""
-                    :class="{active: currentIndex === index}"
-                    @click="currentIndex = index"
-                >{{item.time}}</div>
-            </div>
-            <div class="cont">
-                <battle-log
-                    :teamsData="battleDetail.teams"
-                    :factionsData="battleDetail.battle_detail.factions"
-                    :eventsLine="battleDetail.battle_detail.events_timeline"
-                ></battle-log>
-                <p class="time flex flex_end">
-                    {{durationTime(battleDetail.battle_detail.duration)}}
-                </p>
+        <div class="logs-block" v-if="battleData.length > 0">
+            <div v-for="item in battleData" :key="item.battle_id">
+                <div v-if="targetMatchId === item.battle_id">
+                    <div class="tab flex flex_between">
+                        <div v-for="(item,index) in timeList"
+                            :key=""
+                        >{{item.time}}</div>
+                    </div>
+                    <div class="cont">
+                        <battle-log
+                            :teamsData="scoresData"
+                            :factionsData="item.factions"
+                            :eventsLine="item.events_timeline"
+                        ></battle-log>
+                        <p class="time flex flex_end">
+                            {{durationTime(item.duration)}}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -32,6 +34,20 @@
     import { formatSeconds } from '@/scripts/utils'
 
     export default {
+        props: {
+            battleData: {
+                type: Array,
+                default: () => []
+            },
+            targetMatchId: {
+                type: Number,
+                default: 0
+            },
+            scoresData: {
+                type: Array,
+                default: () => []
+            }
+        },
         data() {
             return {
                 timeList: [
@@ -52,18 +68,10 @@
             }
         },
         computed: {
-            battleDetail() {
-                return this.$store.state.battlesData
-            },
             durationTime(sec) {
                 return function(sec) {
                     return formatSeconds(sec)
                 }
-            }
-        },
-        watch: {
-            battleDetail() {
-                return this.$store.state.battlesData
             }
         },
         components: {

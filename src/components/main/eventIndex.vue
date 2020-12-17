@@ -147,6 +147,12 @@
                 }
             }
         },
+        watch: {
+            tournamentId(val,old) {
+                this.tournamentDetail()
+                this.tournamentList()
+            }
+        },
         components: {
             teamPageTable,
             pagingPage

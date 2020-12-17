@@ -9,10 +9,11 @@
             <div v-if="item.battle_id === targetMatchId">
                 <table v-for="key in item.teams" :key="key.team_id">
                     <thead>
-                        <th>
+                        <th class="team">
                             <div class="flex flex_only_center">
                                 <img :src="key.team_snapshot.image">
-                                <p :title="key.team_snapshot.name">
+                                <p :title="key.team_snapshot.name"
+                                    class="beyond-ellipsis">
                                     {{key.team_snapshot.name}}
                                 </p>
                             </div>
@@ -94,6 +95,11 @@
 <style lang="less" scoped>
     .data-hero {
         .hero {
+            .team {
+                p {
+                    width: 60px;
+                }
+            }
             table {
                 width: 960px;
                 cursor: pointer;

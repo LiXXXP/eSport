@@ -31,7 +31,7 @@
             <!-- 分页 -->
             <paging-page
                 :indexData="index"
-                v-if="item&&item.page.count>10"
+                v-if="item&&item.page.count>5"
                 :countData="item.page.count"
                 @currentPage="currentPage"
             ></paging-page>
@@ -95,7 +95,7 @@
             this.getPastList()
         },
         mounted() {
-            this.getCountdown()
+            // this.getCountdown()
         },
         destroyed() {
             clearInterval(this.timer)
@@ -122,7 +122,7 @@
                 let _this = this
                 let params = {
                     page: _this.gameList[0].page.current,
-                    limit: 10,
+                    limit: 5,
                     tournament_ids: _this.tournamentIds,
                     search_time: _this.searchTime,
                     my_collect: _this.myCollect
@@ -139,7 +139,7 @@
                 let _this = this
                 let params = {
                     page: _this.gameList[1].page.current,
-                    limit: 10,
+                    limit: 5,
                     tournament_ids: _this.tournamentIds,
                     search_time: _this.searchTime,
                     my_collect: _this.myCollect
@@ -158,7 +158,7 @@
                     let _this = this
                     let params = {
                         page: _this.gameList[0].page.current,
-                        limit: 10,
+                        limit: 5,
                         tournament_ids: _this.tournamentIds,
                         search_time: _this.searchTime,
                         my_collect: _this.myCollect
@@ -173,7 +173,7 @@
                 else {
                     let params = {
                         page: _this.gameList[2].page.current,
-                        limit: 10,
+                        limit: 5,
                         tournament_ids: _this.tournamentIds,
                         search_time: _this.searchTime,
                         my_collect: _this.myCollect

@@ -1,9 +1,18 @@
 <template>
     <div class="battle-rank">
-        <drop-down
-            class="drop"
-            :dropList="dropDownList"
-        ></drop-down>
+        <el-dropdown trigger="click" @command="changeCompany">
+            <p class="el-dropdown-link flex flex_between flex_only_center">
+                <span>{{selectType}}</span>
+                <i class="el-icon-arrow-down el-icon--right"></i>
+            </p>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                    v-for="item in dropDownList"
+                    :key="item.value"
+                    :command="item.title + '-' + item.value"
+                >{{item.title}}</el-dropdown-item>
+            </el-dropdown-menu>
+        </el-dropdown>
         <div class="list flex flex_between"
             v-for="item in playerList"
             :key="item.nick_name">
@@ -19,12 +28,12 @@
                     red: item.faction === 'red'
                 }]">
                     <span>{{item.nick_name}}</span>
-                    <span>{{item.gold}}</span>
+                    <span>{{parseInt(item.type) || 0}}</span>
                 </div>
                 <progressBar
                     :progressData="playContrast"
                     :progressColor="item.faction==='blue'?'#2980D9':'#CC5728'"
-                    :progressRate="Math.floor(item.gold/200)"
+                    :progressRate="parseInt(item.type/200)"
                 ></progressBar>
             </div>
         </div>
@@ -44,6 +53,7 @@
         },
         data() {
             return {
+                selectType: '当前经济',
                 playContrast: {        // 进度条配置参数
                     barType: 'line',   // 所需进度条类型：line为条状，circle为圆状
                     inside: false,     // 进度条显示文字是否在进度条内 true / false
@@ -53,37 +63,45 @@
                 playerList: [],
                 dropDownList: [
                     {
-                        title: '当前经济'
+                        title: '当前经济',
+                        value: 'gold_earned'
                     },
                     {
-                        title: '补刀'
+                        title: '补刀',
+                        value: 'cs'
                     },
                     {
-                        title: '分均补刀'
+                        title: '分均补刀',
+                        value: 'cspm'
                     },
                     {
-                        title: '分均金钱'
+                        title: '分均金钱',
+                        value: 'gpm'
                     },
                     {
-                        title: '分均经验'
+                        title: '分均经验',
+                        value: 'xpm'
                     },
                     {
-                        title: '分均伤害'
+                        title: '分均伤害',
+                        value: 'dpm_to_champions'
                     },
                     {
-                        title: '分均承伤'
+                        title: '分均承伤',
+                        value: 'dtpm'
                     },
                     {
-                        title: '插眼/排眼'
+                        title: '插眼/排眼',
+                        value: 'support_detail'
                     }
                 ]
             }
         },
         created() {
-            this.getPlayers()
+            this.getPlayers('gold_earned')
         },
         methods: {
-            getPlayers() {
+            getPlayers(type) {
                 let arr = []
                 for(let item of this.factionData) {
                     for(let key of item.players) {
@@ -93,19 +111,27 @@
                             'image': key.champion.image.image,
                             'name': key.champion.name,
                             'title': key.champion.title,
-                            'level': key.level,
-                            'gold': key.gold_earned
+                            'level': key.level
+                        }
+                        if(type === 'support_detail') {
+                            o.type = key[type].wards_placed
+                        } else {
+                            o.type = key[type]
                         }
                         arr.push(o)
                     }
                 }
-                arr.sort((a, b) => {return a.gold - b.gold})
+                arr.sort((a, b) => {return a.type - b.type})
                 this.playerList = arr
+            },
+            changeCompany(data) {
+                this.selectType = data.split("-")[0]
+                this.getPlayers(data.split("-")[1])
             }
         },
         watch: {
             factionData(val,old) {
-                this.getPlayers()
+                this.getPlayers('gold_earned')
             }
         },
         components: {
@@ -161,6 +187,19 @@
                 span {
                     margin-bottom: 4px;
                 }
+            }
+        }
+        .el-dropdown-link {
+            width: 206px;
+            height: 24px;
+            padding: 0 5px;
+            line-height: 24px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #CFCFCF;
+            span {
+                color: #FF7600;
             }
         }
     }

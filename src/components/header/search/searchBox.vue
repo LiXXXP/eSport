@@ -1,5 +1,8 @@
 <template>
-    <div class="search-box flex flex_start" v-if="searchData.length !== 0">
+    <div class="search-box flex flex_start"
+        v-if="searchData.length !== 0"
+        @click="goDetail(searchData.game_id,searchData.team_id,searchData.team_name,searchData.tournament_id)"
+    >
         <img :src="searchData.team_image" class="events-img" v-if="searchData.team_image">
         <img :src="searchData.player_image" class="events-img" v-if="searchData.player_image">
         <img :src="searchData.tournament_image" class="events-img" v-if="searchData.tournament_image">
@@ -49,6 +52,27 @@
         data() {
             return {
 
+            }
+        },
+        methods: {
+            goDetail(gameId,teamId,teamName,tournamentId) {
+                if(tournamentId) {
+                    this.$router.push({
+                        path: '/events',
+                        query: {
+                            tournamentId: tournamentId
+                        }
+                    })
+                } else {
+                    this.$router.push({
+                        path: '/teams',
+                        query: {
+                            teamId: teamId,
+                            gameId: gameId,
+                            teamName: teamName
+                        }
+                    })
+                }
             }
         }
     }

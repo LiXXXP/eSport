@@ -1,76 +1,102 @@
 <template>
-    <div class="battle-table">
-        <table>
-            <thead>
-                <th v-for="item in heroList.titleList"
-                    :key="item.title">
-                    {{item.title}}
-                </th>
-            </thead>
-            <tbody>
-                <tr v-for="item in heroList.dataList"
-                    :key="item.team">
-                    <td class="flex flex_start flex_only_center">
-                        <div class="head">
-                            <img :src="item.url">
-                            <span>25</span>
-                        </div>
-                        <p class="beyond-ellipsis">{{item.team}}</p>
-                        <p class="number">四</p>
-                        <p class="icon">
-                            <i class="iconfont icon-yidongduan-LOLjian"></i>
-                            <span>6</span>
-                        </p>
-                    </td>
-                    <td>
-                        <p>{{item.number1}}</p>
-                        <p style="color:#FF7600">{{item.number2}}</p>
-                    </td>
-                    <td>{{item.choose}}</td>
-                    <td>{{item.control}}</td>
-                    <td class="t-left">
-                        {{item.rate}}
-                        <progress-bar
-                            class="bar"
-                            :progressData="playContrast"
-                            :progressColor="'#CB2020'"
-                            :progressRate="parseInt(item.rate)"
-                        ></progress-bar>
-                    </td>
-                    <td class="t-left">
-                        {{item.prop}}
-                        <progress-bar
-                            class="bar"
-                            :progressData="playContrast"
-                            :progressColor="'#33B3B8'"
-                            :progressRate="parseInt(item.prop)"
-                        ></progress-bar>
-                    </td>
-                    <td>{{item.join}}</td>
-                    <td class="arts flex flex_end flex_only_center">
-                        <img src="../../../../assets/imgs/detail/3.png">
-                        <img src="../../../../assets/imgs/detail/3.png">
-                        <img src="../../../../assets/imgs/detail/3.png">
-                        <img src="../../../../assets/imgs/detail/3.png">
-                        <img src="../../../../assets/imgs/detail/3.png">
-                        <img src="../../../../assets/imgs/detail/3.png">
-                        <img src="../../../../assets/imgs/detail/3.png">
-                        <img src="../../../../assets/imgs/detail/3.png">
-                        <img src="../../../../assets/imgs/detail/3.png">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div>
+        <div class="battle-table" v-for="key in factionsData" :key="key.team_id">
+            <table>
+                <thead>
+                    <th :title="key.team_snapshot.full_name"
+                        :class="{
+                          blue: key.faction === 'blue',
+                          red: key.faction === 'red'
+                    }">
+                        {{key.team_snapshot.short_name}}
+                    </th>
+                    <th v-for="item in heroList.titleList"
+                        :key="item.title">
+                        {{item.title}}
+                    </th>
+                </thead>
+                <tbody>
+                    <tr v-for="item in key.players"
+                        :key="item.player.player_id">
+                        <td class="flex flex_start flex_only_center">
+                            <div class="head">
+                                <img :src="item.champion.image.image">
+                                <span>{{item.level}}</span>
+                            </div>
+                            <p class="beyond-ellipsis">
+                                {{item.player.nick_name}}
+                            </p>
+                            <p class="number"
+                                v-if="item.kill_combos.largest_multi_kill>0">
+                                {{toChinese(item.kill_combos.largest_multi_kill)}}
+                            </p>
+                            <p class="icon"
+                                v-if="item.kill_combos.largest_killing_spree>0">
+                                <i class="iconfont icon-yidongduan-LOLjian"></i>
+                                <span>{{item.kill_combos.largest_killing_spree}}</span>
+                            </p>
+                        </td>
+                        <td>
+                            <p>{{item.kills}}/{{item.deaths}}/{{item.assists}}</p>
+                            <p style="color:#FF7600">{{item.kda}}</p>
+                        </td>
+                        <td>{{item.cs}}</td>
+                        <td>{{item.gold_earned}}</td>
+                        <td class="t-left">
+                            {{ (parseInt(item.damage_percent_to_champions) || 0) * 100 }}%
+                            <progress-bar
+                                class="bar"
+                                :progressData="playContrast"
+                                :progressColor="'#CB2020'"
+                                :progressRate="(parseInt(item.damage_percent_to_champions) || 0) * 100"
+                            ></progress-bar>
+                        </td>
+                        <td class="t-left">
+                            {{(parseInt(item.damage_taken_percent) || 0) * 100}}%
+                            <progress-bar
+                                class="bar"
+                                :progressData="playContrast"
+                                :progressColor="'#33B3B8'"
+                                :progressRate="(parseInt(item.damage_taken_percent) || 0) * 100"
+                            ></progress-bar>
+                        </td>
+                        <td>{{parseInt(item.participation*100)}}%</td>
+                        <td class="arts flex flex_end flex_only_center">
+                            <div class="img" v-for="spell in item.summoner_spells" :key="spell.summoner_spell_id">
+                                <img :src="spell.image">
+                            </div>
+                            <div class="slot flex flex_start">
+                                <div class="img" v-for="slot in item.items" :key="">
+                                    <img :src="slot.image" v-if="!slot.is_trinket">
+                                </div>
+                            </div>
+                            <div class="img" style="margin-left:9px;">
+                                <div v-for="slot in item.items" :key="">
+                                    <img :src="slot.image" v-if="slot.is_trinket">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
 <script>
     import progressBar from '@/components/common/progressBar'
+
+    import {numberToChinese} from '@/scripts/utils'
+
     export default {
         props: {
-            battleData: {
-                type: Object,
-                default: {}
+            factionsData: {
+                type: Array,
+                default: () => []
+            },
+            scoresData: {
+                type: Array,
+                default: () => []
             }
         },
         data() {
@@ -83,9 +109,6 @@
                 },
                 heroList: {
                     titleList: [
-                        {
-                            title: 'Team Liquid'
-                        },
                         {
                             title: 'K/D/A'
                         },
@@ -107,36 +130,25 @@
                         {
                             title: ''
                         }
-                    ],
-                    dataList: [
-                        {
-                            url: require('../../../../assets/imgs/detail/2.png'),
-                            team: 'RNG.uzi',
-                            number1: '8/3/29',
-                            number2: '7.45',
-                            choose: '328',
-                            control: '32862',
-                            rate: '34.6%',
-                            prop: '78%',
-                            join: '34.6%'
-                        },
-                        {
-                            url: require('../../../../assets/imgs/detail/2.png'),
-                            team: 'RNG.uzii',
-                            number1: '8/3/29',
-                            number2: '7.45',
-                            choose: '328',
-                            control: '32862',
-                            rate: '34.6%',
-                            prop: '78%',
-                            join: '34.6%'
-                        }
                     ]
                 }
             }
         },
         created() {
-            console.log(this.battleData)
+            this.factionsData.forEach(e => {
+                this.scoresData.forEach(i => {
+                    if(e.team_id === i.team_id) {
+                        e.team_snapshot = i.team_snapshot
+                    }
+                })
+            })
+        },
+        computed: {
+            toChinese(num) {
+                return function (num) {
+                    return numberToChinese(num)
+                }
+            },
         },
         components: {
             progressBar
@@ -148,25 +160,30 @@
     .battle-table {
         width: 960px;
         padding: 10px;
+        margin-bottom: 5px;
         box-sizing: border-box;
         background-color: #fff;
-
         .t-left {
             .bar {
                 width: 80px;
             }
         }
         .arts {
-            img {
-                width: 28px;
-                height: 28px;
+            .img {
                 margin-right: 3px;
-                &:last-child {
-                    margin-right: 0;
-                    margin-left: 9px;
+                img {
+                    width: 28px;
+                    height: 28px;
+                    cursor: pointer;
                 }
-                &:nth-child(2) {
-                    margin-right: 9px;
+            }
+            .slot {
+                width: 183px;
+                margin-left: 9px;
+                .img {
+                    &:last-child {
+                        margin-right: 0;
+                    }
                 }
             }
         }
@@ -218,6 +235,14 @@
                 bottom: -1px;
                 left: 55%;
             }
+        }
+        .blue {
+            width: 100px;
+            color: #2980D9;
+        }
+        .red {
+            width: 100px;
+            color: #D94629;
         }
         table {
             width: 940px;

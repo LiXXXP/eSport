@@ -7,26 +7,34 @@
         <map-content
             v-if="currentData === 1"
         ></map-content>
-        <!-- <tab-nav
+        <tab-nav
             v-if="currentData === 1"
             :selectStyle="selectStyle"
             :navData="navList"
             @clickIndex="navDetail"
-        ></tab-nav> -->
+        ></tab-nav>
+        <!-- 阵容分析 -->
+        <detail-battle
+            v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId > 0"
+            :battleData="matchDetail.battle_list"
+            :scoresData="matchDetail.scores"
+            :targetMatchId="currentMatchId"
+        ></detail-battle>
         <!-- 队伍对局详情 -->
-        <!-- <play-content
+        <play-content
             v-if="currentData === 1 && currentMatchId > 0"
             :matchData="matchDetail"
             :targetMatchId="currentMatchId"
-        ></play-content> -->
+        ></play-content>
         <!-- 对局详情 -->
-        <!-- <play-detail
+        <play-detail
             v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId > 0"
-        ></play-detail> -->
+            :targetMatchId="currentMatchId"
+        ></play-detail>
         <!-- 对局分析 -->
-        <!-- <play-data
+        <play-data
             v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId === 0"
-        ></play-data> -->
+        ></play-data>
     </div>
 </template>
 
@@ -34,7 +42,8 @@
     import videoContent from '@/components/index/content/detail/videoContent'     // 视频模块
     import mapContent from '@/components/index/content/detail/lol/mapContent'     // 地图模块
     import tabNav from '@/components/common/tabNav'                               // tab切换
-    import playContent from '@/components/index/content/detail/lol/playContent'   // tab切换
+    import detailBattle from '@/components/detail/content/detail/detailBattle'    // 阵容分析
+    import playContent from '@/components/index/content/detail/lol/playContent'   // 队伍对局详情
     import playData from '@/components/detail/content/playData'                   // 数据分析
     import playDetail from '@/components/detail/content/playDetail'               // 数据详情
 
@@ -99,6 +108,7 @@
             mapContent,
             videoContent,
             tabNav,
+            detailBattle,
             playContent,
             playData,
             playDetail

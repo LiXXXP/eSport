@@ -62,7 +62,7 @@
                         <div>{{inningData.scores[0].score || 0}}</div>
                     </td>
                     <td rowspan="2" colspan="1">
-                        <div class="game-etc" v-if="inningData.battle_list && inningData.battle_list.length !== 0">
+                        <div class="game-etc" v-if="inningData.status === 'ongoing'">
                             <p>第{{inningData.battle_list.length || 0}}局</p>
                             <p>{{durationTime(inningData.battle_list[inningData.battle_list.length-1].duration || 0)}}</p>
                         </div>

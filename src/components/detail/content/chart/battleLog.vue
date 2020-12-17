@@ -62,6 +62,9 @@
 
             }
         },
+        created() {
+            console.log(this.eventsLine)
+        },
         computed: {
             logs() {
                 this.teamsData.forEach(e => {

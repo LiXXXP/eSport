@@ -95,7 +95,7 @@
             },
             // 初始化weosocket
             initWebSocket(url){
-                const wsuri = `ws://39.105.105.57:9998/pbpdata/${this.$store.state.matchId}/${url}`
+                const wsuri = `ws://39.105.105.57:9998/pbpdata/${this.$store.state.matchId}/${url}?token=HCI0p9JsDmUZEc5ueFitw5emDfKQdanvsxf2C9RjzRM5K1gwPdQ`
                 this.websock = new WebSocket(wsuri)
                 this.websock.onmessage = this.websocketonmessage
                 this.websock.onerror = this.websocketonerror

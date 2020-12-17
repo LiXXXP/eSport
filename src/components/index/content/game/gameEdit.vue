@@ -73,6 +73,8 @@
                         if (res.code === 200) {
                             _this.isCollectStatus = false
                             _this.$message.success(res.message)
+                        } else {
+                            _this.$message.error(res.message)
                         }
                     })
                 } else {
@@ -81,6 +83,8 @@
                         if (res.code === 200) {
                             _this.isCollectStatus = true
                             _this.$message.success(res.message)
+                        } else {
+                            _this.$message.error(res.message)
                         }
                     })
                 }

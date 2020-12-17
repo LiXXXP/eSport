@@ -26,12 +26,11 @@
                     <el-option
                         v-for="item in searchList"
                         :key="item.player_nickname"
-                        :value="item.player_nickname">
-                        <!-- slot -->
+                        :value="item.player_id">
                         <search-box :searchData="item"></search-box>
                     </el-option>
                     <!-- 分页 -->
-                    <div class="page flex flex_end">
+                    <div class="page flex flex_end" v-if="count>4">
                         <p @click="prePage">上一页</p>
                         <p @click="nextPage">下一页</p>
                     </div>
@@ -91,7 +90,7 @@
                     let params = {
                         search_info: query,
                         page: this.page,
-                        limit: 10
+                        limit: 4
                     }
                     this.query = query
                     if(this.optionVal === 0) {
@@ -162,7 +161,7 @@
                 }
             },
             nextPage() {
-                if(this.page < (this.count / 10)) {
+                if(this.page < (this.count / 4)) {
                     this.page += 1
                     this.searchMethod(this.query)
                 }
@@ -217,7 +216,6 @@
             height: 42px;
             background-color: #dedede;
         }
-
     }
     .el-select-dropdown__item {
         height: auto;

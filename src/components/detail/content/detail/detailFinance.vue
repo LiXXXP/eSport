@@ -11,13 +11,19 @@
                 <span class="play-header-text">数据排行</span>
             </div>
         </div>
-        <div class="content flex flex_between">
-            <ve-line
-                :timeLine="battleDetail.battle_detail.events_timeline"
-            ></ve-line>
-            <battle-rank
-                :factionData="battleDetail.battle_detail.factions"
-            ></battle-rank>
+        <div v-if="battleData.length > 0">
+            <div v-for="item in battleData" :key="item.battle_id">
+                <div v-if="targetMatchId === item.battle_id"
+                    class="content flex flex_between"
+                >
+                    <ve-line
+                        :timeLine="item.events_timeline"
+                    ></ve-line>
+                    <battle-rank
+                        :factionData="item.factions"
+                    ></battle-rank>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -28,19 +34,19 @@
     import battleRank from '@/components/detail/content/chart/battleRank'    // 排行榜
 
     export default {
+        props: {
+            battleData: {
+                type: Array,
+                default: () => []
+            },
+            targetMatchId: {
+                type: Number,
+                default: 0
+            },
+        },
         data() {
             return {
 
-            }
-        },
-        computed: {
-            battleDetail() {
-                return this.$store.state.battlesData
-            }
-        },
-        watch: {
-            battleDetail() {
-                return this.$store.state.battlesData
             }
         },
         components: {

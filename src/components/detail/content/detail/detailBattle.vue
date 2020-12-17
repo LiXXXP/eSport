@@ -4,70 +4,69 @@
             <i class="play-header-bar"></i>
             <span class="play-header-text">阵容分析</span>
         </div>
-        <div class="player">
-            <filter-bar
-                :filterData="filtersData"
-            ></filter-bar>
-            <div class="content">
-                <tab-nav
-                    :selectStyle="selectStyle"
-                    :navData="navList"
-                ></tab-nav>
-                <div class="teams flex flex_between flex_only_center">
-                    <div class="flex flex_start flex_only_center">
-                        <img :src="(battleDetail.battle_detail.factions[0].faction === 'blue' &&
-                                battleDetail.battle_detail.factions[0].team_id === battleDetail.teams[0].team_id) ?
-                                battleDetail.teams[0].team_snapshot.image : battleDetail.teams[1].team_snapshot.image">
-                        <p :title="(battleDetail.battle_detail.factions[0].faction === 'blue' &&
-                                battleDetail.battle_detail.factions[0].team_id === battleDetail.teams[0].team_id) ?
-                                battleDetail.teams[0].team_snapshot.full_name : battleDetail.teams[1].team_snapshot.full_name">
-                            {{
-                                (battleDetail.battle_detail.factions[0].faction === 'blue' &&
-                                battleDetail.battle_detail.factions[0].team_id === battleDetail.teams[0].team_id) ?
-                                battleDetail.teams[0].team_snapshot.name : battleDetail.teams[1].team_snapshot.name
-                            }}
-                        </p>
-                    </div>
-                    <div class="block flex flex_around">
-                        <div class="blue">
-                            <span></span>
-                            <span>蓝色方</span>
+        <div class="player" v-if="battleData.length > 0">
+            <div v-for="item in battleData" :key="item.battle_id">
+                <div v-if="item.battle_id === targetMatchId">
+                    <filter-bar
+                        :filterData="filtersData"
+                    ></filter-bar>
+                    <div class="content">
+                        <tab-nav
+                            :selectStyle="selectStyle"
+                            :navData="navList"
+                        ></tab-nav>
+                        <div class="teams flex flex_between flex_only_center">
+                            <div class="name flex flex_start flex_only_center">
+                                <img :src="(item.factions[0].faction === 'blue' && item.factions[0].team_id === scoresData[0].team_id) ?
+                                        scoresData[0].team_snapshot.image : scoresData[1].team_snapshot.image">
+                                <p class="beyond-ellipsis"
+                                    :title="(item.factions[0].faction === 'blue' && item.factions[0].team_id === scoresData[0].team_id) ?
+                                            scoresData[0].team_snapshot.full_name : scoresData[1].team_snapshot.full_name">
+                                    {{
+                                        (item.factions[0].faction === 'blue' && item.factions[0].team_id === scoresData[0].team_id) ?
+                                        scoresData[0].team_snapshot.name : scoresData[1].team_snapshot.name
+                                    }}
+                                </p>
+                            </div>
+                            <div class="block flex flex_around">
+                                <div class="blue">
+                                    <span></span>
+                                    <span>蓝色方</span>
+                                </div>
+                                <div class="red">
+                                    <span></span>
+                                    <span>红色方</span>
+                                </div>
+                                <div class="all">
+                                    <span></span>
+                                    <span>全部阵营</span>
+                                </div>
+                            </div>
+                            <div class="name flex flex_end flex_only_center">
+                                <p class="beyond-ellipsis"
+                                    :title="(item.factions[1].faction === 'red' && item.factions[1].team_id === scoresData[1].team_id) ?
+                                            scoresData[1].team_snapshot.full_name : scoresData[0].team_snapshot.full_name">
+                                    {{
+                                        (item.factions[1].faction === 'red' && item.factions[1].team_id === scoresData[1].team_id) ?
+                                        scoresData[1].team_snapshot.name : scoresData[0].team_snapshot.name
+                                    }}
+                                </p>
+                                <img :src="(item.factions[1].faction === 'red' && item.factions[1].team_id === scoresData[1].team_id) ?
+                                        scoresData[1].team_snapshot.image : scoresData[0].team_snapshot.image">
+                            </div>
                         </div>
-                        <div class="red">
-                            <span></span>
-                            <span>红色方</span>
-                        </div>
-                        <div class="all">
-                            <span></span>
-                            <span>全部阵营</span>
+                        <div class="battle flex flex_between">
+                            <battle-team
+                                :teamsData="item.factions[0].faction === 'blue'? item.factions[0]:item.factions[1]"
+                            ></battle-team>
+                            <battle-team
+                                :teamsData="item.factions[1].faction === 'red'? item.factions[1]:item.factions[0]"
+                            ></battle-team>
                         </div>
                     </div>
-                    <div class="flex flex_end flex_only_center">
-                        <p :title="(battleDetail.battle_detail.factions[1].faction === 'red' &&
-                                battleDetail.battle_detail.factions[1].team_id === battleDetail.teams[1].team_id) ?
-                                battleDetail.teams[1].team_snapshot.full_name : battleDetail.teams[0].team_snapshot.full_name">
-                            {{
-                                (battleDetail.battle_detail.factions[1].faction === 'red' &&
-                                battleDetail.battle_detail.factions[1].team_id === battleDetail.teams[1].team_id) ?
-                                battleDetail.teams[1].team_snapshot.name : battleDetail.teams[0].team_snapshot.name
-                            }}
-                        </p>
-                        <img :src="(battleDetail.battle_detail.factions[1].faction === 'red' &&
-                                battleDetail.battle_detail.factions[1].team_id === battleDetail.teams[1].team_id) ?
-                                battleDetail.teams[1].team_snapshot.image : battleDetail.teams[0].team_snapshot.image">
-                    </div>
-                </div>
-                <div class="battle flex flex_between">
-                    <battle-team
-                        :teamsData="battleDetail.battle_detail.factions[0].faction === 'blue'?
-                                    battleDetail.battle_detail.factions[0]:battleDetail.battle_detail.factions[1]"
-                    ></battle-team>
-                    <battle-team
-                        :teamsData="battleDetail.battle_detail.factions[1].faction === 'red'?
-                                    battleDetail.battle_detail.factions[1]:battleDetail.battle_detail.factions[0]"
-                    ></battle-team>
                 </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -77,6 +76,20 @@
     import tabNav from '@/components/common/tabNav'                       // tab切换
     import battleTeam from '@/components/detail/content/chart/battleTeam' // 战队
     export default {
+        props: {
+            battleData: {
+                type: Array,
+                default: () => []
+            },
+            scoresData: {
+                type: Array,
+                default: () => []
+            },
+            targetMatchId: {
+                type: Number,
+                default: 0
+            }
+        },
         data() {
             return {
                 filtersData: {
@@ -127,16 +140,6 @@
                 ],
             }
         },
-        computed: {
-            battleDetail() {
-                return this.$store.state.battlesData
-            }
-        },
-        watch: {
-            battleDetail() {
-                return this.$store.state.battlesData
-            }
-        },
         components: {
             filterBar,
             tabNav,
@@ -158,6 +161,10 @@
                 font-size: 14px;
                 font-weight: 600;
                 padding: 20px 0 40px;
+                .name {
+                    width: 200px;
+                    text-align: right;
+                }
                 img {
                     width: 24px;
                     height: 24px;

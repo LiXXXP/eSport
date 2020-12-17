@@ -1,15 +1,17 @@
 <template>
     <div class="battle-art">
         <div class="flex flex_between flex_only_center">
-            <img src="../../../../assets/imgs/detail/4.png" class="team">
+            <img :src="factionsData.team_snapshot.image"
+                 :title="factionsData.team_snapshot.full_name"
+                 class="team">
             <div class="flex flex_start">
                 <div :class="['hero', borderColor? 'blue' : 'red',
                      {active: currentIndex === index}]"
-                    v-for="(item,index) in heroList"
-                    :key="item.id"
+                    v-for="(item,index) in factionsData.players"
+                    :key="item.player.player_id"
                     @click="getIndex(index)">
-                    <img :src="item.url">
-                    <span>23</span>
+                    <img :src="item.champion.image.image">
+                    <span>{{item.level}}</span>
                 </div>
             </div>
         </div>
@@ -28,6 +30,10 @@
             borderColor: {
                 type: Boolean,
                 default: true
+            },
+            factionsData: {
+                type: Object,
+                default: {}
             }
         },
         data() {

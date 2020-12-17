@@ -173,23 +173,3 @@
         }
     }
 </style>
-
-<style lang="less">
-    .dropdown {
-        .el-dropdown {
-            .el-dropdown-link,
-            .el-icon-arrow-down {
-                cursor: pointer;
-                color: #F77500;
-                font-weight: 600;
-            }
-        }
-    }
-    .el-dropdown-menu {
-        .el-dropdown-menu__item {
-            &:hover {
-                color: #F77500;
-            }
-        }
-    }
-</style>

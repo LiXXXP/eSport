@@ -4,26 +4,35 @@
             <i class="play-header-bar"></i>
             <span class="play-header-text">选手对局详情</span>
         </div>
-        <battle-table :battleData="battleDetail.battle_detail"></battle-table>
+        <div v-if="battleData.length > 0">
+            <div v-for="item in battleData" :key="item.battle_id">
+                <div v-if="targetMatchId === item.battle_id">
+                    <battle-table
+                        v-bind="$attrs"
+                        :factionsData="item.factions"
+                    ></battle-table>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import battleTable from '@/components/detail/content/chart/battleTable'  // 对局
     export default {
+        props: {
+            battleData: {
+                type: Array,
+                default: () => []
+            },
+            targetMatchId: {
+                type: Number,
+                default: 0
+            },
+        },
         data() {
             return {
 
-            }
-        },
-        computed: {
-            battleDetail() {
-                return this.$store.state.battlesData
-            }
-        },
-        watch: {
-            battleDetail() {
-                return this.$store.state.battlesData
             }
         },
         components: {
