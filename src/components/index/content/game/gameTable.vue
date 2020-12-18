@@ -45,8 +45,8 @@
                                 <div v-for="item in inningData.scores" :key="item.team_id">
                                     <div class="flex flex_start flex_only_center">
                                         <img :src="item.team_snapshot.image" class="team-icon">
-                                        <p class="beyond-ellipsis" :title="item.team_snapshot.name">
-                                            {{item.team_snapshot.short_name}}
+                                        <p class="beyond-ellipsis" :title="item.team_snapshot.full_name">
+                                            {{item.team_snapshot.name}}
                                         </p>
                                     </div>
                                 </div>
@@ -71,11 +71,11 @@
                         </div>
                     </td>
                     <td :class="['game-rank', {
-                        r: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list[0].factions[0].faction === 'red',
-                        b: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list[0].factions[0].faction === 'blue'
+                        r: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length>0 && inningData.battle_list[0].factions[0].faction === 'red',
+                        b: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length>0 && inningData.battle_list[0].factions[0].faction === 'blue'
                     }]">
                         <p>
-                            <span v-if="inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length !== 0">
+                            <span v-if="inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length>0">
                                 {{inningData.battle_list[0].factions[0].faction === 'red'?'R':'B'}}
                             </span>
                         </p>
@@ -98,15 +98,17 @@
                     >
                         <div>{{inningData.scores[1].score || 0}}</div>
                     </td>
-                    <td :class="['game-rank', {
-                        r: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list[0].factions[1].faction === 'red',
-                        b: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list[0].factions[1].faction === 'blue'
-                    }]">
-                        <p>
-                            <span v-if="inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length !== 0">
-                                {{inningData.battle_list[0].factions[1].faction === 'blue'?'B':'R'}}
-                            </span>
-                        </p>
+                    <td>
+                        <div v-if="inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length > 0">
+                            <p :class="['game-rank', {
+                                r: inningData.battle_list[0].includes('factions') && inningData.battle_list[0].factions[1].faction === 'red',
+                                b: inningData.battle_list[0].includes('factions') && inningData.battle_list[0].factions[1].faction === 'blue'
+                            }]">
+                                <span>
+                                    {{inningData.battle_list[0].includes('factions') && inningData.battle_list[0].factions[1].faction === 'blue'?'B':'R'}}
+                                </span>
+                            </p>
+                        </div>
                     </td>
                     <td v-for="data in tableBodyList.datas" :key="data.td">
                         <span v-if="inningData.battle_list&&inningData.battle_list.length !== 0">

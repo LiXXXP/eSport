@@ -8,7 +8,7 @@
                 <p>{{tDetail.introduction}}</p>
             </div>
         </div>
-        <div class="player">
+        <div class="player" v-if="tDetail.player_list.length>0">
             <p class="title">现役成员</p>
             <div class="flex flex_start flex_wrap">
                 <div class="list"
@@ -16,12 +16,14 @@
                     :key="item.player_id"
                 >
                     <span v-if="item.role">{{item.role}}</span>
-                    <img :src="item.image">
+                    <div class="img flex flex_only_end flex_center">
+                        <img :src="item.image">
+                    </div>
                     <p>{{item.nick_name}}</p>
                 </div>
             </div>
         </div>
-        <div class="event">
+        <div class="event" v-if="tList.length>0">
             <p class="title">近期赛事</p>
             <team-page-table
                 :tableData="tList"
@@ -59,9 +61,9 @@
             }
         },
         created() {
-            this.teamId = this.$route.query.teamId
-            this.gameId = this.$route.query.gameId
-            this.teamName = this.$route.query.teamName
+            this.teamId = this.$route.query.teamId || 0
+            this.gameId = this.$route.query.gameId || 0
+            this.teamName = this.$route.query.teamName || ''
             if(this.teamId) {
                 this.teamDetail()
             }
@@ -138,6 +140,21 @@
                 }
             }
         },
+        watch: {
+            $route(){
+                this.teamId = this.$route.query.teamId || 0
+                this.gameId = this.$route.query.gameId || 0
+                this.teamName = this.$route.query.teamName || ''
+            },
+            teamId(val,old) {
+                if(this.teamId) {
+                    this.teamDetail()
+                }
+                if(this.gameId && this.teamName) {
+                    this.teamList()
+                }
+            }
+        },
         components: {
             teamPageTable,
             pagingPage
@@ -191,11 +208,14 @@
                 &:nth-child(5n) {
                     margin-right: 0;
                 }
-                img {
+                .img {
                     width: 100%;
                     height: 185px;
-                    display: block;
                     border-radius: 2px 2px 0 0;
+                    img {
+                        width: 160px;
+                        height: 140px;
+                    }
                 }
                 p {
                     height: 35px;

@@ -30,15 +30,14 @@
                 </el-collapse-item>
             </el-collapse>
             <!-- 无折叠 -->
-            <div
-                v-else
-                v-for="item in titleData.list"
+            <div v-else
+                v-for="(item,index) in titleData.list"
                 :key="item.tournament_id"
-                @click="gotoEvents(item.tournament_id)"
-                class="twig flex flex_start flex_only_center"
-            >
-                <img :src="item.image">
-                <span class="beyond-ellipsis" :title="item.name">{{item.name}}</span>
+                @click="gotoEvents(item.tournament_id,item.game_id,item.team_id,item.name)">
+                <div v-if="index<6" class="twig flex flex_start flex_only_center">
+                    <img :src="item.image">
+                    <span class="beyond-ellipsis" :title="item.name">{{item.name}}</span>
+                </div>
             </div>
         </div>
         <slot name="page"></slot>
@@ -74,13 +73,25 @@
                     }
                 })
             },
-            gotoEvents(tournamentId) {
-                this.$router.push({
-                    path: '/events',
-                    query: {
-                        tournamentId: tournamentId
-                    }
-                })
+            gotoEvents(tournamentId,gameId,teamId,teamName) {
+                if(tournamentId) {
+                    this.$router.push({
+                        path: '/events',
+                        query: {
+                            tournamentId: tournamentId
+                        }
+                    })
+                }
+                if(teamId) {
+                    this.$router.push({
+                        path: '/teams',
+                        query: {
+                            teamId: teamId,
+                            gameId: gameId,
+                            teamName: teamName
+                        }
+                    })
+                }
             }
         }
     }

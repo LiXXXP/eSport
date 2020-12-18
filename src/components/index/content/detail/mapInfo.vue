@@ -19,7 +19,9 @@
             <div class="team flex flex_start flex_only_center"
                 v-for="item in teamData" :key="item.team_id">
                 <img :src="item.team_snapshot.image">
-                <p>{{item.team_snapshot.name}}</p>
+                <p class="beyond-ellipsis" :title="item.team_snapshot.name">
+                    {{item.team_snapshot.name}}
+                </p>
             </div>
             <div class="map flex flex_only_center">
                 <div class="map-item"
@@ -114,6 +116,7 @@
                     margin-right: 8px;
                 }
                 p {
+                    width: 60px;
                     color:#0F0F0F;
                     font-weight: 400;
                 }

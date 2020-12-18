@@ -8,7 +8,7 @@
             </div>
             <!-- 游戏比分 -->
             <div class="list" v-for="key in item.list" :key="key.match_id">
-                <div class="flex flex_between">
+                <div class="flex flex_between" v-if="key">
                     <game-table
                         :inningData="key"
                     ></game-table>
@@ -95,7 +95,7 @@
             this.getPastList()
         },
         mounted() {
-            // this.getCountdown()
+            this.getCountdown()
         },
         destroyed() {
             clearInterval(this.timer)

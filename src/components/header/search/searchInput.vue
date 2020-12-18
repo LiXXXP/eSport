@@ -3,9 +3,7 @@
         <div class="select">
             <el-select
                 v-model="selectValue"
-                placeholder="俱乐部/战队"
-                @change="changeEvent"
-            >
+                @change="changeEvent">
                 <el-option
                     v-for="item in selectList"
                     :key="item.value"
@@ -25,8 +23,8 @@
             >
                     <el-option
                         v-for="item in searchList"
-                        :key="item.player_nickname"
-                        :value="item.player_id">
+                        :key="item.player_id"
+                        :value="item.player_nickname">
                         <search-box :searchData="item"></search-box>
                     </el-option>
                     <!-- 分页 -->
@@ -45,7 +43,7 @@
     export default {
         data() {
             return {
-                selectValue: '',  // 俱乐部选择的值
+                selectValue: '战队',  // 俱乐部选择的值
                 selectList: [     // 俱乐部选择列表
                     // {
                     //     value: 1,

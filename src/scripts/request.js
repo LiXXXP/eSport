@@ -217,6 +217,15 @@ function getEvents(params) {
 
 /**
  *
+ * 获取热门战队列表
+ * @param {*} params
+ */
+function getTeams(params) {
+  return postRequest('/teams/team_name_list', params)
+}
+
+/**
+ *
  * 获取搜索战队基本资料
  * @param {*} params
  */
@@ -366,6 +375,7 @@ export {
     getGames,
     getGameTournament,
     getEvents,
+    getTeams,
     getSearchPlayers,
     getSearchTournament,
     getSearchTeams,

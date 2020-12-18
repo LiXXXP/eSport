@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="team">
+        <div class="team" v-if="tDetail.team_list.length>0">
             <p class="title">参赛队伍</p>
             <div class="flex flex_start flex_wrap">
                 <div class="list"
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="table">
+        <div class="table" v-if="tList.length>0">
             <p class="title">近期赛事</p>
             <team-page-table
                 :tableData="tList"
@@ -148,6 +148,9 @@
             }
         },
         watch: {
+            $route(){
+                this.tournamentId = this.$route.query.tournamentId
+            },
             tournamentId(val,old) {
                 this.tournamentDetail()
                 this.tournamentList()
@@ -215,8 +218,10 @@
                     margin-right: 0;
                 }
                 img {
-                    width: 100%;
-                    height: 100%;
+                    width: 120px;
+                    height: 120px;
+                    display: block;
+                    margin: 25px auto;
                 }
                 span {
                     &:nth-child(2) {

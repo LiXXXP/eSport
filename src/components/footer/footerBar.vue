@@ -4,14 +4,14 @@
             <div v-for="item in clubList"
                 :key="item.title">
                 <p>{{item.title}}</p>
-                <a
-                    class="link"
-                    v-for="key in item.link"
+                <div class="link"
+                    v-for="(key,index) in item.link"
                     :key="key.id"
-                    href=""
                 >
-                    {{key.name}} 比赛结果及赛程
-                </a>
+                    <span v-if="index<6" @click="goDetail(key.game_id,key.team_id,key.name,key.tournament_id)">
+                        {{key.name}} 比赛结果及赛程
+                    </span>
+                </div>
             </div>
         </div>
         <div class="footer-bottom flex flex_start flex_center">
@@ -26,13 +26,13 @@
 </template>
 
 <script>
-    import { getGames, getEvents } from '@/scripts/request'
+    import { getGames, getEvents, getTeams } from '@/scripts/request'
     export default {
         data() {
             return {
                 clubList: [
                     {
-                        title: '热门俱乐部',
+                        title: '热门战队',
                         link : []
                     },
                     {
@@ -47,11 +47,20 @@
             }
         },
         created() {
+            this.getTeamList()
             this.getGameList()
             this.getEventList()
         },
         methods: {
-            // 获取热门俱乐部
+            // 获取热门战队
+            getTeamList() {
+                let _this = this
+                getTeams().then(res => {
+                    if (res.code === 200) {
+                        _this.clubList[0].link = res.data
+                    }
+                })
+            },
             // 获取全部游戏列表
             getGameList() {
                 let _this = this
@@ -73,6 +82,27 @@
                         _this.clubList[2].link = res.data
                     }
                 })
+            },
+            // 详情页
+            goDetail(gameId,teamId,teamName,tournamentId,matchId) {
+                if(tournamentId) {
+                    this.$router.push({
+                        path: '/events',
+                        query: {
+                            tournamentId: tournamentId
+                        }
+                    })
+                }
+                if(teamId) {
+                    this.$router.push({
+                        path: '/teams',
+                        query: {
+                            teamId: teamId,
+                            gameId: gameId,
+                            teamName: teamName
+                        }
+                    })
+                }
             }
         }
     }
@@ -92,7 +122,7 @@
                 margin-bottom: 12px;
             }
             .link {
-                display: block;
+                cursor: pointer;
                 color: #515151;
                 line-height: 24px;
                 &:hover {

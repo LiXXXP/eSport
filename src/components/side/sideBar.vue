@@ -14,7 +14,8 @@
     import sideImg from '@/components/side/sideImg'        // 侧边图片位
     import {
         getGames,
-        getEvents
+        getEvents,
+        getTeams
     } from '@/scripts/request'
     export default {
         data() {
@@ -29,7 +30,7 @@
                         list: []
                     },
                     {
-                        title: '热门俱乐部',
+                        title: '热门战队',
                         list: []
                     }
                 ]
@@ -38,6 +39,7 @@
         mounted() {
             this.getGameList()
             this.getEventList()
+            this.getTeamList()
         },
         methods: {
             // 获取全部游戏列表
@@ -62,7 +64,15 @@
                     }
                 })
             },
-            // 获取热门俱乐部
+            // 获取热门战队
+            getTeamList() {
+                let _this = this
+                getTeams().then(res => {
+                    if (res.code === 200) {
+                        _this.titleList[2].list = res.data
+                    }
+                })
+            }
         },
         components: {
             sideMenu,
