@@ -70,15 +70,22 @@
                             {{inningData.status}}
                         </div>
                     </td>
-                    <td :class="['game-rank', {
-                        r: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length>0 && inningData.battle_list[0].factions[0].faction === 'red',
-                        b: inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length>0 && inningData.battle_list[0].factions[0].faction === 'blue'
-                    }]">
-                        <p>
-                            <span v-if="inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length>0">
-                                {{inningData.battle_list[0].factions[0].faction === 'red'?'R':'B'}}
-                            </span>
-                        </p>
+                    <td>
+                        <div v-if="inningData.game_id === 1" class="game-rank">
+
+                        </div>
+                        <div v-if="inningData.game_id === 2" class="game-rank">
+                            <div v-if="inningData.battle_list && inningData.battle_list.length > 0">
+                                <p :class="[{
+                                    r: inningData.battle_list[0].factions[0].faction === 'red',
+                                    b: inningData.battle_list[0].factions[0].faction === 'blue'
+                                }]">
+                                    <span>
+                                        {{inningData.battle_list[0].factions[0].faction === 'red'? 'R':inningData.battle_list[0].factions[0].faction === 'blue'? 'B' : ''}}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
                     </td>
                     <td v-for="data in tableBodyList.datas" :key="data.td">
                         <span v-if="inningData.battle_list&&inningData.battle_list.length !== 0">
@@ -99,15 +106,20 @@
                         <div>{{inningData.scores[1].score || 0}}</div>
                     </td>
                     <td>
-                        <div v-if="inningData.game_id === 2 && inningData.battle_list && inningData.battle_list.length > 0">
-                            <p :class="['game-rank', {
-                                r: inningData.battle_list[0].includes('factions') && inningData.battle_list[0].factions[1].faction === 'red',
-                                b: inningData.battle_list[0].includes('factions') && inningData.battle_list[0].factions[1].faction === 'blue'
-                            }]">
-                                <span>
-                                    {{inningData.battle_list[0].includes('factions') && inningData.battle_list[0].factions[1].faction === 'blue'?'B':'R'}}
-                                </span>
-                            </p>
+                        <div v-if="inningData.game_id === 1" class="game-rank">
+
+                        </div>
+                        <div v-if="inningData.game_id === 2" class="game-rank">
+                            <div v-if="inningData.battle_list && inningData.battle_list.length > 0">
+                                <p :class="[{
+                                    r: inningData.battle_list[0].factions[1].faction === 'red',
+                                    b: inningData.battle_list[0].factions[1].faction === 'blue'
+                                }]">
+                                    <span>
+                                        {{inningData.battle_list[0].factions[1].faction === 'blue'? 'B': inningData.battle_list[0].factions[1].faction === 'red'? 'R' : ''}}
+                                    </span>
+                                </p>
+                            </div>
                         </div>
                     </td>
                     <td v-for="data in tableBodyList.datas" :key="data.td">
@@ -307,11 +319,13 @@
                 if(this.inningData.game_id === 1 && this.inningData.battle_list) {
                     for(let i in this.inningData.battle_list) {
                         this.tableTitleList[i].mapName = this.inningData.battle_list[i].map_name
-                        this.tableBodyList.datas[i].red = this.inningData.battle_list[i].battle_scores[0].score
-                        this.tableBodyList.datas[i].blue = this.inningData.battle_list[i].battle_scores[1].score
+                        if(this.inningData.battle_list[i].battle_scores.length>0) {
+                            this.tableBodyList.datas[i].red = this.inningData.battle_list[i].battle_scores[0].score
+                            this.tableBodyList.datas[i].blue = this.inningData.battle_list[i].battle_scores[1].score
+                        }
                     }
                 }
-                if(this.inningData.game_id === 2 && this.inningData.battle_list) {
+                if(this.inningData.game_id === 2 && this.inningData.battle_list && this.inningData.battle_list.length>0) {
                     for(let item of this.tableBodyList.datas) {
                         let field = item.type
                         item.red = this.inningData.battle_list[0].factions[0][field]
@@ -443,24 +457,18 @@
             }
         }
         .game-rank {
+            width: 16px;
+            height: 16px;
+            font-size: 12px;
+            line-height: 16px;
+            text-align: center;
             p {
                 color: #fff;
-                width: 16px;
-                height: 16px;
-                display: block;
-                font-size: 12px;
-                font-weight: 400;
-                line-height: 16px;
-                text-align: center;
                 border-radius: 100%;
-            }
-            &.r {
-                p {
+                &.r {
                     background-color: @r;
                 }
-            }
-            &.b {
-                p {
+                &.b {
                     background-color: @b;
                 }
             }

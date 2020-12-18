@@ -67,7 +67,7 @@
                 loading: false,    // 搜索状态
                 searchStates: [],  // 搜索联想
                 query: '',         // 搜索框的值
-                optionVal: 0,      // 选择 val值
+                optionVal: 2,      // 选择 val值
                 count: 0,          // 搜索结果总条数
                 page: 1,           // 当前页
 
