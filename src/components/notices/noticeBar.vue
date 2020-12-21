@@ -17,7 +17,8 @@
 
 <style lang="less" scoped>
     .notice {
-        margin: 12px 0;
+        margin-top: 108px;
+        margin-bottom: 12px;
         .notice-icon {
             width: 24px;
             height: 24px;

@@ -53,9 +53,14 @@
 
 <style lang="less" scoped>
     .header-nav {
-        height: 100%;
+        width: 100%;
+        height: 96px;
+        z-index: 999;
         box-sizing: border-box;
         background-color: #fff;
+        position: fixed;
+        left: 0;
+        top: 0;
         .logo {
             width: 149px;
             height: 49px;

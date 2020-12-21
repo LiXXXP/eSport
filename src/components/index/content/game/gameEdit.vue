@@ -85,7 +85,6 @@
                             _this.$message.success(res.message)
                         } else {
                             _this.$message.error('请登录后收藏！')
-                            _this.$router.push('/login')
                         }
                     })
                 }

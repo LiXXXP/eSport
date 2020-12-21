@@ -50,7 +50,7 @@
                     :type="isType"
                     :disabled="isDisabled"
                     @click="submitForm('ruleForm')"
-                >登录</el-button>
+                >注册</el-button>
             </el-form-item>
 
         </el-form>
