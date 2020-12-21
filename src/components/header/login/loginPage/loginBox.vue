@@ -71,10 +71,10 @@
                 },
                 rules: {           // 验证用户名和密码规则
                     user: [
-                        { validator: validateUser, trigger: 'blur' }
+                        { validator: validateUser, trigger: 'change' }
                     ],
                     pass: [
-                        { validator: validatePass, trigger: 'blur' }
+                        { validator: validatePass, trigger: 'change' }
                     ]
                 }
             }

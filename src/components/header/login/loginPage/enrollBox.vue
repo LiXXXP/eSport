@@ -117,13 +117,13 @@
                 },
                 rules: {           // 验证用户名和密码规则
                     user: [
-                        { validator: validateUser, trigger: 'blur' }
+                        { validator: validateUser, trigger: 'change' }
                     ],
                     phone: [
-                        { validator: validatePhone, trigger: 'blur' }
+                        { validator: validatePhone, trigger: 'change' }
                     ],
                     checkPass: [
-                        { validator: validatePass2, trigger: 'blur' }
+                        { validator: validatePass2, trigger: 'change' }
                     ]
                 }
             }
