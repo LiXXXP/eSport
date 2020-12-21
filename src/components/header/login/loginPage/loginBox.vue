@@ -92,7 +92,7 @@
                         getLogin(params).then(res => {
                             if(res.code === 200) {
                                 localStorage.setItem('userToken',res.data.token)
-                                _this.$router.push('/index')
+                                window.location.href = '/'
                             } else {
                                 _this.$message.error(res.message)
                             }

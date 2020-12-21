@@ -20,11 +20,12 @@
 
     export default {
         data() {
-            return {}
+            return {
+
+            }
         },
         created(){
             if(localStorage.getItem('userToken')) {
-                this.isLogin = true
                 this.userInfo()
             }
         },
