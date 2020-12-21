@@ -7,6 +7,11 @@
         <map-content
             v-if="currentData === 1"
         ></map-content>
+        <play-score
+            v-if="currentData === 1"
+            :scoreData="matchDetail.scores"
+            :battleData="matchDetail.battle_list"
+        ></play-score>
         <tab-nav
             v-if="currentData === 1"
             :selectStyle="selectStyle"
@@ -41,6 +46,7 @@
 <script>
     import videoContent from '@/components/index/content/detail/videoContent'     // 视频模块
     import mapContent from '@/components/index/content/detail/lol/mapContent'     // 地图模块
+    import playScore from '@/components/index/content/detail/playScore'           // 比赛比分
     import tabNav from '@/components/common/tabNav'                               // tab切换
     import detailBattle from '@/components/detail/content/detail/detailBattle'    // 阵容分析
     import playContent from '@/components/index/content/detail/lol/playContent'   // 队伍对局详情
@@ -107,6 +113,7 @@
         components: {
             mapContent,
             videoContent,
+            playScore,
             tabNav,
             detailBattle,
             playContent,

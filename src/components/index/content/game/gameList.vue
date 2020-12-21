@@ -189,7 +189,7 @@
             // 打开游戏详情
             openDetailId(Mid,Gid) {
                 this.currentId = Mid
-                if(Mid && Gid) {
+                if(Mid>0 && Gid>0) {
                     let params = {
                         game_id: Gid,
                         match_id: Mid

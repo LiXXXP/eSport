@@ -1,7 +1,9 @@
 <template>
     <div class="team">
         <div class="info flex flex_between flex_only_center">
-            <img :src="tDetail.team_image">
+            <div class="img">
+                <img :src="tDetail.team_image">
+            </div>
             <div class="text">
                 <p class="title">{{tDetail.team_name}}</p>
                 <p class="depict">{{tDetail.full_name}}</p>
@@ -171,9 +173,15 @@
             padding: 63px 110px;
             box-sizing: border-box;
             background-color: #fff;
-            img {
+            .img {
                 width: 288px;
                 height: 174px;
+                img {
+                    width: 200px;
+                    height: 100%;
+                    display: block;
+                    margin: 0 auto;
+                }
             }
             .text {
                 width: 598px;

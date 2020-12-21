@@ -84,7 +84,10 @@
                             _this.isCollectStatus = true
                             _this.$message.success(res.message)
                         } else {
-                            _this.$message.error(res.message)
+                            _this.$message.error('请先登录！')
+                            _this.$router.push({
+                                path: '/login',
+                            })
                         }
                     })
                 }

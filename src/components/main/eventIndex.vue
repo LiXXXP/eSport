@@ -1,7 +1,9 @@
 <template>
     <div class="event">
         <div class="info flex flex_between flex_only_center">
-            <img :src="tDetail.tournament_logo">
+            <div class="img">
+                <img :src="tDetail.tournament_logo">
+            </div>
             <div class="text">
                 <p class="title">{{tDetail.tournament_name}}</p>
                 <div class="flex flex_between">
@@ -15,7 +17,7 @@
                         <p>参赛队伍</p>
                     </div>
                     <div class="num">
-                        <p>${{tDetail.prize_bonus}}</p>
+                        <p>{{tDetail.prize_bonus}}</p>
                         <p>总奖金</p>
                     </div>
                 </div>
@@ -171,10 +173,15 @@
             padding: 25px 50px;
             box-sizing: border-box;
             background-color: #fff;
-            img {
+            .img {
                 width: 260px;
                 height: 150px;
+                img {
+                    width: 170px;
+                    height: 100%;
+                }
             }
+
             .text {
                 width: 800px;
                 .title {
