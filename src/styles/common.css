@@ -48,6 +48,15 @@ html {
     overflow-y: scroll;
 }
 
+/* 去掉input[type=number]默认上下箭头样式 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
 /* css common */
 .f-left {
     float: left;
