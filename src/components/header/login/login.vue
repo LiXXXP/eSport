@@ -64,6 +64,7 @@
             width: 100px;
             color: #fff;
             text-align: center;
+            display: inline-block;
             border-right: 1px solid #3B4473;
             &.beyond-ellipsis {
                 padding-left: 5px;
