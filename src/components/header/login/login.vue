@@ -1,7 +1,9 @@
 <template>
     <div class="login">
-        <div v-if="this.$store.state.userInfo">
-            <span>{{this.$store.state.userInfo}}</span>
+        <div v-if="this.$store.state.userInfo" class="flex flex_center">
+            <span class="beyond-ellipsis"
+                :title="this.$store.state.userInfo"
+            >{{this.$store.state.userInfo}}</span>
             <span @click="logout">退出</span>
         </div>
         <div v-else>
@@ -62,8 +64,10 @@
             width: 100px;
             color: #fff;
             text-align: center;
-            display: inline-block;
             border-right: 1px solid #3B4473;
+            &.beyond-ellipsis {
+                padding-left: 5px;
+            }
         }
     }
 </style>
