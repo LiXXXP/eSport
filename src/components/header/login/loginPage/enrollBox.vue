@@ -43,7 +43,7 @@
                 ></el-input>
             </el-form-item>
 
-            <span>密码必须同时包含英文字母和数字且只能包含字母和数字</span>
+            <span>密码必须同时包含英文字母和数字且只能包含字母和数字，密码长度大于等于6位且小于等于15位</span>
 
             <el-form-item>
                 <el-button
@@ -83,7 +83,9 @@
             }
             var validatePass = (rule, value, callback) => {
                 if (value === '') {
-                    callback(new Error('请输入密码'));
+                    this.isType = 'info'
+                    this.isDisabled = true
+                    callback(new Error('请输入密码'))
                 } else {
                     if (this.ruleForm.checkPass !== '') {
                         this.$refs.ruleForm.validateField('checkPass')
@@ -99,7 +101,7 @@
                 } else if (value !== this.ruleForm.pass) {
                     this.isType = 'info'
                     this.isDisabled = true
-                    callback(new Error('两次输入密码不一致!'));
+                    callback(new Error('两次输入密码不一致!'))
                 } else {
                     this.isType = 'danger'
                     this.isDisabled = false
@@ -121,6 +123,9 @@
                     ],
                     phone: [
                         { validator: validatePhone, trigger: 'change' }
+                    ],
+                    pass: [
+                        { validator: validatePass, trigger: 'change' }
                     ],
                     checkPass: [
                         { validator: validatePass2, trigger: 'change' }
