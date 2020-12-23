@@ -10,7 +10,7 @@
                 <p>{{tDetail.introduction}}</p>
             </div>
         </div>
-        <div class="player" v-if="tDetail.player_list.length>0">
+        <div class="player" v-if="tDetail.player_list&&tDetail.player_list.length>0">
             <p class="title">现役成员</p>
             <div class="flex flex_start flex_wrap">
                 <div class="list"
@@ -201,16 +201,17 @@
         }
         .player {
             .title {
-                padding: 20px 0;
                 font-size: 18px;
                 font-weight: 600;
+                padding-top: 20px;
+                margin-bottom: -20px;
             }
             .list {
                 width: 190px;
                 height: 220px;
                 margin-right: 62px;
                 border-radius: 2px;
-                margin-bottom: 40px;
+                margin-top: 40px;
                 background-image: linear-gradient(#676c6e,#8c8e8f);
                 position: relative;
                 &:nth-child(5n) {
@@ -251,9 +252,8 @@
         .event {
             .title {
                 font-size: 18px;
+                padding: 20px 0;
                 font-weight: 600;
-                margin-top: -20px;
-                padding-bottom: 20px;
             }
         }
     }

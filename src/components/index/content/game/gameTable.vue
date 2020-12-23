@@ -22,7 +22,7 @@
                     <img
                         class="icons"
                         :src="icon.iconUrl"
-                        v-if="inningData.game_id === icon.gameLoLId || inningData.game_id === icon.gameDotaId"
+                        v-if="(inningData.game_id === icon.gameLoLId || inningData.game_id === icon.gameDotaId) && isDatas"
                     >
                     <p class="csgomap-name" v-if="inningData.game_id === 1">{{icon.mapName}}</p>
                 </th>
@@ -308,7 +308,7 @@
                         }
                     ]
                 },
-
+                isDatas: false       // 是否显示battle_scores
             }
         },
         created() {
@@ -328,8 +328,13 @@
                 if(this.inningData.game_id === 2 && this.inningData.battle_list && this.inningData.battle_list.length>0) {
                     for(let item of this.tableBodyList.datas) {
                         let field = item.type
-                        item.red = this.inningData.battle_list[0].factions[0][field]
-                        item.blue = this.inningData.battle_list[0].factions[1][field]
+                        item.red = this.inningData.battle_list[0].factions[0][field] || ''
+                        item.blue = this.inningData.battle_list[0].factions[1][field] || ''
+                        if(item.red !== '') {
+                            this.isDatas = true
+                        } else {
+                            this.isDatas = false
+                        }
                     }
                     for(let event of this.tableBodyList.events) {
                         let field = event.type

@@ -128,6 +128,7 @@
             },
             // 关闭
             websocketclose(e){
+                this.websock.close()
                 console.log('断开连接',e)
             },
         },

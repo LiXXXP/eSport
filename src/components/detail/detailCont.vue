@@ -9,7 +9,7 @@
             v-if="flag"
         ></play-info>
         <game-info
-            v-if="flag"
+            v-if="isInfo"
             :openType="parseInt(this.$route.query.gameId)"
         ></game-info>
     </div>
@@ -27,7 +27,8 @@
         data() {
             return {
                 flag: false,
-                timer: null
+                timer: null,
+                isInfo: false,
             }
         },
         created() {
@@ -53,6 +54,11 @@
                         _this.$store.dispatch('getMatches',res.data)
                         _this.$store.commit('getMatchId', _this.$route.query.matchId)
                         _this.flag = true
+                        if(res.data.status === '比赛未开始') {
+                            _this.isInfo = false
+                        } else {
+                            _this.isInfo = true
+                        }
                         // if(res.data.status !== 'ongoing') {
                         //     clearInterval(_this.timer)
                         // }

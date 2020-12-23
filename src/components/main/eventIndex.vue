@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="team" v-if="tDetail.team_list.length>0">
+        <div class="team" v-if="tDetail.team_list&&tDetail.team_list.length>0">
             <p class="title">参赛队伍</p>
             <div class="flex flex_start flex_wrap">
                 <div class="list"
@@ -208,9 +208,10 @@
         }
         .team {
             .title {
-                padding: 20px 0;
                 font-size: 18px;
                 font-weight: 600;
+                padding-top: 20px;
+                margin-bottom: -20px;
             }
             .list {
                 width: 130px;
@@ -218,7 +219,7 @@
                 cursor: pointer;
                 border: 2px solid;
                 margin-right: 43px;
-                margin-bottom: 40px;
+                margin-top: 40px;
                 border-image: linear-gradient(180deg, #E0BF90, #B29873) 10 10;
                 position: relative;
                 &:nth-child(7n) {
@@ -273,9 +274,8 @@
         .table {
             .title {
                 font-size: 18px;
+                padding: 20px 0;
                 font-weight: 600;
-                margin-top: -20px;
-                padding-bottom: 20px;
             }
         }
     }

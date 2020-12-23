@@ -1,6 +1,6 @@
 <template>
     <div class="game-info">
-        <div class="flex flex_center">
+        <div class="flex flex_center" v-if="isGoing">
             <tab-nav :selectStyle="selectStyle"
                      :navData="navList"
                      @clickIndex="getIndex">
@@ -63,7 +63,11 @@
                     }
                 ],
                 currentIndex: 0,   // 当前index
+                isGoing: true,
             }
+        },
+        created() {
+            this.getCurrentIndex()
         },
         methods: {
             packUp() {
@@ -73,6 +77,19 @@
                 if(Object.keys(this.$store.state.matchsData).length !== 0) {
                     this.currentIndex = val
                 }
+            },
+            getCurrentIndex() {
+                if(Object.keys(this.$store.state.matchsData).length !== 0) {
+                    if(this.$store.state.matchsData.status !== '比赛进行中') {
+                        this.currentIndex = 1
+                        this.isGoing = false
+                    }
+                }
+            }
+        },
+        watch: {
+            openType() {
+                this.getCurrentIndex()
             }
         },
         components: {

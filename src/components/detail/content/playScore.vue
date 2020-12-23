@@ -86,7 +86,7 @@
             position: relative;
             &.left {
                 p {
-                    z-index: 999;
+                    z-index: 99;
                     position: absolute;
                     top: 10px;
                     left: 10px;
@@ -109,7 +109,7 @@
             }
             &.right {
                 p {
-                    z-index: 999;
+                    z-index: 99;
                     position: absolute;
                     top: 10px;
                     right: 10px;
