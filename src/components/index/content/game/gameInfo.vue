@@ -13,16 +13,19 @@
         <!-- csgo -->
         <csgo-detail-content
             v-if="openType === 1"
+            :goIng="isGoing"
             :currentData="currentIndex"
         ></csgo-detail-content>
         <!-- lol -->
         <lol-detail-content
             :currentData="currentIndex"
+            :goIng="isGoing"
             v-if="openType === 2"
         ></lol-detail-content>
         <!-- dota2 -->
         <dota-detail-content
             v-if="openType === 3"
+            :goIng="isGoing"
             :currentData="currentIndex"
         ></dota-detail-content>
         <div class="pack"

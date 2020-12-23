@@ -5,7 +5,7 @@
             :streamsData="matchDetail.streams"
         ></video-content>
         <map-content
-            v-if="currentData === 1"
+            v-if="currentData === 1 && goIng"
         ></map-content>
         <play-score
             v-if="currentData === 1"
@@ -62,6 +62,10 @@
                 type: Number,
                 default: 0
             },
+            goIng: {
+                type: Boolean,
+                default: false
+            }
         },
         data () {
             return {

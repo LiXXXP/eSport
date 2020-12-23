@@ -96,12 +96,13 @@
             }
         },
         created() {
-            this.initWebSocket('frames')
-            this.initWebSocket('events')
+            // this.initWebSocket('frames')
+            // this.initWebSocket('events')
         },
         destroyed () {
             // 销毁监听
             this.websock.close()
+            this.websock = null
         },
         methods: {
             // 初始化weosocket
@@ -128,7 +129,6 @@
             },
             // 关闭
             websocketclose(e){
-                this.websock.close()
                 console.log('断开连接',e)
             },
         },

@@ -85,6 +85,7 @@
         destroyed () {
             // 销毁监听
             this.websock.close()
+            this.websock = null
         },
         methods: {
             tabNormal() {

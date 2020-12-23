@@ -77,7 +77,7 @@
 
 <style lang="less" scoped>
     .map-info {
-        margin-bottom: 25px;
+        margin-bottom: 35px;
         .play-header {
             margin-bottom: -10px;
         }

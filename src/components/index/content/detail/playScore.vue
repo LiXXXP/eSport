@@ -80,6 +80,7 @@
 
 <style lang="less" scoped>
     .play-score {
+        margin-bottom: 35px;
         .tips {
             color: #878787;
             margin-top: 24px;
