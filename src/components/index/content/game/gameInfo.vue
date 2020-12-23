@@ -1,6 +1,6 @@
 <template>
     <div class="game-info">
-        <div class="flex flex_center" v-if="isGoing">
+        <div class="flex flex_center" v-if="this.$store.state.isSupported">
             <tab-nav :selectStyle="selectStyle"
                      :navData="navList"
                      @clickIndex="getIndex">
@@ -13,20 +13,17 @@
         <!-- csgo -->
         <csgo-detail-content
             v-if="openType === 1"
-            :goIng="isGoing"
-            :currentData="currentIndex"
+            :currentData="this.$store.state.isSupported ? currentIndex : 1"
         ></csgo-detail-content>
         <!-- lol -->
         <lol-detail-content
-            :currentData="currentIndex"
-            :goIng="isGoing"
             v-if="openType === 2"
+            :currentData="this.$store.state.isSupported ? currentIndex : 1"
         ></lol-detail-content>
         <!-- dota2 -->
         <dota-detail-content
             v-if="openType === 3"
-            :goIng="isGoing"
-            :currentData="currentIndex"
+            :currentData="this.$store.state.isSupported ? currentIndex : 1"
         ></dota-detail-content>
         <div class="pack"
             @click="packUp"
@@ -69,9 +66,6 @@
                 isGoing: true,
             }
         },
-        created() {
-            this.getCurrentIndex()
-        },
         methods: {
             packUp() {
                 this.$emit('packDetailId',-1)
@@ -81,19 +75,6 @@
                     this.currentIndex = val
                 }
             },
-            getCurrentIndex() {
-                if(Object.keys(this.$store.state.matchsData).length !== 0) {
-                    if(this.$store.state.matchsData.status !== '比赛进行中') {
-                        this.currentIndex = 1
-                        this.isGoing = false
-                    }
-                }
-            }
-        },
-        watch: {
-            openType() {
-                this.getCurrentIndex()
-            }
         },
         components: {
             tabNav,

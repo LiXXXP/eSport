@@ -2,10 +2,10 @@
     <div class="play-team flex flex_between flex_center">
         <div class="team flex flex_only_center">
             <p class="left b">B</p>
-            <p>
+            <p class="beyond-ellipsis">
                 {{
                     (factionsData[0].faction === 'blue' && factionsData[0].team_id === scoresData[0].team_id) ?
-                    scoresData[0].team_snapshot.full_name : scoresData[1].team_snapshot.full_name
+                    scoresData[0].team_snapshot.name : scoresData[1].team_snapshot.name
                 }}
             </p>
             <img src="../../../../assets/imgs/detail/win.png"
@@ -20,10 +20,10 @@
             <img src="../../../../assets/imgs/detail/win.png"
                 v-if="(factionsData[1].faction === 'red' && factionsData[1].team_id === scoresData[1].team_id) ?
                       factionsData[1].team_id === winnerId : factionsData[0].team_id === winnerId">
-            <p>
+            <p class="beyond-ellipsis">
                 {{
                     (factionsData[1].faction === 'red' && factionsData[1].team_id === scoresData[1].team_id) ?
-                    scoresData[1].team_snapshot.full_name : scoresData[0].team_snapshot.full_name
+                    scoresData[1].team_snapshot.name : scoresData[0].team_snapshot.name
                 }}
             </p>
             <p class="right r">R</p>

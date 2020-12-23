@@ -96,8 +96,8 @@
             }
         },
         created() {
-            // this.initWebSocket('frames')
-            // this.initWebSocket('events')
+            this.initWebSocket('frames')
+            this.initWebSocket('events')
         },
         destroyed () {
             // 销毁监听

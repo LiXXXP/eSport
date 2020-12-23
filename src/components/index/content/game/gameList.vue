@@ -24,7 +24,7 @@
                 <!-- 详情 -->
                 <game-info
                     :openType="parseInt(key.game_id)"
-                    v-show="currentId === key.match_id"
+                    v-if="currentId === key.match_id"
                     @packDetailId="packDetailId"
                 ></game-info>
             </div>

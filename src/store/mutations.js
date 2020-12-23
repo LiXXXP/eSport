@@ -37,7 +37,7 @@ const mutations = {
     },
     // 显示视频直播
     supportedShow: (state , boolean) => {
-      state.isSupported = boolean
+        state.isSupported = boolean
   }
 }
 
