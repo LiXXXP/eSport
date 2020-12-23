@@ -328,8 +328,8 @@
                 if(this.inningData.game_id === 2 && this.inningData.battle_list && this.inningData.battle_list.length>0) {
                     for(let item of this.tableBodyList.datas) {
                         let field = item.type
-                        item.red = this.inningData.battle_list[0].factions[0][field] || ''
-                        item.blue = this.inningData.battle_list[0].factions[1][field] || ''
+                        item.red = this.inningData.battle_list[0].factions[0][field] || 0
+                        item.blue = this.inningData.battle_list[0].factions[1][field] || 0
                         if(item.red !== '') {
                             this.isDatas = true
                         } else {
