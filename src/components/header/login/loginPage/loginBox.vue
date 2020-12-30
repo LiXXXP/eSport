@@ -48,6 +48,10 @@
                     this.isDisabled = true
                     callback(new Error('请输入用户名'))
                 } else {
+                    if(this.ruleForm.pass !== '') {
+                        this.isType = 'danger'
+                        this.isDisabled = false
+                    }
                     callback()
                 }
             }

@@ -69,6 +69,10 @@
                     this.isDisabled = true
                     callback(new Error('请输入用户名'))
                 } else {
+                    if(this.ruleForm.phone !== '' & this.ruleForm.pass !== '' & this.ruleForm.checkPass !== '') {
+                        this.isType = 'danger'
+                        this.isDisabled = false
+                    }
                     callback()
                 }
             }
@@ -78,6 +82,10 @@
                     this.isDisabled = true
                     callback(new Error('请输入手机号'))
                 } else {
+                    if(this.ruleForm.user !== '' & this.ruleForm.pass !== '' & this.ruleForm.checkPass !== '') {
+                        this.isType = 'danger'
+                        this.isDisabled = false
+                    }
                     callback()
                 }
             }

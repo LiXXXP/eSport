@@ -3,7 +3,7 @@
         <el-pagination
             small
             background
-            :pager-count="5"
+            :page-size="5"
             :total="countData"
             :current-page="currentPage"
             layout="prev, pager, next"
