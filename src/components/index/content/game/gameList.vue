@@ -1,40 +1,46 @@
 <template>
     <div class="game-list">
-        <!-- 标题 -->
-        <div v-for="(item,index) in gameList" :key="item.title">
-            <div class="game-title flex flex_between" v-if="item.list.length!==0">
-                <p>{{item.title}}</p>
-                <p>更新倒计时：<span>0{{count}}</span> 秒</p>
-            </div>
-            <!-- 游戏比分 -->
-            <div class="list" v-for="key in item.list" :key="key.match_id">
-                <div class="flex flex_between" v-if="key">
-                    <game-table
-                        :inningData="key"
-                    ></game-table>
-                    <game-edit
-                        :matchId="key.match_id"
-                        :gameId="key.game_id"
-                        :isCollect="key.is_collect"
-                        :supported="key.is_supported"
-                        :isStatus="key.status"
-                        @openDetailId="openDetailId"
-                    ></game-edit>
+        <div v-if="!userInfo && myCollect === 1" class="not">暂无数据，请先登录！</div>
+        <div v-else>
+            <!-- 标题 -->
+            <div v-for="(item,index) in gameList" :key="item.title">
+                <div class="game-title flex flex_between" v-if="item.list.length!==0">
+                    <p>{{item.title}}</p>
+                    <p>更新倒计时：<span>0{{count}}</span> 秒</p>
                 </div>
-                <!-- 详情 -->
-                <game-info
-                    :openType="parseInt(key.game_id)"
-                    v-if="currentId === key.match_id"
-                    @packDetailId="packDetailId"
-                ></game-info>
+                <!-- 游戏比分 -->
+                <div class="list" v-for="key in item.list" :key="key.match_id">
+                    <div class="flex flex_between" v-if="key">
+                        <game-table
+                            :inningData="key"
+                        ></game-table>
+                        <game-edit
+                            :matchId="key.match_id"
+                            :gameId="key.game_id"
+                            :isCollect="key.is_collect"
+                            :supported="key.is_supported"
+                            :isStatus="key.status"
+                            @openDetailId="openDetailId"
+                        ></game-edit>
+                    </div>
+                    <div v-if="userInfo && myCollect === 1 && !key" class="not">
+                        暂无收藏赛事，请先添加收藏！
+                    </div>
+                    <!-- 详情 -->
+                    <game-info
+                        :openType="parseInt(key.game_id)"
+                        v-if="currentId === key.match_id"
+                        @packDetailId="packDetailId"
+                    ></game-info>
+                </div>
+                <!-- 分页 -->
+                <paging-page
+                    :indexData="index"
+                    v-if="item&&item.page.count>5"
+                    :countData="item.page.count"
+                    @currentPage="currentPage"
+                ></paging-page>
             </div>
-            <!-- 分页 -->
-            <paging-page
-                :indexData="index"
-                v-if="item&&item.page.count>5"
-                :countData="item.page.count"
-                @currentPage="currentPage"
-            ></paging-page>
         </div>
     </div>
 </template>
@@ -57,6 +63,7 @@
               tournamentIds: [],
               searchTime: '',
               myCollect: 2,
+              userInfo: null,
               timer: null,  // 倒计时 计时器
               count: 5,     // 5s 倒计时
               gameList: [],
@@ -131,6 +138,8 @@
                     if (res.code === 200) {
                         _this.gameList[0].list = res.data.match_info
                         _this.gameList[0].page.count = res.data.count
+                    } else {
+                        _this.$message.error(res.message)
                     }
                 })
             },
@@ -148,6 +157,8 @@
                     if (res.code === 200) {
                         _this.gameList[1].list = res.data.match_info
                         _this.gameList[1].page.count = res.data.count
+                    } else {
+                        _this.$message.error(res.message)
                     }
                 })
             },
@@ -167,6 +178,8 @@
                         if (res.code === 200) {
                             _this.gameList[0].list = res.data.match_info
                             _this.gameList[0].page.count = res.data.count
+                        } else {
+                            _this.$message.error(res.message)
                         }
                     })
                 }
@@ -182,7 +195,10 @@
                         if (res.code === 200) {
                             _this.gameList[2].list = res.data.match_info
                             _this.gameList[2].page.count = res.data.count
+                        } else {
+                            _this.$message.error(res.message)
                         }
+
                     })
                 }
             },
@@ -260,6 +276,7 @@
                 }
             },
             matchCollect(val) {
+                this.userInfo = localStorage.getItem('userToken')
                 this.searchTime = ''
                 this.tournamentIds = []
                 this.myCollect = val
@@ -308,6 +325,10 @@
         .list {
             margin-bottom: 8px;
             background-color: #fff;
+        }
+        .not {
+            text-align: center;
+            padding: 20px 0;
         }
     }
 </style>

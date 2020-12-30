@@ -3,7 +3,7 @@
         <table>
             <thead>
                 <th>
-                    <i
+                    <i :title="isCollectStatus?'取消收藏':'收藏'"
                         :class="['iconfont', isCollectStatus?'icon-shoucang2':'icon-shoucang']"
                         @click="getCollect(matchId)"
                     ></i>

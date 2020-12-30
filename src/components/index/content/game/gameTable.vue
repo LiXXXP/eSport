@@ -2,21 +2,19 @@
     <div class="game-table">
         <table>
             <thead @click="gotoDetail(inningData.game_id,inningData.match_id)">
-                <th>
+                <th :title="inningData.tournament_name">
                     <div class="flex flex_start flex_only_center">
-                        <img
-                            :src="inningData.tournament_image"
+                        <img :src="inningData.tournament_image"
                             class="event-icon"
                         >
-                        <span class="beyond-ellipsis"
-                            :title="inningData.tournament_name">
+                        <span class="beyond-ellipsis">
                             {{inningData.tournament_name}}
                         </span>
                     </div>
                 </th>
-                <th colspan="3">
+                <th colspan="3" :title="inningData.match_type_full + inningData.number_of_games">
                     <!-- 比赛类型 Best of=BO，OW Best of=BO，Frist to=FT，Best Ranking=BR -->
-                    BO{{inningData.number_of_games}}
+                    {{inningData.match_type}}{{inningData.number_of_games}}
                 </th>
                 <th v-for="icon in tableTitleList" :key="icon.i">
                     <img
@@ -32,7 +30,7 @@
                     <td rowspan="2">
                         <div class="flex flex_start">
                             <div class="flex flex_start flex_only_center">
-                                <img :src="inningData.game_image" class="game-icon">
+                                <img :src="inningData.game_image" class="game-icon" :title="inningData.name_cn">
                                 <div class="game-time">
                                     <p>
                                         {{inningData.scheduled_begin_at.substring(11,16)}}
@@ -43,9 +41,9 @@
                             </div>
                             <div class="teams">
                                 <div v-for="item in inningData.scores" :key="item.team_id">
-                                    <div class="flex flex_start flex_only_center">
+                                    <div class="flex flex_start flex_only_center" :title="item.team_snapshot.name">
                                         <img :src="item.team_snapshot.image" class="team-icon">
-                                        <p class="beyond-ellipsis" :title="item.team_snapshot.full_name">
+                                        <p class="beyond-ellipsis">
                                             {{item.team_snapshot.name}}
                                         </p>
                                     </div>
@@ -66,7 +64,9 @@
                             <p>第{{inningData.battle_list.length || 0}}局</p>
                             <p>{{durationTime(inningData.battle_list[inningData.battle_list.length-1].duration || 0)}}</p>
                         </div>
-                        <div class="game-etc" :style="{'color':inningData.status === '已开始'?'#00AB49':''}" v-else>
+                        <div class="game-etc"
+                            :style="{'color':inningData.status === '已开始'?'#00AB49':''}"
+                            v-if="inningData.status!== '未开始' && inningData.status!== '已推迟'">
                             {{inningData.status}}
                         </div>
                     </td>
@@ -451,9 +451,10 @@
         }
         .game-score {
             border: 0;
+            text-align: left;
             font-size: 14px;
             font-weight: bold;
-            padding-left: 4px;
+            padding-left: 10px;
             &.red {
                 color: #F22509;
             }

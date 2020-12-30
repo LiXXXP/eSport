@@ -36,8 +36,8 @@
         </div>
         <div class="team right">
             <img :src="matchDetail.scores[1].team_snapshot.image">
-            <p :title="matchDetail.scores[1].team_snapshot.full_name">
-                {{matchDetail.scores[1].team_snapshot.short_name}}
+            <p :title="matchDetail.scores[1].team_snapshot.name">
+                {{matchDetail.scores[1].team_snapshot.name}}
             </p>
         </div>
         <div class="country right">
