@@ -10,7 +10,7 @@
                     <el-tooltip placement="top"
                         v-if="key.faction === 'blue'">
                         <div slot="content">
-                            {{durationTime(key.ingame)}}
+                            {{durationTime(key.ingame || 0)}}
                         </div>
                         <el-button>
                             <img :src="key.url" class="tip">
@@ -48,7 +48,7 @@
                     <el-tooltip placement="top"
                         v-if="key.faction === 'red'">
                         <div slot="content">
-                            {{durationTime(key.ingame)}}
+                            {{durationTime(key.ingame || 0)}}
                         </div>
                         <el-button>
                             <img :src="key.url" class="tip">

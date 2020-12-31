@@ -101,13 +101,11 @@
         },
         watch: {
             matchDetail() {
-                return this.$store.state.matchsData
-            },
-            currentData() {
                 this.getNavTitle()
                 if(this.navList.length > 0) {
                     this.currentMatchId = this.navList[0].battleId
                 }
+                return this.$store.state.matchsData
             }
         },
         components: {

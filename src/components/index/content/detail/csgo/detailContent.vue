@@ -61,10 +61,6 @@
             currentData: {
                 type: Number,
                 default: 0
-            },
-            goIng: {
-                type: Boolean,
-                default: false
             }
         },
         data () {
@@ -76,7 +72,7 @@
                 // 4为详情直播按钮
                 selectStyle: 3,
                 navList : [],   // 对局数导航
-                currentMatchId: 0
+                currentMatchId: 0,
             }
         },
         methods: {
@@ -84,20 +80,22 @@
                 this.currentMatchId = this.navList[index].battleId
             },
             getNavTitle() {
-                let navArr = []
-                for(let index in this.$store.state.matchsData.battle_list) {
-                    let item = {
-                        title: `MAP ${parseInt(index)+1}`,
-                        battleId: this.$store.state.matchsData.battle_list[index].battle_id
+                if(this.$store.state.matchsData.battle_list.length > 0) {
+                    let navArr = []
+                    for(let index in this.$store.state.matchsData.battle_list) {
+                        let item = {
+                            title: `MAP ${parseInt(index)+1}`,
+                            battleId: this.$store.state.matchsData.battle_list[index].battle_id
+                        }
+                        navArr.push(item)
+                        this.navList = [...navArr]
                     }
-                    navArr.push(item)
-                    this.navList = [...navArr]
-                }
-                if(this.$route.path === '/detail') {
-                    this.navList.unshift({
-                        title: '对战分析',
-                        battleId: 0
-                    })
+                    if(this.$route.path === '/detail') {
+                        this.navList.unshift({
+                            title: '对战分析',
+                            battleId: 0
+                        })
+                    }
                 }
             },
         },
@@ -108,11 +106,11 @@
         },
         watch: {
             matchDetail() {
-                return this.$store.state.matchsData
-            },
-            currentData() {
                 this.getNavTitle()
-                this.currentMatchId = this.navList[0].battleId
+                if(this.navList.length > 0) {
+                    this.currentMatchId = this.navList[0].battleId
+                }
+                return this.$store.state.matchsData
             }
         },
         components: {

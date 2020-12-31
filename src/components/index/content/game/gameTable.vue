@@ -354,8 +354,10 @@
                     }
                     for(let event of this.tableBodyList.events) {
                         let field = event.type
-                        event.faction = this.inningData.battle_list[0].first_events[field].faction
-                        event.ingame = this.inningData.battle_list[0].first_events[field].ingame_timestamp
+                        if(this.inningData.battle_list[0].first_events[field]) {
+                            event.faction = this.inningData.battle_list[0].first_events[field].faction || ''
+                            event.ingame = this.inningData.battle_list[0].first_events[field].ingame_timestamp
+                        }
                     }
                 }
             },

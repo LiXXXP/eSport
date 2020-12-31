@@ -184,8 +184,8 @@
                         }
                         for(let key of e.imgs) {
                             let type = key.type
-                            key.ingame = item.first_events[type].ingame_timestamp
-                            key.faction = item.first_events[type].faction
+                            key.ingame = parseInt(item.first_events[type].ingame_timestamp) || 0
+                            key.faction = item.first_events[type].faction || ''
                         }
                     })
                 }
