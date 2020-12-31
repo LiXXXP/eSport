@@ -12,7 +12,7 @@
                         </span>
                     </div>
                 </th>
-                <th colspan="3" :title="inningData.match_type_full + inningData.number_of_games">
+                <th colspan="3" :title="inningData.match_type_full + ' ' + inningData.number_of_games">
                     <!-- 比赛类型 Best of=BO，OW Best of=BO，Frist to=FT，Best Ranking=BR -->
                     {{inningData.match_type}}{{inningData.number_of_games}}
                 </th>
@@ -20,6 +20,7 @@
                     <img
                         class="icons"
                         :src="icon.iconUrl"
+                        :title="icon.tip"
                         v-if="(inningData.game_id === icon.gameLoLId || inningData.game_id === icon.gameDotaId) && isDatas"
                     >
                     <p class="csgomap-name" v-if="inningData.game_id === 1">{{icon.mapName}}</p>
@@ -66,7 +67,7 @@
                         </div>
                         <div class="game-etc"
                             :style="{'color':inningData.status === '已开始'?'#00AB49':''}"
-                            v-if="inningData.status!== '未开始' && inningData.status!== '已推迟'">
+                            v-else-if="inningData.status!== '未开始' && inningData.status!== '已推迟'">
                             {{inningData.status}}
                         </div>
                     </td>
@@ -80,7 +81,7 @@
                                     r: inningData.battle_list[0].factions[0].faction === 'red',
                                     b: inningData.battle_list[0].factions[0].faction === 'blue'
                                 }]">
-                                    <span>
+                                    <span :title="inningData.battle_list[0].factions[0].faction === 'red'? 'red' : 'blue'">
                                         {{inningData.battle_list[0].factions[0].faction === 'red'? 'R':inningData.battle_list[0].factions[0].faction === 'blue'? 'B' : ''}}
                                     </span>
                                 </p>
@@ -93,7 +94,7 @@
                         </span>
                     </td>
                     <td v-for="e in tableBodyList.events" :key="e.type">
-                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'red'">
+                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'red'" :title="durationTime(e.ingame)">
                     </td>
                 </tr>
                 <tr>
@@ -115,7 +116,7 @@
                                     r: inningData.battle_list[0].factions[1].faction === 'red',
                                     b: inningData.battle_list[0].factions[1].faction === 'blue'
                                 }]">
-                                    <span>
+                                    <span :title="inningData.battle_list[0].factions[1].faction === 'blue'? 'blue' : 'red'">
                                         {{inningData.battle_list[0].factions[1].faction === 'blue'? 'B': inningData.battle_list[0].factions[1].faction === 'red'? 'R' : ''}}
                                     </span>
                                 </p>
@@ -128,7 +129,7 @@
                         </span>
                     </td>
                     <td v-for="e in tableBodyList.events" :key="e.type">
-                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'blue'">
+                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'blue'" :title="durationTime(e.ingame)">
                     </td>
                 </tr>
             </tbody>
@@ -150,36 +151,42 @@
                 tableTitleList: [    // 比赛列表标题内容
                     {
                         i: 0,
+                        tip: '击杀',
                         iconUrl: require('../../../../assets/imgs/index/lol/lol01.png'),
                         gameLoLId: 2,
                         gameDotaId: 3
                     },
                     {
                         i: 1,
+                        tip: '经济',
                         iconUrl: require('../../../../assets/imgs/index/lol/lol02.png'),
                         gameLoLId: 2,
                         gameDotaId: 3
                     },
                     {
                         i: 2,
+                        tip: '摧毁防御塔',
                         iconUrl: require('../../../../assets/imgs/index/lol/lol03.png'),
                         gameLoLId: 2,
                         gameDotaId: 3
                     },
                     {
                         i: 3,
+                        tip: '摧毁水晶',
                         iconUrl: require('../../../../assets/imgs/index/lol/lol04.png'),
                         gameLoLId: 2,
                         gameDotaId: 3
                     },
                     {
                         i: 4,
+                        tip: '击杀元素巨龙',
                         iconUrl: require('../../../../assets/imgs/index/lol/lol05.png'),
                         gameLoLId: 2,
                         gameDotaId: 0
                     },
                     {
                         i: 5,
+                        tip: '击杀纳什男爵',
                         iconUrl: require('../../../../assets/imgs/index/lol/lol06.png'),
                         gameLoLId: 2,
                         gameDotaId: 0
@@ -264,47 +271,56 @@
                         {
                             url: require('../../../../assets/imgs/detail/kills03.png'),
                             type: 'first_blood',
-                            faction: ''
+                            faction: '',
+                            ingame: ''
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills02.png'),
                             type: 'first_to_5_kills',
-                            faction: ''
+                            faction: '',
+                            ingame: ''
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills01.png'),
                             type: 'first_to_10_kills',
-                            faction: ''
+                            faction: '',
+                            ingame: ''
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills04.png'),
                             type: 'first_turret',
-                            faction: ''
+                            faction: '',
+                            ingame: ''
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills05.png'),
                             type: 'first_inhibitor',
-                            faction: ''
+                            faction: '',
+                            ingame: ''
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills06.png'),
                             type: 'first_rift_herald',
-                            faction: ''
+                            faction: '',
+                            ingame: ''
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills07.png'),
                             type: 'first_dragon',
-                            faction: ''
+                            faction: '',
+                            ingame: ''
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills08.png'),
                             type: 'first_baron_nashor',
-                            faction: ''
+                            faction: '',
+                            ingame: ''
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills08.png'),
                             type: 'first_elder_dragon',
-                            faction: ''
+                            faction: '',
+                            ingame: ''
                         }
                     ]
                 },
@@ -339,6 +355,7 @@
                     for(let event of this.tableBodyList.events) {
                         let field = event.type
                         event.faction = this.inningData.battle_list[0].first_events[field].faction
+                        event.ingame = this.inningData.battle_list[0].first_events[field].ingame_timestamp
                     }
                 }
             },

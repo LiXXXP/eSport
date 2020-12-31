@@ -1,9 +1,16 @@
 <template>
     <div class="game-list">
-        <div v-if="!userInfo && myCollect === 1" class="not">暂无数据，请先登录！</div>
+        <div v-if="!userInfo && myCollect === 1"
+            class="not"
+        >请登陆后显示收藏赛事！</div>
+        <div v-if="
+                userInfo && myCollect === 1 &&
+                gameList[0].list.length<1 && gameList[1].list.length<1 && gameList[2].list.length<1"
+            class="not"
+        >暂无收藏赛事，请点击收藏!</div>
         <div v-else>
             <!-- 标题 -->
-            <div v-for="(item,index) in gameList" :key="item.title">
+            <div v-for="(item,index) in gameList" :key="item.title" class="game">
                 <div class="game-title flex flex_between" v-if="item.list.length!==0">
                     <p>{{item.title}}</p>
                     <p>更新倒计时：<span>0{{count}}</span> 秒</p>
@@ -22,9 +29,6 @@
                             :isStatus="key.status"
                             @openDetailId="openDetailId"
                         ></game-edit>
-                    </div>
-                    <div v-if="userInfo && myCollect === 1 && !key" class="not">
-                        暂无收藏赛事，请先添加收藏！
                     </div>
                     <!-- 详情 -->
                     <game-info
@@ -329,6 +333,7 @@
         .not {
             text-align: center;
             padding: 20px 0;
+
         }
     }
 </style>
