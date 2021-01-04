@@ -75,6 +75,12 @@
                 currentMatchId: 0,
             }
         },
+        created() {
+            this.getNavTitle()
+            if(this.navList.length > 0) {
+                this.currentMatchId = this.navList[0].battleId
+            }
+        },
         methods: {
             navDetail(index) {
                 this.currentMatchId = this.navList[index].battleId

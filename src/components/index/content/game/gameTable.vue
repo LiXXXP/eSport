@@ -76,7 +76,7 @@
 
                         </div>
                         <div v-if="inningData.game_id === 2" class="game-rank">
-                            <div v-if="inningData.battle_list && inningData.battle_list.length > 0">
+                            <div v-if="inningData.battle_list && inningData.battle_list.length > 0 && inningData.battle_list[0].factions.length>0">
                                 <p :class="[{
                                     r: inningData.battle_list[0].factions[0].faction === 'red',
                                     b: inningData.battle_list[0].factions[0].faction === 'blue'
@@ -94,7 +94,7 @@
                         </span>
                     </td>
                     <td v-for="e in tableBodyList.events" :key="e.type">
-                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'red'" :title="durationTime(e.ingame)">
+                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'red'" :title="durationTime(e.ingame)+' '+ e.tip">
                     </td>
                 </tr>
                 <tr>
@@ -111,7 +111,7 @@
 
                         </div>
                         <div v-if="inningData.game_id === 2" class="game-rank">
-                            <div v-if="inningData.battle_list && inningData.battle_list.length > 0">
+                            <div v-if="inningData.battle_list && inningData.battle_list.length > 0 && inningData.battle_list[0].factions.length>0">
                                 <p :class="[{
                                     r: inningData.battle_list[0].factions[1].faction === 'red',
                                     b: inningData.battle_list[0].factions[1].faction === 'blue'
@@ -129,7 +129,7 @@
                         </span>
                     </td>
                     <td v-for="e in tableBodyList.events" :key="e.type">
-                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'blue'" :title="durationTime(e.ingame)">
+                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'blue'" :title="durationTime(e.ingame)+' '+ e.tip">
                     </td>
                 </tr>
             </tbody>
@@ -272,55 +272,64 @@
                             url: require('../../../../assets/imgs/detail/kills03.png'),
                             type: 'first_blood',
                             faction: '',
-                            ingame: ''
+                            ingame: '',
+                            tip: '一血'
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills02.png'),
                             type: 'first_to_5_kills',
                             faction: '',
-                            ingame: ''
+                            ingame: '',
+                            tip: '率先获得五个击杀'
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills01.png'),
                             type: 'first_to_10_kills',
                             faction: '',
-                            ingame: ''
+                            ingame: '',
+                            tip: '率先获得十个击杀'
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills04.png'),
                             type: 'first_turret',
                             faction: '',
-                            ingame: ''
+                            ingame: '',
+                            tip: '首塔'
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills05.png'),
                             type: 'first_inhibitor',
                             faction: '',
-                            ingame: ''
+                            ingame: '',
+                            tip: '首水晶'
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills06.png'),
                             type: 'first_rift_herald',
                             faction: '',
-                            ingame: ''
+                            ingame: '',
+                            tip: '首峡谷先锋'
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills07.png'),
                             type: 'first_dragon',
                             faction: '',
-                            ingame: ''
+                            ingame: '',
+                            tip: '首元素巨龙'
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills08.png'),
                             type: 'first_baron_nashor',
                             faction: '',
-                            ingame: ''
+                            ingame: '',
+                            tip: '首纳什男爵'
                         },
                         {
                             url: require('../../../../assets/imgs/detail/kills08.png'),
                             type: 'first_elder_dragon',
                             faction: '',
-                            ingame: ''
+                            ingame: '',
+                            tip: '首远古巨龙'
                         }
                     ]
                 },
@@ -344,12 +353,14 @@
                 if(this.inningData.game_id === 2 && this.inningData.battle_list && this.inningData.battle_list.length>0) {
                     for(let item of this.tableBodyList.datas) {
                         let field = item.type
-                        item.red = this.inningData.battle_list[0].factions[0][field] || 0
-                        item.blue = this.inningData.battle_list[0].factions[1][field] || 0
-                        if(item.red !== '') {
-                            this.isDatas = true
-                        } else {
-                            this.isDatas = false
+                        if(this.inningData.battle_list[0].factions.length > 0) {
+                            item.red = this.inningData.battle_list[0].factions[0][field] || 0
+                            item.blue = this.inningData.battle_list[0].factions[1][field] || 0
+                            if(item.red !== '') {
+                                this.isDatas = true
+                            } else {
+                                this.isDatas = false
+                            }
                         }
                     }
                     for(let event of this.tableBodyList.events) {

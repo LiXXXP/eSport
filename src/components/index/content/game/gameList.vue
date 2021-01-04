@@ -2,7 +2,7 @@
     <div class="game-list">
         <div v-if="!userInfo && myCollect === 1"
             class="not"
-        >请登陆后显示收藏赛事！</div>
+        >请登录后显示收藏赛事！</div>
         <div v-if="
                 userInfo && myCollect === 1 &&
                 gameList[0].list.length<1 && gameList[1].list.length<1 && gameList[2].list.length<1"
