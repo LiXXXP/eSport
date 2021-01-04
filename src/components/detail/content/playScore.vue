@@ -1,7 +1,9 @@
 <template>
     <div class="play-score flex flex_between flex_center">
         <div class="country left">
-            <p>#{{matchDetail.scores[0].team_snapshot.world_ranking || 0}}</p>
+            <p v-if="matchDetail.scores[0].team_snapshot.world_ranking">
+                #{{matchDetail.scores[0].team_snapshot.world_ranking || 0}}
+            </p>
             <img :src="matchDetail.scores[0].team_snapshot.country.c_image">
             <div></div>
         </div>
@@ -41,7 +43,9 @@
             </p>
         </div>
         <div class="country right">
-            <p>#{{matchDetail.scores[1].team_snapshot.world_ranking || 0}}</p>
+            <p v-if="matchDetail.scores[1].team_snapshot.world_ranking">
+                #{{matchDetail.scores[1].team_snapshot.world_ranking || 0}}
+            </p>
             <img :src="matchDetail.scores[1].team_snapshot.country.c_image">
             <div></div>
         </div>
