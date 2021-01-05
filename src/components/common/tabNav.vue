@@ -4,8 +4,8 @@
             v-for="(item,index) in navData"
             :key="item.title"
             @click="cutTab(index)">
-            <div :class="['title',`select-style${selectStyle}`,{active:index===currentIndex}]">
-                <i v-if="item.icon">{{item.icon}}</i>
+            <div :class="['title flex flex_center',`select-style${selectStyle}`,{active:index===currentIndex}]">
+                <img :src="item.icon" v-if="item.icon">
                 <span>{{item.title}}</span>
             </div>
             <slot
@@ -64,6 +64,11 @@
                 margin-right: 8px;
                 text-align: center;
                 box-sizing: border-box;
+                img {
+                    width: 26px;
+                    height: 26px;
+                    margin-right: 4px;
+                }
             }
             .select-style1 {
                 color: #101010;

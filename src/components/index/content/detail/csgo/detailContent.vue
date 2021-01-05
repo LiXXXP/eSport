@@ -89,10 +89,12 @@
                 if(this.$store.state.matchsData.battle_list) {
                     if(this.$store.state.matchsData.battle_list.length > 0) {
                         let navArr = []
-                        for(let index in this.$store.state.matchsData.battle_list) {
+                        let detail = this.$store.state.matchsData
+                        for(let index in detail.battle_list) {
                             let item = {
                                 title: `MAP ${parseInt(index)+1}`,
-                                battleId: this.$store.state.matchsData.battle_list[index].battle_id
+                                icon: detail.battle_list[index].winner.team_snapshot.image || '',
+                                battleId: detail.battle_list[index].battle_id
                             }
                             navArr.push(item)
                             this.navList = [...navArr]

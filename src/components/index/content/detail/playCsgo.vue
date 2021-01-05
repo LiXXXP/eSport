@@ -55,11 +55,9 @@
                                             :isReverse="true"
                                             v-for="key in item.rounds_detail.slice(0,15)"
                                             :key="key.round_ordinal"
-                                            :survivedNum="item.teams[0].team_id === key.side[0].team_id ?
-                                                          key.side[0].survived_players : key.side[1].survived_players"
-                                            :headshotNum="item.teams[0].team_id === key.side[0].team_id ?
-                                                          key.side[0].headshot_kills : key.side[1].headshot_kills"
-                                            :backColor="item.teams[0].team_id === key.side[0].team_id ? '#008CD4':'#F6B600'"
+                                            :survivedNum="key.side[0].survived_players"
+                                            :headshotNum="key.side[0].headshot_kills"
+                                            :backColor="'#008CD4'"
                                         ></kill-bar>
                                     </div>
                                 </td>
@@ -70,18 +68,16 @@
                                             :isReverse="true"
                                             v-for="key in item.rounds_detail.slice(15,30)"
                                             :key="key.round_ordinal"
-                                            :survivedNum="item.teams[1].team_id === key.side[1].team_id?
-                                                          key.side[1].survived_players : key.side[0].survived_players"
-                                            :headshotNum="item.teams[1].team_id === key.side[1].team_id?
-                                                          key.side[1].headshot_kills : key.side[0].headshot_kills"
-                                            :backColor="item.teams[0].team_id === key.side[0].team_id ? '#008CD4':'#F6B600 '"
+                                            :survivedNum="key.side[1].survived_players"
+                                            :headshotNum="key.side[1].headshot_kills"
+                                            :backColor="'#F6B600'"
                                         ></kill-bar>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="flex flex_only_center" v-if="item.teams[0].team_snapshot">
+                                    <div class="flex flex_only_center">
                                         <img :src="item.teams[0].team_snapshot.image" class="team-img">
                                         <p class="team-name beyond-ellipsis" :title="item.teams[0].team_snapshot.name">
                                             {{item.teams[0].team_snapshot.name}}
@@ -97,15 +93,15 @@
                                             v-for="key in item.rounds_detail.slice(0,15)"
                                             :key="key.round_ordinal">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
-                                            v-if="key.win_type === 'cts_win' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'cts_win' && key.winner === key.side[0].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
-                                            v-if="key.win_type === 'bomb_defused' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'bomb_defused' && key.winner === key.side[0].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
-                                            v-if="key.win_type === 'target_saved' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'target_saved' && key.winner === key.side[0].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
-                                            v-if="key.win_type === 'target_bombed' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'target_bombed' && key.winner === key.side[0].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
-                                            v-if="key.win_type === 'terrorists_win' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'terrorists_win' && key.winner === key.side[0].team_id">
                                         </div>
                                     </div>
                                 </td>
@@ -115,22 +111,22 @@
                                             v-for="key in item.rounds_detail.slice(15,30)"
                                             :key="key.round_ordinal">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
-                                            v-if="key.win_type === 'terrorists_win' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'cts_win' && key.winner === key.side[1].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
-                                            v-if="key.win_type === 'target_bombed' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'bomb_defused' && key.winner === key.side[1].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
-                                            v-if="key.win_type === 'target_saved' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'target_saved' && key.winner === key.side[1].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
-                                            v-if="key.win_type === 'bomb_defused' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'target_bombed' && key.winner === key.side[1].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
-                                            v-if="key.win_type === 'cts_win' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'terrorists_win' && key.winner === key.side[1].team_id">
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="flex flex_only_center" v-if="item.teams[1].team_snapshot">
+                                    <div class="flex flex_only_center">
                                         <img :src="item.teams[1].team_snapshot.image" class="team-img">
                                         <p class="team-name beyond-ellipsis" :title="item.teams[1].team_snapshot.name">
                                             {{item.teams[1].team_snapshot.name}}
@@ -145,15 +141,15 @@
                                             v-for="key in item.rounds_detail.slice(0,15)"
                                             :key="key.round_ordinal">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
-                                            v-if="key.win_type === 'cts_win' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'cts_win' && key.winner === key.side[1].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
-                                            v-if="key.win_type === 'bomb_defused' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'bomb_defused' && key.winner === key.side[1].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
-                                            v-if="key.win_type === 'target_saved' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'target_saved' && key.winner === key.side[1].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
-                                            v-if="key.win_type === 'target_bombed' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'target_bombed' && key.winner === key.side[1].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
-                                            v-if="key.win_type === 'terrorists_win' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'terrorists_win' && key.winner === key.side[1].team_id">
                                         </div>
                                     </div>
                                 </td>
@@ -163,15 +159,15 @@
                                             v-for="key in item.rounds_detail.slice(15,30)"
                                             :key="key.round_ordinal">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
-                                            v-if="key.win_type === 'terrorists_win' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'cts_win' && key.winner === key.side[0].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_dismantle.png"
-                                            v-if="key.win_type === 'target_bombed' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'bomb_defused' && key.winner === key.side[0].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win_timeup.png"
-                                            v-if="key.win_type === 'target_saved' && key.winner === item.teams[1].team_id">
+                                            v-if="key.win_type === 'target_saved' && key.winner === key.side[0].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_bomb.png"
-                                            v-if="key.win_type === 'bomb_defused' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'target_bombed' && key.winner === key.side[0].team_id">
                                             <img src="../../../../assets/imgs/detail/csgo/csgo_t_win_killAll.png"
-                                            v-if="key.win_type === 'cts_win' && key.winner === item.teams[0].team_id">
+                                            v-if="key.win_type === 'terrorists_win' && key.winner === key.side[0].team_id">
                                         </div>
                                     </div>
                                 </td>
@@ -185,11 +181,9 @@
                                             v-for="key in item.rounds_detail.slice(0,15)"
                                             :key="key.round_ordinal"
                                             :isReverse="false"
-                                            :survivedNum="item.teams[1].team_id === key.side[1].team_id?
-                                                          key.side[1].survived_players : key.side[0].survived_players"
-                                            :headshotNum="item.teams[1].team_id === key.side[1].team_id?
-                                                          key.side[1].headshot_kills : key.side[0].headshot_kills"
-                                            :backColor="item.teams[1].team_id === key.side[1].team_id ? '#F6B600':'#008CD4'"
+                                            :survivedNum="key.side[1].survived_players"
+                                            :headshotNum="key.side[1].headshot_kills"
+                                            :backColor="'#F6B600'"
                                         ></kill-bar>
                                     </div>
                                 </td>
@@ -200,11 +194,9 @@
                                             v-for="key in item.rounds_detail.slice(15,30)"
                                             :key="key.round_ordinal"
                                             :isReverse="false"
-                                            :survivedNum="item.teams[0].team_id === key.side[0].team_id?
-                                                          key.side[0].survived_players : key.side[1].survived_players"
-                                            :headshotNum="item.teams[0].team_id === key.side[0].team_id?
-                                                          key.side[0].headshot_kills : key.side[1].headshot_kills"
-                                            :backColor="item.teams[1].team_id === key.side[1].team_id ? '#F6B600':'#008CD4'"
+                                            :survivedNum="key.side[0].survived_players"
+                                            :headshotNum="key.side[0].headshot_kills"
+                                            :backColor="'#008CD4'"
                                         ></kill-bar>
                                     </div>
                                 </td>

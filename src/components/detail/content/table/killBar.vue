@@ -3,9 +3,7 @@
         <div class="bar">
             <p v-for="item in barList" :key="item.i"
                 :style="{'background-color': item.color}">
-                <i v-if="item.color==='#434343' && headshotNum > 0"
-                    :style="{'width': `${4*headshotNum}px`}"
-                ></i>
+                <i v-if="item.color==='#434343' && headshotNum" style="width:4px;"></i>
             </p>
         </div>
     </div>

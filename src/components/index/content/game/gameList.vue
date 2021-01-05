@@ -3,11 +3,10 @@
         <div v-if="!userInfo && myCollect === 1"
             class="not"
         >请登录后显示收藏赛事！</div>
-        <div v-if="
-                userInfo && myCollect === 1 &&
-                gameList[0].list.length<1 && gameList[1].list.length<1 && gameList[2].list.length<1"
+        <div v-if="userInfo && myCollect === 1 && gameList.length<1"
             class="not"
         >暂无收藏赛事，请点击收藏!</div>
+
         <div v-else>
             <!-- 标题 -->
             <div v-for="(item,index) in gameList" :key="item.title" class="game">
@@ -267,10 +266,12 @@
                 this.searchTime = ''
                 this.tournamentIds = []
                 if(val === 1) {
-                    this.gameList = this.gameInfo
-                    this.getGoingList()
-                    this.getComningList()
-                    this.getPastList()
+                    this.$nextTick( () => {
+                        this.gameList = this.gameInfo
+                        this.getGoingList()
+                        this.getComningList()
+                        this.getPastList()
+                    })
                 }
                 if(val === 2) {
                     this.$nextTick( () => {
@@ -280,15 +281,24 @@
                 }
             },
             matchCollect(val) {
-                this.userInfo = localStorage.getItem('userToken')
-                this.searchTime = ''
-                this.tournamentIds = []
                 this.myCollect = val
-                this.gameList = this.gameInfo
-                if(val === 1) {
-                    this.getGoingList()
-                    this.getComningList()
-                    this.getPastList()
+                this.userInfo = localStorage.getItem('userToken')
+                if(!localStorage.getItem('userToken')) {
+                    this.gameList = []
+                    if(val === 1) {
+                        this.$alert('请登录后显示收藏赛事！', {
+                            confirmButtonText: '确定'
+                        })
+                    }
+                } else {
+                    this.searchTime = ''
+                    this.tournamentIds = []
+                    this.gameList = this.gameInfo
+                    if(val === 1) {
+                        this.getGoingList()
+                        this.getComningList()
+                        this.getPastList()
+                    }
                 }
             },
             matchData(val) {
@@ -333,7 +343,7 @@
         .not {
             text-align: center;
             padding: 20px 0;
-
+            font-size: 16px;
         }
     }
 </style>

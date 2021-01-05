@@ -4,7 +4,7 @@
             <p v-if="matchDetail.scores[0].team_snapshot.world_ranking">
                 #{{matchDetail.scores[0].team_snapshot.world_ranking || 0}}
             </p>
-            <img :src="matchDetail.scores[0].team_snapshot.country.c_image">
+            <img :src="matchDetail.scores[0].team_snapshot.country.image">
             <div></div>
         </div>
         <div class="team left">
@@ -46,7 +46,7 @@
             <p v-if="matchDetail.scores[1].team_snapshot.world_ranking">
                 #{{matchDetail.scores[1].team_snapshot.world_ranking || 0}}
             </p>
-            <img :src="matchDetail.scores[1].team_snapshot.country.c_image">
+            <img :src="matchDetail.scores[1].team_snapshot.country.image">
             <div></div>
         </div>
     </div>
