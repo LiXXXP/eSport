@@ -12,7 +12,7 @@
                     'lol-size': sizeData === 'lol'
             }]">
                 <img :src="item.champion.image.image" :title="item.champion.name">
-                <span>{{item.order || 0}}</span>
+                <!-- <span>{{item.order || 0}}</span> -->
             </div>
         </div>
         <div v-for="item in heroList" :key="">
@@ -23,7 +23,7 @@
                     'lol-size': sizeData === 'lol'
             }]">
                 <img :src="item.champion.image.image" :title="item.champion.name">
-                <span>{{item.order || 0}}</span>
+                <!-- <span>{{item.order || 0}}</span> -->
             </div>
         </div>
     </div>

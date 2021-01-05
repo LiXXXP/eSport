@@ -8,7 +8,9 @@
                     scoresData[0].team_snapshot.name : scoresData[1].team_snapshot.name
                 }}
             </p>
-            <img src="../../../../assets/imgs/detail/win.png"
+            <img :src="(factionsData[0].faction === 'blue' && factionsData[0].team_id === scoresData[0].team_id) ?
+                    scoresData[0].team_snapshot.image : scoresData[1].team_snapshot.image" class="team-img">
+            <img src="../../../../assets/imgs/detail/win.png" class="win"
                 v-if="(factionsData[0].faction === 'blue' && factionsData[0].team_id === scoresData[0].team_id) ?
                     factionsData[0].team_id === winnerId : factionsData[1].team_id === winnerId">
         </div>
@@ -17,9 +19,11 @@
             <p>{{durationTime(durationData)}}</p>
         </div>
         <div class="team flex flex_only_center flex_end">
-            <img src="../../../../assets/imgs/detail/win.png"
+            <img src="../../../../assets/imgs/detail/win.png" class="win"
                 v-if="(factionsData[1].faction === 'red' && factionsData[1].team_id === scoresData[1].team_id) ?
                       factionsData[1].team_id === winnerId : factionsData[0].team_id === winnerId">
+            <img :src="(factionsData[1].faction === 'red' && factionsData[1].team_id === scoresData[1].team_id) ?
+                    scoresData[1].team_snapshot.image : scoresData[0].team_snapshot.image" class="team-img">
             <p class="beyond-ellipsis">
                 {{
                     (factionsData[1].faction === 'red' && factionsData[1].team_id === scoresData[1].team_id) ?
@@ -67,7 +71,7 @@
         padding-bottom: 4px;
         border-bottom: 1px solid #CFCFCF;
         .team {
-            width: 200px;
+            width: 400px;
             color: #101010;
             font-size: 18px;
             font-weight: 500;
@@ -93,10 +97,17 @@
             .r {
                 background-color: #CC5728;
             }
-            img {
+            .team-img {
+                width: 24px;
+                height: 24px;
+            }
+            .win {
                 width: 65px;
                 height: 36px;
                 margin: 0 24px;
+            }
+            .beyond-ellipsis {
+                width: 180px;
             }
         }
         .time {
