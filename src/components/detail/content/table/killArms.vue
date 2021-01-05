@@ -3,11 +3,11 @@
         <div class="block flex flex_center">
             <div v-for="item in eventsList"
                 :key="item.type"
-                :class="{back:eventsData[item.type].side !== sideData}"
+                :class="{back:eventsData[item.type].team_id !== sideData}"
             >
                 <img
                     :src="item.url"
-                    v-if="eventsData[item.type].side === sideData"
+                    v-if="eventsData[item.type].team_id === sideData"
                 >
             </div>
         </div>
@@ -18,8 +18,8 @@
     export default {
         props: {
             sideData: {
-                type: String,
-                default: ''
+                type: Number,
+                default: 0
             },
             eventsData: {
                 type: Object,

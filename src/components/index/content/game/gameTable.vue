@@ -23,7 +23,9 @@
                         :title="icon.tip"
                         v-if="(inningData.game_id === icon.gameLoLId || inningData.game_id === icon.gameDotaId) && isDatas"
                     >
-                    <p class="csgomap-name" v-if="inningData.game_id === 1">{{icon.mapName}}</p>
+                    <p class="csgomap-name" v-if="inningData.game_id === 1" :title="icon.mapNameFull">
+                        {{icon.mapName}}
+                    </p>
                 </th>
             </thead>
             <tbody>
@@ -343,7 +345,8 @@
             getScores() {
                 if(this.inningData.game_id === 1 && this.inningData.battle_list) {
                     for(let i in this.inningData.battle_list) {
-                        this.tableTitleList[i].mapName = this.inningData.battle_list[i].map_name
+                        this.tableTitleList[i].mapName = this.inningData.battle_list[i].map_name || ''
+                        this.tableTitleList[i].mapNameFull = this.inningData.battle_list[i].map_name_full || ''
                         if(this.inningData.battle_list[i].battle_scores.length>0) {
                             this.tableBodyList.datas[i].red = this.inningData.battle_list[i].battle_scores[0].score
                             this.tableBodyList.datas[i].blue = this.inningData.battle_list[i].battle_scores[1].score

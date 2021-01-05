@@ -92,7 +92,7 @@
                         let detail = this.$store.state.matchsData
                         for(let index in detail.battle_list) {
                             let item = {
-                                title: `MAP ${parseInt(index)+1}`,
+                                title: detail.battle_list[index].map.map.short_name,
                                 icon: detail.battle_list[index].winner.team_snapshot.image || '',
                                 battleId: detail.battle_list[index].battle_id
                             }

@@ -26,6 +26,7 @@
                             :isCollect="key.is_collect"
                             :supported="key.is_supported"
                             :isStatus="key.status"
+                            :isDetail="key.is_detail"
                             @openDetailId="openDetailId"
                         ></game-edit>
                     </div>

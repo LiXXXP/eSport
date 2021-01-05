@@ -9,7 +9,7 @@
                 <div v-if="item.battle_id === targetMatchId">
                     <div class="map flex flex_center">
                         <kill-arms
-                            :sideData="item.teams[0].starting_side"
+                            :sideData="item.teams[0].team_id"
                             :eventsData="item.special_events"
                         ></kill-arms>
                         <kill-sign
@@ -40,7 +40,7 @@
                             :sideData="item.teams[1]"
                         ></kill-sign>
                         <kill-arms
-                            :sideData="item.teams[1].starting_side"
+                            :sideData="item.teams[1].team_id"
                             :eventsData="item.special_events"
                         ></kill-arms>
                     </div>

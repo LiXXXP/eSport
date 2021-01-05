@@ -17,7 +17,7 @@
                 </tr>
                 <tr>
                     <td class="detail"
-                        v-if="isStatus !== '未开始'"
+                        v-if="isStatus !== '未开始' && isDetail"
                         @click="openInfo(matchId,gameId)">
                         <span>详情</span>
                         <i></i>
@@ -50,6 +50,10 @@
                 default: ''
             },
             isCollect: {   // 是否收藏(true,false)
+                type: Boolean,
+                default: false
+            },
+            isDetail: {   // 是否显示详情(true,false)
                 type: Boolean,
                 default: false
             }
