@@ -86,21 +86,23 @@
                 this.currentMatchId = this.navList[index].battleId
             },
             getNavTitle() {
-                if(this.$store.state.matchsData.battle_list.length > 0) {
-                    let navArr = []
-                    for(let index in this.$store.state.matchsData.battle_list) {
-                        let item = {
-                            title: `MAP ${parseInt(index)+1}`,
-                            battleId: this.$store.state.matchsData.battle_list[index].battle_id
+                if(this.$store.state.matchsData.battle_list) {
+                    if(this.$store.state.matchsData.battle_list.length > 0) {
+                        let navArr = []
+                        for(let index in this.$store.state.matchsData.battle_list) {
+                            let item = {
+                                title: `MAP ${parseInt(index)+1}`,
+                                battleId: this.$store.state.matchsData.battle_list[index].battle_id
+                            }
+                            navArr.push(item)
+                            this.navList = [...navArr]
                         }
-                        navArr.push(item)
-                        this.navList = [...navArr]
-                    }
-                    if(this.$route.path === '/detail') {
-                        this.navList.unshift({
-                            title: '对战分析',
-                            battleId: 0
-                        })
+                        if(this.$route.path === '/detail') {
+                            this.navList.unshift({
+                                title: '对战分析',
+                                battleId: 0
+                            })
+                        }
                     }
                 }
             },
