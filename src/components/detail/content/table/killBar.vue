@@ -3,7 +3,7 @@
         <div class="bar">
             <p v-for="item in barList" :key="item.i"
                 :style="{'background-color': item.color}">
-                <i v-if="item.color==='#434343' && headshotNum" style="width:4px;"></i>
+                <i v-if="item.color==='#434343' && isHeadshot" style="width:4px;"></i>
             </p>
         </div>
     </div>
@@ -24,9 +24,13 @@
                 type: Number,
                 default: 0
             },
-            headshotNum: { // 爆头击杀数
-                type: Number,
-                default: 0
+            isDeath: {    // 是否首杀
+                type: Boolean,
+                default: false
+            },
+            isHeadshot: { // 是否爆头
+                type: Boolean,
+                default: false
             },
             backColor: {  // 战队颜色
                 type: String,
@@ -65,11 +69,8 @@
                     e.color = this.backColor
                 }
             })
-            if(this.headshotNum > 0) {
-                let index = this.survivedNum
-                if(index < 5) {
-                    this.barList[index].color = '#434343'
-                }
+            if(this.survivedNum < 5 && this.isDeath) {
+                this.barList[this.survivedNum].color = '#434343'
             }
             if(this.isReverse) {
                 this.barList.reverse()

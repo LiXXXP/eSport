@@ -19,7 +19,7 @@
             </div>
             <div class="score flex flex_center">
                 <div class="bar flex flex_start">
-                    <div :class="{win: item.winner.team_id === scoreData[0].team_id}"
+                    <div :class="{win: item.winner?item.winner.team_id === scoreData[0].team_id:false}"
                         v-for="item in battleData"
                         :key="item.duration"
                     ></div>
@@ -38,7 +38,7 @@
                     {{scoreData[1].score}}
                 </p>
                 <div class="bar flex flex_start">
-                    <div :class="{win: item.winner.team_id === scoreData[1].team_id}"
+                    <div :class="{win: item.winner?item.winner.team_id === scoreData[1].team_id:false}"
                         v-for="item in battleData"
                         :key="item.duration"
                     ></div>

@@ -55,8 +55,9 @@
                                             :isReverse="true"
                                             v-for="key in item.rounds_detail.slice(0,15)"
                                             :key="key.round_ordinal"
+                                            :isDeath="key.side[0].is_first_death"
                                             :survivedNum="key.side[0].survived_players"
-                                            :headshotNum="key.side[0].headshot_kills"
+                                            :isHeadshot="key.special_events.opening_kill.detail.is_opening_kill_headshot"
                                             :backColor="'#008CD4'"
                                         ></kill-bar>
                                     </div>
@@ -68,8 +69,9 @@
                                             :isReverse="true"
                                             v-for="key in item.rounds_detail.slice(15,30)"
                                             :key="key.round_ordinal"
+                                            :isDeath="key.side[1].is_first_death"
                                             :survivedNum="key.side[1].survived_players"
-                                            :headshotNum="key.side[1].headshot_kills"
+                                            :isHeadshot="key.special_events.opening_kill.detail.is_opening_kill_headshot"
                                             :backColor="'#F6B600'"
                                         ></kill-bar>
                                     </div>
@@ -82,7 +84,7 @@
                                         <p class="team-name beyond-ellipsis" :title="item.teams[0].team_snapshot.name">
                                             {{item.teams[0].team_snapshot.name}}
                                         </p>
-                                        <img v-if="item.teams[0].team_id === item.winner.team_id"
+                                        <img v-if="item.winner?item.teams[0].team_id === item.winner.team_id:false"
                                             src="../../../../assets/imgs/detail/win.png"
                                             class="team-win">
                                     </div>
@@ -131,7 +133,7 @@
                                         <p class="team-name beyond-ellipsis" :title="item.teams[1].team_snapshot.name">
                                             {{item.teams[1].team_snapshot.name}}
                                         </p>
-                                        <img v-if="item.teams[1].team_id === item.winner.team_id"
+                                        <img v-if="item.winner?item.teams[1].team_id === item.winner.team_id:false"
                                             src="../../../../assets/imgs/detail/win.png" class="team-win">
                                     </div>
                                 </td>
@@ -181,8 +183,9 @@
                                             v-for="key in item.rounds_detail.slice(0,15)"
                                             :key="key.round_ordinal"
                                             :isReverse="false"
+                                            :isDeath="key.side[1].is_first_death"
                                             :survivedNum="key.side[1].survived_players"
-                                            :headshotNum="key.side[1].headshot_kills"
+                                            :isHeadshot="key.special_events.opening_kill.detail.is_opening_kill_headshot"
                                             :backColor="'#F6B600'"
                                         ></kill-bar>
                                     </div>
@@ -194,8 +197,9 @@
                                             v-for="key in item.rounds_detail.slice(15,30)"
                                             :key="key.round_ordinal"
                                             :isReverse="false"
+                                            :isDeath="key.side[0].is_first_death"
                                             :survivedNum="key.side[0].survived_players"
-                                            :headshotNum="key.side[0].headshot_kills"
+                                            :isHeadshot="key.special_events.opening_kill.detail.is_opening_kill_headshot"
                                             :backColor="'#008CD4'"
                                         ></kill-bar>
                                     </div>

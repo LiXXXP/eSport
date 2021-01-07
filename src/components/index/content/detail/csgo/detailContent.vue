@@ -93,7 +93,7 @@
                         for(let index in detail.battle_list) {
                             let item = {
                                 title: detail.battle_list[index].map.map.short_name,
-                                icon: detail.battle_list[index].winner.team_snapshot.image || '',
+                                icon: detail.battle_list[index].winner?detail.battle_list[index].winner.team_snapshot.image : '',
                                 battleId: detail.battle_list[index].battle_id
                             }
                             navArr.push(item)
