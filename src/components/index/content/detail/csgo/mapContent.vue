@@ -30,7 +30,9 @@
                         </div>
                         <div class="team">
                             <span>{{durationTime(framesData.duration)}}</span>
-                            <img :src="framesData.battle_winner.image" :title="framesData.battle_winner.name">
+                            <img v-if="framesData.battle_winner"
+                                :src="framesData.battle_winner.image"
+                                :title="framesData.battle_winner.name">
                         </div>
                     </div>
                     <kill-table
