@@ -29,7 +29,7 @@
         </div>
         <div v-if="logsType === 'csgo'">
             <div class="csgo-list" ref="chat_main">
-                <div v-for="item in logsData" :key="item.round_time">
+                <div v-for="item in logsData" :key="">
                     <div class="item flex flex_start flex_only_center"
                         v-if="item.event_type === 'round_start'">
                         <p>回合开始 （第{{item.round_ordinal}}回合）</p>

@@ -17,34 +17,43 @@
                     <div class="header flex flex_between flex_center">
                         <div>
                             Ronud-<span class="round">{{framesData.current_round}}</span>
-                            {{framesData.map.name}} (map1)
+                            {{framesData.map.name}}
                         </div>
                         <div class="score">
-                            <span :class="framesData.side[0].side === 'ct'?'blue':'yellow'">
+                            <span :class="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?'blue':'yellow'">
                                 {{framesData.side[0].score}}
                             </span>
                             <span>:</span>
-                            <span :class="framesData.side[1].side === 'terrorists'?'yellow':'blue'">
+                            <span :class="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?'yellow':'blue'">
                                 {{framesData.side[1].score}}
                             </span>
                         </div>
-                        <div class="team">
+                        <div class="team flex flex_only_center">
                             <span>{{durationTime(framesData.duration)}}</span>
-                            <img v-if="framesData.battle_winner"
-                                :src="framesData.battle_winner.image"
-                                :title="framesData.battle_winner.name">
+                            <div class="img">
+                                <img v-if="framesData.battle_winner"
+                                    :src="framesData.battle_winner.image"
+                                    :title="framesData.battle_winner.name">
+                            </div>
                         </div>
                     </div>
                     <kill-table
-                        :colorBar="framesData.side[0].side === 'ct'?'blue':'yellow'"
+                        :colorBar="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?'blue':'yellow'"
                         :isNormal="tabIndex"
                         :tableData="framesData.side[0]"
                     ></kill-table>
-                    <kill-board
-                        :boardData="framesData.side"
-                    ></kill-board>
+                    <div style="margin: 5px 0;">
+                        <kill-board
+                            v-for="(item,index) in framesData.side"
+                            :key="item.side"
+                            :boardData="item"
+                            :isBorder="index"
+                            :startCTid="framesData.starting_ct.team_id"
+                            :startTid="framesData.starting_t.team_id"
+                        ></kill-board>
+                    </div>
                     <kill-table
-                        :colorBar="framesData.side[1].side === 'terrorists'?'yellow':'blue'"
+                        :colorBar="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?'yellow':'blue'"
                         :isNormal="tabIndex"
                         :tableData="framesData.side[1]"
                     ></kill-table>
@@ -121,7 +130,7 @@
             // 关闭
             websocketclose(e){
                 console.log('断开连接',e)
-            },
+            }
         },
         computed: {
             durationTime(sec) {
@@ -197,11 +206,14 @@
                             }
                         }
                         .team {
-                            img {
+                            .img {
                                 width: 24px;
                                 height: 24px;
-                                margin-left: 12px;
-                                vertical-align: middle;
+                                margin-left: 10px;
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                }
                             }
                         }
                     }
