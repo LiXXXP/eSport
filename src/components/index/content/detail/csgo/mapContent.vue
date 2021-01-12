@@ -21,33 +21,32 @@
                         </div>
                         <div class="score">
                             <span :class="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?'blue':'yellow'">
-                                {{framesData.side[0].score}}
+                                {{framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?framesData.side[0].score:framesData.side[1].score}}
                             </span>
                             <span>:</span>
                             <span :class="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?'yellow':'blue'">
-                                {{framesData.side[1].score}}
+                                {{framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?framesData.side[1].score:framesData.side[0].score}}
                             </span>
                         </div>
                         <div class="team flex flex_only_center">
                             <span>{{durationTime(framesData.duration)}}</span>
-                            <div class="img">
-                                <img v-if="framesData.battle_winner"
-                                    :src="framesData.battle_winner.image"
-                                    :title="framesData.battle_winner.name">
-                            </div>
                         </div>
                     </div>
                     <kill-table
                         :colorBar="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?'blue':'yellow'"
                         :isNormal="tabIndex"
-                        :tableData="framesData.side[0]"
+                        :tableData="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?framesData.side[0]:framesData.side[1]"
                     ></kill-table>
                     <div style="margin: 5px 0;">
                         <kill-board
-                            v-for="(item,index) in framesData.side"
-                            :key="item.side"
-                            :boardData="item"
-                            :isBorder="index"
+                            :boardData="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?framesData.side[0]:framesData.side[1]"
+                            :isBorder="0"
+                            :startCTid="framesData.starting_ct.team_id"
+                            :startTid="framesData.starting_t.team_id"
+                        ></kill-board>
+                        <kill-board
+                            :boardData="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?framesData.side[1]:framesData.side[0]"
+                            :isBorder="1"
                             :startCTid="framesData.starting_ct.team_id"
                             :startTid="framesData.starting_t.team_id"
                         ></kill-board>
@@ -55,7 +54,7 @@
                     <kill-table
                         :colorBar="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?'yellow':'blue'"
                         :isNormal="tabIndex"
-                        :tableData="framesData.side[1]"
+                        :tableData="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?framesData.side[1]:framesData.side[0]"
                     ></kill-table>
                 </div>
                 <div class="bottom" v-if="eventsData.length !== 0">
@@ -203,17 +202,6 @@
                             }
                             .yellow {
                                 color: #F6B600;
-                            }
-                        }
-                        .team {
-                            .img {
-                                width: 24px;
-                                height: 24px;
-                                margin-left: 10px;
-                                img {
-                                    width: 100%;
-                                    height: 100%;
-                                }
                             }
                         }
                     }

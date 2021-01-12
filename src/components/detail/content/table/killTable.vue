@@ -42,7 +42,9 @@
                         </p>
                     </td>
                     <td>
-                        <img :src="item.weapon[0].image" class="td-buy" v-if="item.weapon.length!==0 && isNormal === 0">
+                        <div class="td-buy" v-for="key in item.weapon" :key="key.weapon_id">
+                            <img :src="key.image" v-if="key.kind === 'primary' && isNormal === 0">
+                        </div>
                         <p v-if="isNormal === 1">{{item.multi_kills || 0}}</p>
                     </td>
                     <td>
@@ -203,8 +205,11 @@
                         .td-buy {
                             width: 59px;
                             height: 18px;
-                            display: block;
-                            margin: auto auto;
+                            margin: -12px auto 0;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                            }
                         }
                         .td-win {
                             width: 20px;

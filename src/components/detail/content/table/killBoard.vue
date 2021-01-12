@@ -7,11 +7,11 @@
                     :key="key.round_ordinal" :class="['flex flex_column',{flex_col_reverse:isBorder === 1}]">
                     <kill-bar
                         :initColor="'#434343'"
-                        :isReverse="true"
-                        :survivedNum="key.survived_players"
+                        :isReverse="isBorder?false:true"
+                        :survivedNum="parseInt(key.survived_players)"
                         :isDeath="false"
                         :isHeadshot="false"
-                        :backColor="startCTid === boardData.team.team_id && boardData.side === 'ct'?'#008BD3':'#F6B600'"
+                        :backColor="boardData.side === 'ct'? '#008BD3':'#F6B600'"
                     ></kill-bar>
                     <div class="block">
                         <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
@@ -34,11 +34,11 @@
                     :key="key.round_ordinal" :class="['flex flex_column',{flex_col_reverse:isBorder === 1}]">
                     <kill-bar
                         :initColor="'#434343'"
-                        :isReverse="true"
-                        :survivedNum="key.survived_players"
+                        :isReverse="isBorder?false:true"
+                        :survivedNum="parseInt(key.survived_players)"
                         :isDeath="false"
                         :isHeadshot="false"
-                        :backColor="startTid === boardData.team.team_id && boardData.side === 'terrorists'?'#F6B600':'#008BD3'"
+                        :backColor="boardData.side === 'terrorists'? '#F6B600':'#008BD3'"
                     ></kill-bar>
                     <div class="block">
                         <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
@@ -97,7 +97,7 @@
         }
         .item {
             width: 470px;
-            padding: 10px 30px;
+            padding: 10px 40px;
             box-sizing: border-box;
             .block {
                 width: 20px;

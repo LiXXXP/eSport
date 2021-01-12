@@ -83,7 +83,10 @@
         },
         watch: {
             survivedNum() {
-                this.init()
+                this.$nextTick(() => {
+                    this.init()
+                })
+
             }
         }
     }

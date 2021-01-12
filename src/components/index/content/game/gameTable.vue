@@ -73,19 +73,19 @@
                         </div>
                     </td>
                     <td>
-                        <div v-if="inningData.game_id === 1" class="game-rank">
-
-                        </div>
-                        <div v-if="inningData.game_id === 2" class="game-rank">
-                            <div v-if="inningData.battle_list && inningData.battle_list.length > 0 && inningData.battle_list[0].factions.length>0">
-                                <p :class="[{
-                                    r: inningData.battle_list[0].factions[0].faction === 'red',
-                                    b: inningData.battle_list[0].factions[0].faction === 'blue'
-                                }]">
-                                    <span :title="inningData.battle_list[0].factions[0].faction === 'red'? 'red' : 'blue'">
-                                        {{inningData.battle_list[0].factions[0].faction === 'red'? 'R':inningData.battle_list[0].factions[0].faction === 'blue'? 'B' : ''}}
-                                    </span>
-                                </p>
+                        <div class="game-rank">
+                            <div v-if="inningData.game_id === 1"></div>
+                            <div v-if="inningData.game_id === 2">
+                                <div v-if="inningData.battle_list && inningData.battle_list.length > 0 && inningData.battle_list[0].factions.length>0">
+                                    <p :class="[{
+                                        r: inningData.battle_list[0].factions[0].faction === 'red',
+                                        b: inningData.battle_list[0].factions[0].faction === 'blue'
+                                    }]">
+                                        <span :title="inningData.battle_list[0].factions[0].faction === 'red'? 'red' : 'blue'">
+                                            {{inningData.battle_list[0].factions[0].faction === 'red'? 'R':inningData.battle_list[0].factions[0].faction === 'blue'? 'B' : ''}}
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -108,19 +108,19 @@
                         <div>{{inningData.scores[1].score || 0}}</div>
                     </td>
                     <td>
-                        <div v-if="inningData.game_id === 1" class="game-rank">
-
-                        </div>
-                        <div v-if="inningData.game_id === 2" class="game-rank">
-                            <div v-if="inningData.battle_list && inningData.battle_list.length > 0 && inningData.battle_list[0].factions.length>0">
-                                <p :class="[{
-                                    r: inningData.battle_list[0].factions[1].faction === 'red',
-                                    b: inningData.battle_list[0].factions[1].faction === 'blue'
-                                }]">
-                                    <span :title="inningData.battle_list[0].factions[1].faction === 'blue'? 'blue' : 'red'">
-                                        {{inningData.battle_list[0].factions[1].faction === 'blue'? 'B': inningData.battle_list[0].factions[1].faction === 'red'? 'R' : ''}}
-                                    </span>
-                                </p>
+                        <div class="game-rank">
+                            <div v-if="inningData.game_id === 1"></div>
+                            <div v-if="inningData.game_id === 2">
+                                <div v-if="inningData.battle_list && inningData.battle_list.length > 0 && inningData.battle_list[0].factions.length>0">
+                                    <p :class="[{
+                                        r: inningData.battle_list[0].factions[1].faction === 'red',
+                                        b: inningData.battle_list[0].factions[1].faction === 'blue'
+                                    }]">
+                                        <span :title="inningData.battle_list[0].factions[1].faction === 'blue'? 'blue' : 'red'">
+                                            {{inningData.battle_list[0].factions[1].faction === 'blue'? 'B': inningData.battle_list[0].factions[1].faction === 'red'? 'R' : ''}}
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </td>
