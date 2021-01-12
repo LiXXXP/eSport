@@ -39,7 +39,7 @@
         },
         data() {
             return {
-                barList: [
+                barArr: [
                     {
                         i: 1,
                         color: this.initColor
@@ -60,7 +60,8 @@
                         i: 5,
                         color: this.initColor
                     }
-                ]
+                ],
+                barList: []
             }
         },
         created() {
@@ -68,9 +69,16 @@
         },
         methods: {
             init() {
-                this.barList.forEach( (e) => {
+                this.barArr.forEach( (e,index) => {
+                    this.$set(this.barList,index,{
+                        i: e.i,
+                        color: e.color
+                    })
                     if(e.i <= this.survivedNum) {
-                        e.color = JSON.parse(JSON.stringify(this.backColor))
+                        this.$set(this.barList,index,{
+                            i: e.i,
+                            color: this.backColor
+                        })
                     }
                 })
                 if(this.survivedNum < 5 && this.isDeath) {
@@ -79,6 +87,11 @@
                 if(this.isReverse) {
                     this.barList.reverse()
                 }
+            }
+        },
+        watch: {
+            survivedNum() {
+                this.init()
             }
         }
     }
