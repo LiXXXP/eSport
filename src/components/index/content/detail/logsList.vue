@@ -99,10 +99,20 @@
             }
         },
         created() {
-            let _this = this
-            this.$nextTick(() => {
-                _this.$refs.chat_main.scrollTop = _this.$refs.chat_main.scrollHeight
-            })
+            this.init()
+        },
+        methods: {
+            init() {
+                let _this = this
+                this.$nextTick(() => {
+                    _this.$refs.chat_main.scrollTop = _this.$refs.chat_main.scrollHeight
+                })
+            }
+        },
+        watch: {
+            logsData() {
+                this.init()
+            }
         }
     }
 </script>

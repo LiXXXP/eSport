@@ -64,16 +64,26 @@
             }
         },
         created() {
-            this.barList.forEach( (e) => {
-                if(e.i <= this.survivedNum) {
-                    e.color = this.backColor
+            this.init()
+        },
+        methods: {
+            init() {
+                this.barList.forEach( (e) => {
+                    if(e.i <= this.survivedNum) {
+                        e.color = this.backColor
+                    }
+                })
+                if(this.survivedNum < 5 && this.isDeath) {
+                    this.barList[this.survivedNum].color = '#434343'
                 }
-            })
-            if(this.survivedNum < 5 && this.isDeath) {
-                this.barList[this.survivedNum].color = '#434343'
+                if(this.isReverse) {
+                    this.barList.reverse()
+                }
             }
-            if(this.isReverse) {
-                this.barList.reverse()
+        },
+        watch: {
+            survivedNum() {
+                this.init()
             }
         }
     }
