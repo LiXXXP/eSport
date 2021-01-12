@@ -4,7 +4,7 @@
         <div class="left">
             <div class="item flex flex_start">
                 <div v-for="key in boardData.rounds_history.slice(0,15)"
-                    :key="key.round_ordinal">
+                    :key="key.round_ordinal" :class="['flex flex_column',{flex_col_reverse:isBorder === 1}]">
                     <kill-bar
                         :initColor="'#434343'"
                         :isReverse="true"
@@ -31,7 +31,7 @@
         <div class="right">
             <div class="item flex flex_start">
                 <div v-for="key in boardData.rounds_history.slice(15,30)"
-                    :key="key.round_ordinal">
+                    :key="key.round_ordinal" :class="['flex flex_column',{flex_col_reverse:isBorder === 1}]">
                     <kill-bar
                         :initColor="'#434343'"
                         :isReverse="true"
