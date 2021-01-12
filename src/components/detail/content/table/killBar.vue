@@ -70,7 +70,7 @@
             init() {
                 this.barList.forEach( (e) => {
                     if(e.i <= this.survivedNum) {
-                        e.color = this.backColor
+                        e.color = JSON.parse(JSON.stringify(this.backColor))
                     }
                 })
                 if(this.survivedNum < 5 && this.isDeath) {
@@ -79,14 +79,6 @@
                 if(this.isReverse) {
                     this.barList.reverse()
                 }
-            }
-        },
-        watch: {
-            survivedNum() {
-                this.$nextTick(() => {
-                    this.init()
-                })
-
             }
         }
     }

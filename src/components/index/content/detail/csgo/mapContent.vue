@@ -20,12 +20,16 @@
                             {{framesData.map.name}}
                         </div>
                         <div class="score">
-                            <span :class="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?'blue':'yellow'">
-                                {{framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?framesData.side[0].score:framesData.side[1].score}}
+                            <span :class="framesData.starting_ct.team_id === framesData.side[0].team.team_id &&
+                                         framesData.side[0].side === 'ct'?'blue':'yellow'">
+                                {{framesData.starting_ct.team_id === framesData.side[0].team.team_id &&
+                                  framesData.side[0].side === 'ct' ? framesData.side[0].score : framesData.side[1].score}}
                             </span>
                             <span>:</span>
-                            <span :class="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?'yellow':'blue'">
-                                {{framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?framesData.side[1].score:framesData.side[0].score}}
+                            <span :class="framesData.starting_t.team_id === framesData.side[1].team.team_id &&
+                                         framesData.side[1].side === 'terrorists'?'yellow':'blue'">
+                                {{framesData.starting_t.team_id === framesData.side[1].team.team_id &&
+                                  framesData.side[1].side === 'terrorists' ? framesData.side[1].score : framesData.side[0].score}}
                             </span>
                         </div>
                         <div class="team flex flex_only_center">
@@ -33,28 +37,34 @@
                         </div>
                     </div>
                     <kill-table
-                        :colorBar="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?'blue':'yellow'"
+                        :colorBar="framesData.starting_ct.team_id === framesData.side[0].team.team_id &&
+                                   framesData.side[0].side === 'ct'?'blue':'yellow'"
                         :isNormal="tabIndex"
-                        :tableData="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?framesData.side[0]:framesData.side[1]"
+                        :tableData="framesData.starting_ct.team_id === framesData.side[0].team.team_id &&
+                                   framesData.side[0].side === 'ct'?framesData.side[0]:framesData.side[1]"
                     ></kill-table>
                     <div style="margin: 5px 0;">
                         <kill-board
-                            :boardData="framesData.starting_ct.team_id === framesData.side[0].team.team_id && framesData.side[0].side === 'ct'?framesData.side[0]:framesData.side[1]"
+                            :boardData="framesData.starting_ct.team_id === framesData.side[0].team.team_id &&
+                                       framesData.side[0].side === 'ct'?framesData.side[0]:framesData.side[1]"
                             :isBorder="0"
                             :startCTid="framesData.starting_ct.team_id"
                             :startTid="framesData.starting_t.team_id"
                         ></kill-board>
                         <kill-board
-                            :boardData="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?framesData.side[1]:framesData.side[0]"
+                            :boardData="framesData.starting_t.team_id === framesData.side[1].team.team_id &&
+                                        framesData.side[1].side === 'terrorists'?framesData.side[1]:framesData.side[0]"
                             :isBorder="1"
                             :startCTid="framesData.starting_ct.team_id"
                             :startTid="framesData.starting_t.team_id"
                         ></kill-board>
                     </div>
                     <kill-table
-                        :colorBar="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?'yellow':'blue'"
+                        :colorBar="framesData.starting_t.team_id === framesData.side[1].team.team_id &&
+                                  framesData.side[1].side === 'terrorists'?'yellow':'blue'"
                         :isNormal="tabIndex"
-                        :tableData="framesData.starting_t.team_id === framesData.side[1].team.team_id && framesData.side[1].side === 'terrorists'?framesData.side[1]:framesData.side[0]"
+                        :tableData="framesData.starting_t.team_id === framesData.side[1].team.team_id &&
+                                    framesData.side[1].side === 'terrorists'?framesData.side[1]:framesData.side[0]"
                     ></kill-table>
                 </div>
                 <div class="bottom" v-if="eventsData.length !== 0">

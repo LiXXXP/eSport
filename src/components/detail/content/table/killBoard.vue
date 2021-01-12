@@ -11,7 +11,7 @@
                         :survivedNum="parseInt(key.survived_players)"
                         :isDeath="false"
                         :isHeadshot="false"
-                        :backColor="boardData.side === 'ct'? '#008BD3':'#F6B600'"
+                        :backColor="startCTid === boardData.team.team_id ? '#008BD3':'#F6B600'"
                     ></kill-bar>
                     <div class="block">
                         <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
@@ -38,7 +38,7 @@
                         :survivedNum="parseInt(key.survived_players)"
                         :isDeath="false"
                         :isHeadshot="false"
-                        :backColor="boardData.side === 'terrorists'? '#F6B600':'#008BD3'"
+                        :backColor="startTid === boardData.team.team_id ? '#008BD3':'#F6B600'"
                     ></kill-bar>
                     <div class="block">
                         <img src="../../../../assets/imgs/detail/csgo/csgo_ct_win.png"
