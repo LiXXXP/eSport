@@ -42,7 +42,7 @@
                         </p>
                     </td>
                     <td>
-                        <img :src="item.weapon.image" class="td-buy" v-if="isNormal === 0">
+                        <img :src="item.weapon.image" class="td-buy" v-if="item.weapon.length!==0 && isNormal === 0">
                         <p v-if="isNormal === 1">{{item.multi_kills || 0}}</p>
                     </td>
                     <td>
