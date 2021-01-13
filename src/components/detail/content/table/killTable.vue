@@ -42,10 +42,16 @@
                         </p>
                     </td>
                     <td>
-                        <div v-if="item.weapon">
+                        <div v-if="item.weapon.length > 0">
                             <div class="td-buy" v-for="key in item.weapon" :key="key.weapon_id">
-                                <img :src="key.image" v-if="key.kind === 'primary' && isNormal === 0" class="big">
-                                <img :src="key.image" v-else-if="key.kind !== 'primary' && key.kind === 'secondary' && isNormal === 0" class="small">
+                                <img class="big"
+                                    :src="key.image"
+                                    :title="key.name"
+                                    v-if="key.kind === 'primary' && isNormal === 0" >
+                                <img class="small"
+                                    :src="key.image"
+                                    :title="key.name"
+                                    v-if="item.weapon.length === 1 && key.kind === 'secondary' && isNormal === 0">
                             </div>
                         </div>
                         <p v-if="isNormal === 1">{{item.multi_kills || 0}}</p>
@@ -208,6 +214,7 @@
                         .td-buy {
                             width: 59px;
                             height: 18px;
+                            cursor: pointer;
                             margin: -12px auto 0;
                             .big {
                                 width: 100%;
