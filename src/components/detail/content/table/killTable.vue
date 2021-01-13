@@ -5,29 +5,29 @@
                 <th>
                     <div class="flex flex_start flex_only_center">
                         <img :src="tableData.team.image" class="team-icon">
-                        <span class="beyond-ellipsis">{{tableData.team.name}}</span>
+                        <span class="beyond-ellipsis" :title="tableData.team.name">{{tableData.team.name}}</span>
                     </div>
                 </th>
                 <th>
-                    <p v-if="isNormal === 1">Op.duels</p>
+                    <p v-if="isNormal === 1" :title="'首杀查'">Op.duels</p>
                 </th>
                 <th>
-                    <i class="icon-buy" v-if="isNormal === 0"></i>
-                    <p v-if="isNormal === 1">2+kills</p>
+                    <i class="icon-buy" v-if="isNormal === 0" :title="'主武器'"></i>
+                    <p v-if="isNormal === 1" :title="'多杀'">2+kills</p>
                 </th>
                 <th>
-                    <i class="icon-add" v-if="isNormal === 0"></i>
-                    <p v-if="isNormal === 1">KAST</p>
+                    <i class="icon-add" v-if="isNormal === 0" :title="'血量'"></i>
+                    <p v-if="isNormal === 1" :title="'KAST'">KAST</p>
                 </th>
                 <th>
-                    <i class="icon-head" v-if="isNormal === 0"></i>
-                    <p v-if="isNormal === 1">1vsX</p>
+                    <i class="icon-head" v-if="isNormal === 0" :title="'防弹衣头盔'"></i>
+                    <p v-if="isNormal === 1" :title="'1VN残局获胜'">1vsX</p>
                 </th>
-                <th>$</th>
-                <th>K</th>
-                <th>A</th>
-                <th>D</th>
-                <th>ADR</th>
+                <th :title="'金钱'">$</th>
+                <th :title="'击杀'">K</th>
+                <th :title="'助攻'">A</th>
+                <th :title="'死亡'">D</th>
+                <th :title="'ADR'">ADR</th>
             </thead>
             <tbody>
                 <tr v-for="item in tableData.players"
@@ -43,7 +43,7 @@
                     </td>
                     <td>
                         <div v-if="item.weapon.length > 0">
-                            <div class="td-buy" v-for="key in item.weapon" :key="key.weapon_id">
+                            <div class="td-buy" v-for="key in item.weapon" :key="">
                                 <img class="big"
                                     :src="key.image"
                                     :title="key.name"
@@ -139,6 +139,7 @@
                 th {
                     height: 40px;
                     padding: 0 10px;
+                    cursor: pointer;
                     line-height: 40px;
                     &:nth-child(1) {
                         width: 200px;
@@ -182,7 +183,6 @@
             tbody {
                 tr {
                     height: 40px;
-                    line-height: 40px;
                     background:rgba(0,140,212,.3);
                     &.blue {
                         background:rgba(0,140,212,.5);
