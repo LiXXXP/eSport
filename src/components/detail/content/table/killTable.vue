@@ -42,8 +42,11 @@
                         </p>
                     </td>
                     <td>
-                        <div class="td-buy" v-for="key in item.weapon" :key="key.weapon_id">
-                            <img :src="key.image" v-if="key.kind === 'primary' && isNormal === 0">
+                        <div v-if="item.weapon">
+                            <div class="td-buy" v-for="key in item.weapon" :key="key.weapon_id">
+                                <img :src="key.image" v-if="key.kind === 'primary' && isNormal === 0" class="big">
+                                <img :src="key.image" v-else-if="key.kind !== 'primary' && key.kind === 'secondary' && isNormal === 0" class="small">
+                            </div>
                         </div>
                         <p v-if="isNormal === 1">{{item.multi_kills || 0}}</p>
                     </td>
@@ -206,8 +209,12 @@
                             width: 59px;
                             height: 18px;
                             margin: -12px auto 0;
-                            img {
+                            .big {
                                 width: 100%;
+                                height: 100%;
+                            }
+                            .small {
+                                width: 46px;
                                 height: 100%;
                             }
                         }
