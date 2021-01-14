@@ -51,7 +51,7 @@
                                 <img class="small"
                                     :src="key.image"
                                     :title="key.name"
-                                    v-if="item.weapon.length === 1 && key.kind === 'secondary' && isNormal === 0">
+                                    v-else-if="item.weapon.length === 1 && key.kind === 'secondary' && isNormal === 0">
                             </div>
                         </div>
                         <p v-if="isNormal === 1">{{item.multi_kills || 0}}</p>
@@ -74,7 +74,7 @@
                     </td>
                     <td>${{item.money || 0}}</td>
                     <td>{{item.kills || 0}}</td>
-                    <td>{{item.flash_assist || 0}}</td>
+                    <td>{{item.assists || 0}}</td>
                     <td>{{item.deaths || 0}}</td>
                     <td>{{item.adr || 0}}</td>
                 </tr>
@@ -215,7 +215,7 @@
                             width: 59px;
                             height: 18px;
                             cursor: pointer;
-                            margin: -12px auto 0;
+                            margin: -10px auto 0;
                             .big {
                                 width: 100%;
                                 height: 100%;
