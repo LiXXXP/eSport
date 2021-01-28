@@ -43,7 +43,7 @@
                     </td>
                     <td>
                         <div v-if="item.weapon.length > 0">
-                            <div class="td-buy" v-for="key in item.weapon" :key="">
+                            <div class="td-buy" v-for="key in item.weapon" :key="key.image">
                                 <img class="big"
                                     :src="key.image"
                                     :title="key.name"
@@ -65,7 +65,7 @@
                             ></progress-bar>
                             <p>{{item.hp}}</p>
                         </div>
-                        <p v-if="isNormal === 1">{{item.kast || 0 }}%</p>
+                        <p v-if="isNormal === 1">{{parseInt(item.kast*100) || 0 }}%</p>
                     </td>
                     <td>
                         <!-- 防弹衣 头盔 -->
