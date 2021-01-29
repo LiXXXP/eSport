@@ -9,7 +9,7 @@
                     </div>
                 </th>
                 <th>
-                    <p v-if="isNormal === 1" :title="'首杀查'">Op.duels</p>
+                    <p v-if="isNormal === 1" :title="'首杀差'">Op.duels</p>
                 </th>
                 <th>
                     <i class="icon-buy" v-if="isNormal === 0" :title="'主武器'"></i>
@@ -37,8 +37,9 @@
                     <td>{{item.player.nick_name}}</td>
                     <td>
                         <i class="td-win" v-if="item.has_defusekit && isNormal === 0"></i>
+                        <!-- 首杀差 -->
                         <p v-if="isNormal === 1">
-                            {{item.first_deaths || 0}}:{{item.deaths || 0}}
+                            {{item.first_kills || 0}}:{{item.first_deaths || 0}}
                         </p>
                     </td>
                     <td>
@@ -69,7 +70,10 @@
                     </td>
                     <td>
                         <!-- 防弹衣 头盔 -->
-                        <i class="td-head" v-if="(item.has_kevlar || item.has_helmet) && isNormal === 0"></i>
+                        <!-- 全甲 -->
+                        <i class="td-head" v-if="(item.has_kevlar && item.has_helmet) && isNormal === 0"></i>
+                        <!-- 半甲 -->
+                        <i class="td-head-b" v-if="(item.has_kevlar && !item.has_helmet) && isNormal === 0"></i>
                         <p v-if="isNormal === 1">{{item.one_on_x_clutches || 0}}</p>
                     </td>
                     <td>${{item.money || 0}}</td>
@@ -239,6 +243,14 @@
                             display: block;
                             margin: auto auto;
                             background: url('../../../../assets/imgs/detail/csgo/kevlar_helmet.png') no-repeat 0 0;
+                            background-size: 100%;
+                        }
+                        .td-head-b {
+                            width: 18px;
+                            height: 20px;
+                            display: block;
+                            margin: auto auto;
+                            background: url('../../../../assets/imgs/detail/csgo/kevlar_helmet_b.png') no-repeat 0 0;
                             background-size: 100%;
                         }
                     }
