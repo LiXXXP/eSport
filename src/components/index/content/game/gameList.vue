@@ -40,6 +40,7 @@
                 <!-- 分页 -->
                 <paging-page
                     :indexData="index"
+                    :pageSize="5"
                     v-if="item&&item.page.count>5"
                     :countData="item.page.count"
                     @currentPage="currentPage"

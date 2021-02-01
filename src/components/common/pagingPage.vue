@@ -3,7 +3,7 @@
         <el-pagination
             small
             background
-            :page-size="5"
+            :page-size="pageSize"
             :total="countData"
             :current-page="currentPage"
             layout="prev, pager, next"
@@ -20,6 +20,10 @@
                 default: 0
             },
             indexData: {
+                type: Number,
+                default: 0
+            },
+            pageSize: {
                 type: Number,
                 default: 0
             }

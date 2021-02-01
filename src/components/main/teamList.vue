@@ -25,6 +25,7 @@
                 style="width:1200px;"
                 v-if="page.count > 10"
                 :indexData="0"
+                :pageSize="10"
                 :countData="page.count"
                 @currentPage="currentPage"
             ></paging-page>

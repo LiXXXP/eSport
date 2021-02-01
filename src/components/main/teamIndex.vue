@@ -34,6 +34,7 @@
             <paging-page
                 style="width:1200px;"
                 :indexData="0"
+                :pageSize="10"
                 :countData="page.count"
                 @currentPage="currentPage"
             ></paging-page>

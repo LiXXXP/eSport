@@ -4,6 +4,7 @@
             <thead>
                 <th>状态</th>
                 <th>赛事名称</th>
+                <th>赛制局数</th>
                 <th>比赛时间</th>
                 <th>对阵情况</th>
                 <th>状态</th>
@@ -14,6 +15,7 @@
                         {{item.match_status}}
                     </td>
                     <td>{{item.tournament_name}}</td>
+                    <td>{{item.match_type_number}}</td>
                     <td>{{item.scheduled_begin_at}}</td>
                     <td>
                         <p>{{item.match_situation[0].team_name}} vs {{item.match_situation[1].team_name}}</p>
