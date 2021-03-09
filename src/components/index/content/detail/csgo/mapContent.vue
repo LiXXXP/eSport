@@ -1,6 +1,6 @@
 <template>
     <div class="map-content">
-        <div class="flex flex_end">
+        <div class="flex flex_end" v-if="framesData">
             <div class="tab flex flex_center">
                 <p :class="{active: tabIndex === 0}"
                     @click="tabNormal"
@@ -10,7 +10,7 @@
                 >Advanced</p>
             </div>
         </div>
-        <div class="content-bg" v-if="framesData != null">
+        <div class="content-bg" v-if="framesData">
             <img :src="framesData.map.image.thumbnail">
             <div class="content">
                 <div class="top">

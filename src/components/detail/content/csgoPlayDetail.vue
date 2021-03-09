@@ -40,8 +40,8 @@
                             <td>{{player.kills || 0}}（{{player.headshot_kills || 0}}）</td>
                             <td>{{player.assists || 0}}（{{player.flash_assists || 0}}）</td>
                             <td>{{player.deaths || 0}}</td>
-                            <td>{{player.kast || 0}}%</td>
-                            <td>{{player.kills || 0}}-{{player.deaths || 0}}</td>
+                            <td>{{(player.kast*100).toFixed(2) || 0}}%</td>
+                            <td>{{player.kills - player.deaths || 0}}</td>
                             <td>{{player.adr || 0}}</td>
                             <td :title="`${player.first_kills}-${player.first_deaths}`">
                                   {{player.first_kills_diff || 0}}

@@ -1,11 +1,11 @@
 <template>
     <div class="play-detail">
         <!-- 比赛日志 -->
-        <detail-logs
+        <!-- <detail-logs
             v-bind="$attrs"
             :battleData="matchDetail.battle_list"
             :scoresData="matchDetail.scores"
-        ></detail-logs>
+        ></detail-logs> -->
         <!-- 经济差/经验差 -->
         <detail-finance
             v-bind="$attrs"
@@ -18,11 +18,11 @@
             :scoresData="matchDetail.scores"
         ></detail-player>
         <!-- 出装/技能/天赋 -->
-        <detail-art
+        <!-- <detail-art
             v-bind="$attrs"
             :battleData="matchDetail.battle_list"
             :scoresData="matchDetail.scores"
-        ></detail-art>
+        ></detail-art> -->
     </div>
 </template>
 

@@ -19,12 +19,12 @@
             @clickIndex="navDetail"
         ></tab-nav>
         <!-- 阵容分析 -->
-        <detail-battle
+        <!-- <detail-battle
             v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId > 0"
             :battleData="matchDetail.battle_list"
             :scoresData="matchDetail.scores"
             :targetMatchId="currentMatchId"
-        ></detail-battle>
+        ></detail-battle> -->
         <!-- 队伍对局详情 -->
         <play-content
             v-if="currentData === 1 && currentMatchId > 0"
@@ -37,9 +37,9 @@
             :targetMatchId="currentMatchId"
         ></play-detail>
         <!-- 对局分析 -->
-        <play-data
+        <!-- <play-data
             v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId === 0"
-        ></play-data>
+        ></play-data> -->
     </div>
 </template>
 

@@ -39,9 +39,9 @@
             :targetMatchId="currentMatchId"
         ></csgo-play-detail>
         <!-- 数据分析 -->
-        <csgo-play-data
+        <!-- <csgo-play-data
             v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId === 0"
-        ></csgo-play-data>
+        ></csgo-play-data> -->
     </div>
 </template>
 

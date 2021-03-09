@@ -378,8 +378,8 @@
                 this.$router.push({
                     path: '/detail',
                     query: {
-                        gameId: gameId,
-                        matchId: matchId
+                        gameId: parseInt(gameId),
+                        matchId: parseInt(matchId)
                     }
                 })
             }
