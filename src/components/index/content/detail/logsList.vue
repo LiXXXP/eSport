@@ -3,27 +3,59 @@
         <div v-if="logsType === 'lol'">
             <div ref="chat_main">
                 <div class="title">比赛日志：</div>
-                <div class="lol-list">
-                    <div class="item flex flex_start flex_only_center">
-                        <p class="time">12:24</p>
-                        <div class="red flex flex_start flex_only_center">
-                            <img src="../../../../assets/imgs/detail/2.png">
-                            <p>Liquid.Marecle(猛犸人战士)</p>
-                        </div>
-                        <p>摧毁了</p>
-                        <div class="blue flex flex_start flex_only_center">
-                            <img src="../../../../assets/imgs/detail/2.png">
-                            <p>蓝色防御塔，</p>
-                        </div>
-                        <div class="help flex flex_start flex_only_center">
-                            <p>助攻</p>
-                            <img src="../../../../assets/imgs/detail/2.png">
-                            <img src="../../../../assets/imgs/detail/2.png">
-                            <img src="../../../../assets/imgs/detail/2.png">
-                            <img src="../../../../assets/imgs/detail/2.png">
-                        </div>
-                        <p class="type">(摧毁第一个防御塔)</p>
-                    </div>
+                <div class="lol-list flex flex_only_end" v-for="item in events" :key="item.position">
+
+                    <span>{{durationTime(item.ingame_timestamp)}}</span>
+
+                    <img :src="item.killer.champion.image.image">
+
+                    <span :class="item.killer.faction">
+                        {{item.killer.champion.name}}
+                    </span>
+
+                    <span v-if="item.event_type === 'building_kill'">
+                        摧毁了
+                    </span>
+
+                    <span v-else>击杀了</span>
+
+                    <img :src="item.victim.ingame_obj_type.champion.image.image" v-if="item.event_type === 'player_kill'">
+
+                    <span :class="item.victim.ingame_obj_type.faction" v-if="item.event_type === 'building_kill'">
+                        {{item.victim.ingame_obj_type.faction === 'blue'?'蓝':'红'}}方防御塔
+                    </span>
+
+                    <span v-if="item.first_event_type === 'first_dragon'">
+                        元素巨龙 (首元素巨龙)
+                    </span>
+
+                    <span v-if="item.first_event_type === 'first_baron_nashor'">
+                        纳什男爵 (首纳什男爵)
+                    </span>
+
+                    <span v-if="item.first_event_type === 'first_rift_herald'">
+                        峡谷先锋 (首峡谷先锋)
+                    </span>
+
+                    <span v-if="item.first_event_type === 'first_inhibitor'">
+                        水晶 (首水晶)
+                    </span>
+
+                    <span v-if="item.first_event_type === 'first_turret'">
+                        (首塔)
+                    </span>
+
+                    <span v-if="item.first_event_type === 'first_blood'">
+                        (首先获得一血)
+                    </span>
+
+                    <span v-if="item.first_event_type === 'first_to_5_kills'">
+                        (首先获得五杀)
+                    </span>
+
+                    <span v-if="item.first_event_type === 'first_to_10_kills'">
+                        (首先获得十杀)
+                    </span>
                 </div>
             </div>
         </div>
@@ -140,49 +172,21 @@
                 border-radius: 7px;
                 background-color: #526296;
             }
-            .item {
-                margin: 8px 0;
-                .time {
-                    width: 45px;
-                    margin-right: 13px;
+            span {
+                color: #D3D3D3;
+                &.red {
+                    color: #C1200D;
+                    padding-right: 5px;
                 }
-                .red {
-                    img {
-                        width: 32px;
-                        height: 32px;
-                        margin-left: 7px;
-                        border-radius: 100%;
-                        border: 1px solid #FF1E00;
-                    }
-                    p {
-                        margin: 0 7px;
-                        color: #FF1E00;
-                    }
+                &.blue {
+                    color: #457CF4;
+                    padding-right: 5px;
                 }
-                .blue {
-                    img {
-                        width: 32px;
-                        height: 32px;
-                        margin-left: 7px;
-                        border-radius: 100%;
-                        border: 1px solid #228EFC;
-                    }
-                    p {
-                        color: #228EFC;
-                        margin-left: 7px;
-                    }
-                }
-                .help {
-                    img {
-                        width: 24px;
-                        height: 24px;
-                        margin-left: 3px;
-                        border-radius: 100%;
-                    }
-                }
-                .type {
-                    margin-left: 7px;
-                }
+            }
+            img {
+                width: 20px;
+                height: 20px;
+                margin: 0 5px;
             }
         }
         .csgo-list {

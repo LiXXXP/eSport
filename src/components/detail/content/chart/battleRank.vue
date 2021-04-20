@@ -33,7 +33,7 @@
                 <progressBar
                     :progressData="playContrast"
                     :progressColor="item.faction==='blue'?'#2980D9':'#CC5728'"
-                    :progressRate="parseInt(item.type/200)"
+                    :progressRate="parseInt(item.type)/tatol*100 || 0"
                 ></progressBar>
             </div>
         </div>
@@ -92,9 +92,10 @@
                     },
                     {
                         title: '插眼/排眼',
-                        value: 'support_detail'
+                        value: 'wards_placed'
                     }
-                ]
+                ],
+                tatol: 0
             }
         },
         created() {
@@ -103,6 +104,7 @@
         methods: {
             getPlayers(type) {
                 let arr = []
+                let t = 0
                 for(let item of this.factionData) {
                     for(let key of item.players) {
                         let o = {
@@ -113,12 +115,14 @@
                             'title': key.champion.title,
                             'level': key.level
                         }
-                        if(type === 'support_detail') {
-                            o.type = key[type].wards_placed
+                        if(type === 'wards_placed') {
+                            o.type = key.advanced.wards_placed + key.advanced.wards_kills
                         } else {
-                            o.type = key[type]
+                            o.type = key[type] || key.advanced[type]
                         }
                         arr.push(o)
+                        t += parseInt(o.type)
+                        this.tatol = t
                     }
                 }
                 arr.sort((a, b) => {return a.type - b.type})

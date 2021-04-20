@@ -27,13 +27,13 @@
                                 {{item.player.nick_name}}
                             </p>
                             <p class="number"
-                                v-if="item.kill_combos.largest_multi_kill>0">
-                                {{toChinese(item.kill_combos.largest_multi_kill)}}
+                                v-if="item.advanced.largest_multi_kill>0">
+                                {{toChinese(item.advanced.largest_multi_kill)}}
                             </p>
                             <p class="icon"
-                                v-if="item.kill_combos.largest_killing_spree>0">
+                                v-if="item.advanced.largest_killing_spree>0">
                                 <i class="iconfont icon-yidongduan-LOLjian"></i>
-                                <span>{{item.kill_combos.largest_killing_spree}}</span>
+                                <span>{{item.advanced.largest_killing_spree}}</span>
                             </p>
                         </td>
                         <td>
@@ -43,21 +43,21 @@
                         <td>{{item.cs}}</td>
                         <td>{{item.gold_earned}}</td>
                         <td class="t-left">
-                            {{ (parseInt(item.damage_percent_to_champions) || 0) * 100 }}%
+                            {{parseInt((item.advanced.damage_percent_to_champions || 0) * 100)}}%
                             <progress-bar
                                 class="bar"
                                 :progressData="playContrast"
                                 :progressColor="'#CB2020'"
-                                :progressRate="(parseInt(item.damage_percent_to_champions) || 0) * 100"
+                                :progressRate="parseInt((item.advanced.damage_percent_to_champions || 0) * 100)"
                             ></progress-bar>
                         </td>
                         <td class="t-left">
-                            {{(parseInt(item.damage_taken_percent) || 0) * 100}}%
+                            {{parseInt((item.advanced.damage_taken_percent || 0) * 100)}}%
                             <progress-bar
                                 class="bar"
                                 :progressData="playContrast"
                                 :progressColor="'#33B3B8'"
-                                :progressRate="(parseInt(item.damage_taken_percent) || 0) * 100"
+                                :progressRate="parseInt((item.advanced.damage_taken_percent || 0) * 100)"
                             ></progress-bar>
                         </td>
                         <td>{{parseInt(item.participation*100)}}%</td>
@@ -67,12 +67,16 @@
                             </div>
                             <div class="slot flex flex_start">
                                 <div class="img" v-for="slot in item.items" :key="">
-                                    <img :src="slot.image" v-if="!slot.is_trinket">
+                                    <div v-if="slot !== null">
+                                        <img :src="slot.image" v-if="!slot.is_trinket">
+                                    </div>
                                 </div>
                             </div>
                             <div class="img" style="margin-left:9px;">
-                                <div v-for="slot in item.items" :key="">
-                                    <img :src="slot.image" v-if="slot.is_trinket">
+                                <div v-for="slot in Object.values(item.items)" :key="">
+                                    <div v-if="slot !== null">
+                                        <img :src="slot.image" v-if="slot.is_trinket">
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -141,6 +145,7 @@
                         e.team_snapshot = i.team_snapshot
                     }
                 })
+
             })
         },
         computed: {

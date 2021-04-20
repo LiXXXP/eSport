@@ -57,7 +57,7 @@
                                             :key="key.round_ordinal"
                                             :isDeath="key.side[0].is_first_death"
                                             :survivedNum="key.side[0].survived_players"
-                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||0"
+                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||false"
                                             :backColor="'#008CD4'"
                                         ></kill-bar>
                                     </div>
@@ -71,7 +71,7 @@
                                             :key="key.round_ordinal"
                                             :isDeath="key.side[1].is_first_death"
                                             :survivedNum="key.side[1].survived_players"
-                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||0"
+                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||false"
                                             :backColor="'#F6B600'"
                                         ></kill-bar>
                                     </div>
@@ -185,7 +185,7 @@
                                             :isReverse="false"
                                             :isDeath="key.side[1].is_first_death"
                                             :survivedNum="key.side[1].survived_players"
-                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||0"
+                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||false"
                                             :backColor="'#F6B600'"
                                         ></kill-bar>
                                     </div>
@@ -199,7 +199,7 @@
                                             :isReverse="false"
                                             :isDeath="key.side[0].is_first_death"
                                             :survivedNum="key.side[0].survived_players"
-                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||0"
+                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||false"
                                             :backColor="'#008CD4'"
                                         ></kill-bar>
                                     </div>

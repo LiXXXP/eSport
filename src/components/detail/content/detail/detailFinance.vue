@@ -17,7 +17,7 @@
                     class="content flex flex_between"
                 >
                     <ve-line
-                        :timeLine="item.events_timeline"
+                        :timeLine="item.timeline"
                     ></ve-line>
                     <battle-rank
                         :factionData="item.factions"
