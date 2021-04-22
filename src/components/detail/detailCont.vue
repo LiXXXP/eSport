@@ -33,10 +33,10 @@
         },
         created() {
             this.getMatchDetail()
-            // let _this = this
-            // this.timer = setInterval( () => {
-            //     _this.getMatchDetail()
-            // }, 5000)
+            let _this = this
+            this.timer = setInterval( () => {
+                _this.getMatchDetail()
+            }, 5000)
         },
         destroyed() {
             clearInterval(this.timer)
@@ -59,9 +59,9 @@
                         } else {
                             _this.isInfo = true
                         }
-                        // if(res.data.status !== 'ongoing') {
-                        //     clearInterval(_this.timer)
-                        // }
+                        if(res.data.status !== 'ongoing') {
+                            clearInterval(_this.timer)
+                        }
                     }
                 })
             }
