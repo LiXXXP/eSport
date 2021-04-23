@@ -71,6 +71,7 @@
               userInfo: null,
               timer: null,  // 倒计时 计时器
               count: 5,     // 5s 倒计时
+              index: 0,
               gameList: [],
               gameInfo: [
                   {
@@ -123,9 +124,13 @@
                         this.count--
                     } else {
                         this.count = TIME_COUNT
-                        this.getGoingList()
-                        this.getComningList()
-                        this.getPastList()
+                        if(this.index === 2) {
+                            this.getPastList()
+                        } else {
+                          this.getGoingList()
+                          this.getComningList()
+                          this.getPastList()
+                        }
                     }
                 }, 1000)
             },
@@ -257,13 +262,11 @@
             },
             matchData() {
                 return this.$store.state.selectMatchData
-            },
-            matchDate() {
-                return this.$store.state.selectMatchDate
             }
         },
         watch: {
             matchAll(val) {
+                this.index = val
                 this.myCollect = 2
                 this.searchTime = ''
                 this.tournamentIds = []
@@ -306,14 +309,6 @@
             matchData(val) {
                 this.myCollect = 2
                 this.tournamentIds = val
-                this.gameList = this.gameInfo
-                this.getGoingList()
-                this.getComningList()
-                this.getPastList()
-            },
-            matchDate(val) {
-                this.myCollect = 2
-                this.searchTime = val
                 this.gameList = this.gameInfo
                 this.getGoingList()
                 this.getComningList()
