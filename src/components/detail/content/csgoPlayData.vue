@@ -9,7 +9,7 @@
         <!-- 近期比赛情况 -->
         <data-events></data-events>
         <!-- 历史交锋记录 -->
-        <!-- <data-history></data-history> -->
+        <data-history></data-history>
     </div>
 </template>
 
