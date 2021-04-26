@@ -260,8 +260,11 @@
             matchCollect() {
                 return this.$store.state.myCollectStatus
             },
-            matchData() {
-                return this.$store.state.selectMatchData
+            matchIds() {
+                return this.$store.state.selectMatchIds
+            },
+            matchDate() {
+                return this.$store.state.selectMatchDate
             }
         },
         watch: {
@@ -306,9 +309,17 @@
                     }
                 }
             },
-            matchData(val) {
+            matchIds(val) {
                 this.myCollect = 2
                 this.tournamentIds = val
+                this.gameList = this.gameInfo
+                this.getGoingList()
+                this.getComningList()
+                this.getPastList()
+            },
+            matchDate(val) {
+                this.myCollect = 2
+                this.searchTime = val
                 this.gameList = this.gameInfo
                 this.getGoingList()
                 this.getComningList()

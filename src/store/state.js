@@ -12,7 +12,7 @@ const state = {
     // 我的收藏
     myCollectStatus: 2,
     // 赛事筛选 id
-    selectMatchData: [],
+    selectMatchIds: [],
     // 赛事筛选 日期
     selectMatchDate: '',
     // 点击详情存储matchid

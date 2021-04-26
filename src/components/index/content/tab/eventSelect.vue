@@ -84,7 +84,7 @@
             },
             eventSelect() {
                 if(this.checkedGames.length > 0) {
-                    this.$store.commit('getSelectMatchData',this.checkedGames)
+                    this.$store.commit('getSelectMatchIds',this.checkedGames)
                     this.$emit('closeEvent',false)
                 } else {
                     this.$message.warning('请先选择赛事哦')

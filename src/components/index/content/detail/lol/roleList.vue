@@ -1,12 +1,12 @@
 <template>
     <div class="role-list">
-        <div v-for="item in factionData.players"
+        <div v-for="item in factionData"
             :key="item.player.player_id">
             <div class="list flex flex_start flex_center">
                 <div :class="['hero',isPlace?'border-blue':'border-red']">
                     <img :src="item.champion.image.small_image">
                     <span>{{item.level}}</span>
-                    <i></i>
+                    <i :class="{alive:item.is_alive}"></i>
                 </div>
                 <div class="art flex flex_column flex_between flex_only_center">
                     <el-tooltip placement="top"
@@ -14,7 +14,7 @@
                         :key="key.external_id"
                     >
                         <div slot="content" class="tips flex flex_start">
-                            <img :src="key.image">
+                            <img :src="key.image" :title="key.name_cn">
                             <div class="text">
                                 <p>{{key.name_cn}}</p>
                                 <p>召唤师等级：1级</p>
@@ -25,35 +25,23 @@
                     </el-tooltip>
                 </div>
                 <div class="outlet flex flex_column flex_between">
-                    <div class="flex flex_start flex_only_center">
-                        <img src="../../../../../assets/imgs/detail/2.png">
-                        <img src="../../../../../assets/imgs/detail/2.png">
-                        <img src="../../../../../assets/imgs/detail/2.png">
-                    </div>
-                    <div class="flex flex_start flex_only_center">
-                        <img src="../../../../../assets/imgs/detail/2.png">
-                        <img src="../../../../../assets/imgs/detail/2.png">
-                        <img src="../../../../../assets/imgs/detail/2.png">
-                    </div>
-                </div>
-                <div class="role">
-                    <el-tooltip placement="top">
-                        <div slot="content" class="tips flex flex_start">
-                            <img src="../../../../../assets/imgs/detail/3.png">
-                            <div class="text">
-                                <p>幽灵疾步</p>
-                                <p>召唤师等级：1级</p>
-                                <p>你的英雄能在移动时无视单位的碰撞体积，移动速度增加28-45%（基于英雄等级），持续10秒。</p>
-                                <p>总价格：<span>5900</span></p>
+                    <div class="flex flex_only_center">
+                        <div class="flex flex_wrap">
+                            <div v-for="img in item.items" :key="img.item_id" class="imgs">
+                                <img :src="img.image" :title="img.name_cn" v-if="img.image && !img.is_trinket">
                             </div>
                         </div>
-                        <el-button><img src="../../../../../assets/imgs/detail/2.png"></el-button>
-                    </el-tooltip>
+                        <div>
+                            <div v-for="img in item.items" :key="img.item_id" class="trinket">
+                                <img :src="img.image" :title="img.name_cn" v-if="img.is_trinket">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="info flex flex_between">
                 <p>{{item.champion.name}}</p>
-                <p>12/10/42</p>
+                <p>{{item.kills}}/{{item.deaths}}/{{item.assists}}</p>
             </div>
         </div>
     </div>
@@ -67,8 +55,8 @@
                 default: 0
             },
             factionData: {    // 战队信息
-                type: Object,
-                default: {}
+                type: Array,
+                default: () => []
             }
         },
         data () {

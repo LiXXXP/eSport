@@ -24,8 +24,8 @@ const mutations = {
         state.myCollectStatus = val
     },
     // 获取赛事筛选id
-    getSelectMatchData: (state, val) => {
-        state.selectMatchData = val
+    getSelectMatchIds: (state, val) => {
+        state.selectMatchIds = val
     },
     // 获取赛事筛选 日期
     getSelectMatchDate: (state, val) => {

@@ -4,22 +4,20 @@
             <div class="head">
                 <div class="flex flex_between flex_center">
                     <img src="../../../../../assets/imgs/detail/win.png" class="blue"
-                        v-if="framesData.factions[0].faction === 'blue'?
-                              framesData.factions[0].team.team_id === framesData.match_winner :
-                              framesData.factions[1].team.team_id === framesData.match_winner">
+                        v-if="framesData.factions[0].team.team_id === framesData.match_winner">
                     <team-play
                         :isPlace="playPlace.left"
-                        :factionData="framesData.factions[0].faction === 'blue'?framesData.factions[0]:framesData.factions[1]"
+                        :factionData="framesData.factions[0]"
                     ></team-play>
                     <type-sign
                         class="type-sign l"
-                        v-if="framesData.factions[0].faction === 'blue' && framesData.factions[0].gold_diff>framesData.factions[1].gold_diff"
+                        v-if="framesData.factions[0].gold_diff>framesData.factions[1].gold_diff"
                         :goldDiff="framesData.factions[0].gold_diff > framesData.factions[1].gold_diff ?
                                   framesData.factions[0].gold_diff : framesData.factions[1].gold_diff"
                     ></type-sign>
                     <div class="score">
                         <p class="left">
-                            {{framesData.factions[0].faction === 'blue'?framesData.factions[0].kills:framesData.factions[1].kills}}
+                            {{framesData.factions[0].kills}}
                         </p>
                     </div>
                     <div class="chessboard">
@@ -28,39 +26,38 @@
                     </div>
                     <div class="score">
                         <p class="right">
-                            {{framesData.factions[1].faction === 'red'?framesData.factions[1].kills:framesData.factions[0].kills}}
+                            {{framesData.factions[1].kills}}
                         </p>
                     </div>
                     <type-sign
                         class="type-sign r"
-                        v-if="framesData.factions[1].faction === 'red' && framesData.factions[1].gold_diff>framesData.factions[0].gold_diff"
+                        v-if="framesData.factions[1].gold_diff>framesData.factions[0].gold_diff"
                         :goldDiff="framesData.factions[1].gold_diff > framesData.factions[0].gold_diff ?
                                   framesData.factions[1].gold_diff : framesData.factions[0].gold_diff"
                     ></type-sign>
                     <team-play
                         :isPlace="playPlace.right"
-                        :factionData="framesData.factions[1].faction === 'red'?framesData.factions[1]:framesData.factions[0]"
+                        :factionData="framesData.factions[1]"
                     ></team-play>
                     <img src="../../../../../assets/imgs/detail/win.png" class="red"
-                        v-if="framesData.factions[1].faction === 'red'?
-                              framesData.factions[1].team.team_id === framesData.match_winner :
-                              framesData.factions[0].team.team_id === framesData.match_winner">
+                        v-if="framesData.factions[1].team.team_id === framesData.match_winner">
                 </div>
             </div>
             <div class="flex flex_between flex_center">
                 <div>
                     <role-list
                         :isPlace="playPlace.left"
-                        :factionData="framesData.factions[0].faction === 'blue'?framesData.factions[0]:framesData.factions[1]"
+                        :factionData="framesData.factions[0].players"
                     ></role-list>
                 </div>
                 <map-block
                     :mapData="framesData.map"
+                    :coordinate="framesData.factions"
                 ></map-block>
                 <div>
                     <role-list
                         :isPlace="playPlace.right"
-                        :factionData="framesData.factions[1].faction === 'red'?framesData.factions[1]:framesData.factions[0]"
+                        :factionData="framesData.factions[1].players"
                     ></role-list>
                 </div>
             </div>
@@ -89,6 +86,10 @@
                 websock: null, // WebSocket
                 framesData: null,
                 eventsData: [],
+                banData: {
+                    blue: [],
+                    red: []
+                },
                 playPlace: {   // 对局数据显示方向，1为左，0为右
                     left: 1,
                     right: 0,
@@ -122,9 +123,22 @@
             websocketonmessage(e){
                 const redata = JSON.parse(e.data)
                 if(e.currentTarget.url.indexOf('frames') > 0) {
+                    if(redata.factions[0].faction !== 'blue') {
+                        redata.factions.reverse()
+                    }
+                    if(redata.factions[0].team.team_id !== redata.match_scores[0].team_id) {
+                        redata.match_scores.reverse()
+                    }
                     this.framesData = redata
                 } else {
                     this.eventsData.push(redata)
+                    if(redata.event_type === 'champion_banned') {
+                        if(redata.faction === 'blue') {
+                            this.banData.blue.push(redata.champion)
+                        }   else {
+                            this.banData.red.push(redata.champion)
+                        }
+                    }
                 }
             },
             // 关闭

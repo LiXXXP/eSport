@@ -9,7 +9,7 @@
         </div>
         <div class="team left">
             <img :src="matchDetail.scores[0].team_snapshot.image">
-            <p :title="matchDetail.scores[0].team_snapshot.name">
+            <p class="beyond-ellipsis" :title="matchDetail.scores[0].team_snapshot.name">
                 {{matchDetail.scores[0].team_snapshot.name}}
             </p>
         </div>
@@ -38,7 +38,7 @@
         </div>
         <div class="team right">
             <img :src="matchDetail.scores[1].team_snapshot.image">
-            <p :title="matchDetail.scores[1].team_snapshot.name">
+            <p class="beyond-ellipsis" :title="matchDetail.scores[1].team_snapshot.name">
                 {{matchDetail.scores[1].team_snapshot.name}}
             </p>
         </div>
@@ -155,7 +155,7 @@
                 margin: 0 auto 10px;
             }
             p {
-                width: 100px;
+                width: 150px;
                 color: #434343;
                 font-size: 18px;
                 font-weight: 500;
