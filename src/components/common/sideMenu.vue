@@ -23,9 +23,14 @@
                         <span class="beyond-ellipsis" :title="item.name">{{item.name}}</span>
                     </template>
                     <div class="detail">
-                        <p v-for="key in eventsList" :key="key.tournament_id">
+                        <router-link
+                            class="link"
+                            :to="`/events?tournamentId=${key.tournament_id}`"
+                            v-for="key in eventsList"
+                            :key="key.tournament_id"
+                        >
                             {{key.name}}
-                        </p>
+                        </router-link>
                     </div>
                 </el-collapse-item>
             </el-collapse>
@@ -120,10 +125,16 @@
                 margin: 10px 12px 10px 10px;
             }
             .detail {
-                color: #878787;
                 font-size: 12px;
                 padding: 0 10px;
                 padding-top: 5px;
+                .link {
+                    color: #878787;
+                    display: block;
+                    &:hover {
+                        color: #ff7800;
+                    }
+                }
             }
             .twig {
                 cursor: pointer;

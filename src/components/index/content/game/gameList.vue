@@ -108,7 +108,7 @@
             this.getPastList()
         },
         mounted() {
-            this.getCountdown()
+            // this.getCountdown()
         },
         destroyed() {
             clearInterval(this.timer)

@@ -1,17 +1,17 @@
 <template>
     <div class="play-data">
         <!-- 数据对比 -->
-        <data-contrast></data-contrast>
+        <!-- <data-contrast></data-contrast> -->
         <!-- 擅长英雄 -->
-        <data-hero></data-hero>
+        <!-- <data-hero></data-hero> -->
         <!-- 最尝禁用英雄 -->
-        <data-no-hero></data-no-hero>
+        <!-- <data-no-hero></data-no-hero> -->
         <!-- 选手对位信息 -->
-        <data-player></data-player>
+        <!-- <data-player></data-player> -->
         <!-- 近期比赛情况 -->
         <data-events></data-events>
         <!-- 历史交锋记录 -->
-        <data-history></data-history>
+        <!-- <data-history></data-history> -->
     </div>
 </template>
 
