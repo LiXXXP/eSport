@@ -24,6 +24,10 @@
             :matchData="matchDetail"
             :targetMatchId="currentMatchId"
         ></play-content>
+        <!-- 对局分析 -->
+        <play-data
+            v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId === 0"
+        ></play-data>
     </div>
 </template>
 
@@ -33,6 +37,7 @@
     import playScore from '@/components/index/content/detail/playScore'           // 比赛比分
     import tabNav from '@/components/common/tabNav'                               // tab切换
     import playContent from '@/components/index/content/detail/dota/playContent'  // 队伍对局详情
+    import playData from '@/components/detail/content/playData'                   // 数据分析
 
     export default {
         props: {
@@ -100,7 +105,8 @@
             videoContent,
             playScore,
             tabNav,
-            playContent
+            playContent,
+            playData
         }
     }
 </script>

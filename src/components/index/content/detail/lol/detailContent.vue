@@ -37,9 +37,9 @@
             :targetMatchId="currentMatchId"
         ></play-detail>
         <!-- 对局分析 -->
-        <!-- <play-data
+        <play-data
             v-if="this.$route.path === '/detail' && currentData === 1 && currentMatchId === 0"
-        ></play-data> -->
+        ></play-data>
     </div>
 </template>
 

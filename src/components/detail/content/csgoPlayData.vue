@@ -1,15 +1,15 @@
 <template>
     <div class="play-data">
         <!-- 数据对比 -->
-        <data-contrast></data-contrast>
+        <!-- <data-contrast></data-contrast> -->
         <!-- 擅长地图 -->
-        <data-map></data-map>
+        <!-- <data-map></data-map> -->
         <!-- 选手对位信息 -->
-        <data-player></data-player>
+        <!-- <data-player></data-player> -->
         <!-- 近期比赛情况 -->
         <data-events></data-events>
         <!-- 历史交锋记录 -->
-        <data-history></data-history>
+        <!-- <data-history></data-history> -->
     </div>
 </template>
 

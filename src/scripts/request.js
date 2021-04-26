@@ -362,6 +362,24 @@ function getTeamsList(params) {
   return postRequest('/teams/team_list', params)
 }
 
+/**
+ *
+ * 近期比赛情况
+ * @param {*} params
+ */
+ function getMatchNear(params) {
+  return postRequest('/match/near_match_info', params)
+}
+
+/**
+ *
+ * 历史交锋记录
+ * @param {*} params
+ */
+ function getMatchHistory(params) {
+  return postRequest('/match/history_match_info', params)
+}
+
 export {
     getLogin,
     getLogout,
@@ -390,6 +408,8 @@ export {
     getTournamentMatch,
     getTeamDetail,
     getTeamMatch,
-    getTeamsList
+    getTeamsList,
+    getMatchNear,
+    getMatchHistory
 }
 
