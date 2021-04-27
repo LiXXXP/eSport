@@ -9,20 +9,8 @@
                     <i :class="{alive:item.is_alive}"></i>
                 </div>
                 <div class="art flex flex_column flex_between flex_only_center">
-                    <el-tooltip placement="top"
-                        v-for="key in item.summoner_spells"
-                        :key="key.external_id"
-                    >
-                        <div slot="content" class="tips flex flex_start">
-                            <img :src="key.image" :title="key.name_cn">
-                            <div class="text">
-                                <p>{{key.name_cn}}</p>
-                                <p>召唤师等级：1级</p>
-                                <p>你的英雄能在移动时无视单位的碰撞体积，移动速度增加28-45%（基于英雄等级），持续10秒。</p>
-                            </div>
-                        </div>
-                        <el-button><img :src="key.image"></el-button>
-                    </el-tooltip>
+                    <img v-for="a in item.summoner_spells"
+                        :key="a.external_id" :src="a.image" :title="a.name_cn">
                 </div>
                 <div class="outlet flex flex_column flex_between">
                     <div class="flex flex_only_center">
@@ -120,6 +108,12 @@
         }
         .art {
             height: 50px;
+            img {
+                width: 20px;
+                height: 20px;
+                display: block;
+                margin-top: 5px;
+            }
         }
         .outlet {
             height: 50px;
