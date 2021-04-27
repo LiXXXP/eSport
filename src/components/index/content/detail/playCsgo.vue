@@ -57,7 +57,8 @@
                                             :key="key.round_ordinal"
                                             :isDeath="key.side[0].is_first_death"
                                             :survivedNum="key.side[0].survived_players"
-                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||false"
+                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill == null ? false :
+                                                        item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot"
                                             :backColor="'#008CD4'"
                                         ></kill-bar>
                                     </div>
@@ -71,7 +72,8 @@
                                             :key="key.round_ordinal"
                                             :isDeath="key.side[1].is_first_death"
                                             :survivedNum="key.side[1].survived_players"
-                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||false"
+                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill == null ? false :
+                                                        item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot"
                                             :backColor="'#F6B600'"
                                         ></kill-bar>
                                     </div>
@@ -79,7 +81,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="flex flex_only_center">
+                                    <div class="flex flex_only_center" v-if="item.teams[0].team_snapshot">
                                         <img :src="item.teams[0].team_snapshot.image" class="team-img">
                                         <p class="team-name beyond-ellipsis" :title="item.teams[0].team_snapshot.name">
                                             {{item.teams[0].team_snapshot.name}}
@@ -128,7 +130,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="flex flex_only_center">
+                                    <div class="flex flex_only_center" v-if="item.teams[1].team_snapshot">
                                         <img :src="item.teams[1].team_snapshot.image" class="team-img">
                                         <p class="team-name beyond-ellipsis" :title="item.teams[1].team_snapshot.name">
                                             {{item.teams[1].team_snapshot.name}}
@@ -185,7 +187,8 @@
                                             :isReverse="false"
                                             :isDeath="key.side[1].is_first_death"
                                             :survivedNum="key.side[1].survived_players"
-                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||false"
+                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill == null ? false :
+                                                        item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot"
                                             :backColor="'#F6B600'"
                                         ></kill-bar>
                                     </div>
@@ -199,7 +202,8 @@
                                             :isReverse="false"
                                             :isDeath="key.side[0].is_first_death"
                                             :survivedNum="key.side[0].survived_players"
-                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot||false"
+                                            :isHeadshot="item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill == null ? false :
+                                                        item.rounds_detail[item.rounds_detail.length-1].special_events.opening_kill.detail.is_headshot"
                                             :backColor="'#008CD4'"
                                         ></kill-bar>
                                     </div>

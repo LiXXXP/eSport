@@ -21,7 +21,7 @@
                 <div class="bar flex flex_start">
                     <div :class="{win: item.winner?item.winner.team_id === scoreData[0].team_id:false}"
                         v-for="item in battleData"
-                        :key="item.duration"
+                        :key="item.battle_id"
                     ></div>
                 </div>
                 <p :class="['left',{
@@ -40,7 +40,7 @@
                 <div class="bar flex flex_start">
                     <div :class="{win: item.winner?item.winner.team_id === scoreData[1].team_id:false}"
                         v-for="item in battleData"
-                        :key="item.duration"
+                        :key="item.battle_id"
                     ></div>
                 </div>
             </div>

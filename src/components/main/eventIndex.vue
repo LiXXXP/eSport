@@ -16,7 +16,7 @@
                         <p>{{tDetail.team_count}}</p>
                         <p>参赛队伍</p>
                     </div>
-                    <div class="num">
+                    <div class="num" v-if="tDetail.prize_bonus">
                         <p>{{tDetail.prize_bonus}}</p>
                         <p>总奖金</p>
                     </div>

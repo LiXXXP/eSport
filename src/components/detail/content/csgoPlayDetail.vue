@@ -10,7 +10,7 @@
                 <table v-for="key in item.teams" :key="key.team_id">
                     <thead>
                         <th class="team">
-                            <div class="flex flex_only_center">
+                            <div class="flex flex_only_center" v-if="key.team_snapshot">
                                 <img :src="key.team_snapshot.image">
                                 <p :title="key.team_snapshot.name"
                                     class="beyond-ellipsis">
