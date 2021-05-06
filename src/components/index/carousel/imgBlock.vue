@@ -23,7 +23,17 @@
         methods: {
             getFirstImg() {
                 let _this = this
-                getFirstImage().then(res => {
+                let params
+                if(window.location.host.includes('cn')) {
+                    params = {
+                        order: 1
+                    }
+                } else {
+                    params = {
+                        order: 2
+                    }
+                }
+                getFirstImage(params).then(res => {
                     if (res.code === 200) {
                         _this.spaceUrl = res.data[0].image_name
                         _this.spaceHref = res.data[0].jump_url

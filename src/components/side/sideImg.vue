@@ -21,7 +21,17 @@
         methods: {
             getThirdImg() {
                 let _this = this
-                getThirdImage().then(res => {
+                let params
+                if(window.location.host.includes('cn')) {
+                    params = {
+                        order: 1
+                    }
+                } else {
+                    params = {
+                        order: 2
+                    }
+                }
+                getThirdImage(params).then(res => {
                     if (res.code === 200) {
                         _this.imgUrl = res.data[0].image_name
                         _this.imgHref = res.data[0].jump_url
