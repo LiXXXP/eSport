@@ -25,7 +25,7 @@
             return {
                 mainIndex: 0,     // 图片轮播的当前索引
                 timer: null,      // 轮播图定时器
-                carouselList: []  // 轮播图片列表
+                carouselList: [],  // 轮播图片列表
             }
         },
         created() {
@@ -45,7 +45,17 @@
         methods: {
             getCarouselImg() {
                 let _this = this
-                getCarousel().then(res => {
+                let params
+                if(window.location.host.includes('cn')) {
+                    params = {
+                        order: 1
+                    }
+                } else {
+                    params = {
+                        order: 2
+                    }
+                }
+                getCarousel(params).then(res => {
                     if (res.code === 200) {
                         _this.carouselList = res.data
                     }
