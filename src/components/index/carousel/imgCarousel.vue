@@ -3,7 +3,7 @@
         <div class="carousel-big" v-if="carouselList.length !== 0">
             <transition name="fade" mode="out-in" appear type="transition">
                 <a :href="carouselList[mainIndex].jump_url" target="_blank">
-                    <img :src="carouselList[mainIndex].image_name">
+                    <img :src="carouselList[mainIndex].image">
                 </a>
             </transition>
         </div>
@@ -12,7 +12,7 @@
                 v-for="(item,index) in carouselList"
                 :key="item.id"
                 @click="cutCarousel(index)">
-                <img :src="item.image_name">
+                <img :src="item.image" :title="item.image_name">
             </div>
         </div>
     </div>
