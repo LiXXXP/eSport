@@ -117,9 +117,9 @@
             return {
                 list: [],
                 image: {
-                    place: 1,
-                    order: 1,
-                    status: 1
+                    place: '',
+                    order: '',
+                    status: ''
                 },
                 page: {
                     limit: 10,   // 条数
@@ -134,10 +134,10 @@
         methods: {
             currentPage(val) {
                 this.page.current = val
-                getImageList()
+                this.getImageList()
             },
             selectImage() {
-                getImageList()
+                this.getImageList()
             },
             tableRowClassName({row, rowIndex}) {
                 if (rowIndex % 2 === 0) {
