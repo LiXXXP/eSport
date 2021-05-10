@@ -21,7 +21,7 @@
             </el-form-item>
 
             <el-form-item label="权重" prop="order">
-                <el-input v-model="ruleForm.order" style="width:320px"></el-input>
+                <el-input type="number" v-model.number="ruleForm.order" style="width:320px"></el-input>
             </el-form-item>
 
             <el-form-item label="图片名称" prop="name">
@@ -85,7 +85,7 @@
                     ],
                     order: [
                         { required: true, message: '请输入图片权重', trigger: 'blur' },
-                        { type: 'number', min: 1, max: 4, message: '1~1000正整数', trigger: 'blur' }
+                        { type: 'number', message: '权重必须为数字值', trigger: 'blur' }
                     ],
                     name: [
                         { required: true, message: '请输入图片名称', trigger: 'blur' }
@@ -94,8 +94,7 @@
                         { required: true, message: '请填写图片跳转地址', trigger: 'blur' }
                     ],
                     web: [
-                        { required: true, message: '请输入图片网站排序', trigger: 'blur' },
-                        { type: 'number', min: 1, max: 2, message: '1~1000正整数', trigger: 'blur' }
+                        { required: true, message: '请输入图片网站排序', trigger: 'change' }
                     ],
                 },
                 fileList: [],
