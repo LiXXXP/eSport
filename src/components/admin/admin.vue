@@ -46,6 +46,7 @@
                     </el-select>
                 </div>
 
+                <el-button plain @click="lookAll()">查看全部</el-button>
                 <el-button plain @click="gotoCreate(0)">创建</el-button>
             </div>
             <div class="table">
@@ -137,6 +138,13 @@
                 this.getImageList()
             },
             selectImage() {
+                this.getImageList()
+            },
+            // 查看全部
+            lookAll() {
+                this.image.place = ''
+                this.image.order = ''
+                this.image.status = ''
                 this.getImageList()
             },
             tableRowClassName({row, rowIndex}) {
