@@ -35,8 +35,8 @@
                 }
                 getFirstImage(params).then(res => {
                     if (res.code === 200) {
-                        _this.spaceUrl = res.data[0].image_name
-                        _this.spaceHref = res.data[0].jump_url
+                        _this.spaceUrl = res.data.image
+                        _this.spaceHref = res.data.jump_url
                     }
                 })
             }

@@ -33,8 +33,8 @@
                 }
                 getThirdImage(params).then(res => {
                     if (res.code === 200) {
-                        _this.imgUrl = res.data[0].image_name
-                        _this.imgHref = res.data[0].jump_url
+                        _this.imgUrl = res.data.image
+                        _this.imgHref = res.data.jump_url
                     }
                 })
             }
