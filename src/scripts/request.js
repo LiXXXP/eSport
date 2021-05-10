@@ -380,6 +380,61 @@ function getTeamsList(params) {
   return postRequest('/match/history_match_info', params)
 }
 
+/**
+ *
+ * admin 登录
+ * @param {*} params
+ */
+ function userLogin(params) {
+  return postRequest('/backstage_login', params)
+}
+
+/**
+ *
+ * admin 图片列表
+ * @param {*} params
+ */
+ function imageList(params) {
+  return postRequest('/image/backstage_advertisement_list', params)
+}
+
+/**
+ *
+ * admin 图片创建
+ * @param {*} params
+ */
+ function imageCreate(params) {
+  return postRequest('/image/backstage_advertisement_create', params)
+}
+
+/**
+ *
+ * admin 图片信息
+ * @param {*} params
+ */
+ function imageInfo(params) {
+  return postRequest('/image/backstage_advertisement_info', params)
+}
+
+/**
+ *
+ * admin 图片更新
+ * @param {*} params
+ */
+ function imageUpdate(params) {
+  return postRequest('/image/backstage_advertisement_update', params)
+}
+
+/**
+ *
+ * admin 图片删除
+ * @param {*} params
+ */
+ function imageDelete(params) {
+  return postRequest('/image/backstage_advertisement_delete', params)
+}
+
+
 export {
     getLogin,
     getLogout,
@@ -410,6 +465,12 @@ export {
     getTeamMatch,
     getTeamsList,
     getMatchNear,
-    getMatchHistory
+    getMatchHistory,
+    userLogin,
+    imageList,
+    imageCreate,
+    imageInfo,
+    imageUpdate,
+    imageDelete
 }
 

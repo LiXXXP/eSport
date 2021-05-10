@@ -44,17 +44,14 @@
         },
         methods: {
             getRows() {
-                for(let item of this.timeLine.gold_diff_timeline) {
-                    for(let key of this.timeLine.experience_diff_timeline) {
-                        item.experience_diff = key.experience_diff
-                    }
+                this.timeLine.gold_diff_timeline.forEach((e,i) => {
                     let rowItem = {
-                        'time': formatSeconds(item.ingame_timestamp),
-                        '经济差': parseInt(item.gold_diff) || 0,
-                        '经验差': parseInt(item.experience_diff) || 0,
+                        'time': formatSeconds(e.ingame_timestamp),
+                        '经济差': parseInt(e.gold_diff) || 0,
+                        '经验差': parseInt(this.timeLine.experience_diff_timeline[i].experience_diff) || 0,
                     }
                     this.chartData.rows.push(rowItem)
-                }
+                })
             }
         },
         watch: {

@@ -18,6 +18,9 @@ const eventList =() => import('@/components/main/eventList')
 const teamIndex =() => import('@/components/main/teamIndex')
 const eventIndex =() => import('@/components/main/eventIndex')
 const Login =() => import('@/components/header/login/loginPage/index')
+const adminLogin =() => import('@/components/admin/login')
+const Admin =() => import('@/components/admin/admin')
+const adminCreate =() => import('@/components/admin/create')
 
 const routes = [
     {
@@ -77,7 +80,33 @@ const routes = [
           title: '用户登录注册',
       },
       component: Login
-    }
+    },
+    {
+      path: '/admin/login',
+      name: 'adminLogin',
+      meta: {
+          title: '后台管理系统',
+      },
+      component: adminLogin
+  },
+  {
+      path: '/admin',
+      name: 'admin',
+      meta: {
+          title: '后台管理系统',
+          requireAuth: true
+      },
+      component: Admin
+  },
+  {
+      path: '/admin/create',
+      name: 'adminCreate',
+      meta: {
+          title: '后台管理系统',
+          requireAuth: true
+      },
+      component: adminCreate
+  }
 ]
 
 const router = new Router({
@@ -87,6 +116,12 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+
+    /* 设置title */
+    if(to.meta.title) {
+        document.title = to.meta.title
+    }
+
     // 判断首页轮播图显示
     if(to.path !== '/index') {
         store.commit('carouselShow', false)
@@ -104,9 +139,19 @@ router.beforeEach((to, from, next) => {
         return false;
     }
 
-    /* 设置title */
-    if(to.meta.title) {
-        document.title = to.meta.title
+    if(to.path === '/admin') {
+        if (to.matched.some(res => res.meta.requireAuth)) {
+            let admToken = localStorage.getItem('userToken')
+            if (admToken) {
+                next()
+            } else {
+                next({
+                    path: '/admin/login',
+                })
+            }
+        }
+    } else {
+        next()
     }
 
     next()

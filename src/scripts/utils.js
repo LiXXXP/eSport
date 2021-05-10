@@ -334,9 +334,6 @@ function formatSeconds(sec) {
   if( hour > 0 ) {
       result = `${parseInt(hour)}:${result}`
   }
-  if ( theTime === 0 ) {
-      result = '00:00'
-  }
   return result
 }
 
