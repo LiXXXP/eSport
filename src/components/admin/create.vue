@@ -127,6 +127,10 @@
                                 url: res.data.image
                             }
                         ]
+                    } else if(res.code === 1000) {
+                        this.$router.push({
+                            path: '/admin/login'
+                        })
                     }
                 })
             },
@@ -171,6 +175,10 @@
                                 if(res.code === 200) {
                                     this.$message.success(res.message)
                                     this.$router.go(-1)
+                                } else if(res.code === 1000) {
+                                    this.$router.push({
+                                        path: '/admin/login'
+                                    })
                                 } else {
                                     this.$message.error(res.message)
                                 }
@@ -182,6 +190,10 @@
                                     if(res.code === 200) {
                                         this.$message.success(res.message)
                                         this.$router.go(-1)
+                                    } else if(res.code === 1000) {
+                                        this.$router.push({
+                                            path: '/admin/login'
+                                        })
                                     } else {
                                         this.$message.error(res.message)
                                     }

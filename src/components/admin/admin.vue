@@ -171,6 +171,10 @@
                     if(res.code === 200) {
                         rows.splice(index, 1)
                         this.$message.success(res.message)
+                    } else if(res.code === 1000) {
+                        this.$router.push({
+                            path: '/admin/login'
+                        })
                     }
                 })
             },
@@ -188,6 +192,10 @@
                     if(res.code === 200) {
                         _this.list = res.data.list
                         _this.page.count = res.data.count
+                    } else if(res.code === 1000) {
+                        this.$router.push({
+                            path: '/admin/login'
+                        })
                     }
                 })
             }
