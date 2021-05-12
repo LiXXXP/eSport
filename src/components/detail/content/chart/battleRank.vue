@@ -17,7 +17,7 @@
             v-for="item in playerList"
             :key="item.nick_name">
             <div class="head"
-                :title="`${item.name}-${item.title}`"
+                :title="`${item.nick_name}-${item.title}`"
             >
                 <img :src="item.image">
                 <span>{{item.level}}</span>
@@ -125,7 +125,7 @@
                         this.tatol = t
                     }
                 }
-                arr.sort((a, b) => {return a.type - b.type})
+                arr.sort((a, b) => {return b.type - a.type})
                 this.playerList = arr
             },
             changeCompany(data) {

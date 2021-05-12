@@ -10,7 +10,7 @@
                     <el-tooltip placement="top"
                         v-if="key.faction === 'blue'">
                         <div slot="content">
-                            {{durationTime(key.ingame || 0)}}
+                            {{key.info}} - {{durationTime(key.ingame || 0)}}
                         </div>
                         <el-button>
                             <img :src="key.url" class="tip">
@@ -20,7 +20,7 @@
             </div>
             <div class="left flex flex_only_center">
                 <p style="color: #2980D9;">
-                    {{thousands(parseInt(item.num1 || 0))}}
+                    {{item.num1==null?'-':thousands(parseInt(item.num1))}}
                 </p>
                 <progress-bar
                     class="bar"
@@ -38,7 +38,7 @@
                     :progressRate="parseInt(item.num2/(item.num1+item.num2)*100 || 0)"
                 ></progress-bar>
                 <p style="color: #CC5728;">
-                    {{thousands(parseInt(item.num2 || 0))}}
+                    {{item.num2==null?'-':thousands(parseInt(item.num2))}}
                 </p>
             </div>
             <div class="icons flex flex_start flex_only_center"
@@ -48,7 +48,7 @@
                     <el-tooltip placement="top"
                         v-if="key.faction === 'red'">
                         <div slot="content">
-                            {{durationTime(key.ingame || 0)}}
+                            {{key.info}} - {{durationTime(key.ingame || 0)}}
                         </div>
                         <el-button>
                             <img :src="key.url" class="tip">

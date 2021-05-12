@@ -20,7 +20,7 @@
                 }}
             </span>
         </div>
-        <div v-if="sideData.ot_score > 0"
+        <div v-if="sideData.ot_score !== null"
             :class="['block flex flex_only_center',{
                 flex_row_reverse: isReverse
         }]">

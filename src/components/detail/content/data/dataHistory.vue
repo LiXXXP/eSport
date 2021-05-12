@@ -17,11 +17,11 @@
                             <p class="plays">{{team.master_team.battles_win_count}} - {{team.master_team.total_number_of_battles}}</p>
                             <p>获胜</p>
                         </div>
-                        <div>
+                        <!-- <div>
                             <p class="score" style="color:#434343;">2</p>
                             <p class="plays">3-3</p>
                             <p>平局</p>
-                        </div>
+                        </div> -->
                         <div>
                             <p class="score">{{team.guest_team.matches_win_count}}</p>
                             <p class="plays">{{team.guest_team.battles_win_count}} - {{team.guest_team.total_number_of_battles}}</p>

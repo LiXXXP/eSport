@@ -2,7 +2,7 @@
     <div class="tab-nav flex flex_start flex_wrap">
         <div class="nav-item flex flex_start"
             v-for="(item,index) in navData"
-            :key="item.title"
+            :key=""
             @click="cutTab(index)">
             <div :class="['title flex flex_center',`select-style${selectStyle}`,{active:index===currentIndex}]">
                 <img :src="item.icon" v-if="item.icon">

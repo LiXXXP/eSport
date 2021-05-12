@@ -32,13 +32,13 @@
                             :key="player.player.player_id">
                             <td>
                                 <div class="flex flex_only_center">
-                                    <p>{{player.player.nick_name}}</p>
+                                    <p class="beyond-ellipsis">{{player.player.nick_name}}</p>
                                     <i class="knife" v-if="player.is_knife_kill"></i>
                                     <i class="ace" v-if="player.is_ace_kill">Ace</i>
                                 </div>
                             </td>
-                            <td>{{player.kills || 0}}（{{player.headshot_kills || 0}}）</td>
-                            <td>{{player.assists || 0}}（{{player.flash_assists || 0}}）</td>
+                            <td>{{player.kills || 0}}<span v-if="player.headshot_kills!==null">（{{player.headshot_kills}}）</span></td>
+                            <td>{{player.assists || 0}}<span v-if="player.flash_assists!==null">（{{player.flash_assists}}）</span></td>
                             <td>{{player.deaths || 0}}</td>
                             <td>{{(player.kast*100).toFixed(2) || 0}}%</td>
                             <td>{{player.kills - player.deaths || 0}}</td>
@@ -46,7 +46,7 @@
                             <td :title="`${player.first_kills}-${player.first_deaths}`">
                                   {{player.first_kills_diff || 0}}
                             </td>
-                            <td>{{player.rating || 0}}</td>
+                            <td>{{player.advanced.rating || 0}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -125,6 +125,9 @@
                     &:nth-child(1) {
                         text-align: left;
                         padding-left: 8px;
+                        .beyond-ellipsis {
+                            width: 100px;
+                        }
                         .knife {
                             width: 11px;
                             height: 18px;

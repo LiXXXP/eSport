@@ -78,18 +78,21 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '十杀',
                                     type: 'first_to_10_kills',
                                     url: require('../../../../../assets/imgs/detail/kills01.png')
                                 },
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '五杀',
                                     type: 'first_to_5_kills',
                                     url: require('../../../../../assets/imgs/detail/kills02.png')
                                 },
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '一血',
                                     type: 'first_blood',
                                     url: require('../../../../../assets/imgs/detail/kills03.png')
                                 }
@@ -111,6 +114,7 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '首塔',
                                     type: 'first_tower',
                                     url: require('../../../../../assets/imgs/detail/kills04.png')
                                 }
@@ -125,6 +129,7 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '首兵营',
                                     type: 'first_barracks',
                                     url: require('../../../../../assets/imgs/detail/kills05.png')
                                 }
@@ -146,6 +151,7 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '首肉山',
                                     type: 'first_roshan',
                                     url: require('../../../../../assets/imgs/detail/kills09.png')
                                 }
@@ -155,11 +161,11 @@
                     item.outputList.forEach( e => {
                         let field = e.type
                         if(item.factions[0].faction === 'radiant') {
-                            e.num1 = item.factions[0][field] || 0
-                            e.num2 = item.factions[1][field] || 0
+                            e.num1 = item.factions[0][field]
+                            e.num2 = item.factions[1][field]
                         } else {
-                            e.num1 = item.factions[1][field] || 0
-                            e.num2 = item.factions[0][field] || 0
+                            e.num1 = item.factions[1][field]
+                            e.num2 = item.factions[0][field]
                         }
                         for(let key of e.imgs) {
                             let type = key.type

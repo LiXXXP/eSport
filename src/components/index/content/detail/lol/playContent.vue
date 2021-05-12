@@ -78,18 +78,21 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '十杀',
                                     type: 'first_to_10_kills',
                                     url: require('../../../../../assets/imgs/detail/kills01.png')
                                 },
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '五杀',
                                     type: 'first_to_5_kills',
                                     url: require('../../../../../assets/imgs/detail/kills02.png')
                                 },
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '一血',
                                     type: 'first_blood',
                                     url: require('../../../../../assets/imgs/detail/kills03.png')
                                 }
@@ -111,6 +114,7 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '首塔',
                                     type: 'first_turret',
                                     url: require('../../../../../assets/imgs/detail/kills04.png')
                                 }
@@ -125,6 +129,7 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '首水晶',
                                     type: 'first_inhibitor',
                                     url: require('../../../../../assets/imgs/detail/kills05.png')
                                 }
@@ -139,6 +144,7 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '首峡谷先锋',
                                     type: 'first_rift_herald',
                                     url: require('../../../../../assets/imgs/detail/kills06.png')
                                 }
@@ -153,6 +159,7 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '首元素巨龙',
                                     type: 'first_dragon',
                                     url: require('../../../../../assets/imgs/detail/kills07.png')
                                 }
@@ -167,20 +174,22 @@
                                 {
                                     ingame: 0,
                                     faction: '',
+                                    info: '首纳什男爵',
                                     type: 'first_baron_nashor',
                                     url: require('../../../../../assets/imgs/detail/kills08.png')
                                 }
                             ]
                         }
                     ]
+
                     item.outputList.forEach( e => {
                         let field = e.type
                         if(item.factions[0].faction === 'blue') {
-                            e.num1 = item.factions[0][field] || 0
-                            e.num2 = item.factions[1][field] || 0
+                            e.num1 = item.factions[0][field]
+                            e.num2 = item.factions[1][field]
                         } else {
-                            e.num1 = item.factions[1][field] || 0
-                            e.num2 = item.factions[0][field] || 0
+                            e.num1 = item.factions[1][field]
+                            e.num2 = item.factions[0][field]
                         }
                         for(let key of e.imgs) {
                             let type = key.type
@@ -188,6 +197,7 @@
                             key.faction = item.first_events[type].faction || ''
                         }
                     })
+
                 }
             }
         },
