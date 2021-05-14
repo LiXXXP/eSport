@@ -176,10 +176,11 @@
                         }
                     })
 
-                    if ([...new Set(item.ban_pick.map(i => i.type))].includes('Ban')) {
+                    let arr = [...new Set(item.ban_pick.map(i => i.type))]
+                    if (arr.includes('Ban')) {
                         this.isBan = true
                     }
-                    if ([...new Set(item.ban_pick.map(i => i.type))].includes('Pick')) {
+                    if (arr.includes('Pick')) {
                         this.isPick = true
                     }
 
