@@ -21,8 +21,8 @@
                             :heroList="item.ban_pick"
                         ></play-hero>
                         <div class="role">
-                            <p>Ban</p>
-                            <p>Pick</p>
+                            <p v-if="isBan">Ban</p>
+                            <p v-if="isPick">Pick</p>
                         </div>
                         <play-hero
                             :sizeData="size"
@@ -59,6 +59,8 @@
         data() {
             return {
                 size: 'lol',  // 英雄列表头像大小区分
+                isBan: false,
+                isPick: false
             }
         },
         created() {
@@ -197,6 +199,13 @@
                             key.faction = item.first_events[type].faction || ''
                         }
                     })
+
+                    if ([...new Set(item.ban_pick.map(i => i.type))].includes('Ban')) {
+                        this.isBan = true
+                    }
+                    if ([...new Set(item.ban_pick.map(i => i.type))].includes('Pick')) {
+                        this.isPick = true
+                    }
 
                 }
             }
