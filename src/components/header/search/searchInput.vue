@@ -24,7 +24,7 @@
                     <el-option
                         v-for="item in searchList"
                         :key="item.player_id"
-                        :value="item.player_nickname">
+                        value="请输入关键词">
                         <search-box :searchData="item"></search-box>
                     </el-option>
                     <!-- 分页 -->
@@ -70,7 +70,6 @@
                 optionVal: 2,      // 选择 val值
                 count: 0,          // 搜索结果总条数
                 page: 1,           // 当前页
-
             }
         },
         mounted() {
@@ -216,7 +215,7 @@
         }
     }
     .el-select-dropdown__item {
-        height: auto;
+        height: auto !important;
         line-height: 22px;
         &.selected {
             color: #606266;
@@ -230,4 +229,9 @@
     .el-popper[x-placement^=bottom] .popper__arrow {
         display: none;
     }
+    .el-select .el-input.is-focus .el-input__inner {
+        border: 0;
+        border-radius: 0;
+    }
+
 </style>

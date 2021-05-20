@@ -148,8 +148,6 @@
                 this.teamId = this.$route.query.teamId || 0
                 this.gameId = this.$route.query.gameId || 0
                 this.teamName = this.$route.query.teamName || ''
-            },
-            teamId(val,old) {
                 if(this.teamId) {
                     this.teamDetail()
                 }
