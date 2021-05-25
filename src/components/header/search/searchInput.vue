@@ -196,8 +196,8 @@
 
 <style lang="less">
     .el-input__inner {
-        border: 0;
-        border-radius: 0;
+        border: 0 !important;
+        border-radius: 0 !important;
     }
     .select {
         .el-input__inner {
@@ -216,7 +216,7 @@
     }
     .el-select-dropdown__item {
         height: auto !important;
-        line-height: 22px;
+        line-height: 22px !important;
         &.selected {
             color: #606266;
         }

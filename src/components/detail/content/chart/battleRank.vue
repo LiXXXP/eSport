@@ -17,7 +17,7 @@
             v-for="item in playerList"
             :key="item.nick_name">
             <div class="head"
-                :title="`${item.nick_name}-${item.title}`"
+                :title="`${item.name}-${item.title}`"
             >
                 <img :src="item.image">
                 <span>{{item.level}}</span>
@@ -111,8 +111,8 @@
                             'faction': item.faction,
                             'nick_name': key.player.nick_name,
                             'image': key.champion.image.image,
-                            'name': key.champion.name,
-                            'title': key.champion.title,
+                            'name': key.champion.name_cn,
+                            'title': key.champion.title_cn,
                             'level': key.level
                         }
                         if(type === 'wards_placed') {

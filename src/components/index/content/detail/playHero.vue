@@ -11,7 +11,8 @@
                     'dota-size': sizeData === 'dota',
                     'lol-size': sizeData === 'lol'
             }]">
-                <img :src="item.champion ? item.champion.image.image:item.hero.image.image" :title="item.champion ? item.champion.name : `${item.hero.title_cn}-${item.hero.name_cn}`">
+                <img :src="item.champion ? item.champion.image.image:item.hero.image.image"
+                    :title="item.champion ? `${item.champion.name_cn} - ${item.champion.title_cn}` : `${item.hero.title_cn}-${item.hero.name_cn}`">
                 <!-- <span>{{item.order || 0}}</span> -->
             </div>
         </div>
@@ -22,7 +23,8 @@
                     'dota-size': sizeData === 'dota',
                     'lol-size': sizeData === 'lol'
             }]">
-                <img :src="item.champion ? item.champion.image.image: item.hero.image.image" :title="item.champion ? item.champion.name : `${item.hero.title_cn}-${item.hero.name_cn}`">
+                <img :src="item.champion ? item.champion.image.image: item.hero.image.image"
+                    :title="item.champion ? `${item.champion.name_cn} - ${item.champion.title_cn}` : `${item.hero.title_cn}-${item.hero.name_cn}`">
                 <!-- <span>{{item.order || 0}}</span> -->
             </div>
         </div>

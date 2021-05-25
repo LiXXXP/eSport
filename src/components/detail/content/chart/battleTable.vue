@@ -19,7 +19,7 @@
                     <tr v-for="item in key.players"
                         :key="item.player.player_id">
                         <td class="flex flex_start flex_only_center">
-                            <div class="head">
+                            <div class="head" :title="`${item.champion.name_cn}-${item.champion.title_cn}`">
                                 <img :src="item.champion.image.image">
                                 <span>{{item.level}}</span>
                             </div>
@@ -195,6 +195,7 @@
         .head {
             width: 36px;
             height: 36px;
+            cursor: pointer;
             position: relative;
             img {
                 width: 100%;
