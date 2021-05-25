@@ -102,7 +102,6 @@
                     this.isOpen = true
                     this.$emit('openDetailId',Mid,Gid)
                 }
-                this.$store.commit('supportedShow',this.supported)
             }
         }
     }

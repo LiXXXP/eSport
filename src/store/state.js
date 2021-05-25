@@ -16,9 +16,7 @@ const state = {
     // 赛事筛选 日期
     selectMatchDate: '',
     // 点击详情存储matchid
-    matchId: 0,
-    // 是否有视频直播
-    isSupported: false,
+    matchId: 0
 }
 
 export default state

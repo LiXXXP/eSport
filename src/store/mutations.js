@@ -34,11 +34,7 @@ const mutations = {
     // 获取详情matchid
     getMatchId: (state, val) => {
         state.matchId = val
-    },
-    // 显示视频直播
-    supportedShow: (state , boolean) => {
-        state.isSupported = boolean
-  }
+    }
 }
 
 export default mutations

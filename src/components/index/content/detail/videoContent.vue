@@ -1,7 +1,7 @@
 <template>
     <div class="video-content">
-        <div v-if="this.$store.state.isSupported">
-            <div class="flex flex_start flex_wrap flex_wrap_reverse" v-if="streamsData">
+        <div v-if="streamsData">
+            <div class="flex flex_start flex_wrap flex_wrap_reverse">
                 <div :class="['item flex flex_start',{active:index===currentIndex}]"
                     v-for="(item,index) in streamsData.streams"
                     :key="item.stream_id"
@@ -42,10 +42,9 @@
         },
         watch: {
             streamsData() {
-                if(this.$store.state.isSupported) {
+                if (this.streamsData) {
                     this.streamUrl = this.streamsData.streams[0].embed_url
                 }
-
             }
         }
     }

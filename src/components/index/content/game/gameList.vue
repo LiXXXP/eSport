@@ -32,6 +32,7 @@
                     </div>
                     <!-- 详情 -->
                     <game-info
+                        :isSupported="key.is_supported"
                         :openType="parseInt(key.game_id)"
                         v-if="currentId === key.match_id"
                         @packDetailId="packDetailId"

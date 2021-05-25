@@ -1,7 +1,7 @@
 <template>
     <div class="game-table">
         <table>
-            <thead @click="gotoDetail(inningData.game_id,inningData.match_id)">
+            <thead @click="gotoDetail(inningData.game_id,inningData.match_id,inningData.is_supported)">
                 <th :title="inningData.tournament_name">
                     <div class="flex flex_start flex_only_center">
                         <img :src="inningData.tournament_image"
@@ -374,12 +374,13 @@
                     }
                 }
             },
-            gotoDetail(gameId,matchId) {
+            gotoDetail(gameId,matchId,isSupported) {
                 this.$router.push({
                     path: '/detail',
                     query: {
                         gameId: parseInt(gameId),
-                        matchId: parseInt(matchId)
+                        matchId: parseInt(matchId),
+                        isSupported: isSupported
                     }
                 })
             }

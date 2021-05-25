@@ -1,6 +1,6 @@
 <template>
     <div class="game-info">
-        <div class="flex flex_center" v-if="this.$store.state.isSupported">
+        <div class="flex flex_center" v-if="isSupported">
             <tab-nav :selectStyle="selectStyle"
                      :navData="navList"
                      @clickIndex="getIndex">
@@ -13,17 +13,18 @@
         <!-- csgo -->
         <csgo-detail-content
             v-if="openType === 1"
-            :currentData="this.$store.state.isSupported ? currentIndex : 1"
+            :isSupported="isSupported"
+            :currentData="isSupported ? currentIndex : 1"
         ></csgo-detail-content>
         <!-- lol -->
         <lol-detail-content
             v-if="openType === 2"
-            :currentData="this.$store.state.isSupported ? currentIndex : 1"
+            :currentData="isSupported ? currentIndex : 1"
         ></lol-detail-content>
         <!-- dota2 -->
         <dota-detail-content
             v-if="openType === 3"
-            :currentData="this.$store.state.isSupported ? currentIndex : 1"
+            :currentData="isSupported ? currentIndex : 1"
         ></dota-detail-content>
         <div class="pack"
             @click="packUp"
@@ -44,6 +45,10 @@
             openType: { // 游戏类型 1:csgo  2:lol  3:dota2
                 type: Number,
                 default: 0
+            },
+            isSupported: { // 是否有视频直播
+                type: Boolean,
+                default: false
             }
         },
         data () {

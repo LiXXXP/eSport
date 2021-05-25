@@ -1,11 +1,11 @@
 <template>
     <div class="detail-content">
         <video-content
-            v-if="currentData === 0 && this.$store.state.isSupported"
+            v-if="currentData === 0 && isSupported"
             :streamsData="matchDetail.streams"
         ></video-content>
         <map-content
-            v-if="currentData === 1 && this.$store.state.isSupported"
+            v-if="currentData === 1 && isSupported"
         ></map-content>
         <play-score
             v-if="currentData === 1"
@@ -58,6 +58,10 @@
             currentData: {
                 type: Number,
                 default: 0
+            },
+            isSupported: {
+                type: Boolean,
+                default: false
             }
         },
         data () {

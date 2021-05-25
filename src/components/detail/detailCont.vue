@@ -10,6 +10,7 @@
         ></play-info>
         <game-info
             v-if="isInfo"
+            :isSupported="Boolean(this.$route.query.isSupported)"
             :openType="parseInt(this.$route.query.gameId)"
         ></game-info>
     </div>
