@@ -23,7 +23,7 @@
     import footerBar from '@/components/footer/footerBar'       // 底部
     export default {
         metaInfo: {
-            title: '电竞比分网', // set a title
+            title: '电竞比分网 - 即时比分', // set a title
             meta: [{                 // set meta
               name: 'keyWords',
               content: '电竞比分网 - eSportLiveScore.cn|实时比分直播|比赛日程|比赛结果|历史数据'
