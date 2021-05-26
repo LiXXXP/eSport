@@ -192,10 +192,8 @@
                     if(res.code === 200) {
                         _this.list = res.data.list
                         _this.page.count = res.data.count
-                    } else if(res.code === 1000) {
-                        this.$router.push({
-                            path: '/admin/login'
-                        })
+                    } else {
+                        localStorage.removeItem('userToken')
                     }
                 })
             }

@@ -121,6 +121,7 @@
                         _this.ruleForm.name = res.data.image_name
                         _this.ruleForm.address = res.data.jump_url
                         _this.ruleForm.status = res.data.is_show
+                        _this.ruleForm.file = res.data.image
                         _this.fileList = [
                             {
                                 name: res.data.image_name,
@@ -170,7 +171,6 @@
                         }
                         if(parseInt(this.$route.query.imageId)) {
                             // 更新
-                            params.image_id = parseInt(this.$route.query.imageId)
                             imageUpdate(params).then(res => {
                                 if(res.code === 200) {
                                     this.$message.success(res.message)
