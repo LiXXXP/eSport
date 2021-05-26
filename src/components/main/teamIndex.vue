@@ -50,6 +50,19 @@
 
     export default {
         name: 'teamIndex',
+        metaInfo() {
+            return {
+                title: `电竞比分网 - ${this.tDetail.team_name}`, // set a title
+                meta: [{                 // set meta
+                    name: 'keyWords',
+                    content: `电竞比分网 - ${this.tDetail.team_name}`
+                }],
+                link: [{                 // set link
+                    rel: 'asstes',
+                    href: `https://esportlivescore.cn/#/teams?teamId=${this.teamId}&gameId=${this.gameId}&teamName=${this.teamName}`
+                }]
+            }
+        },
         data () {
             return {
                 tDetail: {},   // 战队详情

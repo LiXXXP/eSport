@@ -65,6 +65,19 @@
 
     export default {
         name: 'eventIndex',
+        metaInfo() {
+            return {
+                title: `电竞比分网 - ${this.tDetail.tournament_name}`, // set a title
+                meta: [{                 // set meta
+                    name: 'keyWords',
+                    content: `电竞比分网 - ${this.tDetail.tournament_name}`
+                }],
+                link: [{                 // set link
+                    rel: 'asstes',
+                    href: `https://esportlivescore.cn/#/events?tournamentId=${this.tournamentId}`
+                }]
+            }
+        },
         data () {
             return {
                 tDetail: {},   // 赛事详情

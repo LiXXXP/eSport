@@ -42,6 +42,17 @@
 
     export default {
         name: 'teamList',
+        metaInfo: {
+            title: '电竞比分网 - 战队列表', // set a title
+            meta: [{                 // set meta
+                name: 'keyWords',
+                content: '电竞比分网 - eSportLiveScore.cn|实时比分直播|比赛日程|比赛结果|历史数据'
+            }],
+            link: [{                 // set link
+                rel: 'asstes',
+                href: 'https://esportlivescore.cn/#/teamlist'
+            }]
+        },
         data () {
             return {
                 // 当前tab栏样式，

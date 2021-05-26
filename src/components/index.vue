@@ -22,6 +22,17 @@
     import breadCrumb from '@/components/common/breadCrumb'     // 首页面包屑导航
     import footerBar from '@/components/footer/footerBar'       // 底部
     export default {
+        metaInfo: {
+            title: '电竞比分网', // set a title
+            meta: [{                 // set meta
+              name: 'keyWords',
+              content: '电竞比分网 - eSportLiveScore.cn|实时比分直播|比赛日程|比赛结果|历史数据'
+            }],
+            link: [{                 // set link
+              rel: 'asstes',
+              href: 'https://esportlivescore.cn/'
+            }]
+        },
         data () {
             return {
 

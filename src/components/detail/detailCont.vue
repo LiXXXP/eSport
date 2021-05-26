@@ -25,11 +25,25 @@
 
     export default {
         name: 'detail',
+        metaInfo() {
+            return {
+                title: `电竞比分网 - ${this.tournamentName}`, // set a title
+                meta: [{                 // set meta
+                    name: 'keyWords',
+                    content: `电竞比分网 - ${this.tournamentName}`
+                }],
+                link: [{                 // set link
+                    rel: 'asstes',
+                    href: `https://esportlivescore.cn/#/detail?gameId=${this.$route.query.gameId}&matchId=${this.$route.query.matchId}`
+                }]
+            }
+        },
         data() {
             return {
                 flag: false,
                 timer: null,
                 isInfo: false,
+                tournamentName: ''
             }
         },
         created() {
@@ -52,6 +66,7 @@
                 }
                 getMatches(params).then(res => {
                     if (res.code === 200) {
+                        _this.tournamentName = res.data.tournament_name
                         _this.$store.dispatch('getMatches',res.data)
                         _this.$store.commit('getMatchId', _this.$route.query.matchId)
                         _this.flag = true

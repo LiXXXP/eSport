@@ -10,6 +10,9 @@ import store from './store'
 /* 引入公共样式 */
 import '@/styles/common.css'
 
+import MetaInfo from 'vue-meta-info'
+Vue.use(MetaInfo)
+
 /* 引入 ElementUI */
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -40,9 +43,5 @@ new Vue({
     router,
     store,
     components: { App },
-    template: '<App/>',
-    mounted () {
-        // You'll need this for renderAfterDocumentEvent.
-        document.dispatchEvent(new Event('render-active'))
-    }
+    template: '<App/>'
 })

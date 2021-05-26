@@ -11,9 +11,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const PrerenderSPAPlugin = require('prerender-spa-plugin')
-const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
-
 const env = require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -118,22 +115,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ]),
-    new PrerenderSPAPlugin({
-        staticDir: path.join(__dirname, '../dist'),
-        // outputDir: path.join(__dirname, '../prerendered'),
-        indexPath: path.join(__dirname, '../dist', 'index.html'),
-        routes: ['/els/index', '/els/eventlist', '/els/teamlist'],
-        renderer: new Renderer({
-        inject: {
-            foo: 'bar'
-        },
-        headless: false,
-        renderAfterDocumentEvent: 'render-active'
-        // renderAfterElementExists: '.container',
-        // renderAfterTime: 5000
-        })
-    })
+    ])
   ]
 })
 

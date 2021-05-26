@@ -26,9 +26,6 @@ const routes = [
     {
         path: '/',
         redirect: '/index',
-        meta: {
-            title: '电竞比分网 - eSportLiveScore.cn|实时比分直播|比赛日程|比赛结果|历史数据',
-        },
         component: Index,
         children: [
               {
@@ -44,9 +41,6 @@ const routes = [
                     {
                         path: '/detail',
                         name: 'detail',
-                        meta: {
-                            title: '游戏详情',
-                        },
                         component: Detail
                     }
                 ]
