@@ -40,5 +40,9 @@ new Vue({
     router,
     store,
     components: { App },
-    template: '<App/>'
+    template: '<App/>',
+    mounted () {
+        // You'll need this for renderAfterDocumentEvent.
+        document.dispatchEvent(new Event('render-active'))
+    }
 })
