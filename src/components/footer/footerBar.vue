@@ -18,7 +18,7 @@
             <img src="../../assets/imgs/index/footer.png">
             <div>
                 <p>2019© All Rights Reserved.esportlivescore.com</p>
-                <p>经营许可证：京ICP备11025276号-3</p>
+                <p>经营许可证：京ICP备11025276号-3 <img src="../../assets/h.png" class="h" />京公网安备 11010502044856</p>
                 <p>声明：本网为非赢利站点，数据仅供电竞爱好者浏览使用,禁止非法滥用。</p>
                 <p>网站登载广告均为客户表达方式和本网无关,内容如有违反国家法律规定的,网站有权随时予以删除。</p>
             </div>
@@ -139,6 +139,13 @@
                 width: 121px;
                 height: 43px;
                 margin-right: 22px;
+            }
+            .h {
+               width: 20px;
+               height: 20px;
+               margin: 0 5px;
+               vertical-align: middle;
+               display: inline-block;
             }
         }
     }
