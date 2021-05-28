@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="footer">
-            <p>2019© All Rights Reserved.esportlivescore.com</p>
+            <p>2019© All Rights Reserved.esportlivescore.cn</p>
             <p>
                 经营许可证：<a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">京ICP备11025276号-3</a>
                 <img src="../../../../assets/h.png" class="h" />京公网安备 <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502044856" target="_blank">11010502044856</a>
