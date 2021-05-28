@@ -26,8 +26,11 @@
             </div>
         </div>
         <div class="footer">
-            <p>数据版权所有 Copyright © 2002-2020</p>
-            <p>经营许可证： 粤B1.B2-20060628粤ICP备09088851号 粤公网安备 44120202000185号</p>
+            <p>2019© All Rights Reserved.esportlivescore.com</p>
+            <p>
+                经营许可证：<a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">京ICP备11025276号-3</a>
+                <img src="../../../../assets/h.png" class="h" />京公网安备 <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502044856" target="_blank">11010502044856</a>
+            </p>
         </div>
     </div>
 </template>
@@ -137,6 +140,16 @@
                 color: #878787;
                 line-height: 20px;
                 text-align: center;
+            }
+            .h {
+               width: 20px;
+               height: 20px;
+               margin: 0 5px;
+               vertical-align: middle;
+               display: inline-block;
+            }
+            a {
+              color: #337ab7;
             }
         }
     }
