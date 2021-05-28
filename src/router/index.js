@@ -136,7 +136,7 @@ router.beforeEach((to, from, next) => {
     if(isMobile(true)) {
         window.location.href = 'https://m.esportlivescore.cn/#/home'
     } else {
-        if(window.location.host !== 'esportlivescore.cn') {
+        if(window.location.host !== 'esportlivescore.cn' && window.location.host !== 'esportlivescore.com') {
             window.location.href = 'https://esportlivescore.cn/#/index'
         } else {
             next()
