@@ -137,7 +137,7 @@ router.beforeEach((to, from, next) => {
     if(isMobile(true)) {
         window.location.href = 'https://m.esportlivescore.cn/#/home'
     } else {
-        window.location.href = 'https://esportlivescore.cn/#/index'
+        window.location.href = 'https://esportlivescore.com/#/index'
     }
 
     if(to.path === '/admin') {
