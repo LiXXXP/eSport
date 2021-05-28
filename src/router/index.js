@@ -6,7 +6,7 @@ import store from '../store'
 
 /* 引入公共方法 */
 import { BASE_PATH } from '@/scripts/config'
-import { checkBrowser, isMobile, isPC } from '@/scripts/utils'
+import { checkBrowser, isMobile } from '@/scripts/utils'
 
 /* 异步引入路由 */
 const Index =() => import('@/components/index')
@@ -133,11 +133,14 @@ router.beforeEach((to, from, next) => {
         return false;
     }
 
-    console.log(window.location.host)
     if(isMobile(true)) {
         window.location.href = 'https://m.esportlivescore.cn/#/home'
     } else {
-        window.location.href = 'https://esportlivescore.com/#/index'
+        if(window.location.host !== 'esportlivescore.cn') {
+            window.location.href = 'https://esportlivescore.cn/#/index'
+        } else {
+            next()
+        }
     }
 
     if(to.path === '/admin') {
