@@ -1,31 +1,37 @@
 <template>
-    <div :class="['play-hero flex flex_wrap',
-          {
+    <div class="play-hero">
+        <div :class="['flex flex_wrap',{
             flex_start: seatData,
             flex_end: !seatData
-    }]">
-        <div v-for="item in heroList" :key="">
-            <div v-if="item.team_id === teamId && item.type === 'Ban'"
-                :class="['hero',
-                {
-                    'dota-size': sizeData === 'dota',
-                    'lol-size': sizeData === 'lol'
-            }]">
-                <img :src="item.champion ? item.champion.image.image:item.hero.image.image"
-                    :title="item.champion ? `${item.champion.name_cn} - ${item.champion.title_cn}` : `${item.hero.title_cn}-${item.hero.name_cn}`">
-                <!-- <span>{{item.order || 0}}</span> -->
+        }]">
+            <div v-for="item in heroList" :key="">
+                <div v-if="item.team_id === teamId && item.type === 'Ban'"
+                    :class="['hero',
+                    {
+                        'dota-size': sizeData === 'dota',
+                        'lol-size': sizeData === 'lol'
+                }]">
+                    <img :src="item.champion ? item.champion.image.image:item.hero.image.image"
+                        :title="item.champion ? `${item.champion.name_cn} - ${item.champion.title_cn}` : `${item.hero.title_cn}-${item.hero.name_cn}`">
+                    <!-- <span>{{item.order || 0}}</span> -->
+                </div>
             </div>
         </div>
-        <div v-for="item in heroList" :key="">
-            <div v-if="item.team_id === teamId && item.type === 'Pick'"
-                :class="['hero',
-                {
-                    'dota-size': sizeData === 'dota',
-                    'lol-size': sizeData === 'lol'
-            }]">
-                <img :src="item.champion ? item.champion.image.image: item.hero.image.image"
-                    :title="item.champion ? `${item.champion.name_cn} - ${item.champion.title_cn}` : `${item.hero.title_cn}-${item.hero.name_cn}`">
-                <!-- <span>{{item.order || 0}}</span> -->
+        <div :class="['flex flex_wrap',{
+            flex_start: seatData,
+            flex_end: !seatData
+        }]">
+            <div v-for="item in heroList" :key="">
+                <div v-if="item.team_id === teamId && item.type === 'Pick'"
+                    :class="['hero',
+                    {
+                        'dota-size': sizeData === 'dota',
+                        'lol-size': sizeData === 'lol'
+                }]">
+                    <img :src="item.champion ? item.champion.image.image: item.hero.image.image"
+                        :title="item.champion ? `${item.champion.name_cn} - ${item.champion.title_cn}` : `${item.hero.title_cn}-${item.hero.name_cn}`">
+                    <!-- <span>{{item.order || 0}}</span> -->
+                </div>
             </div>
         </div>
     </div>

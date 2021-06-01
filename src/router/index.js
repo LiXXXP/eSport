@@ -133,15 +133,15 @@ router.beforeEach((to, from, next) => {
         return false;
     }
 
-    if(isMobile(true)) {
-        window.location.href = 'https://m.esportlivescore.cn/#/home'
-    } else {
-        if(window.location.host !== 'esportlivescore.cn' && window.location.host !== 'esportlivescore.com') {
-            window.location.href = 'https://esportlivescore.cn/#/index'
-        } else {
-            next()
-        }
-    }
+    // if(isMobile(true)) {
+    //     window.location.href = 'https://m.esportlivescore.cn/#/home'
+    // } else {
+    //     if(window.location.host !== 'esportlivescore.cn' && window.location.host !== 'esportlivescore.com') {
+    //         window.location.href = 'https://esportlivescore.cn/#/index'
+    //     } else {
+    //         next()
+    //     }
+    // }
 
     if(to.path === '/admin') {
         if (to.matched.some(res => res.meta.requireAuth)) {
