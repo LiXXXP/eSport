@@ -77,13 +77,8 @@
                             <div v-if="inningData.game_id === 1"></div>
                             <div v-if="inningData.game_id === 2">
                                 <div v-if="inningData.battle_list && inningData.battle_list.length > 0 && inningData.battle_list[0].factions.length>0">
-                                    <p :class="[{
-                                        r: inningData.battle_list[0].factions[0].faction === 'red',
-                                        b: inningData.battle_list[0].factions[0].faction === 'blue'
-                                    }]">
-                                        <span :title="inningData.battle_list[0].factions[0].faction === 'red'? 'red' : 'blue'">
-                                            {{inningData.battle_list[0].factions[0].faction === 'red'? 'R':inningData.battle_list[0].factions[0].faction === 'blue'? 'B' : ''}}
-                                        </span>
+                                    <p class="b">
+                                        <span title="'blue'">B</span>
                                     </p>
                                 </div>
                             </div>
@@ -91,7 +86,7 @@
                     </td>
                     <td v-for="data in tableBodyList.datas" :key="data.td">
                         <span v-if="inningData.battle_list&&inningData.battle_list.length !== 0">
-                            {{data.red}}
+                            {{data.blue}}
                         </span>
                     </td>
                     <td v-for="e in tableBodyList.events" :key="e.type">
@@ -112,13 +107,8 @@
                             <div v-if="inningData.game_id === 1"></div>
                             <div v-if="inningData.game_id === 2">
                                 <div v-if="inningData.battle_list && inningData.battle_list.length > 0 && inningData.battle_list[0].factions.length>0">
-                                    <p :class="[{
-                                        r: inningData.battle_list[0].factions[1].faction === 'red',
-                                        b: inningData.battle_list[0].factions[1].faction === 'blue'
-                                    }]">
-                                        <span :title="inningData.battle_list[0].factions[1].faction === 'blue'? 'blue' : 'red'">
-                                            {{inningData.battle_list[0].factions[1].faction === 'blue'? 'B': inningData.battle_list[0].factions[1].faction === 'red'? 'R' : ''}}
-                                        </span>
+                                    <p class="r">
+                                        <span title="'red'">R</span>
                                     </p>
                                 </div>
                             </div>
@@ -126,7 +116,7 @@
                     </td>
                     <td v-for="data in tableBodyList.datas" :key="data.td">
                         <span v-if="inningData.battle_list&&inningData.battle_list.length !== 0">
-                            {{data.blue}}
+                            {{data.red}}
                         </span>
                     </td>
                     <td v-for="e in tableBodyList.events" :key="e.type">
@@ -343,6 +333,7 @@
         methods: {
             getScores() {
                 if(this.inningData.game_id === 1 && this.inningData.battle_list) {
+
                     for(let i in this.inningData.battle_list) {
                         this.tableTitleList[i].mapName = this.inningData.battle_list[i].map_name || ''
                         this.tableTitleList[i].mapNameFull = this.inningData.battle_list[i].map_name_full || ''
@@ -353,15 +344,18 @@
                     }
                 }
                 if(this.inningData.game_id === 2 && this.inningData.battle_list && this.inningData.battle_list.length>0) {
-                    for(let item of this.tableBodyList.datas) {
-                        let field = item.type
+                    if(this.inningData.battle_list[0].factions !== 'blue') {
+                        this.inningData.battle_list[0].factions.reverse()
                         if(this.inningData.battle_list[0].factions.length > 0) {
-                            item.red = this.inningData.battle_list[0].factions[0][field] || 0
-                            item.blue = this.inningData.battle_list[0].factions[1][field] || 0
-                            if(item.red !== '') {
-                                this.isDatas = true
-                            } else {
-                                this.isDatas = false
+                            for(let item of this.tableBodyList.datas) {
+                                let field = item.type
+                                item.red = this.inningData.battle_list[0].factions[0][field] || 0
+                                item.blue = this.inningData.battle_list[0].factions[1][field] || 0
+                                if(item.red !== '') {
+                                    this.isDatas = true
+                                } else {
+                                    this.isDatas = false
+                                }
                             }
                         }
                     }
