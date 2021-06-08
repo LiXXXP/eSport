@@ -90,7 +90,7 @@
                         </span>
                     </td>
                     <td v-for="e in tableBodyList.events" :key="e.type">
-                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'red'" :title="durationTime(e.ingame)+' '+ e.tip">
+                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'blue'" :title="durationTime(e.ingame)+' '+ e.tip">
                     </td>
                 </tr>
                 <tr>
@@ -120,7 +120,7 @@
                         </span>
                     </td>
                     <td v-for="e in tableBodyList.events" :key="e.type">
-                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'blue'" :title="durationTime(e.ingame)+' '+ e.tip">
+                        <img :src="e.url" class="sign-icon" v-if="e.faction === 'red'" :title="durationTime(e.ingame)+' '+ e.tip">
                     </td>
                 </tr>
             </tbody>
