@@ -346,6 +346,9 @@
                 if(this.inningData.game_id === 2 && this.inningData.battle_list && this.inningData.battle_list.length>0) {
                     if(this.inningData.battle_list[0].factions !== 'blue') {
                         this.inningData.battle_list[0].factions.reverse()
+                        if(this.inningData.scores[0].team_id !== this.inningData.battle_list[0].factions[0].team_id) {
+                            this.inningData.scores.reverse()
+                        }
                         if(this.inningData.battle_list[0].factions.length > 0) {
                             for(let item of this.tableBodyList.datas) {
                                 let field = item.type

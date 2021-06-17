@@ -48,7 +48,7 @@
                     let rowItem = {
                         'time': formatSeconds(e.ingame_timestamp),
                         '经济差': parseInt(e.gold_diff) || 0,
-                        '经验差': parseInt(this.timeLine.experience_diff_timeline[i].experience_diff) || 0,
+                        '经验差': this.timeLine.experience_diff_timeline[i] ? parseInt(this.timeLine.experience_diff_timeline[i].experience_diff) : 0,
                     }
                     this.chartData.rows.push(rowItem)
                 })
